@@ -77,7 +77,7 @@ autoconf
 echo "- autoheader"
 autoheader
 echo "- automake"
-automake -a
+automake
 echo "- ./configure"
 ./configure
 #echo "- make distcheck"

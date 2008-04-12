@@ -1,0 +1,8 @@
+Most macros were taken from the macro archives at 
+http://autoconf-archive.cryp.to.
+
+The macros were refreshed with the version published on
+2006-05-30 (althought the only macro with siginficant changes
+was acx_pthread.m4).
+
+See the file COPYING_Macros for license information.
