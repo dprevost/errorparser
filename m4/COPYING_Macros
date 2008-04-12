@@ -1,6 +1,6 @@
 The autoconf macros in this directory (m4) are distributed under the 
-GPL (see the file COPYING distributed with the software) but with
-this exception:
+GPL (see the file COPYING in the current m4 directory) but with this 
+exception:
 
 (the exception is copied verbatim from 
 http://www.gnu.org/software/ac-archive/htmldoc/COPYING-Exception.html)
@@ -18,6 +18,11 @@ http://www.gnu.org/software/ac-archive/htmldoc/COPYING-Exception.html)
   distribute a modified version of the Autoconf Macro, you may extend this 
   special exception to the GPL to apply to your modified version as well."
 
-This exception covers all the m4 macros in this directory, whether they
-are taken from the gnu autoconf archive or written by the vdsf team.
+---------------------
 
+This exception covers all the m4 macros in this directory, whether they
+are taken from the gnu autoconf archive or written by the errorparser team.
+
+My understanding of the special exception: unless the m4 macros themselves
+are modified, the rest of the software is unaffected by the GPL license
+on the macros and can be put under the MIT license without any problems.

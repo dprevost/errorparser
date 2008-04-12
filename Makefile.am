@@ -5,7 +5,7 @@
 # This file may be distributed and/or modified under the terms of the       #
 # MIT License as described by the Open Source Initiative                    #
 # (http://opensource.org/licenses/mit-license.php) and appearing in         #
-# the file License.txt included in the packaging of this library.           #
+# the file COPYING included in the packaging of this library.               #
 #                                                                           #
 # This program is distributed in the hope that it will be useful, but       #
 # WITHOUT ANY WARRANTY, to the extent permitted by law; without even the    #
@@ -23,7 +23,7 @@ EXTRA_DIST =                 \
         Config/ltmain.sh     \
         Config/missing       \
         Config/mkinstalldirs \
-        License.txt          \
+        COPYING          \
         Makefile.win32       \
         README               
 
@@ -39,11 +39,11 @@ ACLOCAL_AMFLAGS = -I m4
 install-data-local:
 	-mkdir -p $(DESTDIR)$(datadir)/doc/errorParser
 	$(install_sh_DATA) $(top_srcdir)/README  $(DESTDIR)$(datadir)/doc/errorParser/README
-	$(install_sh_DATA) $(top_srcdir)/License.txt $(DESTDIR)$(datadir)/doc/errorParser/License.txt
+	$(install_sh_DATA) $(top_srcdir)/COPYING $(DESTDIR)$(datadir)/doc/errorParser/COPYING
 
 uninstall-local:
 	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/README
-	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/License.txt
+	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/COPYING
 	-rmdir $(DESTDIR)$(datadir)/doc/errorParser
 	-rmdir $(DESTDIR)$(datadir)/doc
 

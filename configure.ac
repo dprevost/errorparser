@@ -5,7 +5,7 @@
 # This file may be distributed and/or modified under the terms of the       #
 # MIT License as described by the Open Source Initiative                    #
 # (http://opensource.org/licenses/mit-license.php) and appearing in         #
-# the file License.txt included in the packaging of this library.           #
+# the file COPYING included in the packaging of this library.               #
 #                                                                           #
 # This program is distributed in the hope that it will be useful, but       #
 # WITHOUT ANY WARRANTY, to the extent permitted by law; without even the    #
