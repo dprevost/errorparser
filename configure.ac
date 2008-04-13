@@ -50,7 +50,10 @@ AM_CONDITIONAL([COND_USE_DOCBOOK2TEXI], [test "$DOCBOOK2TEXI_IS_PRESENT" = yes])
 #                                #
 ##################################
 
-AC_CHECK_LIB([xml2],[xmlParseFile],,AC_MSG_ERROR(could not find libxml2))
+PKG_CHECK_MODULES(ERR_PARSER, libxml-2.0,,
+                  AC_MSG_ERROR([Error Parser requires libxml2]))
+AC_SUBST(ERR_PARSER_CFLAGS)
+AC_SUBST(ERR_PARSER_LIBS)
 
 #####################################
 #                                   #
@@ -177,8 +180,6 @@ fi
 # Section - checks for system services #
 #                                      #
 ########################################
-
-AC_C_BIGENDIAN
 
 ###################################
 #                                 #

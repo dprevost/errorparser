@@ -32,7 +32,9 @@ EXTRA_DIST =                 \
 # using "make dist" (otherwise, you may have missing files or
 # outdated documentation).
 
-SUBDIRS = m4 parser doc
+SUBDIRS = m4 parser 
+
+# doc (commented for now until there is something to document...)
 
 ACLOCAL_AMFLAGS = -I m4
 
