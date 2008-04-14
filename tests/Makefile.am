@@ -1,22 +1,26 @@
-# Copyright (C) 2006-2008 Daniel Prevost <dprevost@users.sourceforge.net>
-#  
-# This file is free software; as a special exception the author gives
-# unlimited permission to copy and/or distribute it, with or without 
-# modifications, as long as this notice is preserved.
-# 
-# This program is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY, to the extent permitted by law; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+#############################################################################
+#                                                                           #
+# Copyright (C) 2008 Daniel Prevost <dprevost@users.sourceforge.net>        #
+#                                                                           #
+# This file may be distributed and/or modified under the terms of the       #
+# MIT License as described by the Open Source Initiative                    #
+# (http://opensource.org/licenses/mit-license.php) and appearing in         #
+# the file COPYING included in the packaging of this software.              #
+#                                                                           #
+# This program is distributed in the hope that it will be useful, but       #
+# WITHOUT ANY WARRANTY, to the extent permitted by law; without even the    #
+# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  #
+#                                                                           #
+#############################################################################
 
-CLEANFILES = *~ core
+# Warning: header files will be removed by make clean!
+CLEANFILES = *~ core *.h
 
 EXTRA_DIST =                  \
         Tests.sh       
 
 #        Makefile.Win32 \
         RunTests.vbs   
-
-#check_PROGRAMS = 
 
 TESTS_ENVIRONMENT =                  \
         tcp_port=10701               \

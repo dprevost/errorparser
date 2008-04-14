@@ -22,6 +22,22 @@ const char * g_barrier = "/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
 /*
+ * This function check that the UTF-8 string is indeed ascii (needed when
+ * constructing variables, enums or #defines).
+ */
+int isAsciiStr( xmlChar * str )
+{
+   int i;
+   
+   for ( i = 0; i < xmlStrlen(str); i++ ) {
+      if ( str[i] > 0x7f ) return 0;
+   }
+   return 1;
+}
+
+/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+
+/*
  * This function strips unwanted characters from a UTF-8 string.
  * From what I understand, the specs of XML parsing guarantee that everything
  * between the open and close tags is kept (the parser cannot know what
@@ -220,6 +236,7 @@ void navigate( errp_common * commonArgs,
    xmlNode * node = NULL, * group = NULL;
    xmlChar * version;
    xmlChar * enumName = NULL;
+   int i;
    
    version = root->properties->children->content;
    
@@ -254,7 +271,16 @@ void navigate( errp_common * commonArgs,
    while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
    /* The allocated memory for the prefix is free at the end of main() */
    commonArgs->prefix = stripText( node->children->content );
-
+   if ( isAsciiStr(commonArgs->prefix) ) {
+      for ( i = 0; i < xmlStrlen(commonArgs->prefix); ++i ) {
+         commonArgs->prefix[i] = toupper(commonArgs->prefix[i]);
+      }
+   }
+   else {
+      fprintf( stderr, "Error: the given prefix value is not in ASCII!\n" );
+      exit( 1 );
+   }
+   
    /*
     * This one is a bit special - we have to know if it's the last group 
     * or not (for enums, the last error of the last group is special - it's
