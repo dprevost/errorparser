@@ -30,7 +30,9 @@ EXTRA_DIST =            \
         errorParser.dsw 
 
 errorParser_SOURCES = \
-        parser.cpp
+        group.c  \
+        parser.c \
+        parser.h 
 
 errorParser_LDFLAGS = @ERR_PARSER_LIBS@
 
