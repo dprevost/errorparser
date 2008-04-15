@@ -14,19 +14,16 @@
 #############################################################################
 
 AM_CPPFLAGS = -Wall
-
-if COND_USE_DBC
-   AM_CPPFLAGS += -DUSE_DBC
-endif
 AM_CPPFLAGS += @ERR_PARSER_CFLAGS@
 
 CLEANFILES        = *~
 
 bin_PROGRAMS = errorParser
 
-EXTRA_DIST =                       \
-        parser.dsw                 \
-        "Project Files/parser.dsp" 
+EXTRA_DIST =                     \
+        config-win32.h           \
+        parser.dsw               \
+        Project_Files/parser.dsp 
 
 errorParser_SOURCES = \
         group.c  \

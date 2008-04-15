@@ -16,8 +16,14 @@
 # Warning: header files will be removed by make clean!
 CLEANFILES = *~ core *.h
 
-EXTRA_DIST =                  \
-        Tests.sh       
+EXTRA_DIST =                          \
+        test_no_copyright.h.baseline  \
+        test_no_copyright.xml         \
+        test_no_groupident.h.baseline \
+        test_no_groupident.xml        \
+        test_one_error.h.baseline     \
+        test_one_error.xml            \
+        Tests.sh                      
 
 #        Makefile.Win32 \
         RunTests.vbs   

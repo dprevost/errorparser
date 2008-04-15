@@ -37,9 +37,6 @@
 #if HAVE_SYS_TYPES_H
 #  include <sys/types.h>
 #endif
-#if HAVE_SYS_STAT_H
-#  include <sys/stat.h>
-#endif
 #if STDC_HEADERS
 #  include <stdlib.h>
 #  include <stddef.h>
@@ -59,30 +56,7 @@
 #  include <strings.h>
 #endif
 
-#if HAVE_INTTYPES_H
-#  include <inttypes.h>
-#elif HAVE_STDINT_H
-#  include <stdint.h>
-#else
-#  if defined(WIN32)
-typedef DWORD uint32_t;
-#  endif
-#endif
-
-#if HAVE_UNISTD_H
-#  include <unistd.h>
-#endif
-
-#if TIME_WITH_SYS_TIME
-# include <sys/time.h>
-# include <time.h>
-#else
-# if HAVE_SYS_TIME_H
-#  include <sys/time.h>
-# else
-#  include <time.h>
-# endif
-#endif
+#include <time.h>
 
 #if HAVE_CTYPE_H
 #  include <ctype.h>

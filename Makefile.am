@@ -23,7 +23,7 @@ EXTRA_DIST =                 \
         Config/ltmain.sh     \
         Config/missing       \
         Config/mkinstalldirs \
-        COPYING          \
+        COPYING              \
         Makefile.win32       \
         README               
 

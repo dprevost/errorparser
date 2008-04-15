@@ -23,25 +23,7 @@
 #pragma warning(disable:4514) /* unreferenced inline function has been removed */
 #pragma warning(disable:4710) /* inline function was not inlined */
 
-#define _WIN32_WINNT 0x0500
-
-/* Define to 1 if you have the `access' function. */
-#define HAVE__ACCESS 1
-
-/* asctime_r is ok */
-/* #undef HAVE_ASCTIME_R_OK */
-
-/* Define to 1 if you have the <assert.h> header file. */
-#define HAVE_ASSERT_H 1
-
-/* Define to 1 if you have the `bcopy' function. */
-#define HAVE_BCOPY 1
-
-/* define if bool is a built-in type */
-#define HAVE_BOOL 
-
-/* ctime_r is ok */
-/* #undef HAVE_CTIME_R_OK */
+/* #define _WIN32_WINNT 0x0500 */
 
 /* Define to 1 if you have the <ctype.h> header file. */
 #define HAVE_CTYPE_H 1
@@ -50,27 +32,11 @@
    don't. */
 /* #define HAVE_DECL_STRERROR_R 1 */
 
-/* Define to 1 if you have the <dirent.h> header file, and it defines `DIR'.
-   */
-#define HAVE_DIRENT_H 1
-
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #define HAVE_DLFCN_H 1
 
-/* Define to 1 if you have the <errno.h> header file. */
-#define HAVE_ERRNO_H 1
-
-/* Define to 1 if you have the <fcntl.h> header file. */
-#define HAVE_FCNTL_H 1
-
 /* Define to 1 if you have the <inttypes.h> header file. */
 /* #define HAVE_INTTYPES_H 1 */
-
-/* Define to 1 if you have the <limits.h> header file. */
-#define HAVE_LIMITS_H 1
-
-/* Define to 1 if you have the `localtime_r' function. */
-/* #define HAVE_LOCALTIME_R 1 */
 
 /* Define to 1 if you have the `memcpy' function. */
 #define HAVE_MEMCPY 1
@@ -80,27 +46,6 @@
 
 /* Define to 1 if you have the `mkdir' function. */
 /* #define HAVE_MKDIR 1 */
-
-/* Define to 1 if you have the <ndir.h> header file, and it defines `DIR'. */
-/* #undef HAVE_NDIR_H */
-
-/* Define to 1 if you have the <new> header file. */
-#define HAVE_NEW 1
-
-/* Define to 1 if you have the <new.h> header file. */
-#define HAVE_NEW_H 1
-
-/* Define to 1 if you have the <semaphore.h> header file. */
-/* #define HAVE_SEMAPHORE_H 1 */
-
-/* Define to 1 if you have the <signal.h> header file. */
-#define HAVE_SIGNAL_H 1
-
-/* Define to 1 if you have the `stat' function. */
-#define HAVE_STAT 1
-
-/* Define to 1 if stdbool.h conforms to C99. */
-#define HAVE_STDBOOL_H 1
 
 /* Define to 1 if you have the <stdint.h> header file. */
 /* #define HAVE_STDINT_H 1 */
@@ -120,29 +65,6 @@
 /* Define to 1 if you have the <string.h> header file. */
 #define HAVE_STRING_H 1
 
-/* Define to 1 if you have the <sys/dir.h> header file, and it defines `DIR'.
-   */
-/* #undef HAVE_SYS_DIR_H */
-
-/* Define to 1 if you have the <sys/ipc.h> header file. */
-#define HAVE_SYS_IPC_H 1
-
-/* Define to 1 if you have the <sys/mman.h> header file. */
-#define HAVE_SYS_MMAN_H 1
-
-/* Define to 1 if you have the <sys/ndir.h> header file, and it defines `DIR'.
-   */
-/* #undef HAVE_SYS_NDIR_H */
-
-/* Define to 1 if you have the <sys/param.h> header file. */
-#define HAVE_SYS_PARAM_H 1
-
-/* Define to 1 if you have the <sys/semaphore.h> header file. */
-/* #undef HAVE_SYS_SEMAPHORE_H */
-
-/* Define to 1 if you have the <sys/sem.h> header file. */
-#define HAVE_SYS_SEM_H 1
-
 /* Define to 1 if you have the <sys/stat.h> header file. */
 #define HAVE_SYS_STAT_H 1
 
@@ -152,17 +74,8 @@
 /* Define to 1 if you have the <sys/types.h> header file. */
 #define HAVE_SYS_TYPES_H 1
 
-/* Define to 1 if you have the <sys/wait.h> header file. */
-#define HAVE_SYS_WAIT_H 1
-
 /* Define to 1 if you have the <unistd.h> header file. */
 /* #define HAVE_UNISTD_H 1 */
-
-/* Define to 1 if you have the `vsnprintf' function. */
-#define HAVE_VSNPRINTF 1
-
-/* Define to 1 if the system has the type `_Bool'. */
-#define HAVE__BOOL 1
 
 /* Define to 1 if you have the `_mkdir' function. */
 /* #undef HAVE__MKDIR */
@@ -187,9 +100,6 @@
 
 /* Define to the version of this package. */
 #define PACKAGE_VERSION "0.1.0"
-
-/* Define as the return type of signal handlers (`int' or `void'). */
-#define RETSIGTYPE void
 
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
@@ -225,15 +135,6 @@
 #ifndef __cplusplus
 /* #undef inline */
 #endif
-
-/* Define to `long' if <sys/types.h> does not define. */
-/* #undef off_t */
-
-/* Define to `int' if <sys/types.h> does not define. */
-/* #undef pid_t */
-
-/* Define to `unsigned' if <sys/types.h> does not define. */
-/* #undef size_t */
 
 /* Define to empty if the keyword `volatile' does not work. Warning: valid
    code using `volatile' can become incorrect without. Disable with care. */

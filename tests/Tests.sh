@@ -68,7 +68,7 @@ run_test()
       return 1
    fi
 
-   diff -I ' * Date: '  $test_name.h $test_name.h.baseline
+   diff -I ' * Date: ' -I 'using the input file' $test_name.h $test_dir/$test_name.h.baseline
    if [ "$?" != 0 ] ; then
       echo "FAIL (diff): $test_name "
       return 1
@@ -78,7 +78,7 @@ run_test()
       echo "PASS: $test_name "
    fi
 
-   #rm $test_name.h
+   rm $test_name.h
 }
 
 # --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
