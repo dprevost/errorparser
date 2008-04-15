@@ -3,7 +3,7 @@ Microsoft Developer Studio Workspace File, Format Version 6.00
 
 ###############################################################################
 
-Project: "parser"=.\Project Files\parser.dsp - Package Owner=<4>
+Project: "parser"=.\Project_Files\parser.dsp - Package Owner=<4>
 
 Package=<5>
 {{{

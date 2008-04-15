@@ -24,10 +24,9 @@ CLEANFILES        = *~
 
 bin_PROGRAMS = errorParser
 
-EXTRA_DIST =            \
-        Makefile.win32  \
-        errorParser.dsp \
-        errorParser.dsw 
+EXTRA_DIST =                       \
+        parser.dsw                 \
+        "Project Files/parser.dsp" 
 
 errorParser_SOURCES = \
         group.c  \
