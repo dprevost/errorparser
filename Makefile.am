@@ -25,7 +25,9 @@ EXTRA_DIST =                 \
         Config/mkinstalldirs \
         COPYING              \
         Makefile.win32       \
-        README               
+        README               \
+        DTD/errorParser.dtd  \
+        DTD/example_vdsf.xml 
 
 # The 'doc' subdir must be placed after 'src' since some of the 
 # documentation and man pages are generated automatically when
@@ -34,18 +36,23 @@ EXTRA_DIST =                 \
 
 SUBDIRS = m4 parser tests
 
-# doc (commented for now until there is something to document...)
+# doc (commented for now until I take the time to create the documentation...)
 
 ACLOCAL_AMFLAGS = -I m4
 
 install-data-local:
 	-mkdir -p $(DESTDIR)$(datadir)/doc/errorParser
+	-mkdir -p $(DESTDIR)$(datadir)/doc/errorParser/DTD
 	$(install_sh_DATA) $(top_srcdir)/README  $(DESTDIR)$(datadir)/doc/errorParser/README
-	$(install_sh_DATA) $(top_srcdir)/COPYING $(DESTDIR)$(datadir)/doc/errorParser/COPYING
+	$(install_sh_DATA) $(top_srcdir)/DTD/errorParser.dtd  $(DESTDIR)$(datadir)/doc/errorParser/DTD/errorParser.dtd
+	$(install_sh_DATA) $(top_srcdir)/DTD/example_vdsf.xml $(DESTDIR)$(datadir)/doc/errorParser/DTD/example_vdsf.xml
 
 uninstall-local:
+	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/DTD/example_vdsf.xml
+	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/DTD/errorParser.dtd
 	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/README
 	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/COPYING
+	-rmdir $(DESTDIR)$(datadir)/doc/errorParser/DTD
 	-rmdir $(DESTDIR)$(datadir)/doc/errorParser
 	-rmdir $(DESTDIR)$(datadir)/doc
 

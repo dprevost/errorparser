@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE errorlist PUBLIC "-//Error Parser project//DTD Error Parser XML V1.0//EN"
              "http://errorparser.sourceforge.net/xml/1.0/errorParser.dtd"> 
-<!-- -->
+<!-- 
+    This example is going to be used for an existing project, VDSF 
+    (http://sourceforge.net/projects/vdsf), once Error Parser is able
+    to create code to retrieve error messages using the error number.
+-->
 
 <!-- VDSF next version is 0.3 -->
 <errorlist version="0.3">
