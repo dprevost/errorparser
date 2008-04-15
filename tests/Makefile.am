@@ -23,10 +23,10 @@ EXTRA_DIST =                          \
         test_no_groupident.xml        \
         test_one_error.h.baseline     \
         test_one_error.xml            \
-        Tests.sh                      
+        Tests.sh                      \
+        RunTests.vbs                  
 
 #        Makefile.Win32 \
-        RunTests.vbs   
 
 TESTS_ENVIRONMENT =                  \
         tcp_port=10701               \
