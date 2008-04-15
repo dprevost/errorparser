@@ -156,7 +156,7 @@ void doTopOfFile( errp_common * commonArgs,
 #endif
    xmlNode * node;
    xmlChar * years, * authors, * notice, * tmp;
-   int i;
+   unsigned int i;
    
    memset( timeBuf, '\0', 30 );
 

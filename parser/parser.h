@@ -16,7 +16,23 @@
 #ifndef ERRP_PARSER_H
 #define ERRP_PARSER_H
 
-#include <config.h>
+#ifdef HAVE_CONFIG_H
+#  include "config.h"
+#endif
+#if defined WIN32
+#  include "config-win32.h"
+   /* 
+    * The pragma is to hide a warning in Microsoft include files
+    * with VC++ 6. Don't know about other versions yet.
+    */
+#  pragma warning(disable:4115)
+#  include <windows.h>
+#  pragma warning(default:4115)
+#  include <winbase.h>
+#  include <io.h>
+#  include <process.h> 
+#endif
+
 #include <stdio.h>
 #if HAVE_SYS_TYPES_H
 #  include <sys/types.h>
