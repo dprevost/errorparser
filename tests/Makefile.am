@@ -26,7 +26,7 @@ EXTRA_DIST =                          \
         Tests.sh                      \
         RunTests.vbs                  
 
-#        Makefile.Win32 \
+#        Makefile.Win32 
 
 TESTS_ENVIRONMENT =                  \
         tcp_port=10701               \
