@@ -92,7 +92,7 @@ end if
 
 ' Run all tests
 
-exe_name = prog_path & "\parser.exe"
+exe_name = prog_path & "\errorParser.exe"
 
 Dim test, xml_test, h_test, test_exec
 
