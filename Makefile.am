@@ -27,7 +27,8 @@ EXTRA_DIST =                 \
         Makefile.win32       \
         README               \
         DTD/errorParser.dtd  \
-        DTD/example_vdsf.xml 
+        DTD/example_vdsf.xml \
+        DTD/catalog.xml      
 
 # The 'doc' subdir must be placed after 'src' since some of the 
 # documentation and man pages are generated automatically when
@@ -46,6 +47,8 @@ install-data-local:
 	$(install_sh_DATA) $(top_srcdir)/README  $(DESTDIR)$(datadir)/doc/errorParser/README
 	$(install_sh_DATA) $(top_srcdir)/DTD/errorParser.dtd  $(DESTDIR)$(datadir)/doc/errorParser/DTD/errorParser.dtd
 	$(install_sh_DATA) $(top_srcdir)/DTD/example_vdsf.xml $(DESTDIR)$(datadir)/doc/errorParser/DTD/example_vdsf.xml
+#	xmlcatalog --noout --add delegatePublic "-//Error Parser project//DTD Error Parser XML V1.0" catalog.xml
+#	xmlcatalog --noout --add delegateSystem "http://errorparser.sourceforge.net/xml/1.0/" catalog.xml catalog
 
 uninstall-local:
 	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/DTD/example_vdsf.xml

@@ -1,0 +1,7 @@
+2008-04-16  Daniel Prevost  <dprevost@users.sourceforge.net>
+
+    * first release (pre-alpha). 
+        * DTD 1.0
+        * Header files are generated (no doxygen comments).
+
+

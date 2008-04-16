@@ -1,0 +1,7 @@
+Authors of Error Parser.
+See also the files THANKS and ChangeLog.
+
+Daniel Prevost designed and implemented the software.
+
+p.s.: This file is a by-product of using the autoconf/automake
+tool chain. 
