@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+   This xml file provides the options to the errorParser program.
+   
+   Why a file? The number of options was getting too large. Using a file
+   makes it easier to manage all these options and it will also make 
+   easier to add new options in the future (as needed). 
+   [Since changing options is usually something that will be done rarely
+   once you are satisfy with the results, storing the options in a file 
+   makes it easier to reuse the same options, evidently]
+   
+   Why xml? Easier to program (libxml2 does the parsing) and easy to
+   provide default values for some.
+   
+   Note: do not modify this DTD... without modifying the code to read 
+   these options in the errorParser program.
+-->
+
+<!DOCTYPE options [
+  <!ELEMENT options       (xmlname,enumname?,header_name,errmsg_header_name,
+                          errmsg_c_name,prefix_error,prefix_variable,err_msg)>
+  <!ELEMENT xmlname            (#PCDATA)>
+  <!ELEMENT enumname           (#PCDATA)>
+  <!ELEMENT header_name        (#PCDATA)>
+  <!ELEMENT errmsg_header_name (#PCDATA)>
+  <!ELEMENT errmsg_c_name      (#PCDATA)>
+  <!ELEMENT prefix_error       (#PCDATA)>
+  <!ELEMENT prefix_variable    (#PCDATA)>
+  <!ELEMENT err_msg            EMPTY>
+
+  <!ATTLIST err_msg allow_escapes (yes|no) "no">
+  <!ATTLIST err_msg allow_quotes  (yes|no) "yes">
+  <!ATTLIST err_msg percent CDATA #REQUIRED>
+]>
+
+<options>
+  <!-- The name of the xml file containing the description of errors -->
+  <xmlname> xml/no_copyright.xml </xmlname>
+  <!-- The name of the enum. If absent, #define will be generated instead. -->
+  <enumname> enumErrors</enumname>
+  <!-- The file name for the .h file which will hold the errors. -->
+  <header_name> junk/errors.h </header_name>
+  <!-- The file name for the .h file for the code to retrieve the error 
+       messages. -->
+  <errmsg_header_name> junk/getError.h </errmsg_header_name>
+  <!-- The file name for the .c file for the code to retrieve the error 
+       messages. -->
+  <errmsg_c_name> junk/getError.c </errmsg_c_name>
+  <!-- Prefix to be used for the error codes (enum or #define). -->
+  <prefix_error> MY_PROG </prefix_error>
+  <!-- Prefix to be used for all variables in the code to retrieve the 
+       error messages -->
+  <prefix_variable> prog </prefix_variable>
+  <!-- How to handle the error message. The problem: the generated C strings
+       will be use, eventually, by standard C/C++ libraries and some 
+       sequence of characters could have some bad side effects, possibly
+       including security issues.
+       The defaults:
+         - escape sequences are not permitted (a more fine grain approach
+           could be written if the need arise).
+         - quotes (' and ") are allowed (and will be escaped as needed) 
+         - The % symbol. No default. I recommend the textual "percent" 
+           (% is the most problematic one, IMHO. %d %p, etc are interpreted
+           differently by libc (printf()) and the iostream library (cout) -->         
+  <err_msg percent="percent" />
+</options>

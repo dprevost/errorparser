@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE errorlist PUBLIC "-//Error Parser project//DTD Error Parser XML V1.1//EN"
+             "http://errorparser.sourceforge.net/xml/1.1/errorParser.dtd"> 
+
+<!-- A single group and erreur -->
+
+<errorlist version="0.1">
+  <!-- Copyright information and any additional info that will appear at 
+       the top of the generated files. This is optional. -->
+  <copyright_group>
+    <copyright>
+      <years>2008</years>
+      <authors>
+        D. Prevost
+      </authors>
+      <!-- Each <notice> is a paragraph (to make the text easier to read) -->
+      <notice>
+        This file is both a test and an example.
+      </notice>
+      <notice>
+        This file may be distributed and/or modified under the terms of the
+        MIT License as described by the Open Source Initiative
+        (http://opensource.org/licenses/mit-license.php) and appearing in
+        the file COPYING included in the packaging of this software.
+      </notice>
+      <notice>
+        This program is distributed in the hope that it will be useful, but
+        WITHOUT ANY WARRANTY, to the extent permitted by law; without even the
+        implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+      </notice>
+    </copyright>
+  </copyright_group>
+  <errgroup>
+    <error>
+      <errnumber> 0 </errnumber>
+      <errname> OK </errname>
+      <messages>
+        <errormsg>No error</errormsg>
+      </messages>
+    </error>
+    <error>
+      <errnumber> 1 </errnumber>
+      <errname> INTERNAL_ERROR </errname>
+      <messages>
+        <errormsg>Abnormal internal error - it should not happen!</errormsg>
+      </messages>
+    </error>
+    <error>
+      <errnumber> 2 </errnumber>
+      <errname> ENGINE_BUSY </errname>
+      <messages>
+        <errormsg>
+          Cannot get a lock on a system object, the engine is "busy"
+        </errormsg>
+        <documentation>
+          <paragraph>
+            This might be the result of either a very busy system where 
+            unused cpu cycles are rare or a lock might be held by a 
+            crashed process.
+          </paragraph>
+        </documentation>
+      </messages>
+    </error>
+  </errgroup>
+  <errgroup>
+    <groupident>The following errors are network related. </groupident>
+    <error>
+      <errnumber> 25 </errnumber>
+      <errname> SOCKET_ERROR </errname>
+      <messages>
+        <errormsg>
+          Generic socket error.
+        </errormsg>
+      </messages>
+    </error>
+  </errgroup>
+</errorlist>
+

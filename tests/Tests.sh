@@ -59,16 +59,16 @@ run_test()
    test_name=$1
 
    if [ $verbose = 1 ] ; then
-      $parser --header $test_name.h $test_dir/$test_name.xml
+      $parser --options options/$test_name.xml
    else
-      $parser --header $test_name.h $test_dir/$test_name.xml >/dev/null 2>&1
+      $parser --options options/$test_name >/dev/null 2>&1
    fi
    if [ "$?" != 0 ] ; then
       echo "FAIL (errorParser): $test_name "
       return 1
    fi
 
-   diff -I ' * Date: ' -I 'using the input file' $test_name.h $test_dir/$test_name.h.baseline
+   diff -I ' * Date: ' -I 'using the input file' junk/errors.h $test_dir/baseline/$test_name/errors.h
    if [ "$?" != 0 ] ; then
       echo "FAIL (diff): $test_name "
       return 1
@@ -78,24 +78,37 @@ run_test()
       echo "PASS: $test_name "
    fi
 
-   rm $test_name.h
+   rm junk/errors.h 
+   rm junk/getError.c
+   rm junk/getError.h
 }
 
 # --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-run_test test_one_error
-if [ "$?" != 0 ] ; then
-   exit 1
-fi
-run_test test_no_copyright
-if [ "$?" != 0 ] ; then
-   exit 1
-fi
-run_test test_no_groupident
+rm -rf junk
+mkdir junk
+
+run_test no_groupident
 if [ "$?" != 0 ] ; then
    exit 1
 fi
 
+
+run_test one_error
+if [ "$?" != 0 ] ; then
+   exit 1
+fi
+run_test no_copyright
+if [ "$?" != 0 ] ; then
+   exit 1
+fi
+exit 0
+run_test no_groupident
+if [ "$?" != 0 ] ; then
+   exit 1
+fi
+
+rm -rf junk
 exit 0
 
 # --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
