@@ -20,6 +20,88 @@ xmlChar * stripText( xmlChar * inStr );
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
+void addDocumentation( errp_common * commonArgs,
+                       xmlNode     * docu )
+{
+   xmlNode * node = NULL;
+   xmlChar * paragraph, * tmp1;
+   
+   node = docu->children;
+   
+   do {
+      if ( node->type == XML_ELEMENT_NODE ) {
+         /* This can only be a paragraph */
+         tmp1 = stripText( node->children->content );
+
+         if ( commonArgs->writingEnum ) {
+            paragraph = prettify( tmp1, "     * ", ERRP_LINE_LENGTH );
+            fprintf( commonArgs->fpHeader, "     *\n%s\n", paragraph );
+         }
+         else {
+            paragraph = prettify( tmp1, " * ", ERRP_LINE_LENGTH );
+            fprintf( commonArgs->fpHeader, " *\n%s\n", paragraph );
+         }
+         free( paragraph );
+         free( tmp1 );
+      }
+      
+      node = node->next;
+
+   } while ( node != NULL );
+}
+
+/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+
+void addMessages( errp_common * commonArgs,
+                  xmlNode     * messages )
+{
+   xmlNode * node = NULL;
+   xmlChar * errMessage;
+   
+   node = messages->children;
+   
+   while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
+   errMessage = stripText( node->children->content );
+
+   if ( commonArgs->writingEnum ) {
+      fprintf( commonArgs->fpHeader, "    /**\n     * %s\n", errMessage );
+   }
+   else {
+      fprintf( commonArgs->fpHeader, "/**\n * %s\n", errMessage );
+   }
+   
+   if ( hasUnescapedChars(errMessage) ) {
+      xmlChar * tmp = escapeUnescapedChars( errMessage );
+      fprintf( commonArgs->fpMsgC, "\"%s\" };\n\n", tmp );
+      free( tmp );
+   }
+   else {
+      fprintf( commonArgs->fpMsgC, "\"%s\" };\n\n", errMessage );
+   }
+   
+   node = node->next;
+   while ( node != NULL ) {
+      if ( node->type == XML_ELEMENT_NODE ) {
+         if ( xmlStrcmp( node->name, BAD_CAST "documentation") == 0 ) {
+            addDocumentation( commonArgs, node );
+            break;
+         }
+      }
+      node = node->next;
+   }
+
+   if ( commonArgs->writingEnum ) {
+      fprintf( commonArgs->fpHeader, "     */\n" );
+   }
+   else {
+      fprintf( commonArgs->fpHeader, " */\n" );
+   }
+   
+   free( errMessage );
+}
+
+/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+
 void addError( errp_common * commonArgs,
                xmlNode     * error )
 {
@@ -32,9 +114,17 @@ void addError( errp_common * commonArgs,
    while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
    errNumber = stripText( node->children->content );
 
-   /* Second element */
+   /* Second element (the error name) */
    do { node = node->next; } while ( node->type != XML_ELEMENT_NODE );
    errName = stripText( node->children->content );
+   
+   fprintf( commonArgs->fpMsgC, "/* %s_%s */\n", commonArgs->prefix, errName );
+   fprintf( commonArgs->fpMsgC, "%s_MsgStruct %s_Msg%d = {\n", 
+      commonArgs->varPrefix, commonArgs->varPrefix, commonArgs->errorCount );
+   fprintf( commonArgs->fpMsgC, "    %s, ", errNumber );
+
+   do { node = node->next; } while ( node->type != XML_ELEMENT_NODE );
+   addMessages( commonArgs, node );
    
    if ( commonArgs->writingEnum ) {
       fprintf( commonArgs->fpHeader, "    %s_%s = %s",
@@ -74,13 +164,13 @@ void addGroup( errp_common * commonArgs,
       tmp = stripText( node->children->content );
       if ( commonArgs->writingEnum ) {
          fprintf( commonArgs->fpHeader, "    /*\n" );
-         comment = prettify( tmp, "     * ", 72 );
+         comment = prettify( tmp, "     * ", ERRP_LINE_LENGTH );
          fprintf( commonArgs->fpHeader, "%s\n", comment );
          fprintf( commonArgs->fpHeader, "     */\n\n" );
       }
       else {
          fprintf( commonArgs->fpHeader, "/*\n" );
-         comment = prettify( tmp, " * ", 72 );
+         comment = prettify( tmp, " * ", ERRP_LINE_LENGTH );
          fprintf( commonArgs->fpHeader, "%s\n", comment );
          fprintf( commonArgs->fpHeader, " */\n\n" );
       }

@@ -62,11 +62,25 @@
 #  include <ctype.h>
 #endif
 
+#ifndef PATH_MAX
+#  if defined MAXPATHLEN 
+#    define PATH_MAX MAXPATHLEN 
+#  elif defined _POSIX_PATH_MAX
+#    define PATH_MAX _POSIX_PATH_MAX
+#  elif defined _MAX_PATH
+#    define PATH_MAX  _MAX_PATH
+#  else
+#    define PATH_MAX 1024
+# endif
+#endif
+
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 #include <libxml/xmlstring.h>
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+
+#define ERRP_LINE_LENGTH 72
 
 /* 
  * A "common" struct to pass all the parameters around (instead of
@@ -74,10 +88,17 @@
  * functions...
  */
 struct errp_common {
-   char    * xmlFileName;
+   xmlChar * xmlFileName;
    xmlDoc  * document;
    FILE    * fpHeader;
-   char    * headerName;
+   FILE    * fpMsgC;
+   FILE    * fpMsgH;
+   xmlChar * headerName;
+   xmlChar * outputNameC;
+   xmlChar * outputNameH;
+   xmlChar * enumname;
+   char      outputNameGuard[PATH_MAX];
+   xmlChar * varPrefix;
    int       writingEnum;
    xmlChar * prefix;
    int       errorCount;
@@ -87,6 +108,17 @@ struct errp_common {
 typedef struct errp_common errp_common;
 
 extern const char * g_barrier;
+extern const char * g_functionName;
+
+/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+
+/* Prototypes of text.c functions */
+
+xmlChar * escapeUnescapedChars( xmlChar * inStr );
+int hasUnescapedChars( xmlChar * str );
+int isAsciiStr( xmlChar * str );
+xmlChar * prettify( xmlChar* inStr, char* prefix, int lineLength );
+xmlChar * stripText( xmlChar * inStr );
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 

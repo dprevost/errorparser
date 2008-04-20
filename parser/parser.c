@@ -16,133 +16,83 @@
 #include "parser.h"
 
 void addGroup( errp_common * commonArgs, xmlNode * group, int last );
+int handleOptions( errp_common * commonArgs, int argc, char * argv[] );
 
 const char * g_barrier = "/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */";
+const char * g_functionName = "_ErrorMessage";
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
-/*
- * This function check that the UTF-8 string is indeed ascii (needed when
- * constructing variables, enums or #defines).
- */
-int isAsciiStr( xmlChar * str )
+void startHeaderGuard( char * name, FILE * fp )
 {
-   int i;
+   unsigned int i;
    
-   for ( i = 0; i < xmlStrlen(str); i++ ) {
-      if ( str[i] > 0x7f ) return 0;
-   }
-   return 1;
-}
-
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
-
-/*
- * This function strips unwanted characters from a UTF-8 string.
- * From what I understand, the specs of XML parsing guarantee that everything
- * between the open and close tags is kept (the parser cannot know what
- * is needed and what can be safely removed). So the text in this construct
-    <notice>
-      Nothing.
-    </notice>
- * will be saved as: "\n      Nothing.\n    " which is obviously not what
- * we want. We strip to a one-line string (removing all whitespace at the 
- * beginning and end and stripping all duplicate white spaces in the middle.
- */
-xmlChar * stripText( xmlChar * inStr )
-{
-   xmlChar* outStr = NULL;
-   
-   int size, start, end, i, j;
-   
-   end = size = xmlStrlen(inStr);
-   start = 0;
-   
-   outStr = calloc( (size+1), sizeof(xmlChar) );
-   if ( outStr == NULL ) {
-      fprintf( stderr, "Malloc error\n" );
-      exit(1);
-   }
-
-   /* Replace all unwanted characters by spaces. */
-   for ( i = 0; i < size; ++i ) {
-      /* Carriage return... just in case */
-      if ( inStr[i] == 0x0D ) inStr[i] = 0x20;
-      /* New Line */
-      if ( inStr[i] == 0x0A ) inStr[i] = 0x20;
-      /* Tabs */
-      if ( inStr[i] == 0x09 ) inStr[i] = 0x20;
-   }
-
-   /* Where does the string really start? */
-   for ( i = 0; i < size; ++i ) {
-      if ( inStr[i] != 0x20 ) break;
-   }
-   start = i;
-   
-   /* And where does it end? */
-   for ( i = size-1; i > start; --i ) {
-      if ( inStr[i] != 0x20 ) break;
-   }
-   end = i;
-   
-   /* Multiple spaces - let's get rid of them */
-   outStr[0] = inStr[start];
-   for ( i = start+1, j = 1; i <= end; ++i ) {
-      if ( inStr[i] == 0x20 && inStr[i-1] == 0x20 ) continue;
-      outStr[j] = inStr[i];
-      j++;
-   }
-   
-   return outStr;
-}
-
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
-
-xmlChar * prettify( xmlChar* inStr, char* prefix, int lineLength )
-{
-   xmlChar* outStr = NULL;   
-   int size, i, lines, j, k, lastWhite, start;
-   char newLine[1];
-
-   newLine[0] = 0x0A;
-   size = xmlStrlen(inStr);
-   
-   lines = size / lineLength + 2; /* To be safe */
-   outStr = calloc( size+lines*(strlen(prefix)+1), sizeof(xmlChar) );
-   if ( outStr == NULL ) {
-      fprintf(stderr, "Malloc error\n" );
-      exit(1);
-   }
-
-   strcat( (char*)outStr, prefix );
-   j = strlen(prefix);
-   for ( i = 0, k = 0, start = 0, lastWhite = -1; i < size; ++i ) {
-
-      if ( j == lineLength ) {
-         strncat( (char*)outStr, (char*)&inStr[start], lastWhite-start );
-         strncat( (char*)outStr, newLine, 1 );
-         strcat( (char*)outStr, prefix );
-
-         j = lineLength - lastWhite + start;
-
-         start = lastWhite + 1;
-         lastWhite = -1;
+   for ( i = 0; i < strlen(name); ++i ) {
+      if ( isalnum(name[i]) ) {
+         if ( isalpha(name[i]) ) {
+            name[i] = toupper(name[i]);
+         }
       }
-
-      if ( inStr[i] == 0x20 ) lastWhite = i;
-      j++;
-
-      
+      else {
+         name[i] = '_';
+      }
    }
-
-   if ( j > 0 ) {
-      strncat( (char*)outStr, (char*)&inStr[start], size-start+1 );
-   }
-   return outStr;
+   fprintf( fp, "#ifndef %s\n", name );
+   fprintf( fp, "#define %s\n\n", name );
+   fprintf( fp, "#ifdef __cplusplus\n" );
+   fprintf( fp, "extern \"C\" {\n" );
+   fprintf( fp, "#endif\n\n" );
+   fprintf( fp, "%s\n\n", g_barrier );
 }
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+
+void stopHeaderGuard( char * name, FILE * fp )
+{
+
+   fprintf( fp, "%s\n\n", g_barrier );
+   fprintf( fp, "#ifdef __cplusplus\n" );
+   fprintf( fp, "}\n#endif\n\n" );
+   fprintf( fp, "#endif /* %s */\n\n", name );
+}
+
+/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+
+void writeMsgHeader( errp_common * commonArgs )
+{
+   fprintf( commonArgs->fpMsgH, "/*\n" );
+   fprintf( commonArgs->fpMsgH, "%s\n", 
+      " * Use this function to access the error messages (defined in the xml" );
+   fprintf( commonArgs->fpMsgH, " * input file).\n" );
+   fprintf( commonArgs->fpMsgH, " * \n" );
+   fprintf( commonArgs->fpMsgH, " * Parameters:\n" );
+   fprintf( commonArgs->fpMsgH, " *   - errnum    The error number\n" );
+   fprintf( commonArgs->fpMsgH, " *\n" );
+   fprintf( commonArgs->fpMsgH, " * Return values:\n" );
+   fprintf( commonArgs->fpMsgH, " *   - the error message if errnum is valid (exists)\n" );
+   fprintf( commonArgs->fpMsgH, " *   - NULL otherwise\n" );
+   fprintf( commonArgs->fpMsgH, " */\n" );
+
+   fprintf( commonArgs->fpMsgH, "const char * %s%s( int errnum );\n\n",
+      commonArgs->varPrefix, g_functionName );
+}
+
+/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+
+void writeTopC(  errp_common * commonArgs )
+{
+   fprintf( commonArgs->fpMsgC, "#include \"%s\"\n\n", commonArgs->outputNameH );
+   fprintf( commonArgs->fpMsgC, "struct %s_MsgStruct\n", commonArgs->varPrefix );
+   fprintf( commonArgs->fpMsgC, "{\n" );
+   fprintf( commonArgs->fpMsgC, "    int  errorNumber;\n" );
+   fprintf( commonArgs->fpMsgC, "    char *message;\n" );
+   fprintf( commonArgs->fpMsgC, "};\n\n" );
+   fprintf( commonArgs->fpMsgC, "typedef struct %s_MsgStruct %s_MsgStruct;\n\n",
+      commonArgs->varPrefix, commonArgs->varPrefix );
+}
+
+/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+   
 void doTopOfFile( errp_common * commonArgs,
                   xmlChar     * version,
                   xmlNode     * copyNode ) 
@@ -156,7 +106,6 @@ void doTopOfFile( errp_common * commonArgs,
 #endif
    xmlNode * node;
    xmlChar * years, * authors, * notice, * tmp;
-   unsigned int i;
    
    memset( timeBuf, '\0', 30 );
 
@@ -177,6 +126,18 @@ void doTopOfFile( errp_common * commonArgs,
    fprintf( commonArgs->fpHeader, " * Date: %s.\n *\n", timeBuf );
    fprintf( commonArgs->fpHeader, " * The version of this interface is %s.\n *\n", version );
 
+   fprintf( commonArgs->fpMsgC, "/*\n" );
+   fprintf( commonArgs->fpMsgC, " * This file was generated by the program errorParser\n" );
+   fprintf( commonArgs->fpMsgC, " * using the input file %s.\n", commonArgs->xmlFileName );
+   fprintf( commonArgs->fpMsgC, " * Date: %s.\n *\n", timeBuf );
+   fprintf( commonArgs->fpMsgC, " * The version of this interface is %s.\n *\n", version );
+
+   fprintf( commonArgs->fpMsgH, "/*\n" );
+   fprintf( commonArgs->fpMsgH, " * This file was generated by the program errorParser\n" );
+   fprintf( commonArgs->fpMsgH, " * using the input file %s.\n", commonArgs->xmlFileName );
+   fprintf( commonArgs->fpMsgH, " * Date: %s.\n *\n", timeBuf );
+   fprintf( commonArgs->fpMsgH, " * The version of this interface is %s.\n *\n", version );
+
    if ( copyNode != NULL ) {
       /* We extract the copyright element to be able to print them. */
       node = copyNode->children;
@@ -190,6 +151,8 @@ void doTopOfFile( errp_common * commonArgs,
       authors = stripText( node->children->content );
    
       fprintf( commonArgs->fpHeader, " * Copyright (C) %s %s\n", years, authors );
+      fprintf( commonArgs->fpMsgC, " * Copyright (C) %s %s\n", years, authors );
+      fprintf( commonArgs->fpMsgH, " * Copyright (C) %s %s\n", years, authors );
       free( years );
       free( authors );
    
@@ -197,10 +160,14 @@ void doTopOfFile( errp_common * commonArgs,
       while ( node != NULL ) {
          if ( node->type == XML_ELEMENT_NODE ) {
             fprintf( commonArgs->fpHeader, " *\n" );
+            fprintf( commonArgs->fpMsgC, " *\n" );
+            fprintf( commonArgs->fpMsgH, " *\n" );
             tmp = stripText( node->children->content );
-            notice = prettify( tmp, " * ", 72 );
+            notice = prettify( tmp, " * ", ERRP_LINE_LENGTH );
          
             fprintf( commonArgs->fpHeader, "%s\n", notice );
+            fprintf( commonArgs->fpMsgC, "%s\n", notice );
+            fprintf( commonArgs->fpMsgH, "%s\n", notice );
          
             free( tmp );
             free( notice );
@@ -209,23 +176,12 @@ void doTopOfFile( errp_common * commonArgs,
       }
    }
    fprintf( commonArgs->fpHeader, " */\n\n%s\n\n", g_barrier );
+   fprintf( commonArgs->fpMsgC, " */\n\n%s\n\n", g_barrier );
+   fprintf( commonArgs->fpMsgH, " */\n\n%s\n\n", g_barrier );
    
-   for ( i = 0; i < strlen(commonArgs->headerName); ++i ) {
-      if ( isalnum(commonArgs->headerName[i]) ) {
-         if ( isalpha(commonArgs->headerName[i]) ) {
-            commonArgs->headerName[i] = toupper(commonArgs->headerName[i]);
-         }
-      }
-      else {
-         commonArgs->headerName[i] = '_';
-      }
-   }
-   fprintf( commonArgs->fpHeader, "#ifndef %s\n", commonArgs->headerName );
-   fprintf( commonArgs->fpHeader, "#define %s\n\n", commonArgs->headerName );
-   fprintf( commonArgs->fpHeader, "#ifdef __cplusplus\n" );
-   fprintf( commonArgs->fpHeader, "extern \"C\" {\n" );
-   fprintf( commonArgs->fpHeader, "#endif\n\n" );
-   fprintf( commonArgs->fpHeader, "%s\n\n", g_barrier );
+   startHeaderGuard( (char*)commonArgs->headerName, commonArgs->fpHeader );
+   startHeaderGuard( commonArgs->outputNameGuard, commonArgs->fpMsgH );
+   writeTopC( commonArgs );
 }
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
@@ -301,11 +257,11 @@ void navigate( errp_common * commonArgs,
       fprintf( commonArgs->fpHeader, "typedef %s %s;\n\n", enumName, enumName );
       free( enumName );
    }
-   fprintf( commonArgs->fpHeader, "%s\n\n", g_barrier );
-   fprintf( commonArgs->fpHeader, "#ifdef __cplusplus\n" );
-   fprintf( commonArgs->fpHeader, "}\n#endif\n\n" );
-   fprintf( commonArgs->fpHeader, "#endif /* %s */\n\n", 
-            commonArgs->headerName );
+
+   writeMsgHeader( commonArgs );
+   
+   stopHeaderGuard( (char*)commonArgs->headerName, commonArgs->fpHeader );
+   stopHeaderGuard( commonArgs->outputNameGuard, commonArgs->fpMsgH );
 }
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
@@ -314,26 +270,8 @@ int main( int argc, char * argv[] )
 {
    xmlParserCtxtPtr context = NULL;  /* The parser context */
    xmlNode * root = NULL;            /* The root node */
-   
+   int rc;
    struct errp_common commonArgs;
-
-   if (argc != 4) {
-      fprintf( stderr, "Usage: %s --header header_file input_xml_file\n", 
-               argv[0] );
-      return 1;
-   }
-   if ( strcmp("--header",argv[1]) == 0 ) commonArgs.headerName = argv[2];
-
-   commonArgs.xmlFileName = argv[3];
-   
-   commonArgs.fpHeader = fopen( commonArgs.headerName, "w" );
-   if ( commonArgs.fpHeader == NULL ) {
-      fprintf( stderr, "Error opening the header file %s.\n", 
-               commonArgs.headerName );
-      return 1;
-   }
-   commonArgs.prefix = NULL;
-   commonArgs.errorCount = commonArgs.groupCount = 0;
    
    /*
     * this initialize the library and check potential ABI mismatches
@@ -342,6 +280,33 @@ int main( int argc, char * argv[] )
     */
    LIBXML_TEST_VERSION
 
+   memset( &commonArgs, 0, sizeof(struct errp_common) );
+   
+   rc = handleOptions( &commonArgs, argc, argv );
+   if ( rc != 0 ) {
+      if ( rc == 1 ) return 0; /* help */
+      return 1;
+   }
+   
+   commonArgs.fpHeader = fopen( (char*)commonArgs.headerName, "w" );
+   if ( commonArgs.fpHeader == NULL ) {
+      fprintf( stderr, "Error opening the header file %s.\n", 
+               commonArgs.headerName );
+      return 1;
+   }
+   commonArgs.fpMsgH = fopen( (char*)commonArgs.outputNameH, "w" );
+   if ( commonArgs.fpMsgH == NULL ) {
+      fprintf( stderr, "Error opening the error message header file %s.\n", 
+         commonArgs.outputNameH );
+      return 1;
+   }
+   commonArgs.fpMsgC = fopen( (char*)commonArgs.outputNameC, "w" );
+   if ( commonArgs.fpMsgC == NULL ) {
+      fprintf( stderr, "Error opening the error message C file %s.\n", 
+         commonArgs.outputNameC );
+      return 1;
+   }
+   
    context = xmlNewParserCtxt();
    if ( context == NULL ) {
       fprintf(stderr, "Error allocating the parser context\n");
@@ -350,7 +315,7 @@ int main( int argc, char * argv[] )
 
    /* We create the document and validate in one go */
    commonArgs.document = xmlCtxtReadFile( context, 
-                                          commonArgs.xmlFileName, 
+                                          (char*)commonArgs.xmlFileName, 
                                           NULL,
                                           XML_PARSE_DTDVALID );
    if ( commonArgs.document == NULL ) {

@@ -26,9 +26,11 @@ EXTRA_DIST =                     \
         Project_Files/parser.dsp 
 
 errorParser_SOURCES = \
-        group.c  \
-        parser.c \
-        parser.h 
+        group.c   \
+        options.c \
+        parser.c  \
+        parser.h  \
+        text.c    
 
 errorParser_LDFLAGS = @ERR_PARSER_LIBS@
 
