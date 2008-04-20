@@ -23,13 +23,13 @@
                  "http://errorparser.sourceforge.net/xml/1.1/errorParser.dtd">
 -->
 
-<!ELEMENT errorlist       (copyright_group?,group+)>
+<!ELEMENT errorlist       (copyright_group?,errgroup+)>
 <!ELEMENT copyright_group (copyright*)>
 <!ELEMENT copyright       (years,authors,notice+)>
 <!ELEMENT years           (#PCDATA)>
 <!ELEMENT authors         (#PCDATA)>
 <!ELEMENT notice          (#PCDATA)>
-<!ELEMENT group           (groupident?,error+)>
+<!ELEMENT errgroup        (groupident?,error+)>
 <!ELEMENT groupident      (#PCDATA)>
 <!ELEMENT error           (errnumber,errname,messages)>
 <!ELEMENT errnumber       (#PCDATA)>
