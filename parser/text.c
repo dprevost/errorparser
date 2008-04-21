@@ -21,6 +21,36 @@
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
+void buildPath( char * filename, xmlChar * dir, xmlChar * name )
+{
+   int len;
+   
+   if ( dir == NULL ) {
+      if ( xmlStrlen(name) > PATH_MAX-1 ) {
+         fprintf( stderr, "File name is too long\n" );
+         exit(1);
+      }
+      strcpy( filename, (char*)name );
+   }
+   else {
+      len = xmlStrlen( dir );
+      if ( len + xmlStrlen(name) > PATH_MAX-2 ) {
+         fprintf( stderr, "File name is too long\n" );
+         exit(1);
+      }
+      strcpy( filename, (char*)dir );
+#if defined(WIN32)
+      if ( dir[len-1] != '\\' && dir[len-1] != '/' )
+         strcat( filename, "\\" );
+#else
+      if ( dir[len-1] != '/' ) strcat( filename, "/" );
+#endif
+      strcat( filename, (char*)name );
+   }
+}
+
+/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+
 /*
  * This function escape all characters that needs to be escaped from 
  * the input UTF-8 string.

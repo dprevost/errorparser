@@ -21,7 +21,9 @@ void writeErrorMessage( errp_common * commonArgs )
 {
    int i;
    
+   fprintf( commonArgs->fpMsgC, "%s\n\n", g_barrier );
    /* Define an array of pointers to the previous structs */
+   fprintf( commonArgs->fpMsgC, "/* Array of pointers to previous structs */\n" );
    fprintf( commonArgs->fpMsgC, "%s_MsgStruct * %s_MsgArray[%d] = {\n", 
       commonArgs->varPrefix, commonArgs->varPrefix, commonArgs->errorCount );
 
@@ -31,6 +33,8 @@ void writeErrorMessage( errp_common * commonArgs )
    }
    fprintf( commonArgs->fpMsgC, "    &%s_Msg%d\n};\n\n", 
       commonArgs->varPrefix, commonArgs->errorCount-1 );
+
+   fprintf( commonArgs->fpMsgC, "%s\n\n", g_barrier );
 
    /* Write the function to access the error messages */
    fprintf( commonArgs->fpMsgC, "const char * %s_ErrorMessage( int errnum )\n",
@@ -50,80 +54,9 @@ void writeErrorMessage( errp_common * commonArgs )
    fprintf( commonArgs->fpMsgC, "    return NULL;\n" );
    fprintf( commonArgs->fpMsgC, "}\n\n" );
 
-
-
+   fprintf( commonArgs->fpMsgC, "%s\n\n", g_barrier );
 }
 
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
-#if 0
-
-vdseErrErrMsgStruct* vdseErrErrMsg[VDSEERR_MAX_ENTRIES] = 
-{
-   &vdseErrErrMsg0,
-   &vdseErrErrMsg1,
-   &vdseErrErrMsg2,
-   &vdseErrErrMsg3,
-   &vdseErrErrMsg4,
-   &vdseErrErrMsg5,
-   &vdseErrErrMsg6,
-   &vdseErrErrMsg7,
-   &vdseErrErrMsg8,
-   &vdseErrErrMsg9,
-   &vdseErrErrMsg10,
-   &vdseErrErrMsg11,
-   &vdseErrErrMsg12,
-   &vdseErrErrMsg13,
-   &vdseErrErrMsg14,
-   &vdseErrErrMsg15,
-   &vdseErrErrMsg16,
-   &vdseErrErrMsg17,
-   &vdseErrErrMsg18,
-   &vdseErrErrMsg19,
-   &vdseErrErrMsg20,
-   &vdseErrErrMsg21,
-   &vdseErrErrMsg22,
-   &vdseErrErrMsg23,
-   &vdseErrErrMsg24,
-   &vdseErrErrMsg25,
-   &vdseErrErrMsg26,
-   &vdseErrErrMsg27,
-   &vdseErrErrMsg28,
-   &vdseErrErrMsg29,
-   &vdseErrErrMsg30,
-   &vdseErrErrMsg31,
-   &vdseErrErrMsg32,
-   &vdseErrErrMsg33,
-   &vdseErrErrMsg34,
-   &vdseErrErrMsg35,
-   &vdseErrErrMsg36,
-   &vdseErrErrMsg37,
-   &vdseErrErrMsg38,
-   &vdseErrErrMsg39,
-   &vdseErrErrMsg40,
-   &vdseErrErrMsg41
-
-};
-
-int vdseErrGetErrMessage( int errnum, char *msg, unsigned int msgLength )
-{
-   int i;
-
-   if ( msgLength > 0 ) msg[0] = '\0';
-   for ( i = 0; i < VDSEERR_MAX_ENTRIES; ++i )
-   {
-      if ( errnum == vdseErrErrMsg[i]->errorNumber )
-      {
-         if ( msgLength > 0 && vdseErrErrMsg[i]->messageLength > 0 )
-         {
-            strncpy( msg, vdseErrErrMsg[i]->message, msgLength-1 );
-            msg[msgLength-1] = '\0';
-         }
-         return 0;
-      }
-   }
-
-   return -1;
-}
-#endif

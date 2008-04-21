@@ -73,6 +73,16 @@ run_test()
       echo "FAIL (diff): $test_name "
       return 1
    fi
+   diff -I ' * Date: ' -I 'using the input file' junk/getError.c $test_dir/baseline/$test_name/getError.c
+   if [ "$?" != 0 ] ; then
+      echo "FAIL (diff): $test_name "
+      return 1
+   fi
+   diff -I ' * Date: ' -I 'using the input file' junk/getError.h $test_dir/baseline/$test_name/getError.h
+   if [ "$?" != 0 ] ; then
+      echo "FAIL (diff): $test_name "
+      return 1
+   fi
 
    if [ $verbose = 1 ] ; then
       echo "PASS: $test_name "
@@ -84,29 +94,47 @@ run_test()
 }
 
 # --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+# 
+# This function take a single parameter, the name of the test (which is
+# the name of the xml file minus the .xml extension).
+#
+# --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+
+run_bad_test()
+{
+   test_name=$1
+
+   if [ $verbose = 1 ] ; then
+      $parser --options options/$test_name.xml
+   else
+      $parser --options options/$test_name >/dev/null 2>&1
+   fi
+   if [ "$?" == 0 ] ; then
+      echo "Bad Test failed (errorParser): $test_name "
+      return 1
+   fi
+}
+
+# --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 rm -rf junk
 mkdir junk
 
-run_test no_groupident
-if [ "$?" != 0 ] ; then
-   exit 1
-fi
+good_tests="one_error no_groupident  \
+no_copyright"
 
+for tests in $good_tests; do
+   run_test $tests
+   if [ "$?" != 0 ] ; then
+      exit 1
+   fi
+done
 
-run_test one_error
-if [ "$?" != 0 ] ; then
-   exit 1
-fi
-run_test no_copyright
-if [ "$?" != 0 ] ; then
-   exit 1
-fi
 exit 0
-run_test no_groupident
-if [ "$?" != 0 ] ; then
-   exit 1
-fi
+
+# --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+
+# --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 rm -rf junk
 exit 0

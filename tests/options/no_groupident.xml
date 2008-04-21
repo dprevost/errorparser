@@ -17,11 +17,14 @@
 -->
 
 <!DOCTYPE options [
-  <!ELEMENT options       (xmlname,enumname?,header_name,errmsg_header_name,
-                          errmsg_c_name,prefix_error,prefix_variable,err_msg)>
+  <!ELEMENT options      (xmlname,enumname?,header_name_dir?,header_name,
+                         errmsg_dir?,errmsg_header_name,errmsg_c_name,
+                         prefix_error,prefix_variable,err_msg)>
   <!ELEMENT xmlname            (#PCDATA)>
   <!ELEMENT enumname           (#PCDATA)>
+  <!ELEMENT header_name_dir    (#PCDATA)>
   <!ELEMENT header_name        (#PCDATA)>
+  <!ELEMENT errmsg_dir         (#PCDATA)>
   <!ELEMENT errmsg_header_name (#PCDATA)>
   <!ELEMENT errmsg_c_name      (#PCDATA)>
   <!ELEMENT prefix_error       (#PCDATA)>
@@ -38,14 +41,28 @@
   <xmlname> xml/no_groupident.xml </xmlname>
   <!-- The name of the enum. If absent, #define will be generated instead. -->
   <enumname> enumErrors</enumname>
+  <!-- Name of the output dir for the error header file. If absent, the 
+       current directory will be used.
+       
+       Alternatively, you can put the directory directly in the header_name 
+       element. But if you do, the "GUARD" will use that directory name. -->
+  <header_name_dir> junk </header_name_dir>
   <!-- The file name for the .h file which will hold the errors. -->
-  <header_name> junk/errors.h </header_name>
+  <header_name> errors.h </header_name>
+  <!-- Name of the output dir for the code to retrieve the error messages. 
+       If absent, the current directory will be used.
+
+       Alternatively, you can put the directory directly in the 2 
+       "errmsg_*_name" elements. If you do, the "GUARD" will use that 
+       directory name and the .c file will include the header using the 
+       full name (errmsg_header_name) -->
+   <errmsg_dir> junk </errmsg_dir>
   <!-- The file name for the .h file for the code to retrieve the error 
        messages. -->
-  <errmsg_header_name> junk/getError.h </errmsg_header_name>
+  <errmsg_header_name> getError.h </errmsg_header_name>
   <!-- The file name for the .c file for the code to retrieve the error 
        messages. -->
-  <errmsg_c_name> junk/getError.c </errmsg_c_name>
+  <errmsg_c_name> getError.c </errmsg_c_name>
   <!-- Prefix to be used for the error codes (enum or #define). -->
   <prefix_error> MY_PROG </prefix_error>
   <!-- Prefix to be used for all variables in the code to retrieve the 

@@ -118,8 +118,20 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
             commonArgs->writingEnum = 1;
             commonArgs->enumname = stripText( node->children->content );
             node = node->next;
-            break;
          }
+         break;
+      }
+      node = node->next;
+   }
+
+   /* The directory of the output header file for the error codes. */
+   while ( node != NULL ) {
+      if ( node->type == XML_ELEMENT_NODE ) {
+         if ( xmlStrcmp( node->name, BAD_CAST "header_name_dir") == 0 ) {
+            commonArgs->headerDir = stripText( node->children->content );
+            node = node->next;
+         }
+         break;
       }
       node = node->next;
    }
@@ -128,13 +140,24 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
    while ( node != NULL ) {
       if ( node->type == XML_ELEMENT_NODE ) {
          if ( xmlStrcmp( node->name, BAD_CAST "header_name") == 0 ) {
-            commonArgs->writingEnum = 1;
             commonArgs->headerName = stripText( node->children->content );
             node = node->next;
             break;
          }
          fprintf( stderr, "Error: missing <header_name> in options file\n" );
          return -1;
+      }
+      node = node->next;
+   }
+
+   /* The directory of the output files for the error messages. */
+   while ( node != NULL ) {
+      if ( node->type == XML_ELEMENT_NODE ) {
+         if ( xmlStrcmp( node->name, BAD_CAST "errmsg_dir") == 0 ) {
+            commonArgs->outputDir = stripText( node->children->content );
+            node = node->next;
+         }
+         break;
       }
       node = node->next;
    }

@@ -265,7 +265,6 @@ void navigate( errp_common * commonArgs,
     * or not (for enums, the last error of the last group is special - it's
     * the only one not terminated by a comma).
     */
-   node = node->next;
    while ( node != NULL ) {
       if ( node->type == XML_ELEMENT_NODE ) {
          if ( group != NULL ) addGroup( commonArgs, group, 0 );
@@ -277,7 +276,7 @@ void navigate( errp_common * commonArgs,
 
    if ( commonArgs->writingEnum == 1 ) {
       fprintf( commonArgs->fpHeader, "};\n\n" );
-      fprintf( commonArgs->fpHeader, "typedef %s %s;\n\n", 
+      fprintf( commonArgs->fpHeader, "typedef enum %s %s;\n\n", 
          commonArgs->enumname, commonArgs->enumname );
    }
 
@@ -296,6 +295,7 @@ int main( int argc, char * argv[] )
    xmlNode * root = NULL;            /* The root node */
    int rc;
    struct errp_common commonArgs;
+   char filename[PATH_MAX];
    
    /*
     * this initialize the library and check potential ABI mismatches
@@ -312,22 +312,24 @@ int main( int argc, char * argv[] )
       return 1;
    }
    
-   commonArgs.fpHeader = fopen( (char*)commonArgs.headerName, "w" );
+   buildPath( filename, commonArgs.headerDir, commonArgs.headerName );
+   commonArgs.fpHeader = fopen( filename, "w" );
    if ( commonArgs.fpHeader == NULL ) {
-      fprintf( stderr, "Error opening the header file %s.\n", 
-               commonArgs.headerName );
+      fprintf( stderr, "Error opening the header file %s.\n", filename );
       return 1;
    }
-   commonArgs.fpMsgH = fopen( (char*)commonArgs.outputNameH, "w" );
+   buildPath( filename, commonArgs.outputDir, commonArgs.outputNameH );
+   commonArgs.fpMsgH = fopen( filename, "w" );
    if ( commonArgs.fpMsgH == NULL ) {
       fprintf( stderr, "Error opening the error message header file %s.\n", 
-         commonArgs.outputNameH );
+         filename );
       return 1;
    }
-   commonArgs.fpMsgC = fopen( (char*)commonArgs.outputNameC, "w" );
+   buildPath( filename, commonArgs.outputDir, commonArgs.outputNameC );
+   commonArgs.fpMsgC = fopen( filename, "w" );
    if ( commonArgs.fpMsgC == NULL ) {
       fprintf( stderr, "Error opening the error message C file %s.\n", 
-         commonArgs.outputNameC );
+         filename );
       return 1;
    }
    

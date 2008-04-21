@@ -93,7 +93,9 @@ struct errp_common {
    FILE    * fpHeader;
    FILE    * fpMsgC;
    FILE    * fpMsgH;
+   xmlChar * headerDir;
    xmlChar * headerName;
+   xmlChar * outputDir;
    xmlChar * outputNameC;
    xmlChar * outputNameH;
    xmlChar * enumname;
@@ -117,6 +119,7 @@ extern const char * g_functionName;
 
 /* Prototypes of text.c functions */
 
+void buildPath( char * filename, xmlChar * dir, xmlChar * name );
 xmlChar * escapeUnescapedQuotes( xmlChar * inStr );
 int hasUnescapedQuotes( xmlChar * str );
 void hasEscapeSequence( errp_common * commonArgs, xmlChar * str );
