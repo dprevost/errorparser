@@ -102,7 +102,10 @@ struct errp_common {
    int       writingEnum;
    xmlChar * prefix;
    int       errorCount;
-   int       groupCount; 
+   int       groupCount;
+   int       allowEscapes;
+   int       allowQuotes;
+   xmlChar * percent;
 };
 
 typedef struct errp_common errp_common;
@@ -114,11 +117,15 @@ extern const char * g_functionName;
 
 /* Prototypes of text.c functions */
 
-xmlChar * escapeUnescapedChars( xmlChar * inStr );
-int hasUnescapedChars( xmlChar * str );
+xmlChar * escapeUnescapedQuotes( xmlChar * inStr );
+int hasUnescapedQuotes( xmlChar * str );
+void hasEscapeSequence( errp_common * commonArgs, xmlChar * str );
 int isAsciiStr( xmlChar * str );
 xmlChar * prettify( xmlChar* inStr, char* prefix, int lineLength );
+xmlChar * replaceChar( xmlChar * inStr, xmlChar old_c, xmlChar * new_c );
 xmlChar * stripText( xmlChar * inStr );
+
+void writeErrorMessage( errp_common * commonArgs );
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 

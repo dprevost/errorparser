@@ -25,17 +25,17 @@
  * This function escape all characters that needs to be escaped from 
  * the input UTF-8 string.
  */
-xmlChar * escapeUnescapedChars( xmlChar * inStr )
+xmlChar * escapeUnescapedQuotes( xmlChar * inStr )
 {
    int i, n = 0;
    xmlChar* outStr = NULL;   
 
    if ( inStr[0] == '"' ) n++;
-   if ( inStr[0] == '%' ) n++;
+   if ( inStr[0] == '\'' ) n++;
    
    for ( i = 1; i < xmlStrlen(inStr); i++ ) {
-      if ( inStr[i] == '"' && inStr[i-1] != '\\' ) n++;
-      if ( inStr[i] == '%' && inStr[i-1] != '%' ) n++;
+      if ( inStr[i] == '"'  && inStr[i-1] != '\\' ) n++;
+      if ( inStr[i] == '\'' && inStr[i-1] != '\\' ) n++;
    }
 
    outStr = calloc( xmlStrlen(inStr) + 1 + n, sizeof(xmlChar) );
@@ -45,7 +45,7 @@ xmlChar * escapeUnescapedChars( xmlChar * inStr )
    }
 
    n = 0;
-   if ( inStr[0] == '"' ) {
+   if ( inStr[0] == '"' || inStr[0] == '\'' ) {
       outStr[n] = '\\';
       ++n;
    }
@@ -54,6 +54,10 @@ xmlChar * escapeUnescapedChars( xmlChar * inStr )
    
    for ( i = 1; i < xmlStrlen(inStr); i++, n++ ) {
       if ( inStr[i] == '"' && inStr[i-1] != '\\' ) {
+         outStr[n] = '\\';
+         ++n;
+      }
+      if ( inStr[i] == '\'' && inStr[i-1] != '\\' ) {
          outStr[n] = '\\';
          ++n;
       }
@@ -68,18 +72,47 @@ xmlChar * escapeUnescapedChars( xmlChar * inStr )
 /*
  * This function checks the content of the UTF-8 string for quotes ('"').
  */
-int hasUnescapedChars( xmlChar * str )
+int hasUnescapedQuotes( xmlChar * str )
 {
    int i;
    
    if ( str[0] == '"' ) return 1;
-   if ( str[0] == '%' ) return 1;
+   if ( str[0] == '\'' ) return 1;
    
    for ( i = 1; i < xmlStrlen(str); i++ ) {
-      if ( str[i] == '"' && str[i-1] != '\\' ) return 1;
-      if ( str[i] == '%' && str[i-1] != '%' ) return 1;
+      if ( str[i] == '"'  && str[i-1] != '\\' ) return 1;
+      if ( str[i] == '\'' && str[i-1] != '\\' ) return 1;
    }
    return 0;
+}
+
+/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+
+/*
+ * This function checks the content of the UTF-8 string for escape sequences.
+ */
+void hasEscapeSequence( errp_common * commonArgs, xmlChar * str )
+{
+   int i;
+   
+   if ( commonArgs->allowEscapes ) return;
+   
+   for ( i = 1; i < xmlStrlen(str)-1; i++ ) {
+      if ( str[i] == '\\' ) {
+         if ( commonArgs->allowQuotes ) {
+            if ( str[i+1] == '"' || str[i+1] == '\'' ) {
+               i++;
+               continue;
+            }
+         }
+         if ( str[i+1] == '\\' ) {
+            i++;
+            continue;
+         }
+         fprintf( stderr, "Esc. sequences are not allowed, string: %s\n", str );
+         exit(1);
+      }
+   }
 }
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
@@ -140,6 +173,37 @@ xmlChar * prettify( xmlChar* inStr, char* prefix, int lineLength )
    if ( j > 0 ) {
       strncat( (char*)outStr, (char*)&inStr[start], size-start+1 );
    }
+   return outStr;
+}
+
+/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+
+xmlChar * replaceChar( xmlChar * inStr, xmlChar old_c, xmlChar * new_c )
+{
+   int i, j, k, count = 0;
+   xmlChar * outStr;
+   
+   for ( i = 0; i < xmlStrlen(inStr); i++ ) {
+      if ( inStr[i] == old_c ) count++;
+   }
+   outStr = calloc( xmlStrlen(inStr)+1+count*(xmlStrlen(new_c)-1), sizeof(xmlChar) );
+   if ( outStr == NULL ) {
+      fprintf(stderr, "Malloc error\n" );
+      exit(1);
+   }
+
+   for ( i = 0, j = 0; i < xmlStrlen(inStr); i++ ) {
+      if ( inStr[i] == old_c ) {
+         for ( k = 0; k < xmlStrlen(new_c); k++, j++ ) {
+            outStr[j] = new_c[k];
+         }
+      }
+      else {
+         outStr[j] = inStr[i];
+         j++;
+      }
+   }
+   
    return outStr;
 }
 

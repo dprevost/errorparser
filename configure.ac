@@ -13,8 +13,8 @@
 #                                                                           #
 #############################################################################
 
-AC_INIT([Error Parser and Generator],
-        [0.1.0],
+AC_INIT([Error Parser],
+        [0.2.0],
         [Daniel Prevost <dprevost@users.sourceforge.net>],
         [errorParser])
 
@@ -96,7 +96,6 @@ AC_C_INLINE
 
 AC_CHECK_FUNCS(memcpy ctime)
 
-AC_FUNC_MKDIR
 AC_CHECK_FUNCS(strcpy)
 AC_FUNC_STRERROR_R
 

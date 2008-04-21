@@ -23,22 +23,72 @@ const char * g_functionName = "_ErrorMessage";
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
-void startHeaderGuard( char * name, FILE * fp )
+void addCopyright( errp_common * commonArgs, xmlNode * node )
+{
+   xmlChar * years, * authors, * notice, * tmp;
+
+   node = node->children;
+   
+   /* Go to the first element */
+   while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
+   years = stripText( node->children->content );
+   
+   /* Go to the next element */
+   do { node = node->next; } while ( node->type != XML_ELEMENT_NODE );
+   authors = stripText( node->children->content );
+   
+   fprintf( commonArgs->fpHeader, " * Copyright (C) %s %s\n", years, authors );
+   fprintf( commonArgs->fpMsgC, " * Copyright (C) %s %s\n", years, authors );
+   fprintf( commonArgs->fpMsgH, " * Copyright (C) %s %s\n", years, authors );
+   free( years );
+   free( authors );
+   
+   node = node->next;
+   while ( node != NULL ) {
+      if ( node->type == XML_ELEMENT_NODE ) {
+         fprintf( commonArgs->fpHeader, " *\n" );
+         fprintf( commonArgs->fpMsgC, " *\n" );
+         fprintf( commonArgs->fpMsgH, " *\n" );
+         tmp = stripText( node->children->content );
+         notice = prettify( tmp, " * ", ERRP_LINE_LENGTH );
+         
+         fprintf( commonArgs->fpHeader, "%s\n", notice );
+         fprintf( commonArgs->fpMsgC, "%s\n", notice );
+         fprintf( commonArgs->fpMsgH, "%s\n", notice );
+         
+         free( tmp );
+         free( notice );
+      }
+      node = node->next;
+   }
+}
+
+/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+
+void startHeaderGuard( const char * name, FILE * fp )
 {
    unsigned int i;
+   char * tmp = NULL;
+   
+   tmp = calloc( strlen(name), sizeof(char) );
+   if ( tmp == NULL ) {
+      fprintf( stderr, "Malloc error\n" );
+      exit(1);
+   }
    
    for ( i = 0; i < strlen(name); ++i ) {
       if ( isalnum(name[i]) ) {
          if ( isalpha(name[i]) ) {
-            name[i] = toupper(name[i]);
+            tmp[i] = toupper(name[i]);
          }
+         else tmp[i] = name[i];
       }
       else {
-         name[i] = '_';
+         tmp[i] = '_';
       }
    }
-   fprintf( fp, "#ifndef %s\n", name );
-   fprintf( fp, "#define %s\n\n", name );
+   fprintf( fp, "#ifndef %s\n", tmp );
+   fprintf( fp, "#define %s\n\n", tmp );
    fprintf( fp, "#ifdef __cplusplus\n" );
    fprintf( fp, "extern \"C\" {\n" );
    fprintf( fp, "#endif\n\n" );
@@ -47,13 +97,32 @@ void startHeaderGuard( char * name, FILE * fp )
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
-void stopHeaderGuard( char * name, FILE * fp )
+void stopHeaderGuard( const char * name, FILE * fp )
 {
-
+   unsigned int i;
+   char * tmp = NULL;
+   
+   tmp = calloc( strlen(name), sizeof(char) );
+   if ( tmp == NULL ) {
+      fprintf( stderr, "Malloc error\n" );
+      exit(1);
+   }
+   
+   for ( i = 0; i < strlen(name); ++i ) {
+      if ( isalnum(name[i]) ) {
+         if ( isalpha(name[i]) ) {
+            tmp[i] = toupper(name[i]);
+         }
+         else tmp[i] = name[i];
+      }
+      else {
+         tmp[i] = '_';
+      }
+   }
    fprintf( fp, "%s\n\n", g_barrier );
    fprintf( fp, "#ifdef __cplusplus\n" );
    fprintf( fp, "}\n#endif\n\n" );
-   fprintf( fp, "#endif /* %s */\n\n", name );
+   fprintf( fp, "#endif /* %s */\n\n", tmp );
 }
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
@@ -81,11 +150,14 @@ void writeMsgHeader( errp_common * commonArgs )
 
 void writeTopC(  errp_common * commonArgs )
 {
+fprintf( commonArgs->fpMsgC, "#include <stdlib.h> %s\n",
+   "/* Any system file will do. Needed for NULL. */" );
+
    fprintf( commonArgs->fpMsgC, "#include \"%s\"\n\n", commonArgs->outputNameH );
    fprintf( commonArgs->fpMsgC, "struct %s_MsgStruct\n", commonArgs->varPrefix );
    fprintf( commonArgs->fpMsgC, "{\n" );
    fprintf( commonArgs->fpMsgC, "    int  errorNumber;\n" );
-   fprintf( commonArgs->fpMsgC, "    char *message;\n" );
+   fprintf( commonArgs->fpMsgC, "    const char * message;\n" );
    fprintf( commonArgs->fpMsgC, "};\n\n" );
    fprintf( commonArgs->fpMsgC, "typedef struct %s_MsgStruct %s_MsgStruct;\n\n",
       commonArgs->varPrefix, commonArgs->varPrefix );
@@ -105,7 +177,6 @@ void doTopOfFile( errp_common * commonArgs,
    struct tm * formattedTime;
 #endif
    xmlNode * node;
-   xmlChar * years, * authors, * notice, * tmp;
    
    memset( timeBuf, '\0', 30 );
 
@@ -141,36 +212,9 @@ void doTopOfFile( errp_common * commonArgs,
    if ( copyNode != NULL ) {
       /* We extract the copyright element to be able to print them. */
       node = copyNode->children;
-   
-      /* Go to the first element */
-      while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
-      years = stripText( node->children->content );
-   
-      /* Go to the next element */
-      do { node = node->next; } while ( node->type != XML_ELEMENT_NODE );
-      authors = stripText( node->children->content );
-   
-      fprintf( commonArgs->fpHeader, " * Copyright (C) %s %s\n", years, authors );
-      fprintf( commonArgs->fpMsgC, " * Copyright (C) %s %s\n", years, authors );
-      fprintf( commonArgs->fpMsgH, " * Copyright (C) %s %s\n", years, authors );
-      free( years );
-      free( authors );
-   
-      node = node->next;
       while ( node != NULL ) {
          if ( node->type == XML_ELEMENT_NODE ) {
-            fprintf( commonArgs->fpHeader, " *\n" );
-            fprintf( commonArgs->fpMsgC, " *\n" );
-            fprintf( commonArgs->fpMsgH, " *\n" );
-            tmp = stripText( node->children->content );
-            notice = prettify( tmp, " * ", ERRP_LINE_LENGTH );
-         
-            fprintf( commonArgs->fpHeader, "%s\n", notice );
-            fprintf( commonArgs->fpMsgC, "%s\n", notice );
-            fprintf( commonArgs->fpMsgH, "%s\n", notice );
-         
-            free( tmp );
-            free( notice );
+            addCopyright( commonArgs, node );
          }
          node = node->next;
       }
@@ -180,7 +224,7 @@ void doTopOfFile( errp_common * commonArgs,
    fprintf( commonArgs->fpMsgH, " */\n\n%s\n\n", g_barrier );
    
    startHeaderGuard( (char*)commonArgs->headerName, commonArgs->fpHeader );
-   startHeaderGuard( commonArgs->outputNameGuard, commonArgs->fpMsgH );
+   startHeaderGuard( (char*)commonArgs->outputNameH, commonArgs->fpMsgH );
    writeTopC( commonArgs );
 }
 
@@ -191,8 +235,6 @@ void navigate( errp_common * commonArgs,
 {
    xmlNode * node = NULL, * group = NULL;
    xmlChar * version;
-   xmlChar * enumName = NULL;
-   int i;
    
    version = root->properties->children->content;
    
@@ -202,7 +244,7 @@ void navigate( errp_common * commonArgs,
    while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
 
    /* Copyrigth information is optional */
-   if ( xmlStrcmp( node->name, BAD_CAST "copyright") == 0 ) {
+   if ( xmlStrcmp( node->name, BAD_CAST "copyright_group") == 0 ) {
       doTopOfFile( commonArgs, version, node );
       node = node->next;
    }
@@ -214,27 +256,8 @@ void navigate( errp_common * commonArgs,
     * enum information is only present if the target is an enum. If not
     * present, we use "#define" instead.
     */
-   while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
-
-   commonArgs->writingEnum = 0;
-   if ( xmlStrcmp( node->name, BAD_CAST "enumname" ) == 0 ) {
-      commonArgs->writingEnum = 1;
-      enumName = stripText( node->children->content );
-      fprintf( commonArgs->fpHeader, "enum %s\n{\n", enumName );
-      node = node->next;
-   }
-
-   while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
-   /* The allocated memory for the prefix is free at the end of main() */
-   commonArgs->prefix = stripText( node->children->content );
-   if ( isAsciiStr(commonArgs->prefix) ) {
-      for ( i = 0; i < xmlStrlen(commonArgs->prefix); ++i ) {
-         commonArgs->prefix[i] = toupper(commonArgs->prefix[i]);
-      }
-   }
-   else {
-      fprintf( stderr, "Error: the given prefix value is not in ASCII!\n" );
-      exit( 1 );
+   if ( commonArgs->writingEnum == 1 ) {
+      fprintf( commonArgs->fpHeader, "enum %s\n{\n", commonArgs->enumname );
    }
    
    /*
@@ -252,16 +275,17 @@ void navigate( errp_common * commonArgs,
    }
    addGroup( commonArgs, group, 1 );
 
-   if ( enumName ) {
+   if ( commonArgs->writingEnum == 1 ) {
       fprintf( commonArgs->fpHeader, "};\n\n" );
-      fprintf( commonArgs->fpHeader, "typedef %s %s;\n\n", enumName, enumName );
-      free( enumName );
+      fprintf( commonArgs->fpHeader, "typedef %s %s;\n\n", 
+         commonArgs->enumname, commonArgs->enumname );
    }
 
    writeMsgHeader( commonArgs );
-   
+   writeErrorMessage( commonArgs );
+
    stopHeaderGuard( (char*)commonArgs->headerName, commonArgs->fpHeader );
-   stopHeaderGuard( commonArgs->outputNameGuard, commonArgs->fpMsgH );
+   stopHeaderGuard( (char*)commonArgs->outputNameH, commonArgs->fpMsgH );
 }
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */

@@ -70,8 +70,15 @@ void addMessages( errp_common * commonArgs,
       fprintf( commonArgs->fpHeader, "/**\n * %s\n", errMessage );
    }
    
-   if ( hasUnescapedChars(errMessage) ) {
-      xmlChar * tmp = escapeUnescapedChars( errMessage );
+   /* Check for escape sequences */
+   hasEscapeSequence( commonArgs, errMessage );
+
+   if ( hasUnescapedQuotes(errMessage) ) {
+      if ( commonArgs->allowQuotes == 0 ) {
+         fprintf( stderr, "Quotes are not allowed, string: %s\n", errMessage );
+         exit(1);
+      }
+      xmlChar * tmp = escapeUnescapedQuotes( errMessage );
       fprintf( commonArgs->fpMsgC, "\"%s\" };\n\n", tmp );
       free( tmp );
    }
@@ -159,7 +166,7 @@ void addGroup( errp_common * commonArgs,
    /* Go to the first element */
    while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
 
-   /* Copyrigth information is optional */
+   /* groupident information is optional */
    if ( xmlStrcmp( node->name, BAD_CAST "groupident") == 0 ) {
       tmp = stripText( node->children->content );
       if ( commonArgs->writingEnum ) {

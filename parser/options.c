@@ -43,7 +43,9 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
    xmlParserCtxtPtr context = NULL;  /* The parser context */
    xmlNode * root = NULL, * node;
    xmlDoc  * doc;
-
+   int i;
+   xmlChar * prop;
+   
    if ( argc == 2 ) {
       if ( strcmp("--help",argv[1]) == 0 || strcmp("-h",argv[1]) == 0 ||
            strcmp("-?",argv[1]) == 0 ) {
@@ -170,6 +172,15 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
       if ( node->type == XML_ELEMENT_NODE ) {
          if ( xmlStrcmp( node->name, BAD_CAST "prefix_error") == 0 ) {
             commonArgs->prefix = stripText( node->children->content );
+            if ( isAsciiStr(commonArgs->prefix) ) {
+               for ( i = 0; i < xmlStrlen(commonArgs->prefix); ++i ) {
+                  commonArgs->prefix[i] = toupper(commonArgs->prefix[i]);
+               }
+            }
+            else {
+               fprintf( stderr, "Error: <prefix_error> must be in ASCII\n" );
+               return -1;
+            }
             node = node->next;
             break;
          }
@@ -197,9 +208,33 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
    while ( node != NULL ) {
       if ( node->type == XML_ELEMENT_NODE ) {
          if ( xmlStrcmp( node->name, BAD_CAST "err_msg") == 0 ) {
-//            commonArgs->varPrefix = stripText( node->children->content );
-//            node = node->next;
-fprintf( stderr, "%s\n", xmlGetProp( node, "allow_escapes" ) );
+            prop = xmlGetProp( node, BAD_CAST "allow_escapes" );
+            if ( prop == NULL ) {
+               fprintf( stderr, "Error: missing \"allow_escapes\" in options file\n" );
+               return -1;
+            }
+            commonArgs->allowEscapes = 0;
+            if ( xmlStrcmp( prop, BAD_CAST "yes") == 0 ) {
+               commonArgs->allowEscapes = 1;
+            }
+
+            prop = xmlGetProp( node, BAD_CAST "allow_quotes" );
+            if ( prop == NULL ) {
+               fprintf( stderr, "Error: missing \"allow_quotes\" in options file\n" );
+               return -1;
+            }
+            commonArgs->allowQuotes = 0;
+            if ( xmlStrcmp( prop, BAD_CAST "yes") == 0 ) {
+               commonArgs->allowQuotes = 1;
+            }
+            
+            prop = xmlGetProp( node, BAD_CAST "percent" );
+            if ( prop == NULL ) {
+               fprintf( stderr, "Error: missing \"percent\" in options file\n" );
+               return -1;
+            }
+            commonArgs->percent = prop;
+
             break;
          }
          fprintf( stderr, "Error: missing <err_msg> in options file\n" );
@@ -207,12 +242,6 @@ fprintf( stderr, "%s\n", xmlGetProp( node, "allow_escapes" ) );
       }
       node = node->next;
    }
-
-
-//   version = node->properties->children->content;
-//xmlGetProp
-//xmlChar *	xmlGetProp		(xmlNodePtr node, 
-//					 const xmlChar * name)
 
    xmlFreeDoc( doc );
    xmlFreeParserCtxt( context );

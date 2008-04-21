@@ -19,9 +19,7 @@ CLEANFILES = *~
 #m4datadir = $(datadir)/aclocal
 
 # List your m4 macros here
-m4macros =                  \
-   ac_cxx_bool.m4           \
-   ac_func_mkdir.m4         
+m4macros = 
 
 # The following is boilerplate
 #m4data_DATA = $(m4macros) 

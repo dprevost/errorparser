@@ -27,6 +27,7 @@ EXTRA_DIST =                     \
 
 errorParser_SOURCES = \
         group.c   \
+        message.c \
         options.c \
         parser.c  \
         parser.h  \
