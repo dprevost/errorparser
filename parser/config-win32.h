@@ -33,7 +33,7 @@
 /* #define HAVE_DECL_STRERROR_R 1 */
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
-#define HAVE_DLFCN_H 1
+/* #define HAVE_DLFCN_H 1 */
 
 /* Define to 1 if you have the <inttypes.h> header file. */
 /* #define HAVE_INTTYPES_H 1 */
@@ -43,9 +43,6 @@
 
 /* Define to 1 if you have the <memory.h> header file. */
 #define HAVE_MEMORY_H 1
-
-/* Define to 1 if you have the `mkdir' function. */
-/* #define HAVE_MKDIR 1 */
 
 /* Define to 1 if you have the <stdint.h> header file. */
 /* #define HAVE_STDINT_H 1 */
@@ -68,20 +65,11 @@
 /* Define to 1 if you have the <sys/stat.h> header file. */
 #define HAVE_SYS_STAT_H 1
 
-/* Define to 1 if you have the <sys/time.h> header file. */
-/* #define HAVE_SYS_TIME_H 1 */
-
 /* Define to 1 if you have the <sys/types.h> header file. */
 #define HAVE_SYS_TYPES_H 1
 
 /* Define to 1 if you have the <unistd.h> header file. */
 /* #define HAVE_UNISTD_H 1 */
-
-/* Define to 1 if you have the `_mkdir' function. */
-/* #undef HAVE__MKDIR */
-
-/* Define if mkdir takes only one argument. */
-/* #undef MKDIR_TAKES_ONE_ARG */
 
 /* Name of package */
 #define PACKAGE "errorParser"
@@ -90,16 +78,16 @@
 #define PACKAGE_BUGREPORT "Daniel Prevost <dprevost@users.sourceforge.net>"
 
 /* Define to the full name of this package. */
-#define PACKAGE_NAME "Error Parser and Generator"
+#define PACKAGE_NAME "Error Parser"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "Error Parser and Generator 0.1.0"
+#define PACKAGE_STRING "Error Parser 0.2.0"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "errorParser"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "0.1.0"
+#define PACKAGE_VERSION "0.2.0"
 
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
@@ -107,11 +95,8 @@
 /* Define to 1 if strerror_r returns char *. */
 /* #undef STRERROR_R_CHAR_P */
 
-/* Define to 1 if you can safely include both <sys/time.h> and <time.h>. */
-/* #define TIME_WITH_SYS_TIME 1 */
-
 /* Version number of package */
-#define VERSION "0.1.0"
+#define VERSION "0.2.0"
 
 /* Define to 1 if on AIX 3.
    System headers sometimes define this.

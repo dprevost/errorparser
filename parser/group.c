@@ -56,7 +56,7 @@ void addMessages( errp_common * commonArgs,
                   xmlNode     * messages )
 {
    xmlNode * node = NULL;
-   xmlChar * errMessage;
+   xmlChar * errMessage, * tmp;
    
    node = messages->children;
    
@@ -78,7 +78,7 @@ void addMessages( errp_common * commonArgs,
          fprintf( stderr, "Quotes are not allowed, string: %s\n", errMessage );
          exit(1);
       }
-      xmlChar * tmp = escapeUnescapedQuotes( errMessage );
+      tmp = escapeUnescapedQuotes( errMessage );
       fprintf( commonArgs->fpMsgC, "\"%s\" };\n\n", tmp );
       free( tmp );
    }

@@ -91,12 +91,28 @@ SOURCE=..\group.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\message.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\options.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\parser.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\text.c
 # End Source File
 # End Group
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE="..\config-win32.h"
+# End Source File
 # Begin Source File
 
 SOURCE=..\parser.h
