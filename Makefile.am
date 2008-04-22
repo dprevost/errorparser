@@ -15,20 +15,20 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST =                 \
-        configure            \
-        Config/config.guess  \
-        Config/config.sub    \
-        Config/install-sh    \
-        Config/ltmain.sh     \
-        Config/missing       \
-        Config/mkinstalldirs \
-        COPYING              \
-        Makefile.win32       \
-        README               \
-        DTD/errorParser.dtd  \
-        DTD/example_vdsf.xml \
-        DTD/catalog.xml      
+EXTRA_DIST =                  \
+        configure             \
+        Config/config.guess   \
+        Config/config.sub     \
+        Config/install-sh     \
+        Config/ltmain.sh      \
+        Config/missing        \
+        Config/mkinstalldirs  \
+        COPYING               \
+        Makefile.win32        \
+        README                \
+        DTD/errorParser11.dtd \
+        DTD/example_vdsf.xml  \
+        DTD/catalog11.xml     
 
 # The 'doc' subdir must be placed after 'src' since some of the 
 # documentation and man pages are generated automatically when
@@ -43,19 +43,28 @@ ACLOCAL_AMFLAGS = -I m4
 
 install-data-local:
 	-mkdir -p $(DESTDIR)$(datadir)/doc/errorParser
-	-mkdir -p $(DESTDIR)$(datadir)/doc/errorParser/DTD
+	-mkdir -p $(DESTDIR)$(datadir)/doc/errorParser/examples
+	-mkdir -p $(DESTDIR)$(datadir)/xml/errorParser/
 	$(install_sh_DATA) $(top_srcdir)/README  $(DESTDIR)$(datadir)/doc/errorParser/README
-	$(install_sh_DATA) $(top_srcdir)/DTD/errorParser.dtd  $(DESTDIR)$(datadir)/doc/errorParser/DTD/errorParser.dtd
-	$(install_sh_DATA) $(top_srcdir)/DTD/example_vdsf.xml $(DESTDIR)$(datadir)/doc/errorParser/DTD/example_vdsf.xml
-#	xmlcatalog --noout --add delegatePublic "-//Error Parser project//DTD Error Parser XML V1.0" catalog.xml
-#	xmlcatalog --noout --add delegateSystem "http://errorparser.sourceforge.net/xml/1.0/" catalog.xml catalog
+	$(install_sh_DATA) $(top_srcdir)/DTD/example_vdsf.xml $(DESTDIR)$(datadir)/doc/errorParser/examples/example_vdsf.xml
+	$(install_sh_DATA) $(top_srcdir)/DTD/errorParser11.dtd $(DESTDIR)$(datadir)/xml/errorParser/errorParser11.dtd
+	$(install_sh_DATA) $(top_srcdir)/DTD/catalog11.xml $(DESTDIR)$(datadir)/xml/errorParser/catalog11.xml
+if COND_USE_XMLCATALOG
+	xmlcatalog --noout --add delegatePublic "-//Error Parser project//DTD Error Parser XML V1.1" $(DESTDIR)$(datadir)/xml/errorParser/catalog11.xml /etc/xml/catalog
+	xmlcatalog --noout --add delegateSystem "http://errorparser.sourceforge.net/xml/1.1/" $(DESTDIR)$(datadir)/xml/errorParser/catalog11.xml /etc/xml/catalog
+endif
 
 uninstall-local:
-	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/DTD/example_vdsf.xml
-	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/DTD/errorParser.dtd
+if COND_USE_XMLCATALOG
+	xmlcatalog --noout --del "-//Error Parser project//DTD Error Parser XML V1.1" 
+	xmlcatalog --noout --del "http://errorparser.sourceforge.net/xml/1.1/" 
+endif
+	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/examples/example_vdsf.xml
 	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/README
 	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/COPYING
-	-rmdir $(DESTDIR)$(datadir)/doc/errorParser/DTD
+	-rm -f $(DESTDIR)$(datadir)/xml/errorParser/errorParser11.dtd
+	-rm -f $(DESTDIR)$(datadir)/xml/errorParser/catalog11.xml
+	-rmdir $(DESTDIR)$(datadir)/xml/errorParser
+	-rmdir $(DESTDIR)$(datadir)/doc/errorParser/examples
 	-rmdir $(DESTDIR)$(datadir)/doc/errorParser
-	-rmdir $(DESTDIR)$(datadir)/doc
 

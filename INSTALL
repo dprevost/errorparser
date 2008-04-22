@@ -28,18 +28,15 @@ Some notes specific to Error Parser:
    the DTD on the local machine and to set the catalog to access
    the local file instead of the network version.
 
-   There is a sample catalog.xml in the DTD directory but... this is very
-   preliminary. The installation will be automated in future versions (this
-   is a pre-alpha release after all).
+   Unix: edit the "install_catalog.sh" and run it as root to add the Error 
+   Parser catalog to your main catalog.
    
-   The commands to do this should look similar to this:
-      xmlcatalog --noout --add delegatePublic "-//Error Parser project//DTD Error Parser XML V1.0" $your_dir/catalog.xml $your_main_catalog
-      xmlcatalog --noout --add delegateSystem "http://errorparser.sourceforge.net/xml/1.0/" $you_dir/catalog.xml $your_main_catalog
+   To do it manually, the commands to do this should look similar to this:
+      xmlcatalog --noout --add delegatePublic "-//Error Parser project//DTD Error Parser XML V1.1" /usr/share/xml/errorParser/catalog11.xml /etc/xml/catalog
+      xmlcatalog --noout --add delegateSystem "http://errorparser.sourceforge.net/xml/1.1/" /usr/share/xml/errorParser/catalog11.xml /etc/xml/catalog
 
-   For Unix/Linux:
-     $your_main_catalog will usually be /etc/xml/catalog
-     $your_dir is where both the DTD and the catalog.xml will be installed.
-     
+   Something similar should work on Windows.
+
 ************************************************************************
 *
 * Generic instructions written by the FSF to build the software (or any

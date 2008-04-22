@@ -59,9 +59,9 @@ run_test()
    test_name=$1
 
    if [ $verbose = 1 ] ; then
-      $parser --options options/$test_name.xml
+      $parser --options $test_dir/options/$test_name.xml $test_dir/xml/$test_name.xml
    else
-      $parser --options options/$test_name >/dev/null 2>&1
+      $parser --options $test_dir/options/$test_name $test_dir/xml/$test_name.xml >/dev/null 2>&1
    fi
    if [ "$?" != 0 ] ; then
       echo "FAIL (errorParser): $test_name "
@@ -105,9 +105,9 @@ run_bad_test()
    test_name=$1
 
    if [ $verbose = 1 ] ; then
-      $parser --options options/$test_name.xml
+      $parser --options options/$test_name.xml $test_dir/xml/$test_name.xml
    else
-      $parser --options options/$test_name >/dev/null 2>&1
+      $parser --options options/$test_name.xml $test_dir/xml/$test_name.xml >/dev/null 2>&1
    fi
    if [ "$?" == 0 ] ; then
       echo "Bad Test failed (errorParser): $test_name "

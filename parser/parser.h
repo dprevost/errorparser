@@ -88,7 +88,7 @@
  * functions...
  */
 struct errp_common {
-   xmlChar * xmlFileName;
+   char    * xmlFileName;
    xmlDoc  * document;
    FILE    * fpHeader;
    FILE    * fpMsgC;

@@ -44,6 +44,9 @@ AM_CONDITIONAL([COND_USE_DOCBOOK2MAN], [test "$DOCBOOK2MAN_IS_PRESENT" = yes])
 AC_CHECK_PROG([DOCBOOK2TEXI_IS_PRESENT], [docbook2x-texi], [yes], [no])
 AM_CONDITIONAL([COND_USE_DOCBOOK2TEXI], [test "$DOCBOOK2TEXI_IS_PRESENT" = yes])
 
+AC_CHECK_PROG([XMLCATALOG_IS_PRESENT], [xmlcatalog], [yes], [no])
+AM_CONDITIONAL([COND_USE_XMLCATALOG], [test "$XMLCATALOG_IS_PRESENT" = yes])
+
 ##################################
 #                                #
 # SECTION - checks for libraries #

@@ -19,21 +19,14 @@
 
 void usage( char * progName ) 
 {
-   fprintf( stderr, "Usage:\n\n %s %s %s %s %s\n",
+   fprintf( stderr, "Usage:\n\n %s %s\n",
       progName,
-      "-e|--error error_header_file",
-      "-o|--output prefix_for_output_c_file",
-      "-v|--varprefix prefix_for_variable",
-      "input_xml_file" );
+      "-o|--options options_xml_file  input_xml_file" );
    fprintf( stderr, " or\n" );
    fprintf( stderr, "%s -h|-?|--help\n\n", progName );
    fprintf( stderr, "Options:\n\n" );
-   fprintf( stderr, "  -e,--error     the name of the header file that the program will create.\n" );
-   fprintf( stderr, "  -o,--output    the prefix for the name of the header and C files that the \n" );
-   fprintf( stderr, "                 program will generate to retrieve the error messages.\n" );
-   fprintf( stderr, "  -v,--varprefix the prefix for the names of the variables to be used in the \n" );
-   fprintf( stderr, "                 header and C files (used to retrieve the error messages.\n\n" );
-
+   fprintf( stderr, "  -o,--options   the name of the xml file defining the options that will be\n" );
+   fprintf( stderr, "                 used to generate the code.\n" );
 }
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
@@ -53,7 +46,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
          return 1;
       }
    }
-   if (argc != 3) {
+   if (argc != 4) {
       usage( argv[0] );
       return -1;
    }
@@ -62,7 +55,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
       usage( argv[0] );
       return -1;
    }
-//   commonArgs->xmlFileName = argv[argc-1];
+   commonArgs->xmlFileName = argv[argc-1];
 
    context = xmlNewParserCtxt();
    if ( context == NULL ) {
@@ -87,29 +80,13 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
    root = xmlDocGetRootElement( doc );
 
    node = root->children;
-   
-   /*
-    * Get the xml filename.
-    *
-    * Note: from this point on we must check for NULL nodes because the
-    * DTD is not an external document.
-    */
-   while ( node != NULL ) {
-      if ( node->type == XML_ELEMENT_NODE ) {
-         if ( xmlStrcmp( node->name, BAD_CAST "xmlname") == 0 ) {
-            commonArgs->xmlFileName = stripText( node->children->content ); 
-            node = node->next;
-            break;
-         }
-         fprintf( stderr, "Error: missing <xmlname> in options file\n" );
-         return -1;
-      }
-      node = node->next;
-   }
 
    /* 
     * enum information is only present if the target is an enum. If not
     * present, we use "#define" instead.
+    *
+    * Note: from this point on we must check for NULL nodes because the
+    * DTD is not an external document.
     */
    commonArgs->writingEnum = 0;
    while ( node != NULL ) {
