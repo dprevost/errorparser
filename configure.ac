@@ -104,7 +104,6 @@ AC_CHECK_FUNCS(ctime)
 
 AC_CONFIG_FILES([
    Makefile
-   m4/Makefile
    parser/Makefile
    tests/Makefile
 ])
