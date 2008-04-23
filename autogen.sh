@@ -15,30 +15,6 @@
 #                                                                           #
 #############################################################################
 
-# Test our version of automake - we need at least 1.5 for nobase_ 
-# although the code was always tested with 1.7 or greater. 
- 
-echo "Testing the version of automake."
-
-am_version=`automake --version | head -1 | awk '{print $4}'`
-am_major=`echo $am_version | awk -F . '{print $1}'`
-am_minor=`echo $am_version | awk -F . '{print $2}'`
-
-# The next one is needed because the format changed from somethink like 1.4-p6 
-# to something like 1.7.8. 
-am_minor=`echo $am_minor | awk -F - '{print $1}'`
-
-#
-if [ $am_major -lt 1 ] || [ $am_major -eq 1 -a $am_minor -lt 5 ] 
-then
-   echo "Error: automake 1.5 or later is required (your version is $am_version)."
-   exit 1
-fi
-
-echo "Automake version: $am_version - all is ok"
-
-##########################################################################
-
 ## Some cleanup, just in case (probably overkill...).
 
 echo "-----------------------------------------------"
@@ -80,6 +56,4 @@ echo "- automake"
 automake
 echo "- ./configure"
 ./configure
-#echo "- make distcheck"
-#make distcheck
 exit

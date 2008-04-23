@@ -46,20 +46,23 @@ install-data-local:
 	-mkdir -p $(DESTDIR)$(datadir)/doc/errorParser/examples
 	-mkdir -p $(DESTDIR)$(datadir)/xml/errorParser/
 	$(install_sh_DATA) $(top_srcdir)/README  $(DESTDIR)$(datadir)/doc/errorParser/README
-	$(install_sh_DATA) $(top_srcdir)/DTD/example_vdsf.xml $(DESTDIR)$(datadir)/doc/errorParser/examples/example_vdsf.xml
+	$(install_sh_DATA) $(top_srcdir)/examples/example_options.xml $(DESTDIR)$(datadir)/doc/errorParser/examples/example_options.xml
+	$(install_sh_DATA) $(top_srcdir)/examples/example_vdsf.xml $(DESTDIR)$(datadir)/doc/errorParser/examples/example_vdsf.xml
 	$(install_sh_DATA) $(top_srcdir)/DTD/errorParser11.dtd $(DESTDIR)$(datadir)/xml/errorParser/errorParser11.dtd
 	$(install_sh_DATA) $(top_srcdir)/DTD/catalog11.xml $(DESTDIR)$(datadir)/xml/errorParser/catalog11.xml
-if COND_USE_XMLCATALOG
-	xmlcatalog --noout --add delegatePublic "-//Error Parser project//DTD Error Parser XML V1.1" $(DESTDIR)$(datadir)/xml/errorParser/catalog11.xml /etc/xml/catalog
-	xmlcatalog --noout --add delegateSystem "http://errorparser.sourceforge.net/xml/1.1/" $(DESTDIR)$(datadir)/xml/errorParser/catalog11.xml /etc/xml/catalog
-endif
+
+#if COND_USE_XMLCATALOG
+#	xmlcatalog --noout --add delegatePublic "-//Error Parser project//DTD Error Parser XML V1.1" $(DESTDIR)$(datadir)/xml/errorParser/catalog11.xml /etc/xml/catalog
+#	xmlcatalog --noout --add delegateSystem "http://errorparser.sourceforge.net/xml/1.1/" $(DESTDIR)$(datadir)/xml/errorParser/catalog11.xml /etc/xml/catalog
+#endif
 
 uninstall-local:
-if COND_USE_XMLCATALOG
-	xmlcatalog --noout --del "-//Error Parser project//DTD Error Parser XML V1.1" 
-	xmlcatalog --noout --del "http://errorparser.sourceforge.net/xml/1.1/" 
-endif
+#if COND_USE_XMLCATALOG
+#	xmlcatalog --noout --del "-//Error Parser project//DTD Error Parser XML V1.1" 
+#	xmlcatalog --noout --del "http://errorparser.sourceforge.net/xml/1.1/" 
+#endif
 	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/examples/example_vdsf.xml
+	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/examples/example_options.xml
 	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/README
 	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/COPYING
 	-rm -f $(DESTDIR)$(datadir)/xml/errorParser/errorParser11.dtd

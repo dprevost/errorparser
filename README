@@ -1,6 +1,6 @@
-Welcome to errorparser - the error parser and code generator version 0.1.0.
+Welcome to errorparser - the error parser and code generator version 0.2.0.
 
-WARNING: this version is a prototype and not an official release.
+WARNING: this version is an alpha release.
 
 errorparser is distributed under the MIT license (see the file COPYING
 for details).

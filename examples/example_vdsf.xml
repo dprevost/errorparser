@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE errorlist PUBLIC "-//Error Parser project//DTD Error Parser XML V1.0//EN"
-             "http://errorparser.sourceforge.net/xml/1.0/errorParser.dtd"> 
+<!DOCTYPE errorlist PUBLIC "-//Error Parser project//DTD Error Parser XML V1.1//EN"
+             "http://errorparser.sourceforge.net/xml/1.1/errorParser.dtd"> 
 <!-- 
     This example is going to be used for an existing project, VDSF 
     (http://sourceforge.net/projects/vdsf), once Error Parser is able
@@ -11,37 +11,32 @@
 <errorlist version="0.3">
   <!-- Copyright information and any additional info that will appear at 
        the top of the generated files. This is optional. -->
-  <copyright>
-    <years>2006-2008</years>
-    <authors>Daniel Prevost</authors>
-    <!-- Each <notice> is mapped to a paragraph (easier to read) -->
-    <notice>
-      This file is part of the vdsf library (Virtual Data Space Framework).
-    </notice>
-    <!-- The GPL license is of course for VDSF, not for Error Parser... -->
-    <notice>
-      This file may be distributed and/or modified under the terms of the
-      GNU General Public License version 2 as published by the Free Software
-      Foundation and appearing in the file COPYING included in the
-      packaging of this library.
-    </notice>
-    <notice>
-      This library is distributed in the hope that it will be useful,
-      but WITHOUT ANY WARRANTY; without even the implied warranty of
-      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
-    </notice>
-  </copyright>
-  <!-- For vdsf, we want an enum (named vdsErrors). To use #defines instead
-       leave this element (<enumname>) out. -->
-  <enumname>vdsErrors</enumname>
-  <!-- The prefix will be used to label the errors (enums or defines).
-       For example, the error OK would then become 
-       #define VDS_OK 0 (or the enum equivalent) -->
-  <prefix>VDS</prefix>
-  <group>
+  <copyright_group>
+    <copyright>
+      <years>2006-2008</years>
+      <authors>Daniel Prevost</authors>
+      <!-- Each <notice> is mapped to a paragraph (easier to read) -->
+      <notice>
+        This file is part of the vdsf library (Virtual Data Space Framework).
+      </notice>
+      <!-- The GPL license is of course for VDSF, not for Error Parser... -->
+      <notice>
+        This file may be distributed and/or modified under the terms of the
+        GNU General Public License version 2 as published by the Free Software
+        Foundation and appearing in the file COPYING included in the
+        packaging of this library.
+      </notice>
+      <notice>
+        This library is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+      </notice>
+    </copyright>
+  </copyright_group>
+  <errgroup>
     <error>
-      <number> 0 </number>
-      <name> OK </name>
+      <errnumber> 0 </errnumber>
+      <errname> OK </errname>
       <messages>
         <errormsg>
           No error...
@@ -50,8 +45,8 @@
     </error>
 
     <error>
-      <number> 666 </number>
-      <name> INTERNAL_ERROR </name>
+      <errnumber> 666 </errnumber>
+      <errname> INTERNAL_ERROR </errname>
       <messages>
         <errormsg>
           Abnormal internal error - it should not happen!
@@ -60,8 +55,8 @@
     </error>
 
     <error>
-      <number> 1 </number>
-      <name> ENGINE_BUSY </name>
+      <errnumber> 1 </errnumber>
+      <errname> ENGINE_BUSY </errname>
       <messages>
         <errormsg>
           Cannot get a lock on a system object, the engine is "busy".
@@ -77,8 +72,8 @@
     </error>
 
     <error>
-      <number> 2 </number>
-      <name> NOT_ENOUGH_VDS_MEMORY </name>
+      <errnumber> 2 </errnumber>
+      <errname> NOT_ENOUGH_VDS_MEMORY </errname>
       <messages>
         <errormsg>
           Not enough memory in the VDS. 
@@ -87,8 +82,8 @@
     </error>
  
     <error>
-      <number> 3 </number>
-      <name> NOT_ENOUGH_HEAP_MEMORY </name>
+      <errnumber> 3 </errnumber>
+      <errname> NOT_ENOUGH_HEAP_MEMORY </errname>
       <messages>
         <errormsg>
           Not enough heap memory (non-VDS memory). 
@@ -97,8 +92,8 @@
     </error>
 
     <error>
-      <number> 4 </number>
-      <name> NOT_ENOUGH_RESOURCES </name>
+      <errnumber> 4 </errnumber>
+      <errname> NOT_ENOUGH_RESOURCES </errname>
       <messages>
         <errormsg>
           There are not enough resources to correctly process the call.
@@ -115,8 +110,8 @@
     </error>
 
     <error>
-      <number> 5 </number>
-      <name> WRONG_TYPE_HANDLE </name>
+      <errnumber> 5 </errnumber>
+      <errname> WRONG_TYPE_HANDLE </errname>
       <messages>
         <errormsg>
           The provided handle is of the wrong type.
@@ -125,8 +120,8 @@
     </error>
    
     <error>
-      <number> 6 </number>
-      <name> NULL_HANDLE </name>
+      <errnumber> 6 </errnumber>
+      <errname> NULL_HANDLE </errname>
       <messages>
         <errormsg>
           The provided handle is NULL (zero).
@@ -135,8 +130,8 @@
     </error>
 
     <error>
-      <number> 7 </number>
-      <name> NULL_POINTER </name>
+      <errnumber> 7 </errnumber>
+      <errname> NULL_POINTER </errname>
       <messages>
         <errormsg>
           One of the arguments of an API function is an invalid NULL pointer.
@@ -145,8 +140,8 @@
     </error>
 
     <error>
-      <number> 8 </number>
-      <name> INVALID_LENGTH </name>
+      <errnumber> 8 </errnumber>
+      <errname> INVALID_LENGTH </errname>
       <messages>
         <errormsg>
           An invalid length was provided.
@@ -161,8 +156,8 @@
     </error>
    
     <error>
-      <number> 21 </number>
-      <name> PROCESS_ALREADY_INITIALIZED </name>
+      <errnumber> 21 </errnumber>
+      <errname> PROCESS_ALREADY_INITIALIZED </errname>
       <messages>
         <errormsg>
           The process was already initialized.
@@ -176,8 +171,8 @@
     </error>
 
     <error>
-      <number> 22 </number>
-      <name> PROCESS_NOT_INITIALIZED </name>
+      <errnumber> 22 </errnumber>
+      <errname> PROCESS_NOT_INITIALIZED </errname>
       <messages>
         <errormsg>
           The process was not properly initialized.
@@ -191,8 +186,8 @@
     </error>
 
     <error>
-      <number> 23 </number>
-      <name> INVALID_WATCHDOG_ADDRESS </name>
+      <errnumber> 23 </errnumber>
+      <errname> INVALID_WATCHDOG_ADDRESS </errname>
       <messages>
         <errormsg>
           The watchdog address is invalid (empty string, NULL pointer, etc.)
@@ -201,8 +196,8 @@
     </error>
 
     <error>
-      <number> 24 </number>
-      <name> INCOMPATIBLE_VERSIONS </name>
+      <errnumber> 24 </errnumber>
+      <errname> INCOMPATIBLE_VERSIONS </errname>
       <messages>
         <errormsg>
           API - memory-file version mismatch.
@@ -211,8 +206,8 @@
     </error>
 
     <error>
-      <number> 25 </number>
-      <name> SOCKET_ERROR </name>
+      <errnumber> 25 </errnumber>
+      <errname> SOCKET_ERROR </errname>
       <messages>
         <errormsg>
           Generic socket error.
@@ -221,8 +216,8 @@
     </error>
    
     <error>
-      <number> 26 </number>
-      <name> CONNECT_ERROR </name>
+      <errnumber> 26 </errnumber>
+      <errname> CONNECT_ERROR </errname>
       <messages>
         <errormsg>
           Socket error when trying to connect to the watchdog.
@@ -231,8 +226,8 @@
     </error>
 
     <error>
-      <number> 27 </number>
-      <name> SEND_ERROR </name>
+      <errnumber> 27 </errnumber>
+      <errname> SEND_ERROR </errname>
       <messages>
         <errormsg>
           Socket error when trying to send a request to the watchdog.
@@ -241,8 +236,8 @@
     </error>
    
     <error>
-      <number> 28 </number>
-      <name> RECEIVE_ERROR </name>
+      <errnumber> 28 </errnumber>
+      <errname> RECEIVE_ERROR </errname>
       <messages>
         <errormsg>
           Socket error when trying to receive a reply from the watchdog.   
@@ -251,8 +246,8 @@
     </error>
 
     <error>
-      <number> 29 </number>
-      <name> BACKSTORE_FILE_MISSING </name>
+      <errnumber> 29 </errnumber>
+      <errname> BACKSTORE_FILE_MISSING </errname>
       <messages>
         <errormsg>
           The vds backstore file is missing (the name of this file is 
@@ -262,8 +257,8 @@
     </error>
    
     <error>
-      <number> 30 </number>
-      <name> ERROR_OPENING_VDS </name>
+      <errnumber> 30 </errnumber>
+      <errname> ERROR_OPENING_VDS </errname>
       <messages>
         <errormsg>
           Generic i/o error when attempting to open the vds.
@@ -272,8 +267,8 @@
     </error>
 
     <error>
-      <number> 41 </number>
-      <name> LOGFILE_ERROR </name>
+      <errnumber> 41 </errnumber>
+      <errname> LOGFILE_ERROR </errname>
       <messages>
         <errormsg>
           Error accessing the directory for the log files or error opening the 
@@ -283,8 +278,8 @@
     </error>
 
     <error>
-      <number> 42 </number>
-      <name> SESSION_CANNOT_GET_LOCK </name>
+      <errnumber> 42 </errnumber>
+      <errname> SESSION_CANNOT_GET_LOCK </errname>
       <messages>
         <errormsg>
           Cannot get a lock on the session (a pthread_mutex or a critical 
@@ -294,8 +289,8 @@
     </error>
    
     <error>
-      <number> 43 </number>
-      <name> SESSION_IS_TERMINATED </name>
+      <errnumber> 43 </errnumber>
+      <errname> SESSION_IS_TERMINATED </errname>
       <messages>
         <errormsg>
           An attempt was made to use a session object (a session handle)
@@ -305,8 +300,8 @@
     </error>
    
     <error>
-      <number> 51 </number>
-      <name> INVALID_OBJECT_NAME </name>
+      <errnumber> 51 </errnumber>
+      <errname> INVALID_OBJECT_NAME </errname>
       <messages>
         <errormsg>
           Permitted characters for names are alphanumerics, spaces (' '), 
@@ -317,8 +312,8 @@
     </error>
 
     <error>
-      <number> 52 </number>
-      <name> NO_SUCH_OBJECT </name>
+      <errnumber> 52 </errnumber>
+      <errname> NO_SUCH_OBJECT </errname>
       <messages>
         <errormsg>
           The object was not found (but its folder does exist).
@@ -327,8 +322,8 @@
     </error>
 
     <error>
-      <number> 53 </number>
-      <name> NO_SUCH_FOLDER </name>
+      <errnumber> 53 </errnumber>
+      <errname> NO_SUCH_FOLDER </errname>
       <messages>
         <errormsg>
           One of the parent folder of an object does not exist.
@@ -337,8 +332,8 @@
     </error>
 
     <error>
-      <number> 54 </number>
-      <name> OBJECT_ALREADY_PRESENT </name>
+      <errnumber> 54 </errnumber>
+      <errname> OBJECT_ALREADY_PRESENT </errname>
       <messages>
         <errormsg>
           Attempt to create an object which already exists.
@@ -347,8 +342,8 @@
     </error>
    
     <error>
-      <number> 55 </number>
-      <name> IS_EMPTY </name>
+      <errnumber> 55 </errnumber>
+      <errname> IS_EMPTY </errname>
       <messages>
         <errormsg>
           The object (data container) is empty.
@@ -357,8 +352,8 @@
     </error>
 
     <error>
-      <number> 56 </number>
-      <name> WRONG_OBJECT_TYPE </name>
+      <errnumber> 56 </errnumber>
+      <errname> WRONG_OBJECT_TYPE </errname>
       <messages>
         <errormsg>
           Attempt to create an object of an unknown object type or to open
@@ -368,8 +363,8 @@
     </error>
 
     <error>
-      <number> 57 </number>
-      <name> OBJECT_CANNOT_GET_LOCK </name>
+      <errnumber> 57 </errnumber>
+      <errname> OBJECT_CANNOT_GET_LOCK </errname>
       <messages>
         <errormsg>
           Cannot get lock on the object.
@@ -381,8 +376,8 @@
     </error>
 
     <error>
-      <number> 58 </number>
-      <name> REACHED_THE_END </name>
+      <errnumber> 58 </errnumber>
+      <errname> REACHED_THE_END </errname>
       <messages>
         <errormsg>
           The search/iteration reached the end without finding a new 
@@ -392,8 +387,8 @@
     </error>
 
     <error>
-      <number> 59 </number>
-      <name> INVALID_ITERATOR </name>
+      <errnumber> 59 </errnumber>
+      <errname> INVALID_ITERATOR </errname>
       <messages>
         <errormsg>
           An invalid value was used for a vdsIteratorType parameter.
@@ -402,8 +397,8 @@
     </error>
 
     <error>
-      <number> 60 </number>
-      <name> OBJECT_NAME_TOO_LONG </name>
+      <errnumber> 60 </errnumber>
+      <errname> OBJECT_NAME_TOO_LONG </errname>
       <messages>
         <errormsg>
           The name of the object is too long.
@@ -414,8 +409,8 @@
     </error>
    
     <error>
-      <number> 61 </number>
-      <name> FOLDER_IS_NOT_EMPTY </name>
+      <errnumber> 61 </errnumber>
+      <errname> FOLDER_IS_NOT_EMPTY </errname>
       <messages>
         <errormsg>
           You cannot delete a folder if there are still undeleted objects in
@@ -429,8 +424,8 @@
     </error>
    
     <error>
-      <number> 62 </number>
-      <name> ITEM_ALREADY_PRESENT </name>
+      <errnumber> 62 </errnumber>
+      <errname> ITEM_ALREADY_PRESENT </errname>
       <messages>
         <errormsg>
           An item with the same key was found.
@@ -439,8 +434,8 @@
     </error>
    
     <error>
-      <number> 63 </number>
-      <name> NO_SUCH_ITEM </name>
+      <errnumber> 63 </errnumber>
+      <errname> NO_SUCH_ITEM </errname>
       <messages>
         <errormsg>
           The item was not found in the hash map
@@ -449,8 +444,8 @@
     </error>
    
     <error>
-      <number> 64 </number>    
-      <name> OBJECT_IS_DELETED </name>
+      <errnumber> 64 </errnumber>    
+      <errname> OBJECT_IS_DELETED </errname>
       <messages>
         <errormsg>
           The object is scheduled to be deleted soon. Operations on this data
@@ -460,8 +455,8 @@
     </error>
 
     <error>
-      <number> 65 </number>
-      <name> OBJECT_NOT_INITIALIZED </name>
+      <errnumber> 65 </errnumber>
+      <errname> OBJECT_NOT_INITIALIZED </errname>
       <messages>
         <errormsg>
           Object must be open first before you can access them.
@@ -470,8 +465,8 @@
     </error>
 
     <error>
-      <number> 66 </number>
-      <name> ITEM_IS_IN_USE </name>
+      <errnumber> 66 </errnumber>
+      <errname> ITEM_IS_IN_USE </errname>
       <messages>
         <errormsg>
           The data item is scheduled to be deleted soon or was just created and
@@ -482,8 +477,8 @@
     </error>
    
     <error>
-      <number> 67 </number>
-      <name> ITEM_IS_DELETED </name>
+      <errnumber> 67 </errnumber>
+      <errname> ITEM_IS_DELETED </errname>
       <messages>
         <errormsg>
           The data item is scheduled to be deleted soon. Operations on this data
@@ -493,8 +488,8 @@
     </error>
 
     <error>
-      <number> 68 </number>
-      <name> I18N_CONVERSION_ERROR </name>
+      <errnumber> 68 </errnumber>
+      <errname> I18N_CONVERSION_ERROR </errname>
       <messages>
         <errormsg>
           i18n string conversion error. In other words, the name of the object cannot be
@@ -504,8 +499,8 @@
     </error>
 
     <error>
-      <number> 69 </number>
-      <name> OBJECT_IS_IN_USE </name>
+      <errnumber> 69 </errnumber>
+      <errname> OBJECT_IS_IN_USE </errname>
       <messages>
         <errormsg>
           The object is scheduled to be deleted soon or was just created and
@@ -514,7 +509,7 @@
         </errormsg>
       </messages>
     </error>
-  </group>
+  </errgroup>
     
 </errorlist>
 

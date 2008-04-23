@@ -38,14 +38,11 @@ AC_MINIX
 AC_PROG_LIBTOOL
 
 # Tell our makefiles if we can use docbook2x to regenerate some 
-# of the documentation, as needed.
+# of the documentation, as needed (not used yet).
 AC_CHECK_PROG([DOCBOOK2MAN_IS_PRESENT], [docbook2x-man], [yes], [no])
 AM_CONDITIONAL([COND_USE_DOCBOOK2MAN], [test "$DOCBOOK2MAN_IS_PRESENT" = yes])
 AC_CHECK_PROG([DOCBOOK2TEXI_IS_PRESENT], [docbook2x-texi], [yes], [no])
 AM_CONDITIONAL([COND_USE_DOCBOOK2TEXI], [test "$DOCBOOK2TEXI_IS_PRESENT" = yes])
-
-AC_CHECK_PROG([XMLCATALOG_IS_PRESENT], [xmlcatalog], [yes], [no])
-AM_CONDITIONAL([COND_USE_XMLCATALOG], [test "$XMLCATALOG_IS_PRESENT" = yes])
 
 ##################################
 #                                #
@@ -97,10 +94,7 @@ AC_C_INLINE
 #                                #
 ##################################
 
-AC_CHECK_FUNCS(memcpy ctime)
-
-AC_CHECK_FUNCS(strcpy)
-AC_FUNC_STRERROR_R
+AC_CHECK_FUNCS(ctime)
 
 ####################
 #                  #
