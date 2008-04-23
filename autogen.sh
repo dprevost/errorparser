@@ -46,8 +46,8 @@ echo "-----------------------------------------------"
 
 ##########################################################################
 
-echo "- aclocal -I m4"
-aclocal -I m4
+echo "- aclocal"
+aclocal
 echo "- autoconf"
 autoconf
 echo "- autoheader"

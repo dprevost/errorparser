@@ -15,31 +15,29 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST =                  \
-        configure             \
-        Config/config.guess   \
-        Config/config.sub     \
-        Config/install-sh     \
-        Config/ltmain.sh      \
-        Config/missing        \
-        Config/mkinstalldirs  \
-        COPYING               \
-        Makefile.win32        \
-        README                \
-        DTD/errorParser11.dtd \
-        DTD/example_vdsf.xml  \
-        DTD/catalog11.xml     
+EXTRA_DIST =                         \
+        configure                    \
+        Config/config.guess          \
+        Config/config.sub            \
+        Config/install-sh            \
+        Config/ltmain.sh             \
+        Config/missing               \
+        Config/mkinstalldirs         \
+        COPYING                      \
+        README                       \
+        DTD/errorParser11.dtd        \
+        DTD/catalog11.xml            \
+        examples/example_options.xml \
+        examples/example_vdsf.xml    
 
 # The 'doc' subdir must be placed after 'src' since some of the 
 # documentation and man pages are generated automatically when
 # using "make dist" (otherwise, you may have missing files or
 # outdated documentation).
 
-SUBDIRS = m4 parser tests
+SUBDIRS = parser tests
 
 # doc (commented for now until I take the time to create the documentation...)
-
-ACLOCAL_AMFLAGS = -I m4
 
 install-data-local:
 	-mkdir -p $(DESTDIR)$(datadir)/doc/errorParser
