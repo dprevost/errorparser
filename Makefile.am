@@ -24,6 +24,8 @@ EXTRA_DIST =                         \
         Config/missing               \
         Config/mkinstalldirs         \
         COPYING                      \
+        install_catalog.sh           \
+        install_catalog.vbs          \
         README                       \
         DTD/errorParser11.dtd        \
         DTD/catalog11.xml            \
