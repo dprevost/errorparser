@@ -22,7 +22,7 @@ Option Explicit
 ' ***********************************************************************
 
 Dim rc, numTests, numFailed, verbose, status
-Dim objShell, objShellwd
+Dim objShell
 Dim objWshScriptExec
 Dim fso
 Dim objSocket
@@ -48,9 +48,9 @@ dim strOutput
 ' ***********************************************************************
 
 ' Populate the program lists...
-ok_tests(0) = "test_one_error"
-ok_tests(1) = "test_no_copyright"
-ok_tests(2) = "test_no_groupident"
+ok_tests(0) = "one_error"
+ok_tests(1) = "no_copyright"
+ok_tests(2) = "no_groupident"
 
 numTests = 3                 ' Sum of length of both arrays 
 numFailed = 0
@@ -64,7 +64,6 @@ If Right(LCase(Wscript.FullName), 11) = "wscript.exe" Then
 End If
 
 Set objShell = CreateObject("WScript.Shell")
-Set objShellwd = CreateObject("WScript.Shell")
 verbose = False
 
 prog_path = "..\parser\Project_Files\Release"
@@ -99,7 +98,8 @@ Dim test, xml_test, h_test, test_exec
 For Each test in ok_tests
    xml_test = test & ".xml"
    h_test   = test & ".h"
-   test_exec = exe_name & " --header " & h_test & " " & xml_test
+   test_exec = exe_name & " --options options\" & xml_test & " xml\" & xml_test
+   WScript.Echo test_exec
    if consoleMode then 
       WScript.Echo "Running " & test
       Set objWshScriptExec = objShell.Exec("%comspec% /c " & Chr(34) & test_exec & Chr(34))
