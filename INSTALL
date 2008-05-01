@@ -32,11 +32,13 @@ Some notes specific to Error Parser:
    Parser catalog to your main catalog.
    
    To do it manually, the commands to do this should look similar to this:
-      xmlcatalog --noout --add delegatePublic "-//Error Parser project//DTD Error Parser XML V1.1" /usr/share/xml/errorParser/catalog11.xml /etc/xml/catalog
-      xmlcatalog --noout --add delegateSystem "http://errorparser.sourceforge.net/xml/1.1/" /usr/share/xml/errorParser/catalog11.xml /etc/xml/catalog
+      xmlcatalog --noout --add delegatePublic "-//Error Parser project//DTD Error Parser XML V1.2" /usr/share/xml/errorParser/catalog12.xml /etc/xml/catalog
+      xmlcatalog --noout --add delegateSystem "http://errorparser.sourceforge.net/xml/1.2/" /usr/share/xml/errorParser/catalog12.xml /etc/xml/catalog
 
    Something similar should work on Windows (additional steps, for example
    creating the main catalog might be needed).
+   
+   See the installation directory for more help.
 
 ************************************************************************
 *

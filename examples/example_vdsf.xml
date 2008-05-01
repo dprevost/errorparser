@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE errorlist PUBLIC "-//Error Parser project//DTD Error Parser XML V1.1//EN"
-             "http://errorparser.sourceforge.net/xml/1.1/errorParser.dtd"> 
+<!DOCTYPE errorlist PUBLIC "-//Error Parser project//DTD Error Parser XML V1.2//EN"
+             "http://errorparser.sourceforge.net/xml/1.2/errorParser.dtd"> 
 <!-- 
     This example is going to be used for an existing project, VDSF 
     (http://sourceforge.net/projects/vdsf), once Error Parser is able
