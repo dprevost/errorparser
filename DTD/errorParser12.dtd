@@ -39,7 +39,7 @@
 <!ELEMENT documentation   (paragraph+)>
 <!ELEMENT paragraph       (#PCDATA)>
 
-<!ATTLIST errorlist version CDATA #REQUIRED>
+<!ATTLIST errorlist version CDATA #IMPLIED>
 <!ATTLIST documentation  xml:lang CDATA 'en'>
 <!ATTLIST errormsg   xml:lang CDATA 'en'>
 <!ATTLIST groupident xml:lang CDATA 'en'>
