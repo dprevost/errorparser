@@ -26,7 +26,7 @@
 
 THE_PROGRAM=/usr/bin/xmlcatalog
 THE_TOP_CATALOG=/etc/xml/catalog
-THE_ERRP_CATALOG=/usr/share/xml/errorParser/catalog11.xml
+THE_ERRP_CATALOG=/usr/share/xml/errorParser/catalog12.xml
 
-$THE_PROGRAM --noout --add delegatePublic "-//Error Parser project//DTD Error Parser XML V1.1" $THE_ERRP_CATALOG $THE_TOP_CATALOG
-$THE_PROGRAM --noout --add delegateSystem "http://errorparser.sourceforge.net/xml/1.1/" $THE_ERRP_CATALOG $THE_TOP_CATALOG
+$THE_PROGRAM --noout --add delegatePublic "-//Error Parser project//DTD Error Parser XML V1.2" $THE_ERRP_CATALOG $THE_TOP_CATALOG
+$THE_PROGRAM --noout --add delegateSystem "http://errorparser.sourceforge.net/xml/1.2/" $THE_ERRP_CATALOG $THE_TOP_CATALOG

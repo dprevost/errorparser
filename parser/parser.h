@@ -108,6 +108,7 @@ struct errp_common {
    int       allowEscapes;
    int       allowQuotes;
    xmlChar * percent;
+   xmlChar * language;
 };
 
 typedef struct errp_common errp_common;

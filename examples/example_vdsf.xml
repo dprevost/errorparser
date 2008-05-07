@@ -493,7 +493,7 @@
       <messages>
         <errormsg>
           i18n string conversion error. In other words, the name of the object cannot be
-          converted to/frm your current locale.
+          converted to/from your current locale.
         </errormsg>
       </messages>
     </error>

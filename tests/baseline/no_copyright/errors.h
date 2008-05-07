@@ -21,7 +21,7 @@ extern "C" {
 enum enumErrors
 {
     /*
-     * A dummy group identifier to test if this works.
+     * A dummy group description to test if this works.
      */
 
     /**

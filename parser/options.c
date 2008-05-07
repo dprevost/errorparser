@@ -217,6 +217,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
             if ( xmlStrcmp( prop, BAD_CAST "yes") == 0 ) {
                commonArgs->allowEscapes = 1;
             }
+            xmlFree(prop);
 
             prop = xmlGetProp( node, BAD_CAST "allow_quotes" );
             if ( prop == NULL ) {
@@ -227,6 +228,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
             if ( xmlStrcmp( prop, BAD_CAST "yes") == 0 ) {
                commonArgs->allowQuotes = 1;
             }
+            xmlFree(prop);
             
             prop = xmlGetProp( node, BAD_CAST "percent" );
             if ( prop == NULL ) {
@@ -235,10 +237,28 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
             }
             commonArgs->percent = prop;
 
+            node = node->next;
             break;
          }
          fprintf( stderr, "Error: missing <err_msg> in options file\n" );
          return -1;
+      }
+      node = node->next;
+   }
+
+   /* This is the last element of the option file - it is optional */
+   while ( node != NULL ) {
+      if ( node->type == XML_ELEMENT_NODE ) {
+         if ( xmlStrcmp( node->name, BAD_CAST "selected_lang") == 0 ) {
+            prop = xmlGetProp( node, BAD_CAST "lang" );
+            if ( prop == NULL ) {
+               fprintf( stderr, "Error: missing \"xml:lang\" in options file\n" );
+               return -1;
+            }
+            commonArgs->language = prop;
+
+            break;
+         }
       }
       node = node->next;
    }

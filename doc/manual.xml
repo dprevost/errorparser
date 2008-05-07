@@ -1,0 +1,374 @@
+<?xml version='1.0'?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<book>
+
+  <title>Error Parser Manual</title>
+
+  <bookinfo>
+
+    <title>Error Parser Manuel</title>
+
+    <author><firstname>Daniel</firstname><surname>Prevost</surname></author>
+
+    <copyright><year>2008</year><holder>Daniel 
+    Prevost</holder></copyright>
+  </bookinfo>
+
+  <chapter>
+
+    <title>Installation</title>
+
+    <para>The installation procedure of the software itself is 
+    relatively simple if you use the pre-packaged version of the 
+    software (RPM, Inno setup, etc.).</para>
+
+    <para>There are some potential complications however - on 
+    Unix/Linux, installing as a single-user requires additional steps. 
+    On Windows, libxml2 will often not be installed and configured, 
+    etc.</para>
+
+    <para>This section will look into these issues in some 
+    details.</para>
+
+    <para>Note:</para>
+
+    <sect1>
+
+      <title>Installation on Linux/Unix as root</title>
+
+      <para>This is the first section in my book.</para>
+
+    </sect1>
+
+  </chapter>
+
+  <chapter>
+
+    <title>Building the Software</title>
+
+    <para>The only prerequisite software needed to build and run Error 
+    Parser is the library libxml2 (the Gnome project xml parser). If it 
+    is not installed on your system, you can download it at 
+    <ulink url="http://xmlsoft.org/downloads.html">
+    xmlsoft.org</ulink>.</para>
+
+    <sect1>
+
+      <title>Building on Linux/Unix from the repository</title>
+
+      <para>To retrieve the latest version of vdsf, use the following 
+      command:</para>
+
+      <programlisting>svn export https://errorparser.svn.sourceforge.net/svnroot/errorparser/trunk my_local_dir</programlisting>
+      <para>Of course, this is a generic command, you can omit the 
+      sub-directory <varname>trunk</varname> to retrieve everything 
+      (furthermore, if <varname>my_local_dir</varname> is left empty, 
+      the current directory will be used).</para>
+
+      <warning>
+
+        <para>The code in the repository is not always stable, be 
+        careful.</para>
+
+      </warning>
+
+      <para>The next step is to run the shell script autogen.sh (in the 
+      trunk directory). This will generate everything you need (the 
+      makefiles, the configure script). The script will also run 
+      configure for you but you might want to rerun it again if you 
+      want to change its default options.</para>
+
+      <para>The remaining instructions are identical to the 
+      instructions for building the software from a tar file.</para>
+
+    </sect1>
+
+    <sect1>
+
+      <title>Building on Linux/Unix from the tar file</title>
+
+      <para>Step by step instructions to build the package from a tar 
+      file:</para>
+
+      <para>
+
+        <itemizedlist>
+
+          <listitem>
+
+            <para>
+
+              Run configure (./configure). Here is the list of options 
+              that you might want to use to tailor the package to your 
+              needs:
+              <itemizedlist>
+
+                <listitem>
+
+                  <para>--prefix=PREFIX To change the default 
+                  installation directory (default is /usr/local). 
+                  Example: --prefix=/usr</para>
+
+                </listitem>
+
+              </itemizedlist>
+
+            </para>
+
+          </listitem>
+
+          <listitem>
+
+            <para>make</para>
+
+          </listitem>
+
+          <listitem>
+
+            <para>make check (to run the test suite - optional)</para>
+
+          </listitem>
+
+          <listitem>
+
+            <para>make install</para>
+
+          </listitem>
+
+        </itemizedlist>
+
+      </para>
+
+    </sect1>
+
+    <sect1>
+
+      <title>Building on Windows from the repository</title>
+
+      <para>The minimal software required to build the package from a 
+      zip file:</para>
+
+    </sect1>
+
+  </chapter>
+
+  <chapter>
+
+    <title>User Guide</title>
+
+    <sect1>
+
+      <title>Introduction</title>
+
+      <para>The program errorParser is very easy to use. From the 
+      command line just enter:</para>
+
+      <programlisting>errorParser -o <varname>option_file</varname> <varname>error_file</varname></programlisting>
+      <para>where <varname>option_file</varname> and 
+      <varname>error_file</varname> are the names of two xml files 
+      specifying the options and all the data associated with the 
+      errors. The real complexity is of course in the xml files 
+      themselves. There are examples of these files in the source 
+      directory and their syntax is explained below.</para>
+
+    </sect1>
+
+    <sect1>
+
+      <title>The xml error file</title>
+
+      <para>The xml file starts with the usual xml header (version of 
+      xml, encoding of the file, the location of the DTD, etc.). If 
+      you&apos;re not familiar with xml and want more information on 
+      this, you might want to read additional documentation, for 
+      example the website of the 
+      <ulink url="http://www.w3schools.com/xml/default.asp">W3 
+      Schools</ulink> .</para>
+
+      <para>Each of the xml tag specific to Error Parser is explained 
+      in the list below. Unless specified, each tag can only appear 
+      once (for each of its parent) and in the order listed here. 
+      Example: the &lt;years&gt; tag must be the first sub-tag of 
+      &lt;copyright&gt; and must be unique - however, if you have more 
+      than one &lt;copyright&gt; tag, each will have its &lt;years&gt; 
+      sub-tag. </para>
+
+      <itemizedlist>
+
+        <listitem>
+
+          <para>&lt;errorlist version=&quot;0.3&quot;&gt;</para>
+
+          <para>This tag starts the document itself. The version 
+          attribute is a string of your choosing and is there to help 
+          you synchronize your work (to make sure that the output files 
+          match the version of your software, for example). This 
+          attribute is optional.</para>
+
+        </listitem>
+
+        <listitem>
+
+          <para>&lt;copyright_group&gt;</para>
+
+          <para>This is an optional tag. You use it if you want to 
+          generate copyright information in the output files. This tag 
+          has only one sub-tag, &lt;copyright&gt;, which can be 
+          repeated multiple times (if you have multiple authors with 
+          possibly different licenses).</para>
+
+        </listitem>
+
+        <listitem>
+
+          <para>&lt;copyright&gt;</para>
+
+          <para>Allows you to enter copyright information in the output 
+          files. It has multiple sub-tags. As mentioned previously, 
+          multiple &lt;copyright&gt; tags are allowed.</para>
+
+          <itemizedlist>
+
+            <listitem>
+
+              <para>&lt;years&gt;</para>
+
+              <para>The interval of years for the current copyright 
+              notice. </para>
+
+            </listitem>
+
+            <listitem>
+
+              <para>&lt;authors&gt;</para>
+
+              <para>The name(s) of the owner(s) of the copyright.</para>
+
+            </listitem>
+
+            <listitem>
+
+              <para>&lt;notice&gt;</para>
+
+              <para>The text of the license. More exactly, a paragraph 
+              of the license. Use multiple &lt;notice&gt; if your 
+              license has multiple paragraphs. You must have at least 
+              one &lt;notice&gt; for each &lt;copyright&gt;.</para>
+
+            </listitem>
+
+          </itemizedlist>
+
+        </listitem>
+
+        <listitem>
+
+          <para>&lt;errgroup&gt;</para>
+
+          <para>&lt;errgroup&gt; is used to organize your errors in 
+          groups, if you so desired (for example, a group of i/o 
+          errors, a group of network errors, etc). You can have 
+          multiple &lt;errgroup&gt;, you must have at least one.</para>
+
+          <para>If you don&apos;t want to use this feature, only use a 
+          single group and do not include the &lt;groupident&gt; 
+          sub-tag.</para>
+
+        </listitem>
+
+        <listitem>
+
+          <para>&lt;groupident&gt;</para>
+
+          <para>This sub-tag of &lt;errgroup&gt; is optional. The text 
+          associated with this tag is used to generate comments in your 
+          output header file. </para>
+
+        </listitem>
+
+        <listitem>
+
+          <para>&lt;error&gt;</para>
+
+          <para>This tag is also a sub-tag of &lt;errgroup&gt;. You 
+          need at least one &lt;error&gt; for each &lt;errgroup&gt; but 
+          you can have as many as needed.</para>
+
+          <itemizedlist>
+
+            <listitem>
+
+              <para>&lt;errnumber&gt;</para>
+
+              <para>The numerical value of the error code.</para>
+
+            </listitem>
+
+            <listitem>
+
+              <para>&lt;errname&gt;</para>
+
+              <para>The generic name of the error. This name is going 
+              to be used to generate either an enum entry or a #define 
+              in the output header file. </para>
+
+              <para>Note: if you add a prefix to your errors (to avoid 
+              namespace conflicts), it is recommended to leave the 
+              prefix out. For example, VDS_OBJECT_IS_DELETED would 
+              become &lt;errname&gt; OBJECT_IS_DELETED &lt;/errname&gt; 
+              - the prefix can be added by specifying it in the option 
+              file.</para>
+
+            </listitem>
+
+          </itemizedlist>
+
+        </listitem>
+
+      </itemizedlist>
+
+      <para />
+
+    </sect1>
+
+    <sect1>
+
+      <title>The xml option file file</title>
+
+      <para>The number of potential options to the program errorParser 
+      was getting quite large (for version 0.2!) and it made more sense 
+      to put all these options in a configuration file (written in 
+      xml). These options are described below.</para>
+
+      <para>Note: the DTD for the options is included in the XML file. 
+      If you modify it without modifying the relevant source code of 
+      Error Parser (parser/options.c)... you might have a few 
+      problems... </para>
+
+      <itemizedlist>
+
+        <listitem>
+
+          <para>&lt;options&gt;</para>
+
+          <para>The root element.</para>
+
+        </listitem>
+
+        <listitem>
+
+          <para>&lt;enumname&gt;</para>
+
+          <para>Optional. The name of the enum. If absent, #define will 
+          be generated instead.</para>
+
+        </listitem>
+
+      </itemizedlist>
+
+    </sect1>
+
+  </chapter>
+
+</book>
+

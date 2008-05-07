@@ -37,7 +37,7 @@ EXTRA_DIST =                             \
 # using "make dist" (otherwise, you may have missing files or
 # outdated documentation).
 
-SUBDIRS = parser tests
+SUBDIRS = parser tests doc
 
 # doc (commented for now until I take the time to create the documentation...)
 

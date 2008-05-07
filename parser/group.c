@@ -109,6 +109,53 @@ void addMessages( errp_common * commonArgs,
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
+void doMessageGroup( errp_common * commonArgs,
+                     xmlNode     * message_group )
+{
+   xmlNode * node = NULL, * firstNode, * chosenNode = NULL;
+   xmlChar * prop;
+   
+   node = message_group->children;
+
+   while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
+   firstNode = node;
+
+   if ( commonArgs->language != NULL ) {
+      /* 
+       * This check on the first element is tedious but is needed in case
+       * someone uses the same "xml:lang="XX" for the first <message> and
+       * for a subsequent one. In such a case, the first one is the right one.
+       */
+      prop = xmlGetProp( node, BAD_CAST "lang" );
+      if ( prop != NULL ) {
+         if ( xmlStrcmp(prop, commonArgs->language) == 0 ) chosenNode = node;
+         xmlFree(prop);
+      }
+      
+      if ( chosenNode == NULL ) {
+         while ( node != NULL ) {
+            if ( node->type == XML_ELEMENT_NODE ) {
+               prop = xmlGetProp( node, BAD_CAST "lang" );
+               if ( prop != NULL ) {
+                  if ( xmlStrcmp(prop, commonArgs->language) == 0 ) {
+                     chosenNode = node;
+                     xmlFree(prop);
+                     break;
+                  }
+                  xmlFree(prop);
+               }
+            }
+            node = node->next; 
+         }
+      }
+   }
+   
+   if ( chosenNode == NULL ) chosenNode = firstNode;
+   addMessages( commonArgs, chosenNode );
+}
+
+/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+
 void addError( errp_common * commonArgs,
                xmlNode     * error )
 {
@@ -131,7 +178,7 @@ void addError( errp_common * commonArgs,
    fprintf( commonArgs->fpMsgC, "    %s, ", errNumber );
 
    do { node = node->next; } while ( node->type != XML_ELEMENT_NODE );
-   addMessages( commonArgs, node );
+   doMessageGroup( commonArgs, node );
    
    if ( commonArgs->writingEnum ) {
       fprintf( commonArgs->fpHeader, "    %s_%s = %s",
@@ -168,6 +215,29 @@ void addGroup( errp_common * commonArgs,
 
    /* groupident information is optional */
    if ( xmlStrcmp( node->name, BAD_CAST "groupident") == 0 ) {
+#if 0
+For the moment, we do nothing with groupident 
+      tmp = stripText( node->children->content );
+      if ( commonArgs->writingEnum ) {
+         fprintf( commonArgs->fpHeader, "    /*\n" );
+         comment = prettify( tmp, "     * ", ERRP_LINE_LENGTH );
+         fprintf( commonArgs->fpHeader, "%s\n", comment );
+         fprintf( commonArgs->fpHeader, "     */\n\n" );
+      }
+      else {
+         fprintf( commonArgs->fpHeader, "/*\n" );
+         comment = prettify( tmp, " * ", ERRP_LINE_LENGTH );
+         fprintf( commonArgs->fpHeader, "%s\n", comment );
+         fprintf( commonArgs->fpHeader, " */\n\n" );
+      }
+#endif
+      do { 
+         node = node->next;
+      } while ( node->type != XML_ELEMENT_NODE );
+   }
+
+   /* groupdescript information is optional */
+   if ( xmlStrcmp( node->name, BAD_CAST "groupdescript") == 0 ) {
       tmp = stripText( node->children->content );
       if ( commonArgs->writingEnum ) {
          fprintf( commonArgs->fpHeader, "    /*\n" );
@@ -182,7 +252,9 @@ void addGroup( errp_common * commonArgs,
          fprintf( commonArgs->fpHeader, " */\n\n" );
       }
 
-      node = node->next;
+      do { 
+         node = node->next;
+      } while ( node->type != XML_ELEMENT_NODE );
    }
 
    while ( node != NULL ) {

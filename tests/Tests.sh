@@ -54,14 +54,14 @@ parser=$top_builddir/parser/errorParser
 #
 # --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-run_test()
+run_test_xml()
 {
    test_name=$1
 
    if [ $verbose = 1 ] ; then
-      $parser --options $test_dir/options/$test_name.xml $test_dir/xml/$test_name.xml
+      $parser --options $test_dir/options/generic.xml $test_dir/xml/$test_name.xml
    else
-      $parser --options $test_dir/options/$test_name $test_dir/xml/$test_name.xml >/dev/null 2>&1
+      $parser --options $test_dir/options/generic.xml $test_dir/xml/$test_name.xml >/dev/null 2>&1
    fi
    if [ "$?" != 0 ] ; then
       echo "FAIL (errorParser): $test_name "
@@ -120,11 +120,11 @@ run_bad_test()
 rm -rf junk
 mkdir junk
 
-good_tests="one_error no_groupident  \
+good_tests="one_error multi_copyright no_groupdesc no_groupident no_version \
 no_copyright"
 
 for tests in $good_tests; do
-   run_test $tests
+   run_test_xml $tests
    if [ "$?" != 0 ] ; then
       exit 1
    fi
