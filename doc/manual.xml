@@ -191,7 +191,7 @@
       Example: the &lt;years&gt; tag must be the first sub-tag of 
       &lt;copyright&gt; and must be unique - however, if you have more 
       than one &lt;copyright&gt; tag, each will have its &lt;years&gt; 
-      sub-tag. </para>
+      sub-tag.</para>
 
       <itemizedlist>
 
@@ -217,6 +217,11 @@
           repeated multiple times (if you have multiple authors with 
           possibly different licenses).</para>
 
+          <para>Note: from an xml point of view, this tag is unneeded - 
+          the &lt;copyright&gt; tag could be used directly without this 
+          &quot;dummy&quot; container. However, the code of errorParser 
+          is simplify because of it, so...</para>
+
         </listitem>
 
         <listitem>
@@ -234,7 +239,7 @@
               <para>&lt;years&gt;</para>
 
               <para>The interval of years for the current copyright 
-              notice. </para>
+              notice.</para>
 
             </listitem>
 
@@ -282,7 +287,7 @@
 
           <para>This sub-tag of &lt;errgroup&gt; is optional. The text 
           associated with this tag is used to generate comments in your 
-          output header file. </para>
+          output header file.</para>
 
         </listitem>
 
@@ -310,7 +315,7 @@
 
               <para>The generic name of the error. This name is going 
               to be used to generate either an enum entry or a #define 
-              in the output header file. </para>
+              in the output header file.</para>
 
               <para>Note: if you add a prefix to your errors (to avoid 
               namespace conflicts), it is recommended to leave the 
@@ -318,6 +323,24 @@
               become &lt;errname&gt; OBJECT_IS_DELETED &lt;/errname&gt; 
               - the prefix can be added by specifying it in the option 
               file.</para>
+
+            </listitem>
+
+            <listitem>
+
+              <para>&lt;message_group&gt;</para>
+
+              <para>This tag is used to group the error messages and 
+              the documentation for the error - which are encapsulated 
+              in the &lt;message&gt; tag. Multiple &lt;message&gt; tags 
+              are supported (you must have at least one), one for each 
+              supported language.</para>
+
+              <para>Note: from an xml point of view, this tag is 
+              unneeded - the &lt;message&gt; tag could be used directly 
+              without this &quot;dummy&quot; container. However, the 
+              code of errorParser is simplify because of it, 
+              so...</para>
 
             </listitem>
 
@@ -343,7 +366,7 @@
       <para>Note: the DTD for the options is included in the XML file. 
       If you modify it without modifying the relevant source code of 
       Error Parser (parser/options.c)... you might have a few 
-      problems... </para>
+      problems...</para>
 
       <itemizedlist>
 
