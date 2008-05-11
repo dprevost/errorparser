@@ -31,16 +31,19 @@
     </copyright>
   </copyright_group>
   <errgroup>
-    <groupident>A dummy group identifier</groupident>
-    <groupdescript> 
-      A dummy group description to test if this works. 
-    </groupdescript>
+    <errgroup_ident xml:lang="en">
+      <errgroup_name>A dummy group</errgroup_name>
+      <errgroup_desc>
+        This group is useless. Just to test if this works
+      </errgroup_desc>
+    </errgroup_ident>
     <error>
       <errnumber> 0 </errnumber>
       <errname> OK </errname>
       <message_group>
         <message>
           <errormsg>No error</errormsg>
+          <documentation><paragraph>No error</paragraph></documentation>
         </message>
       </message_group>
     </error>

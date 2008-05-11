@@ -31,16 +31,19 @@
     </copyright>
   </copyright_group>
   <errgroup>
-    <groupident>A dummy group identifier</groupident>
-    <groupdescript> 
-      A dummy group description to test if this works. 
-    </groupdescript>
+    <errgroup_ident xml:lang="en">
+      <errgroup_name>A dummy group</errgroup_name>
+      <errgroup_desc>
+        This group is useless. Just to test if this works
+      </errgroup_desc>
+    </errgroup_ident>
     <error>
       <errnumber> 0 </errnumber>
       <errname> OK </errname>
       <message_group>
         <message>
           <errormsg>No error</errormsg>
+          <documentation><paragraph>No error</paragraph></documentation>
         </message>
       </message_group>
     </error>
@@ -50,6 +53,9 @@
       <message_group>
         <message>
           <errormsg>Abnormal internal error - it should not happen!</errormsg>
+          <documentation><paragraph>
+            Abnormal internal error - it should not happen!
+          </paragraph></documentation>
         </message>
       </message_group>
     </error>
@@ -63,6 +69,9 @@
           </errormsg>
           <documentation>
             <paragraph>
+              Cannot get a lock on a system object, the engine is "busy"
+            </paragraph>
+            <paragraph>
               This might be the result of either a very busy system where 
               unused cpu cycles are rare or a lock might be held by a 
               crashed process.
@@ -73,8 +82,12 @@
     </error>
   </errgroup>
   <errgroup>
-    <groupident>Network errors</groupident>
-    <groupdescript>The following errors are network related.</groupdescript>
+    <errgroup_ident xml:lang="en">
+      <errgroup_name>Network errors</errgroup_name>
+      <errgroup_desc>
+        The following errors are network related.
+      </errgroup_desc>
+    </errgroup_ident>
     <error>
       <errnumber> 25 </errnumber>
       <errname> SOCKET_ERROR </errname>
@@ -83,6 +96,9 @@
           <errormsg>
             Generic socket error.
           </errormsg>
+          <documentation>
+            <paragraph>Generic socket error.</paragraph>
+          </documentation>
         </message>
       </message_group>
     </error>

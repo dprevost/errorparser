@@ -29,20 +29,21 @@
 <!ELEMENT years           (#PCDATA)>
 <!ELEMENT authors         (#PCDATA)>
 <!ELEMENT notice          (#PCDATA)>
-<!ELEMENT errgroup        (groupident?,groupdescript?,error+)>
-<!ELEMENT groupident      (#PCDATA)>
-<!ELEMENT groupdescript   (#PCDATA)>
+<!ELEMENT errgroup        (errgroup_ident*,error+)>
+<!ELEMENT errgroup_ident  (errgroup_name,errgroup_desc+)>
+<!ELEMENT errgroup_name   (#PCDATA)>
+<!ELEMENT errgroup_desc   (#PCDATA)>
 <!ELEMENT error           (errnumber,errname,message_group)>
 <!ELEMENT errnumber       (#PCDATA)>
 <!ELEMENT errname         (#PCDATA)>
 <!ELEMENT message_group   (message+)>
-<!ELEMENT message         (errormsg+,documentation*)>
+<!ELEMENT message         (errormsg,documentation)>
 <!ELEMENT errormsg        (#PCDATA)>
 <!ELEMENT documentation   (paragraph+)>
 <!ELEMENT paragraph       (#PCDATA)>
 
+<!-- the version attribute is optional -->
 <!ATTLIST errorlist version CDATA #IMPLIED>
-<!ATTLIST message       xml:lang CDATA 'en'>
-<!ATTLIST groupident    xml:lang CDATA 'en'>
-<!ATTLIST groupdescript xml:lang CDATA 'en'>
+<!ATTLIST message        xml:lang CDATA 'en'>
+<!ATTLIST errgroup_ident xml:lang CDATA 'en'>
 

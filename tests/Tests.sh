@@ -120,7 +120,7 @@ run_bad_test()
 rm -rf junk
 mkdir junk
 
-good_tests="french multi_copyright no_copyright no_groupdesc no_groupident \
+good_tests="french multi_copyright no_copyright no_groupident \
 no_version one_error two_english"
 
 for tests in $good_tests; do

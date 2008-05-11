@@ -38,6 +38,7 @@
       <message_group>
         <message>
           <errormsg>No error</errormsg>
+          <documentation><paragraph>No error</paragraph></documentation>
         </message>
       </message_group>
     </error>
@@ -47,6 +48,9 @@
       <message_group>
         <message>
           <errormsg>Abnormal internal error - it should not happen!</errormsg>
+          <documentation>
+            <paragraph>Abnormal internal error - it should not happen!</paragraph>
+          </documentation>
         </message>
       </message_group>
     </error>
@@ -59,6 +63,9 @@
             Cannot get a lock on a system object, the engine is "busy"
           </errormsg>
           <documentation>
+            <paragraph>
+              Cannot get a lock on a system object, the engine is "busy"
+            </paragraph>
             <paragraph>
               This might be the result of either a very busy system where 
               unused cpu cycles are rare or a lock might be held by a 
@@ -79,6 +86,9 @@
           <errormsg>
             Generic socket error.
           </errormsg>
+          <documentation>
+            <paragraph>Generic socket error.</paragraph>
+          </documentation>
         </message>
       </message_group>
     </error>
