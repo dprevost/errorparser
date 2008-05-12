@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE errorlist SYSTEM "../DTD/errorParser12.dtd">
+<!-- 
+    A very simple example, which will try to exercise features not used in 
+    the VDSF example.
+-->
+
+<errorlist version="alpha 1">
+  <!-- Copyright information and any additional info that will appear at 
+       the top of the generated files. This is optional. -->
+  <copyright_group>
+    <copyright>
+      <years>2008</years>
+      <authors>Daniel Prevost</authors>
+      <!-- Each <notice> is mapped to a paragraph (easier to read) -->
+      <notice>
+        This file is only an example.
+      </notice>
+      <notice>
+        This file may be distributed and/or modified under the terms of the
+        MIT License as described by the Open Source Initiative
+        (http://opensource.org/licenses/mit-license.php) and appearing in
+        the file COPYING included in the packaging of the Error Parser software.
+      </notice>
+    </copyright>
+    <copyright>
+      <!-- Me again! -->
+      <years>2008</years>
+      <authors>Daniel Prévost</authors>
+      <!-- Each <notice> is mapped to a paragraph (easier to read) -->
+      <notice>
+        This file is only an example.
+      </notice>
+      <notice>
+        This file may be distributed and/or modified under the terms of the
+        MIT License as described by the Open Source Initiative
+        (http://opensource.org/licenses/mit-license.php) and appearing in
+        the file COPYING included in the packaging of the Error Parser software.
+      </notice>
+    </copyright>
+  </copyright_group>
+  
+  <errgroup>
+    <errgroup_ident>
+      <errgroup_name>Common errors</errgroup_name>
+      <errgroup_desc>
+        The following errors are the common errors.
+      </errgroup_desc>
+    </errgroup_ident>
+    <errgroup_ident xml:lang="fr">
+      <errgroup_name>Erreurs générales</errgroup_name>
+      <errgroup_desc>
+        Les codes d'erreur qui suivent sont générales.
+      </errgroup_desc>
+    </errgroup_ident>
+    <error>
+      <errnumber> 0 </errnumber>
+      <errname> OK </errname>
+      <message_group>
+        <message xml:lang="en">
+          <errormsg>No error...</errormsg>
+          <errordoc>No error...</errordoc>
+        </message>
+        <message xml:lang="fr">
+          <errormsg>Aucune erreur...</errormsg>
+          <errordoc>Aucune erreur...</errordoc>
+        </message>
+      </message_group>
+    </error>
+    
+    <error>
+      <errnumber> 1 </errnumber>
+      <errname> INTERNAL_ERROR </errname>
+      <message_group>
+        <message xml:lang="en">
+          <errormsg>Internal error.</errormsg>
+          <errordoc>
+            Abnormal internal error.
+          </errordoc>
+          <errordoc>
+            This type of error should never occur. Please contact us.
+          </errordoc>
+        </message>
+        <message xml:lang="fr">
+          <errormsg>Erreur interne.</errormsg>
+          <errordoc>
+            Erreur interne anormale.
+          </errordoc>
+          <errordoc>
+            Ce genre d'erreur ne devrait jamais arriver. Veuillez nous 
+            contacter SVP!
+          </errordoc>
+        </message>
+      </message_group>
+    </error>
+  </errgroup>
+
+  <errgroup>
+    <errgroup_ident xml:lang="en">
+      <errgroup_name>Network errors</errgroup_name>
+      <errgroup_desc>
+        The following errors are network related.
+      </errgroup_desc>
+    </errgroup_ident>
+    <errgroup_ident xml:lang="fr">
+      <errgroup_name>Erreurs de réseaux</errgroup_name>
+      <errgroup_desc>
+        Les codes d'erreur qui suivent sont des erreurs de réseaux.
+      </errgroup_desc>
+    </errgroup_ident>
+
+    <error>
+      <errnumber> 101 </errnumber>
+      <errname> SOCKET_ERROR </errname>
+      <message_group>
+        <message xml:lang="en">
+          <errormsg> Generic socket error.</errormsg>
+          <errordoc> Generic socket error.</errordoc>
+        </message>
+      </message_group>
+    </error>
+   
+    <error>
+      <errnumber> 102 </errnumber>
+      <errname> CONNECT_ERROR </errname>
+      <message_group>
+        <message xml:lang="en">
+          <errormsg>
+            Error trying to connect to the server.
+          </errormsg>
+          <errordoc>
+            Cannot connect to the server. Possible cause: the server is not
+            running, your internet connection failed or is blocked by a
+            firewall, etc.
+          </errordoc>
+        </message>
+        <message xml:lang="fr">
+          <errormsg>
+            La connection au serveur ne peut etre établie.
+          </errormsg>
+          <errordoc>
+            La connection au serveur ne peut etre établie. Causes possibles:
+            le serveur n'est pas actif, pas de connection internet, un pare-feu
+            bloque la requête, etc.
+          </errordoc>
+        </message>
+      </message_group>
+    </error>
+
+    <error>
+      <errnumber> 103 </errnumber>
+      <errname> SEND_ERROR </errname>
+      <message_group>
+        <message xml:lang="en">
+          <errormsg>
+            Error trying to send a request to the server.
+          </errormsg>
+          <errordoc>
+            Error trying to send a request to the server.
+          </errordoc>
+        </message>
+        <message xml:lang="fr">
+          <errormsg>
+            Erreur d'envoi d'une requête au serveur.
+          </errormsg>
+          <errordoc>
+            Erreur d'envoi d'une requête au serveur.
+          </errordoc>
+        </message>
+      </message_group>
+    </error>
+   
+    <error>
+      <errnumber> 104 </errnumber>
+      <errname> RECEIVE_ERROR </errname>
+      <message_group>
+        <message xml:lang="en">
+          <errormsg>
+            Error trying to receive a reply from the server.
+          </errormsg>
+          <errordoc>
+            Error trying to receive a reply from the server.
+          </errordoc>
+        </message>
+        <message xml:lang="fr">
+          <errormsg>
+            Erreur de réception d'une réponse du serveur.
+          </errormsg>
+          <errordoc>
+            Erreur de réception d'une réponse du serveur.
+          </errordoc>
+        </message>
+      </message_group>
+    </error>
+
+  </errgroup>
+    
+</errorlist>
+
