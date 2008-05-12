@@ -37,10 +37,9 @@
 <!ELEMENT errnumber       (#PCDATA)>
 <!ELEMENT errname         (#PCDATA)>
 <!ELEMENT message_group   (message+)>
-<!ELEMENT message         (errormsg,documentation)>
+<!ELEMENT message         (errormsg,errordoc+)>
 <!ELEMENT errormsg        (#PCDATA)>
-<!ELEMENT documentation   (paragraph+)>
-<!ELEMENT paragraph       (#PCDATA)>
+<!ELEMENT errordoc        (#PCDATA)>
 
 <!-- the version attribute is optional -->
 <!ATTLIST errorlist version CDATA #IMPLIED>

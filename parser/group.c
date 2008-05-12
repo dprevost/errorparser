@@ -21,13 +21,10 @@ xmlChar * stripText( xmlChar * inStr );
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
 void addDocumentation( errp_common * commonArgs,
-                       xmlNode     * docu )
+                       xmlNode     * node )
 {
-   xmlNode * node = NULL;
    xmlChar * paragraph, * tmp1;
    int firstpara = 1;
-   
-   node = docu->children;
    
    if ( commonArgs->writingEnum ) {
       fprintf( commonArgs->fpHeader, "    /**\n" );
@@ -38,7 +35,7 @@ void addDocumentation( errp_common * commonArgs,
 
    do {
       if ( node->type == XML_ELEMENT_NODE ) {
-         /* This can only be a paragraph */
+         /* This can only be a paragraph of the documentation */
          tmp1 = stripText( node->children->content );
 
          if ( firstpara ) firstpara = 0;
@@ -109,10 +106,8 @@ void addMessages( errp_common * commonArgs,
    node = node->next;
    while ( node != NULL ) {
       if ( node->type == XML_ELEMENT_NODE ) {
-         if ( xmlStrcmp( node->name, BAD_CAST "documentation") == 0 ) {
-            addDocumentation( commonArgs, node );
-            break;
-         }
+         addDocumentation( commonArgs, node );
+         break;
       }
       node = node->next;
    }

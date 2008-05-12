@@ -43,7 +43,7 @@
       <message_group>
         <message>
           <errormsg>No error</errormsg>
-          <documentation><paragraph>No error</paragraph></documentation>
+          <errordoc>No error</errordoc>
         </message>
       </message_group>
     </error>

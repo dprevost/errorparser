@@ -43,19 +43,15 @@
       <message_group>
         <message xml:lang="en">
           <errormsg>No error. This message should be in the header file.</errormsg>
-          <documentation>
-            <paragraph>
-              No error. This message should be in the header file.
-            </paragraph>
-          </documentation>
+          <errordoc>
+            No error. This message should be in the header file.
+          </errordoc>
         </message>
         <message xml:lang="en">
           <errormsg>No error. This message should be skipped.</errormsg>
-          <documentation>
-            <paragraph>
-              No error. This message should be skipped.
-            </paragraph>
-          </documentation>
+          <errordoc>
+            No error. This message should be skipped.
+          </errordoc>
         </message>
       </message_group>
     </error>
@@ -65,11 +61,9 @@
       <message_group>
         <message>
           <errormsg>Abnormal internal error - it should not happen!</errormsg>
-          <documentation>
-            <paragraph>
-              Abnormal internal error - it should not happen!
-            </paragraph>
-          </documentation>
+          <errordoc>
+            Abnormal internal error - it should not happen!
+          </errordoc>
         </message>
       </message_group>
     </error>
@@ -81,16 +75,14 @@
           <errormsg>
             Cannot get a lock on a system object, the engine is "busy"
           </errormsg>
-          <documentation>
-            <paragraph>
-              Cannot get a lock on a system object, the engine is "busy"
-            </paragraph>
-            <paragraph>
-              This might be the result of either a very busy system where 
-              unused cpu cycles are rare or a lock might be held by a 
-              crashed process.
-            </paragraph>
-          </documentation>
+          <errordoc>
+            Cannot get a lock on a system object, the engine is "busy"
+          </errordoc>
+          <errordoc>
+            This might be the result of either a very busy system where 
+            unused cpu cycles are rare or a lock might be held by a 
+            crashed process.
+          </errordoc>
         </message>
       </message_group>
     </error>
@@ -110,9 +102,7 @@
           <errormsg>
             Generic socket error.
           </errormsg>
-          <documentation>
-            <paragraph>Generic socket error.</paragraph>
-          </documentation>
+          <errordoc>Generic socket error.</errordoc>
         </message>
       </message_group>
     </error>
