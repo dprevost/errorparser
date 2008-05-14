@@ -23,6 +23,11 @@ Source: examples\simple_example.xml; DestDir: {app}\Examples
 Source: parser\Project_Files\Release\errorParser.exe; DestDir: {app}\bin
 Source: COPYING; DestDir: {app}
 Source: installation\install_catalog.vbs; DestDir: {app}\DTD
+Source: installation\SetEnv.exe; DestDir: {app}\bin
+Source: C:\Program Files\libxml2\bin\iconv.dll; DestDir: {app}\bin; Components: libxml2
+Source: C:\Program Files\libxml2\bin\iconv.exe; DestDir: {app}\bin; Components: libxml2
+Source: C:\Program Files\libxml2\bin\libxml2.dll; DestDir: {app}\bin; Components: libxml2
+Source: C:\Program Files\libxml2\bin\xmlcatalog.exe; DestDir: {app}\bin; Components: libxml2
 
 [Icons]
 Name: {group}\Error Parser Help; Filename: {app}\errorParser.chm
@@ -34,3 +39,14 @@ Root: HKCU; Subkey: SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\errorPar
 
 Root: HKLM; Subkey: SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\errorParser.exe; ValueType: string; ValueData: {app}\bin\errorParser.exe; Flags: uninsdeletekeyifempty uninsdeletevalue
 Root: HKLM; Subkey: SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\errorParser.exe; ValueType: string; ValueName: Path; ValueData: {app}\bin; Flags: uninsdeletekeyifempty uninsdeletevalue
+[Tasks]
+Name: setenv; Description: "Add Error Parser to your ""path"""
+[Run]
+Filename: {app}\bin\SetEnv.exe; Parameters: "-ua Path %""{app}\bin"""; Flags: runminimized; Tasks: setenv
+[UninstallRun]
+Filename: {app}\bin\SetEnv.exe; Parameters: "-ud Path %""{app}\bin"""; Flags: runminimized
+[Components]
+Name: libxml2; Description: The libxml2 library; Types: with_libxml2
+[Types]
+Name: with_libxml2; Description: Install everything including libxml2 (run-time)
+Name: without_libxml2; Description: Install everything except libxml2
