@@ -1,0 +1,49 @@
+Summary: Generates header file and code to access error messages defined in an xml file.
+Name: @PACKAGE_TARNAME@
+Version: @PACKAGE_VERSION@
+Release: 1
+License: MIT License
+Group: Development/Other
+Source: @PACKAGE_TARNAME@-@PACKAGE_VERSION@.tar.gz
+BuildRoot: /var/tmp/%{name}-buildroot
+Prefix: /usr/local
+
+%description
+errorParser is a code generator for error files.
+
+It simplify the development of code for handling errors (and the associated
+documentation) by keeping all the required information in a single location, 
+an XML input file.
+
+The parser uses this file to generate the header file for errors, the code 
+to access the error messages and the documentation (only doxygen is supported
+for this release).
+
+Error messages and associated documentation can be written in multiple 
+languages (although one language must be selected when parsing).
+
+%prep
+%setup
+
+%build
+./configure --prefix=/usr/local --mandir=/usr/local/share/man
+make
+
+%install
+rm -rf $RPM_BUILD_ROOT
+make DESTDIR=$RPM_BUILD_ROOT install
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%post 
+
+%postun
+
+%files
+%defattr(-,root,root)
+%docdir /usr/local/share/doc/errorParser
+/usr/local/share/doc/errorParser
+
+
+%changelog
