@@ -19,10 +19,10 @@
 
 void usage( char * progName ) 
 {
-   fprintf( stderr, "Usage:\n\n %s %s\n",
+   fprintf( stderr, "Usage:\n\n%s %s\n",
       progName,
       "-o|--options options_xml_file  input_xml_file" );
-   fprintf( stderr, " or\n" );
+   fprintf( stderr, "  or\n" );
    fprintf( stderr, "%s -h|-?|--help\n\n", progName );
    fprintf( stderr, "Options:\n\n" );
    fprintf( stderr, "  -o,--options   the name of the xml file defining the options that will be\n" );
