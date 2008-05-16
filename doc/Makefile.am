@@ -15,10 +15,11 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST =         \
-        manual.xml   \
-        xml2chm.xsl  \
-        xml2html.xsl 
+EXTRA_DIST =            \
+        errorParser.chm \
+        manual.xml      \
+        xml2chm.xsl     \
+        xml2html.xsl    
 
 
 #if COND_USE_DOCBOOK2MAN
@@ -28,6 +29,7 @@ all-local: chm.zip
 
 chm.zip: manual.xml
 	-rm -rf chm
+	-rm -f chm.zip
 	mkdir chm
 	cd chm; xsltproc ../$(top_srcdir)/doc/xml2chm.xsl ../$(top_srcdir)/doc/manual.xml; cd ..
 	zip chm.zip $(top_builddir)/doc/chm/*

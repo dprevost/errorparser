@@ -3,4 +3,6 @@
     <xsl:import href="/usr/share/sgml/docbook/xsl-stylesheets-1.70.1/html/docbook.xsl"/>
     <xsl:param name="admon.graphics" select="1"/>
     <xsl:param name="section.autolabel" select="1"/>
+    <xsl:param name="generate.index" select="1"></xsl:param>
 </xsl:stylesheet>
+

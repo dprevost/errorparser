@@ -7,6 +7,15 @@ Group: Development/Other
 Source: @PACKAGE_TARNAME@-@PACKAGE_VERSION@.tar.gz
 BuildRoot: /var/tmp/%{name}-buildroot
 Prefix: /usr/local
+URL: http://sourceforge.net/projects/errorparser
+#
+# Dependencies: I've removed the automatic tracking of dependencies (it was
+# pulling multiple GLIBC and this felt wrong) but kept the one on libxml2.
+# I presumed that libxml2 will be packaged correctly and will have the 
+# proper libraries (libm, libz, etc.).
+#
+AutoReqProv: no
+requires: libxml2.so.2
 
 %description
 errorParser is a code generator for error files.
@@ -44,6 +53,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %docdir /usr/local/share/doc/errorParser
 /usr/local/share/doc/errorParser
-
+/usr/local/bin/errorParser
+/usr/local/share/xml/errorParser/catalog12.xml
+/usr/local/share/xml/errorParser/errorParser12.dtd
+/usr/local/share/xml/errorParser/install_catalog.sh
 
 %changelog

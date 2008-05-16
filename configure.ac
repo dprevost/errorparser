@@ -105,6 +105,7 @@ AC_CHECK_FUNCS(ctime)
 AC_CONFIG_FILES([
    Makefile
    doc/Makefile
+   installation/errorParser.spec
    parser/Makefile
    tests/Makefile
 ])

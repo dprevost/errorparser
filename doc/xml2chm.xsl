@@ -6,4 +6,5 @@
     <xsl:param name="section.autolabel" select="1"/>
     <xsl:param name="htmlhelp.chm" select="'errorParser.chm'"></xsl:param>
     <xsl:param name="htmlhelp.hhp" select="'errorParser.hhp'"></xsl:param>
+    <xsl:param name="htmlhelp.use.hhk" select="1"/>
 </xsl:stylesheet>

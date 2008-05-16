@@ -30,6 +30,7 @@ EXTRA_DIST =                             \
         examples/example_options.xml     \
         examples/example_vdsf.xml        \
         examples/simple_example.xml      \
+        installation/errorParser.spec    \
         installation/install_catalog.sh  \
         installation/install_catalog.vbs 
 
