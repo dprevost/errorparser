@@ -1,0 +1,73 @@
+<!-- $Id$
+
+    Document Type Definition for the options of Error Parser.
+    
+    Copyright (C) 2008 Daniel Prevost.
+ 
+    This file may be distributed and/or modified under the terms of the
+    MIT License as described by the Open Source Initiative
+    (http://opensource.org/licenses/mit-license.php) and appearing in
+    the file COPYING included in the packaging of the Error Parser software.
+-->
+
+<!--
+    Usage:
+
+    It is recommended to use the SYSTEM declaration, something like:
+
+    <!DOCTYPE errorlist SYSTEM 
+             "/usr/local/share/xml/errorParser/errorParserOptions10.dtd">
+
+    (if Error Parser is installed in /usr/local).
+    
+    ----------------------------------------------------------------
+    
+    If you want/prefer to use a PUBLIC declaration, the following public 
+    identifier can be used to identify it:
+
+     "-//Error Parser project//DTD Error Parser Options XML V1.0//EN"
+
+    The full DOCTYPE declaration should then look like this:
+    
+    <!DOCTYPE errorlist PUBLIC 
+           "-//Error Parser project//DTD Error Parser Options XML V1.0//EN"
+           "http://errorparser.sourceforge.net/xml/1.0/errorParserOptions.dtd">
+    
+-->
+
+<!-- 
+   This xml file provides the options to the errorParser program.
+   
+   Why a file? The number of options was getting too large. Using a file
+   makes it easier to manage all these options and it will also make 
+   easier to add new options in the future (as needed). 
+   [Since changing options is usually something that will be done rarely
+   once you are satisfy with the results, storing the options in a file 
+   makes it easier to reuse the same options, evidently]
+   
+   Why xml? Easier to program (libxml2 does the parsing) and easy to
+   provide default values for some.
+   
+   Note: do not modify this DTD... without modifying the code to read 
+   these options in the errorParser program.
+-->
+
+<!ELEMENT options      (enumname?,header_name_dir?,header_name,
+                        errmsg_dir?,errmsg_header_name,errmsg_c_name,
+                        prefix_error,prefix_variable,err_msg,selected_lang?)>
+<!ELEMENT enumname           (#PCDATA)>
+<!ELEMENT header_name_dir    (#PCDATA)>
+<!ELEMENT header_name        (#PCDATA)>
+<!ELEMENT errmsg_dir         (#PCDATA)>
+<!ELEMENT errmsg_header_name (#PCDATA)>
+<!ELEMENT errmsg_c_name      (#PCDATA)>
+<!ELEMENT prefix_error       (#PCDATA)>
+<!ELEMENT prefix_variable    (#PCDATA)>
+<!ELEMENT err_msg            EMPTY>
+<!ELEMENT selected_lang      EMPTY>
+
+<!ATTLIST err_msg allow_escapes (yes|no) "no">
+<!ATTLIST err_msg allow_quotes  (yes|no) "yes">
+<!ATTLIST err_msg percent CDATA #REQUIRED>
+<!ATTLIST selected_lang xml:lang CDATA #REQUIRED>
+
