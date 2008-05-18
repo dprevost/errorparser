@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE errorlist SYSTEM "../DTD/errorParser12.dtd">
+<!DOCTYPE errorlist SYSTEM 
+             "/usr/local/share/xml/errorParser/errorParser12.dtd">
 <!-- 
     A very simple example, which will try to exercise features not used in 
     the VDSF example.

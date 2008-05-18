@@ -26,6 +26,7 @@ EXTRA_DIST =                             \
         COPYING                          \
         README                           \
         DTD/errorParser12.dtd            \
+        DTD/errorParserOptions10.dtd     \
         DTD/catalog12.xml                \
         examples/example_options.xml     \
         examples/example_vdsf.xml        \
@@ -45,6 +46,7 @@ install-data-local:
 	$(install_sh_DATA) $(top_srcdir)/examples/example_vdsf.xml       $(DESTDIR)$(datadir)/doc/errorParser/examples/example_vdsf.xml
 	$(install_sh_DATA) $(top_srcdir)/examples/simple_example.xml     $(DESTDIR)$(datadir)/doc/errorParser/examples/simple_example.xml
 	$(install_sh_DATA) $(top_srcdir)/DTD/errorParser12.dtd           $(DESTDIR)$(datadir)/xml/errorParser/errorParser12.dtd
+	$(install_sh_DATA) $(top_srcdir)/DTD/errorParserOptions10.dtd    $(DESTDIR)$(datadir)/xml/errorParser/errorParserOptions10.dtd
 	$(install_sh_DATA) $(top_srcdir)/DTD/catalog12.xml               $(DESTDIR)$(datadir)/xml/errorParser/catalog12.xml
 	$(install_sh_DATA) $(top_srcdir)/installation/install_catalog.sh $(DESTDIR)$(datadir)/xml/errorParser/install_catalog.sh
 
@@ -55,6 +57,7 @@ uninstall-local:
 	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/README
 	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/COPYING
 	-rm -f $(DESTDIR)$(datadir)/xml/errorParser/errorParser12.dtd
+	-rm -f $(DESTDIR)$(datadir)/xml/errorParser/errorParserOptions10.dtd
 	-rm -f $(DESTDIR)$(datadir)/xml/errorParser/catalog12.xml
 	-rmdir $(DESTDIR)$(datadir)/xml/errorParser
 	-rmdir $(DESTDIR)$(datadir)/doc/errorParser/examples

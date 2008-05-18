@@ -20,7 +20,7 @@
     The full DOCTYPE declaration should look like this:
     
     <!DOCTYPE errorlist PUBLIC "-//Error Parser project//DTD Error Parser XML V1.2//EN"
-                 "http://errorparser.sourceforge.net/xml/1.2/errorParser.dtd">
+                 "http://errorparser.sourceforge.net/xml/errorParser12.dtd">
 -->
 
 <!ELEMENT errorlist       (copyright_group?,errgroup+)>

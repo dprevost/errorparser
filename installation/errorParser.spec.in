@@ -56,6 +56,7 @@ rm -rf $RPM_BUILD_ROOT
 /usr/local/bin/errorParser
 /usr/local/share/xml/errorParser/catalog12.xml
 /usr/local/share/xml/errorParser/errorParser12.dtd
+/usr/local/share/xml/errorParser/errorParserOptions10.dtd
 /usr/local/share/xml/errorParser/install_catalog.sh
 
 %changelog
