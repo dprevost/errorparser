@@ -54,8 +54,8 @@ topCatalog = """e:\main_catalog.xml"""
 
 'The string for the Error Parser catalog uses '/' instead of '\'. That's
 ' because the xml top catalog expects this syntax. Don't change it.
-errpCatalog = """c:/Program Files/Error Parser/DTD/catalog11.xml"""
-'errpCatalog = """e:/errorParser/DTD/catalog11.xml"""
+errpCatalog = """c:/Program Files/Error Parser/DTD/catalog.xml"""
+'errpCatalog = """e:/errorParser/DTD/catalog.xml"""
 
 ' Create the FileSystemObject
 Set fso = CreateObject ("Scripting.FileSystemObject")
@@ -94,7 +94,7 @@ if fso.FileExists(topCatalog) = false then
    end if
 end if
 
-cmd = exeName & " --noout --add delegatePublic ""-//Error Parser project//DTD Error Parser XML V1.1"" " & " " & errpCatalog & " " & topCatalog
+cmd = exeName & " --noout --add delegatePublic ""-//Error Parser project//DTD Error Parser XML V1.2"" " & " " & errpCatalog & " " & topCatalog
 if consoleMode then 
    WScript.Echo "Inserting the delegatePublic to the top catalog..."
    Set objWshScriptExec = objShell.Exec("%comspec% /c " & Chr(34) & cmd & Chr(34))
@@ -113,7 +113,26 @@ if rc <> 0 then
    wscript.quit(1)
 end if
 
-cmd = exeName & " --noout --add delegateSystem ""http://errorparser.sourceforge.net/xml/1.1/"" " & " " & errpCatalog & " " & topCatalog
+cmd = exeName & " --noout --add delegatePublic ""-//Error Parser project//DTD Error Parser Options XML V1.0"" " & " " & errpCatalog & " " & topCatalog
+if consoleMode then 
+   WScript.Echo "Inserting the second delegatePublic to the top catalog..."
+   Set objWshScriptExec = objShell.Exec("%comspec% /c " & Chr(34) & cmd & Chr(34))
+   status = objWshScriptExec.Status
+   Do While objWshScriptExec.Status = 0
+      WScript.Sleep 100
+   Loop
+   strOutput = objWshScriptExec.StdOut.ReadAll
+   WScript.Stdout.Write objWshScriptExec.StdErr.ReadAll
+   rc = objWshScriptExec.ExitCode
+else
+   rc = objShell.Run("%comspec% /c " & Chr(34) & cmd & Chr(34), 2, true)
+end if
+if rc <> 0 then   
+   wscript.echo "Failed with rc = " & rc & ": " & strOutput
+   wscript.quit(1)
+end if
+
+cmd = exeName & " --noout --add delegateSystem ""http://errorparser.sourceforge.net/xml/"" " & " " & errpCatalog & " " & topCatalog
 if consoleMode then 
    WScript.Echo "Inserting the delegateSystem to the top catalog..."
    Set objWshScriptExec = objShell.Exec("%comspec% /c " & Chr(34) & cmd & Chr(34))

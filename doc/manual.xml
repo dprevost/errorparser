@@ -24,13 +24,13 @@
     scratch and use make install.</para>
 
     <para>There are some potential complications however in some cases. 
-    This software requires libxml2 - on Unix/Linux, libxml2 will 
-    usually already be installed (or you can find packages that will do 
-    it painlessly). On Windows, this is often not the case - the Inno 
-    Setup installation can installed the run-time environment needed by 
-    Error Parser but you may prefer to install everything yourself 
-    (this will include the development environment if you want to 
-    integrate xml in your application).</para>
+    For example: this software requires libxml2 - on Unix/Linux, 
+    libxml2 will usually already be installed (or you can find packages 
+    that will do it painlessly). On Windows, this is often not the case 
+    - the Inno Setup installation can installed the run-time 
+    environment needed by Error Parser but you may prefer to install 
+    everything yourself (this will include the development environment 
+    if you want to integrate xml in your application).</para>
 
     <para>This section will look into installation issues in some 
     details.</para>
@@ -39,18 +39,19 @@
 
       <title>The xml catalog on Linux/Unix</title>
 
-      <para>The DTD (Document Type Definition) for Error Parser can be 
-      installed in the global xml catalog (usually /etc/xml/catalog). 
-      Is this needed? Depends on your exact situation.</para>
+      <para>The two DTD (Document Type Definition) for Error Parser can 
+      be installed in the global xml catalog (usually 
+      /etc/xml/catalog). Is this needed? Depends on your exact 
+      situation.</para>
 
-      <para>The DTD can be identified using a PUBLIC clause (in the xml 
+      <para>A DTD can be identified using a PUBLIC clause (in the xml 
       file), for example:</para>
 
       <para>
 
         <programlisting>&lt;!DOCTYPE errorlist PUBLIC 
    &quot;-//Error Parser project//DTD Error Parser XML V1.2//EN&quot;
-    &quot;http://errorparser.sourceforge.net/xml/1.2/errorParser.dtd&quot;&gt;</programlisting>
+    &quot;http://errorparser.sourceforge.net/xml/errorParser12.dtd&quot;&gt;</programlisting>
       </para>
 
       <para>In this case the DTD will be downloaded from the Error 
@@ -58,7 +59,8 @@
 
       <para>You can also use SYSTEM instead:</para>
 
-      <programlisting>&lt;!DOCTYPE errorlist SYSTEM &quot;../DTD/errorParser12.dtd&quot;&gt;</programlisting>
+      <programlisting>&lt;!DOCTYPE errorlist SYSTEM
+   &quot;/usr/local/share/xml/errorParser/errorParser12.dtd&quot;&gt;</programlisting>
       <para>Using SYSTEM is perfectly ok if you have a single developer 
       per workstation. If development is done on a shared box however, 
       using the PUBLIC clause is one way to make sure that every 
@@ -67,11 +69,11 @@
       <para>However you don&apos;t want to download the DTD every time 
       you use the software and in this situation, you&apos;ll want to 
       add the Error Parser catalog to the main xml catalog. The program 
-      used to do this is included in the libxml2 package. Furthermore a 
-      bash script is provided by Error Parser (possibly installed in 
-      /usr/local/share/xml/errorParser/install_catalog.sh if Error 
-      Parser is installed in /usr/local). You&apos;ll need to edit this 
-      script to tailor it for your installation.</para>
+      used to do this (xmlcatalog) is included in the libxml2 package. 
+      Furthermore a bash script is provided by Error Parser (possibly 
+      installed in /usr/local/share/xml/errorParser/install_catalog.sh 
+      if Error Parser is installed in /usr/local). You&apos;ll need to 
+      edit this script to tailor it for your installation.</para>
 
       <para>Recommendation: using the SYSTEM clause is perfectly ok and 
       there is likely no real needs to use the xml catalog.</para>
@@ -83,9 +85,9 @@
       <title>The xml catalog on Windows</title>
 
       <para>The previous section already discussed the use of PUBLIC or 
-      SYSTEM clause for identifying the DTD. The biggest difference 
+      SYSTEM clause for identifying a DTD. The biggest difference 
       between Microsoft Windows and for example Linux, is the absence 
-      of a centralized way of managing xml DTD ans Schemas -each 
+      of a centralized way of managing xml DTD and Schemas - each 
       software manages its XML on its own. It makes even more sense to 
       use SYSTEM here.</para>
 
@@ -96,7 +98,7 @@
       <para>There is an example of a main catalog in the DTD directory 
       (main_catalog_win32.xml). If the main catalog already exists you 
       can use the script DTD\install_catalog.vbs. In both cases you 
-      will need to edit the files to tailor it to your 
+      will need to edit the files to tailor them to your 
       installation.</para>
 
     </sect1>
@@ -314,8 +316,8 @@
 
         <listitem>
 
-          <para>&lt;errorlist 
-          version=&quot;0.3&quot;&gt;<indexterm><primary>errorlist</primary></indexterm></para>
+          <para>&lt;errorlist version=&quot;0.3&quot;&gt;
+          <indexterm><primary>errorlist</primary></indexterm></para>
 
           <para>This tag starts the document itself. The version 
           attribute is a string of your choosing and is there to help 
@@ -327,7 +329,8 @@
 
         <listitem>
 
-          <para>&lt;copyright_group&gt;<indexterm><primary>copyright_group</primary></indexterm></para>
+          <para>&lt;copyright_group&gt;
+          <indexterm><primary>copyright_group</primary></indexterm></para>
 
           <para>This is an optional tag. You use it if you want to 
           generate copyright information in the output files. This tag 
@@ -344,7 +347,8 @@
 
         <listitem>
 
-          <para>&lt;copyright&gt;<indexterm><primary>copyright</primary></indexterm></para>
+          <para>&lt;copyright&gt;
+          <indexterm><primary>copyright</primary></indexterm></para>
 
           <para>Allows you to enter copyright information in the output 
           files. It has multiple sub-tags. As mentioned previously, 
@@ -354,7 +358,8 @@
 
             <listitem>
 
-              <para>&lt;years&gt;<indexterm><primary>years</primary></indexterm></para>
+              <para>&lt;years&gt;
+              <indexterm><primary>years</primary></indexterm></para>
 
               <para>The interval of years for the current copyright 
               notice.</para>
@@ -363,7 +368,8 @@
 
             <listitem>
 
-              <para>&lt;authors&gt;<indexterm><primary>authors</primary></indexterm></para>
+              <para>&lt;authors&gt;
+              <indexterm><primary>authors</primary></indexterm></para>
 
               <para>The name(s) of the owner(s) of the copyright.</para>
 
@@ -371,7 +377,8 @@
 
             <listitem>
 
-              <para>&lt;notice&gt;<indexterm><primary>notice</primary></indexterm></para>
+              <para>&lt;notice&gt;
+              <indexterm><primary>notice</primary></indexterm></para>
 
               <para>The text of the license. More exactly, a paragraph 
               of the license. Use multiple &lt;notice&gt; if your 
@@ -386,7 +393,8 @@
 
         <listitem>
 
-          <para>&lt;errgroup&gt;<indexterm><primary>errgroup</primary></indexterm></para>
+          <para>&lt;errgroup&gt;
+          <indexterm><primary>errgroup</primary></indexterm></para>
 
           <para>&lt;errgroup&gt; is used to organize your errors in 
           groups, if you so desired (for example, a group of i/o 
@@ -401,7 +409,8 @@
 
         <listitem>
 
-          <para>&lt;errgroup_ident&gt;<indexterm><primary>errgroup_ident</primary></indexterm></para>
+          <para>&lt;errgroup_ident&gt;
+          <indexterm><primary>errgroup_ident</primary></indexterm></para>
 
           <para>This sub-tag of &lt;errgroup&gt; is optional. The 
           sub-tags associated with this tag are used to generate 
@@ -424,7 +433,8 @@
 
             <listitem>
 
-              <para>&lt;errgroup_name&gt;<indexterm><primary>errgroup_name</primary></indexterm></para>
+              <para>&lt;errgroup_name&gt;
+              <indexterm><primary>errgroup_name</primary></indexterm></para>
 
               <para>A name for this group of errors. For example, 
               Network errors.</para>
@@ -433,7 +443,8 @@
 
             <listitem>
 
-              <para>&lt;errgroup_desc&gt;<indexterm><primary>errgroup_desc</primary></indexterm></para>
+              <para>&lt;errgroup_desc&gt;
+              <indexterm><primary>errgroup_desc</primary></indexterm></para>
 
               <para>Description of this group of errors. You must have 
               at least one &lt;errgroup_desc&gt; but you can have 
@@ -448,7 +459,8 @@
 
         <listitem>
 
-          <para>&lt;error&gt;<indexterm><primary>error</primary></indexterm></para>
+          <para>&lt;error&gt;
+          <indexterm><primary>error</primary></indexterm></para>
 
           <para>This tag is also a sub-tag of &lt;errgroup&gt;. You 
           need at least one &lt;error&gt; for each &lt;errgroup&gt; but 
@@ -458,7 +470,8 @@
 
             <listitem>
 
-              <para>&lt;errnumber&gt;<indexterm><primary>errnumber</primary></indexterm></para>
+              <para>&lt;errnumber&gt;
+              <indexterm><primary>errnumber</primary></indexterm></para>
 
               <para>The numerical value of the error code.</para>
 
@@ -466,7 +479,8 @@
 
             <listitem>
 
-              <para>&lt;errname&gt;<indexterm><primary>errname</primary></indexterm></para>
+              <para>&lt;errname&gt;
+              <indexterm><primary>errname</primary></indexterm></para>
 
               <para>The generic name of the error. This name is going 
               to be used to generate either an enum entry or a #define 
@@ -483,7 +497,8 @@
 
             <listitem>
 
-              <para>&lt;message_group&gt;<indexterm><primary>message_group</primary></indexterm></para>
+              <para>&lt;message_group&gt;
+              <indexterm><primary>message_group</primary></indexterm></para>
 
               <para>This tag is used to group the error messages and 
               the documentation for the error - which are encapsulated 
@@ -501,7 +516,8 @@
 
             <listitem>
 
-              <para>&lt;message&gt;<indexterm><primary>message</primary></indexterm></para>
+              <para>&lt;message&gt;
+              <indexterm><primary>message</primary></indexterm></para>
 
               <para>Container for both the error message and the 
               documentation for this error. This tag has an optional 
@@ -523,7 +539,8 @@
 
                 <listitem>
 
-                  <para>&lt;errormsg&gt;<indexterm><primary>errormsg</primary></indexterm></para>
+                  <para>&lt;errormsg&gt;
+                  <indexterm><primary>errormsg</primary></indexterm></para>
 
                   <para>The text of the error message that will be 
                   retrieved by the function 
@@ -532,14 +549,15 @@
                   <para>Note: the inclusion of some characters 
                   (&apos;%&apos; for example) or chain of characters 
                   (escape sequences) might be problematic. You can 
-                  control how to handle these occurrences by setting the 
-                  appropriate options in the option file.</para>
+                  control how to handle these occurrences by setting 
+                  the appropriate options in the option file.</para>
 
                 </listitem>
 
                 <listitem>
 
-                  <para>&lt;errordoc&gt;<indexterm><primary>errordoc</primary></indexterm></para>
+                  <para>&lt;errordoc&gt;
+                  <indexterm><primary>errordoc</primary></indexterm></para>
 
                   <para>Each &lt;errordoc&gt; is a paragraph of the 
                   documentation. Therefore, you can have multiple 
@@ -570,16 +588,12 @@
       options in a configuration file (written in xml). These options 
       are described below.</para>
 
-      <para>Note: the DTD for the options is included in the XML file. 
-      If you modify it without modifying the relevant source code of 
-      Error Parser (parser/options.c)... you might have a few 
-      problems...</para>
-
       <itemizedlist>
 
         <listitem>
 
-          <para>&lt;options&gt;<indexterm><primary>options</primary></indexterm></para>
+          <para>&lt;options&gt;
+          <indexterm><primary>options</primary></indexterm></para>
 
           <para>The root element.</para>
 
@@ -587,7 +601,8 @@
 
         <listitem>
 
-          <para>&lt;enumname&gt;<indexterm><primary>enumname</primary></indexterm></para>
+          <para>&lt;enumname&gt;
+          <indexterm><primary>enumname</primary></indexterm></para>
 
           <para>Optional. The name of the enum. If absent, #define will 
           be generated instead.</para>
@@ -596,7 +611,8 @@
 
         <listitem>
 
-          <para>&lt;header_name_dir&gt;<indexterm><primary>header_name_dir</primary></indexterm></para>
+          <para>&lt;header_name_dir&gt;
+          <indexterm><primary>header_name_dir</primary></indexterm></para>
 
           <para>Optional. The name of the directory where the error 
           header file is to be created. If absent, the current 
@@ -633,7 +649,8 @@
 
         <listitem>
 
-          <para>&lt;header_name&gt;<indexterm><primary>header_name</primary></indexterm></para>
+          <para>&lt;header_name&gt;
+          <indexterm><primary>header_name</primary></indexterm></para>
 
           <para>The name of the header file for errors. See the 
           previous discussion (&lt;header_name_dir&gt;) for more 
@@ -643,7 +660,8 @@
 
         <listitem>
 
-          <para>&lt;errmsg_dir&gt;<indexterm><primary>errmsg_dir</primary></indexterm></para>
+          <para>&lt;errmsg_dir&gt;
+          <indexterm><primary>errmsg_dir</primary></indexterm></para>
 
           <para>Optional. The name of the directory where the header 
           file and &quot;C&quot; file (for the code to retrieve the 
@@ -657,7 +675,8 @@
 
         <listitem>
 
-          <para>&lt;errmsg_header_name&gt;<indexterm><primary>errmsg_header_name</primary></indexterm></para>
+          <para>&lt;errmsg_header_name&gt;
+          <indexterm><primary>errmsg_header_name</primary></indexterm></para>
 
           <para>The name of the header file for the code to retrieve 
           the error messages. See the previous discussion 
@@ -667,7 +686,8 @@
 
         <listitem>
 
-          <para>&lt;errmsg_c_name&gt;<indexterm><primary>errmsg_c_name</primary></indexterm></para>
+          <para>&lt;errmsg_c_name&gt;
+          <indexterm><primary>errmsg_c_name</primary></indexterm></para>
 
           <para>The name of the &quot;C&quot; file for the code to 
           retrieve the error messages. See the previous discussion 
@@ -677,7 +697,8 @@
 
         <listitem>
 
-          <para>&lt;prefix_error&gt;<indexterm><primary>prefix_error</primary></indexterm></para>
+          <para>&lt;prefix_error&gt;
+          <indexterm><primary>prefix_error</primary></indexterm></para>
 
           <para>The prefix to be used for the error codes (enum or 
           #define).</para>
@@ -686,7 +707,8 @@
 
         <listitem>
 
-          <para>&lt;prefix_variable&gt;<indexterm><primary>prefix_variable</primary></indexterm></para>
+          <para>&lt;prefix_variable&gt;
+          <indexterm><primary>prefix_variable</primary></indexterm></para>
 
           <para>The prefix to be used for all variables in the code to 
           retrieve the error messages.</para>
@@ -695,7 +717,8 @@
 
         <listitem>
 
-          <para>&lt;err_msg&gt;<indexterm><primary>err_msg</primary></indexterm></para>
+          <para>&lt;err_msg&gt;
+          <indexterm><primary>err_msg</primary></indexterm></para>
 
           <para>This tag has no content but its attributes are 
           important - they define the allowed characteristics (and the 
@@ -715,7 +738,8 @@
 
             <listitem>
 
-              <para>allow_escapes<indexterm><primary>allow_escapes</primary><secondary>escape</secondary></indexterm></para>
+              <para>allow_escapes
+              <indexterm><primary>allow_escapes</primary><secondary>escape</secondary></indexterm></para>
 
               <para>An enumeration with two values, yes and no. The 
               default is no, escape sequences are not permitted (a more 
@@ -726,7 +750,8 @@
 
             <listitem>
 
-              <para>allow_quotes<indexterm><primary>allow_quotes</primary><secondary>quotes</secondary></indexterm></para>
+              <para>allow_quotes
+              <indexterm><primary>allow_quotes</primary><secondary>quotes</secondary></indexterm></para>
 
               <para>An enumeration with two values, yes and no. The 
               default is yes, quotes (&apos; and &quot;) are allowed 
@@ -736,7 +761,8 @@
 
             <listitem>
 
-              <para>percent<indexterm><primary>percent</primary></indexterm></para>
+              <para>percent
+              <indexterm><primary>percent</primary></indexterm></para>
 
               <para>The text to use to replace the % symbol. No 
               default. I recommend the textual 
