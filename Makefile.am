@@ -42,6 +42,7 @@ install-data-local:
 	-mkdir -p $(DESTDIR)$(datadir)/doc/errorParser/examples
 	-mkdir -p $(DESTDIR)$(datadir)/xml/errorParser/
 	$(install_sh_DATA) $(top_srcdir)/README                          $(DESTDIR)$(datadir)/doc/errorParser/README
+	$(install_sh_DATA) $(top_srcdir)/COPYING                         $(DESTDIR)$(datadir)/doc/errorParser/COPYING
 	$(install_sh_DATA) $(top_srcdir)/examples/example_options.xml    $(DESTDIR)$(datadir)/doc/errorParser/examples/example_options.xml
 	$(install_sh_DATA) $(top_srcdir)/examples/example_vdsf.xml       $(DESTDIR)$(datadir)/doc/errorParser/examples/example_vdsf.xml
 	$(install_sh_DATA) $(top_srcdir)/examples/simple_example.xml     $(DESTDIR)$(datadir)/doc/errorParser/examples/simple_example.xml
@@ -54,6 +55,7 @@ uninstall-local:
 	-rm -f $(DESTDIR)$(datadir)/xml/errorParser/install_catalog.sh
 	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/examples/example_vdsf.xml
 	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/examples/example_options.xml
+	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/examples/simple_example.xml
 	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/README
 	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/COPYING
 	-rm -f $(DESTDIR)$(datadir)/xml/errorParser/errorParser12.dtd
