@@ -20,8 +20,23 @@ CLEANFILES        = *~
 
 bin_PROGRAMS = errorParser
 
+man_MANS = errorParser.1
+info_TEXINFOS = errorParser.texi
+
+if COND_USE_DOCBOOK2TEXI
+errorParser.texi: errorParser.xml
+	docbook2x-texi --encoding=iso-8859-1 errorParser.xml
+	-mv errorparser.texi errorParser.texi
+endif
+if COND_USE_DOCBOOK2MAN
+errorParser.1: errorParser.xml
+	docbook2x-man --encoding=iso-8859-1 errorParser.xml
+endif
+
 EXTRA_DIST =                     \
         config-win32.h           \
+        errorParser.1            \
+        errorParser.xml          \
         parser.dsw               \
         Project_Files/parser.dsp 
 

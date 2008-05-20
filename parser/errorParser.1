@@ -1,0 +1,32 @@
+.if \n(.g .ds T< \\FC
+.if \n(.g .ds T> \\F[\n[.fam]]
+.de URL
+\\$2 \(la\\$1\(ra\\$3
+..
+.if \n(.g .mso www.tmac
+.TH errorParser 1 "20 May 2008" "Error Parser" "User Commands"
+.SH NAME
+errorParser \- Generate code for handling error messages
+.SH SYNOPSIS
+.SS "GETTING (MINIMAL) HELP:"
+\*(T<\fBerrorParser \-h|\-\-help|\-?\fR\*(T>
+.SS "RUNNING NORMALLY:"
+\*(T<\fBerrorParser \-o|\-\-options\fR\*(T> \fIoptions_xml_file input_xml_file\fR
+.SH DESCRIPTION
+From a single XML source file, errorParser generates the error-code header 
+file, the code to access the error messages and the documentation 
+(doxygen). Error messages and documentation for multiple languages are 
+supported.
+.SH OPTIONS
+.TP 
+\*(T<\fB\-o\fR\*(T>, \*(T<\fB\-\-options\fR\*(T> \fIoptions_xml_file\fR
+The name of the XML file used to set the options of errorParser, 
+for example the target language, the names of output files, etc.
+.TP 
+\fIinput_xml_file\fR
+The input XML file containing the raw data: the error codes, the error 
+messages and the documentation.
+.SH "REPORTING BUGS"
+Report bugs to <dprevost@users.sourceforge.net>.
+.SH COPYRIGHT
+Copyright \(co 2008 Daniel Pr\('evost.

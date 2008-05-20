@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+                   "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<refentry id='errorParser1'>
+<!--  
+  Copyright (C) 2008 Daniel Prevost <dprevost@users.sourceforge.net>
+
+  This file may be distributed and/or modified under the terms of the
+  MIT License as described by the Open Source Initiative
+  (http://opensource.org/licenses/mit-license.php) and appearing in
+  the file COPYING included in the packaging of this software.
+
+  This program is distributed in the hope that it will be useful, but
+  WITHOUT ANY WARRANTY, to the extent permitted by law; without even the
+  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+-->
+<refmeta>
+  <refentrytitle>errorParser</refentrytitle>
+  <manvolnum>1</manvolnum>
+  <refmiscinfo class='source'>Error Parser</refmiscinfo>
+  <refmiscinfo class='manual'>User Commands</refmiscinfo>
+  <refmiscinfo class='version'>0.3.0</refmiscinfo>
+</refmeta>
+<refnamediv id='name'>
+  <refname>errorParser</refname>
+  <refpurpose>Generate code for handling error messages</refpurpose>
+</refnamediv>
+<refsynopsisdiv id='synopsis'>
+
+<refsect2 id='getting_help'><title>Getting (minimal) help:</title>
+<para><userinput>errorParser -h|--help|-?</userinput></para> 
+</refsect2>
+
+<refsect2 id='running_normally'><title>Running normally:</title>
+<para><userinput>errorParser -o|--options</userinput> <emphasis remap='I'>options_xml_file input_xml_file</emphasis></para>
+</refsect2>
+</refsynopsisdiv>
+
+<!-- body begins here -->
+
+<refsect1 id='description'><title>DESCRIPTION</title>
+  <para>
+    From a single XML source file, errorParser generates the error-code header 
+    file, the code to access the error messages and the documentation 
+    (doxygen). Error messages and documentation for multiple languages are 
+    supported.
+  </para>
+</refsect1>
+
+<refsect1 id='options'><title>OPTIONS</title>
+<variablelist remap='TP'>
+  <varlistentry>
+  <term><option>-o</option>, <option>--options</option> <replaceable>options_xml_file</replaceable></term>
+  <listitem>
+    <para>
+      The name of the XML file used to set the options of errorParser, 
+      for example the target language, the names of output files, etc.
+    </para>
+  </listitem>
+  </varlistentry>
+
+  <varlistentry>
+  <term><replaceable>input_xml_file</replaceable></term>
+  <listitem>
+    <para>
+      The input XML file containing the raw data: the error codes, the error 
+      messages and the documentation.
+    </para>
+  </listitem>
+  </varlistentry>
+</variablelist>
+</refsect1>
+
+<refsect1 id='reporting_bugs'><title>REPORTING BUGS</title>
+  <para>Report bugs to &lt;dprevost@users.sourceforge.net&gt;.</para>
+</refsect1>
+
+<refsect1 id='copyright'><title>COPYRIGHT</title>
+  <para>Copyright © 2008 Daniel Prévost.</para>
+</refsect1>
+</refentry>
+

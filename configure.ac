@@ -38,7 +38,7 @@ AC_MINIX
 AC_PROG_LIBTOOL
 
 # Tell our makefiles if we can use docbook2x to regenerate some 
-# of the documentation, as needed (not used yet).
+# of the documentation, as needed.
 AC_CHECK_PROG([DOCBOOK2MAN_IS_PRESENT], [docbook2x-man], [yes], [no])
 AM_CONDITIONAL([COND_USE_DOCBOOK2MAN], [test "$DOCBOOK2MAN_IS_PRESENT" = yes])
 AC_CHECK_PROG([DOCBOOK2TEXI_IS_PRESENT], [docbook2x-texi], [yes], [no])
