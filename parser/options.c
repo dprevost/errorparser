@@ -262,7 +262,11 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
       }
       node = node->next;
    }
-
+   if ( commonArgs->language == NULL ) {
+      fprintf( stderr, "Error: missing <selected_lang> in options file\n" );
+      return -1;
+   }
+   
    xmlFreeDoc( doc );
    xmlFreeParserCtxt( context );
    xmlCleanupParser();

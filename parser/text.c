@@ -25,7 +25,7 @@ void buildPath( char * filename, xmlChar * dir, xmlChar * name )
 {
    int len;
    
-   if ( dir == NULL ) {
+   if ( dir == NULL || xmlStrlen(dir) == 0 ) {
       if ( xmlStrlen(name) > PATH_MAX-1 ) {
          fprintf( stderr, "File name is too long\n" );
          exit(1);
