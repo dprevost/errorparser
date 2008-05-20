@@ -29,12 +29,12 @@ Dim objSocket
 
 ' List of failed tests. We append to this list when an error is encountered
 ' while running the tests
-Dim failed_tests(2)
+Dim failed_tests(6)
 
 ' Lists containing the names of the tests
 ' The "ok" lists are for programs which are expected to return zero (succeed)
 ' and the "fail" lists are for the other ones.
-Dim ok_tests(2)
+Dim ok_tests(6)
 
 Dim exe_name, prog_path, program, wd_path, tmpDir, cmdFile, exeName
 Dim consoleMode
@@ -48,11 +48,15 @@ dim strOutput
 ' ***********************************************************************
 
 ' Populate the program lists...
-ok_tests(0) = "one_error"
-ok_tests(1) = "no_copyright"
-ok_tests(2) = "no_groupident"
+ok_tests(0) = "french" 
+ok_tests(1) = "multi_copyright"
+ok_tests(2) = "no_copyright"
+ok_tests(3) = "no_groupident"
+ok_tests(4) = "no_version"
+ok_tests(5) = "one_error"
+ok_tests(6) = "two_english"
 
-numTests = 3                 ' Sum of length of both arrays 
+numTests = 7 
 numFailed = 0
 
 ' Create the FileSystemObject
@@ -98,7 +102,7 @@ Dim test, xml_test, h_test, test_exec
 For Each test in ok_tests
    xml_test = test & ".xml"
    h_test   = test & ".h"
-   test_exec = exe_name & " --options options\" & xml_test & " xml\" & xml_test
+   test_exec = exe_name & " --options options\generic.xml" & " xml\" & xml_test
    WScript.Echo test_exec
    if consoleMode then 
       WScript.Echo "Running " & test

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE options SYSTEM 
-             "/usr/local/share/xml/errorParser/errorParserOptions10.dtd">
+             "http://errorparser.sourceforge.net/xml/errorParserOptions10.dtd">
 <!-- 
    This xml file provides the options to the errorParser program.
    
