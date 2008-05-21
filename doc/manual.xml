@@ -1,4 +1,4 @@
-<?xml version='1.0'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
 <book>
 
@@ -8,10 +8,10 @@
 
     <title>Error Parser Manuel</title>
 
-    <author><firstname>Daniel</firstname><surname>Prévost</surname></author>
+    <author><firstname>Daniel</firstname><surname>Pr&eacute;vost</surname></author>
 
     <copyright><year>2008</year><holder>Daniel 
-    Prévost</holder></copyright>
+    Pr&eacute;vost</holder></copyright>
   </bookinfo>
 
   <chapter id="Installation">

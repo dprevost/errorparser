@@ -17,15 +17,13 @@ CLEANFILES = *~
 
 EXTRA_DIST =            \
         errorParser.chm \
+        manual.html     \
+        manual.pdf      \
         manual.xml      \
         xml2chm.xsl     \
         xml2html.xsl    
 
-
-#if COND_USE_DOCBOOK2MAN
-#if COND_USE_DOCBOOK2TEXI
-
-all-local: chm.zip
+all-local: chm.zip manual.html manual.pdf
 
 chm.zip: manual.xml
 	-rm -rf chm
@@ -34,19 +32,22 @@ chm.zip: manual.xml
 	cd chm; xsltproc ../$(top_srcdir)/doc/xml2chm.xsl ../$(top_srcdir)/doc/manual.xml; cd ..
 	zip chm.zip $(top_builddir)/doc/chm/*
 
-#endif
-#endif
+manual.html: manual.xml xml2html.xsl
+	xsltproc xml2html.xsl manual.xml > manual.html
 
-#install-data-local:
-#	-mkdir -p $(DESTDIR)$(datadir)/doc/errorParser
-#	$(install_sh_DATA) $(top_srcdir)/doc/refman_c.pdf $(DESTDIR)$(datadir)/doc/errorParser/refman_c.pdf
-#	$(install_sh_DATA) $(top_srcdir)/doc/refman_c++.pdf $(DESTDIR)$(datadir)/doc/errorParser/refman_c++.pdf
+manual.pdf: manual.xml
+	db2pdf manual.xml 
 
-#uninstall-local:
-#	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/refman_c.pdf
-#	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/refman_c++.pdf
-#	-rmdir $(DESTDIR)$(datadir)/doc/errorParser
-#	-rmdir $(DESTDIR)$(datadir)/doc
+install-data-local:
+	-mkdir -p $(DESTDIR)$(datadir)/doc/errorParser
+	$(install_sh_DATA) $(top_srcdir)/doc/manual.html $(DESTDIR)$(datadir)/doc/errorParser/manual.html
+	$(install_sh_DATA) $(top_srcdir)/doc/manual.pdf  $(DESTDIR)$(datadir)/doc/errorParser/manual.pdf
+
+uninstall-local:
+	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/manual.html
+	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/manual.pdf
+	-rmdir $(DESTDIR)$(datadir)/doc/errorParser
+	-rmdir $(DESTDIR)$(datadir)/doc
 
 clean-local:
 	-rm -rf chm
