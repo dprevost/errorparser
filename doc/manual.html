@@ -1,5 +1,5 @@
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Error Parser Manual</title><meta name="generator" content="DocBook XSL Stylesheets V1.70.1"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="book" lang="en"><div class="titlepage"><div><div><h1 class="title"><a name="id2432943"></a>Error Parser Manuel</h1></div><div><div class="author"><h3 class="author"><span class="firstname">Daniel</span> <span class="surname">Prévost</span></h3></div></div><div><p class="copyright">Copyright © 2008 Daniel 
-    Prévost</p></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="chapter"><a href="#Installation">1. Installation</a></span></dt><dd><dl><dt><span class="sect1"><a href="#catalog_linux">1. The xml catalog on Linux/Unix</a></span></dt><dt><span class="sect1"><a href="#catalog_windows">2. The xml catalog on Windows</a></span></dt><dt><span class="sect1"><a href="#libxml2_windows">3. libxml2 on Windows</a></span></dt></dl></dd><dt><span class="chapter"><a href="#building">2. Building the Software</a></span></dt><dd><dl><dt><span class="sect1"><a href="#build_linux_repo">1. Building on Linux/Unix from the repository</a></span></dt><dt><span class="sect1"><a href="#build_linux_tar">2. Building on Linux/Unix from the tar file</a></span></dt><dt><span class="sect1"><a href="#build_windows_repo">3. Building on Windows from the repository</a></span></dt><dt><span class="sect1"><a href="#build_windows_zip">4. Building on Windows from a zip file</a></span></dt></dl></dd><dt><span class="chapter"><a href="#id2486693">3. User Guide</a></span></dt><dd><dl><dt><span class="sect1"><a href="#intro">1. Introduction</a></span></dt><dt><span class="sect1"><a href="#xml_file">2. The xml error file</a></span></dt><dt><span class="sect1"><a href="#option_file">3. The xml option file file</a></span></dt></dl></dd></dl></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="Installation"></a>Chapter 1. Installation</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#catalog_linux">1. The xml catalog on Linux/Unix</a></span></dt><dt><span class="sect1"><a href="#catalog_windows">2. The xml catalog on Windows</a></span></dt><dt><span class="sect1"><a href="#libxml2_windows">3. libxml2 on Windows</a></span></dt></dl></div><p>The installation procedure of the software itself is 
+    Prévost</p></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="chapter"><a href="#Installation">1. Installation</a></span></dt><dd><dl><dt><span class="sect1"><a href="#catalog_linux">1. The xml catalog on Linux/Unix</a></span></dt><dt><span class="sect1"><a href="#catalog_windows">2. The xml catalog on Windows</a></span></dt><dt><span class="sect1"><a href="#libxml2_windows">3. libxml2 on Windows</a></span></dt></dl></dd><dt><span class="chapter"><a href="#building">2. Building the Software</a></span></dt><dd><dl><dt><span class="sect1"><a href="#build_linux_repo">1. Building on Linux/Unix from the repository</a></span></dt><dt><span class="sect1"><a href="#build_linux_tar">2. Building on Linux/Unix from the tar file</a></span></dt><dt><span class="sect1"><a href="#build_windows_repo">3. Building on Windows from the repository</a></span></dt><dt><span class="sect1"><a href="#build_windows_zip">4. Building on Windows from a zip file</a></span></dt></dl></dd><dt><span class="chapter"><a href="#id2486714">3. User Guide</a></span></dt><dd><dl><dt><span class="sect1"><a href="#intro">1. Introduction</a></span></dt><dt><span class="sect1"><a href="#xml_file">2. The xml error file</a></span></dt><dt><span class="sect1"><a href="#option_file">3. The xml option file file</a></span></dt></dl></dd></dl></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="Installation"></a>Chapter 1. Installation</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#catalog_linux">1. The xml catalog on Linux/Unix</a></span></dt><dt><span class="sect1"><a href="#catalog_windows">2. The xml catalog on Windows</a></span></dt><dt><span class="sect1"><a href="#libxml2_windows">3. libxml2 on Windows</a></span></dt></dl></div><p>The installation procedure of the software itself is 
     relatively simple if you use the pre-packaged version of the 
     software (RPM, Inno setup, etc.) or if you build the software from 
     scratch and use make install.</p><p>There are some potential complications however in some cases. 
@@ -70,12 +70,19 @@
 
         </p><div class="itemizedlist"><ul type="disc"><li><p>
 
-              Run configure (./configure). Here is the list of options 
+              Run configure (./configure). Here is a list of options 
               that you might want to use to tailor the package to your 
-              needs:
+              needs (you can use ./configure --help to see all the 
+              options):
               </p><div class="itemizedlist"><ul type="circle"><li><p>--prefix=PREFIX To change the default 
                   installation directory (default is /usr/local). 
-                  Example: --prefix=/usr</p></li></ul></div><p>
+                  Example: --prefix=/usr.</p></li><li><p>--infodir=DIR   To change the default 
+                  installation for info documentation (default is 
+                  [PREFIX/info]). Example --infodir=/usr/share/info (or 
+                  /usr/local/share/info).</p></li><li><p>--mandir=DIR   To change the default 
+                  installation for man documentation (default is 
+                  [PREFIX/man]). Example --mandir=/usr/share/man (or 
+                  /usr/local/share/man).</p></li></ul></div><p>
 
             </p></li><li><p>make</p></li><li><p>make check (to run the test suite - optional)</p></li><li><p>make install</p></li></ul></div><p>
 
@@ -95,7 +102,7 @@
       Gnu diff</a> GNU diff for Windows.</p><p>To build the package, you will need 
       <a href="http://www.jrsoftware.org/isinfo.php" target="_top">Inno 
       Setup</a>. The Inno Setup file to open is 
-      installation\errorParser.iss.</p></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="id2486693"></a>Chapter 3. User Guide</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#intro">1. Introduction</a></span></dt><dt><span class="sect1"><a href="#xml_file">2. The xml error file</a></span></dt><dt><span class="sect1"><a href="#option_file">3. The xml option file file</a></span></dt></dl></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="intro"></a>1. Introduction</h2></div></div></div><p>The program errorParser is very easy to use. From the 
+      installation\errorParser.iss.</p></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="id2486714"></a>Chapter 3. User Guide</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#intro">1. Introduction</a></span></dt><dt><span class="sect1"><a href="#xml_file">2. The xml error file</a></span></dt><dt><span class="sect1"><a href="#option_file">3. The xml option file file</a></span></dt></dl></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="intro"></a>1. Introduction</h2></div></div></div><p>The program errorParser is very easy to use. From the 
       command line just enter:</p><pre class="programlisting">errorParser -o <code class="varname">option_file</code> <code class="varname">error_file</code></pre><p>where <code class="varname">option_file</code> and 
       <code class="varname">error_file</code> are the names of two xml files 
       specifying the options and all the data associated with the 
@@ -113,37 +120,29 @@
       Example: the &lt;years&gt; tag must be the first sub-tag of 
       &lt;copyright&gt; and must be unique - however, if you have more 
       than one &lt;copyright&gt; tag, each will have its &lt;years&gt; 
-      sub-tag.</p><div class="itemizedlist"><ul type="disc"><li><p>&lt;errorlist version="0.3"&gt;
-          <a class="indexterm" name="id2486796"></a></p><p>This tag starts the document itself. The version 
+      sub-tag.</p><div class="itemizedlist"><ul type="disc"><li><p>&lt;errorlist version="0.3"&gt; <a class="indexterm" name="id2487313"></a></p><p>This tag starts the document itself. The version 
           attribute is a string of your choosing and is there to help 
           you synchronize your work (to make sure that the output files 
           match the version of your software, for example). This 
-          attribute is optional.</p></li><li><p>&lt;copyright_group&gt;
-          <a class="indexterm" name="id2487313"></a></p><p>This is an optional tag. You use it if you want to 
+          attribute is optional.</p></li><li><p>&lt;copyright_group&gt; <a class="indexterm" name="id2487335"></a></p><p>This is an optional tag. You use it if you want to 
           generate copyright information in the output files. This tag 
           has only one sub-tag, &lt;copyright&gt;, which can be 
           repeated multiple times (if you have multiple authors with 
           possibly different licenses).</p><p>Note: from an xml point of view, this tag is unneeded - 
           the &lt;copyright&gt; tag could be used directly without this 
           "dummy" container. However, the code of errorParser 
-          is simplify because of it, so...</p></li><li><p>&lt;copyright&gt;
-          <a class="indexterm" name="id2487346"></a></p><p>Allows you to enter copyright information in the output 
+          is simplify because of it, so...</p></li><li><p>&lt;copyright&gt; <a class="indexterm" name="id2487368"></a></p><p>Allows you to enter copyright information in the output 
           files. It has multiple sub-tags. As mentioned previously, 
-          multiple &lt;copyright&gt; tags are allowed.</p><div class="itemizedlist"><ul type="circle"><li><p>&lt;years&gt;
-              <a class="indexterm" name="id2487368"></a></p><p>The interval of years for the current copyright 
-              notice.</p></li><li><p>&lt;authors&gt;
-              <a class="indexterm" name="id2487386"></a></p><p>The name(s) of the owner(s) of the copyright.</p></li><li><p>&lt;notice&gt;
-              <a class="indexterm" name="id2487404"></a></p><p>The text of the license. More exactly, a paragraph 
+          multiple &lt;copyright&gt; tags are allowed.</p><div class="itemizedlist"><ul type="circle"><li><p>&lt;years&gt; <a class="indexterm" name="id2487391"></a></p><p>The interval of years for the current copyright 
+              notice.</p></li><li><p>&lt;authors&gt; <a class="indexterm" name="id2487410"></a></p><p>The name(s) of the owner(s) of the copyright.</p></li><li><p>&lt;notice&gt; <a class="indexterm" name="id2487428"></a></p><p>The text of the license. More exactly, a paragraph 
               of the license. Use multiple &lt;notice&gt; if your 
               license has multiple paragraphs. You must have at least 
-              one &lt;notice&gt; for each &lt;copyright&gt;.</p></li></ul></div></li><li><p>&lt;errgroup&gt;
-          <a class="indexterm" name="id2487432"></a></p><p>&lt;errgroup&gt; is used to organize your errors in 
+              one &lt;notice&gt; for each &lt;copyright&gt;.</p></li></ul></div></li><li><p>&lt;errgroup&gt; <a class="indexterm" name="id2487456"></a></p><p>&lt;errgroup&gt; is used to organize your errors in 
           groups, if you so desired (for example, a group of i/o 
           errors, a group of network errors, etc). You can have 
           multiple &lt;errgroup&gt;, you must have at least one.</p><p>If you don't want to use this feature, only use a 
           single group and do not include the &lt;errgroup_ident&gt; 
-          sub-tag.</p></li><li><p>&lt;errgroup_ident&gt;
-          <a class="indexterm" name="id2487462"></a></p><p>This sub-tag of &lt;errgroup&gt; is optional. The 
+          sub-tag.</p></li><li><p>&lt;errgroup_ident&gt; <a class="indexterm" name="id2487488"></a></p><p>This sub-tag of &lt;errgroup&gt; is optional. The 
           sub-tags associated with this tag are used to generate 
           comments in your output header file (and will be used to 
           generate the docbook documentation eventually).</p><p>You can have multiple &lt;errgroup_ident&gt; - one for 
@@ -154,26 +153,20 @@
           to use a different default tailored for your needs).</p><p>Note: the parser will use the first 
           &lt;errgroup_ident&gt; matching the language selected in the 
           option file. If the selected language is not found, the first 
-          &lt;errgroup_ident&gt; is used.</p><div class="itemizedlist"><ul type="circle"><li><p>&lt;errgroup_name&gt;
-              <a class="indexterm" name="id2487512"></a></p><p>A name for this group of errors. For example, 
-              Network errors.</p></li><li><p>&lt;errgroup_desc&gt;
-              <a class="indexterm" name="id2487531"></a></p><p>Description of this group of errors. You must have 
+          &lt;errgroup_ident&gt; is used.</p><div class="itemizedlist"><ul type="circle"><li><p>&lt;errgroup_name&gt; <a class="indexterm" name="id2487537"></a></p><p>A name for this group of errors. For example, 
+              Network errors.</p></li><li><p>&lt;errgroup_desc&gt; <a class="indexterm" name="id2487556"></a></p><p>Description of this group of errors. You must have 
               at least one &lt;errgroup_desc&gt; but you can have 
               multiple ones, as needed. Each will be mapped to a 
-              paragraph.</p></li></ul></div></li><li><p>&lt;error&gt;
-          <a class="indexterm" name="id2487558"></a></p><p>This tag is also a sub-tag of &lt;errgroup&gt;. You 
+              paragraph.</p></li></ul></div></li><li><p>&lt;error&gt; <a class="indexterm" name="id2487584"></a></p><p>This tag is also a sub-tag of &lt;errgroup&gt;. You 
           need at least one &lt;error&gt; for each &lt;errgroup&gt; but 
-          you can have as many as needed.</p><div class="itemizedlist"><ul type="circle"><li><p>&lt;errnumber&gt;
-              <a class="indexterm" name="id2487580"></a></p><p>The numerical value of the error code.</p></li><li><p>&lt;errname&gt;
-              <a class="indexterm" name="id2487597"></a></p><p>The generic name of the error. This name is going 
+          you can have as many as needed.</p><div class="itemizedlist"><ul type="circle"><li><p>&lt;errnumber&gt; <a class="indexterm" name="id2487606"></a></p><p>The numerical value of the error code.</p></li><li><p>&lt;errname&gt; <a class="indexterm" name="id2487623"></a></p><p>The generic name of the error. This name is going 
               to be used to generate either an enum entry or a #define 
               in the output header file.</p><p>Note: if you add a prefix to your errors (to avoid 
               namespace conflicts), it is recommended to leave the 
               prefix out. For example, VDS_OBJECT_IS_DELETED would 
               become &lt;errname&gt; OBJECT_IS_DELETED &lt;/errname&gt; 
               - the prefix can be added by specifying it in the option 
-              file.</p></li><li><p>&lt;message_group&gt;
-              <a class="indexterm" name="id2487627"></a></p><p>This tag is used to group the error messages and 
+              file.</p></li><li><p>&lt;message_group&gt; <a class="indexterm" name="id2487654"></a></p><p>This tag is used to group the error messages and 
               the documentation for the error - which are encapsulated 
               in the &lt;message&gt; tag. Multiple &lt;message&gt; tags 
               are supported (you must have at least one), one for each 
@@ -181,8 +174,7 @@
               unneeded - the &lt;message&gt; tag could be used directly 
               without this "dummy" container. However, the 
               code of errorParser is simplify because of it, 
-              so...</p></li><li><p>&lt;message&gt;
-              <a class="indexterm" name="id2487661"></a></p><p>Container for both the error message and the 
+              so...</p></li><li><p>&lt;message&gt; <a class="indexterm" name="id2487688"></a></p><p>Container for both the error message and the 
               documentation for this error. This tag has an optional 
               attribute, xml:lang.If the xml:lang attribute is missing 
               the default attribute will be used (currently 
@@ -192,24 +184,19 @@
               your application).</p><p>Note: the parser will use the first &lt;message&gt; 
               matching the language selected in the option file. If the 
               selected language is not found, the first &lt;message&gt; 
-              is used.</p><div class="itemizedlist"><ul type="square"><li><p>&lt;errormsg&gt;
-                  <a class="indexterm" name="id2487706"></a></p><p>The text of the error message that will be 
+              is used.</p><div class="itemizedlist"><ul type="square"><li><p>&lt;errormsg&gt; <a class="indexterm" name="id2487733"></a></p><p>The text of the error message that will be 
                   retrieved by the function 
                   <span class="emphasis"><em>yourprefix_ErrorMessage()</em></span>.</p><p>Note: the inclusion of some characters 
                   ('%' for example) or chain of characters 
                   (escape sequences) might be problematic. You can 
                   control how to handle these occurrences by setting 
-                  the appropriate options in the option file.</p></li><li><p>&lt;errordoc&gt;
-                  <a class="indexterm" name="id2487734"></a></p><p>Each &lt;errordoc&gt; is a paragraph of the 
+                  the appropriate options in the option file.</p></li><li><p>&lt;errordoc&gt; <a class="indexterm" name="id2533631"></a></p><p>Each &lt;errordoc&gt; is a paragraph of the 
                   documentation. Therefore, you can have multiple 
                   &lt;errordoc&gt;. You must have at least one.</p></li></ul></div></li></ul></div></li></ul></div><p></p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="option_file"></a>3. The xml option file file</h2></div></div></div><p>The number of potential options to the program errorParser 
       was getting quite large and it made more sense to put all these 
       options in a configuration file (written in xml). These options 
-      are described below.</p><div class="itemizedlist"><ul type="disc"><li><p>&lt;options&gt;
-          <a class="indexterm" name="id2533652"></a></p><p>The root element.</p></li><li><p>&lt;enumname&gt;
-          <a class="indexterm" name="id2533669"></a></p><p>Optional. The name of the enum. If absent, #define will 
-          be generated instead.</p></li><li><p>&lt;header_name_dir&gt;
-          <a class="indexterm" name="id2533686"></a></p><p>Optional. The name of the directory where the error 
+      are described below.</p><div class="itemizedlist"><ul type="disc"><li><p>&lt;options&gt; <a class="indexterm" name="id2533680"></a></p><p>The root element.</p></li><li><p>&lt;enumname&gt; <a class="indexterm" name="id2533697"></a></p><p>Optional. The name of the enum. If absent, #define will 
+          be generated instead.</p></li><li><p>&lt;header_name_dir&gt; <a class="indexterm" name="id2533716"></a></p><p>Optional. The name of the directory where the error 
           header file is to be created. If absent, the current 
           directory will be used.</p><p>Alternatively, you can put the directory name (or part 
           of the directory name) directly in the &lt;header_name&gt; 
@@ -228,26 +215,19 @@
 #define MY_SUB_PROJECT_ERRORS_H
 ...
 #endif /* MY_SUB_PROJECT_ERRORS_H */</pre><p>
-          </p></li><li><p>&lt;header_name&gt;
-          <a class="indexterm" name="id2533760"></a></p><p>The name of the header file for errors. See the 
+          </p></li><li><p>&lt;header_name&gt; <a class="indexterm" name="id2533790"></a></p><p>The name of the header file for errors. See the 
           previous discussion (&lt;header_name_dir&gt;) for more 
-          details.</p></li><li><p>&lt;errmsg_dir&gt;
-          <a class="indexterm" name="id2533779"></a></p><p>Optional. The name of the directory where the header 
+          details.</p></li><li><p>&lt;errmsg_dir&gt; <a class="indexterm" name="id2533810"></a></p><p>Optional. The name of the directory where the header 
           file and "C" file (for the code to retrieve the 
           error messages) will be created. If absent, the current 
           directory will be used.</p><p>See the previous discussion (&lt;header_name_dir&gt;) 
-          for more details.</p></li><li><p>&lt;errmsg_header_name&gt;
-          <a class="indexterm" name="id2533811"></a></p><p>The name of the header file for the code to retrieve 
+          for more details.</p></li><li><p>&lt;errmsg_header_name&gt; <a class="indexterm" name="id2533843"></a></p><p>The name of the header file for the code to retrieve 
           the error messages. See the previous discussion 
-          (&lt;header_name_dir&gt;) for more details.</p></li><li><p>&lt;errmsg_c_name&gt;
-          <a class="indexterm" name="id2533832"></a></p><p>The name of the "C" file for the code to 
+          (&lt;header_name_dir&gt;) for more details.</p></li><li><p>&lt;errmsg_c_name&gt; <a class="indexterm" name="id2533865"></a></p><p>The name of the "C" file for the code to 
           retrieve the error messages. See the previous discussion 
-          (&lt;header_name_dir&gt;) for more details.</p></li><li><p>&lt;prefix_error&gt;
-          <a class="indexterm" name="id2533852"></a></p><p>The prefix to be used for the error codes (enum or 
-          #define).</p></li><li><p>&lt;prefix_variable&gt;
-          <a class="indexterm" name="id2533870"></a></p><p>The prefix to be used for all variables in the code to 
-          retrieve the error messages.</p></li><li><p>&lt;err_msg&gt;
-          <a class="indexterm" name="id2533888"></a></p><p>This tag has no content but its attributes are 
+          (&lt;header_name_dir&gt;) for more details.</p></li><li><p>&lt;prefix_error&gt; <a class="indexterm" name="id2533887"></a></p><p>The prefix to be used for the error codes (enum or 
+          #define).</p></li><li><p>&lt;prefix_variable&gt; <a class="indexterm" name="id2533905"></a></p><p>The prefix to be used for all variables in the code to 
+          retrieve the error messages.</p></li><li><p>&lt;err_msg&gt; <a class="indexterm" name="id2533924"></a></p><p>This tag has no content but its attributes are 
           important - they define the allowed characteristics (and the 
           transformations, if needed of the error messages defined in 
           the xml error file (&lt;errormsg&gt;).</p><p>The problem: the generated C strings will be use, 
@@ -255,14 +235,11 @@
           characters could have some bad side effects (possibly some 
           security issues?). The most problematic issue is likely the 
           %symbol - it is interpreted differently by libc (printf()) 
-          and the iostream library (cout).</p><p>The attributes:</p><div class="itemizedlist"><ul type="circle"><li><p>allow_escapes
-              <a class="indexterm" name="id2533926"></a></p><p>An enumeration with two values, yes and no. The 
+          and the iostream library (cout).</p><p>The attributes:</p><div class="itemizedlist"><ul type="circle"><li><p>allow_escapes <a class="indexterm" name="id2533962"></a></p><p>An enumeration with two values, yes and no. The 
               default is no, escape sequences are not permitted (a more 
               fine grain approach could be written if the need 
-              arise).</p></li><li><p>allow_quotes
-              <a class="indexterm" name="id2533948"></a></p><p>An enumeration with two values, yes and no. The 
+              arise).</p></li><li><p>allow_quotes <a class="indexterm" name="id2533985"></a></p><p>An enumeration with two values, yes and no. The 
               default is yes, quotes (' and ") are allowed 
-              (and will be escaped as needed).</p></li><li><p>percent
-              <a class="indexterm" name="id2533969"></a></p><p>The text to use to replace the % symbol. No 
+              (and will be escaped as needed).</p></li><li><p>percent <a class="indexterm" name="id2534008"></a></p><p>The text to use to replace the % symbol. No 
               default. I recommend the textual 
               "percent".</p></li></ul></div></li></ul></div></div></div></div></body></html>

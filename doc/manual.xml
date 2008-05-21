@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0'?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
 <book>
 
@@ -179,16 +179,35 @@
 
             <para>
 
-              Run configure (./configure). Here is the list of options 
+              Run configure (./configure). Here is a list of options 
               that you might want to use to tailor the package to your 
-              needs:
+              needs (you can use ./configure --help to see all the 
+              options):
               <itemizedlist>
 
                 <listitem>
 
                   <para>--prefix=PREFIX To change the default 
                   installation directory (default is /usr/local). 
-                  Example: --prefix=/usr</para>
+                  Example: --prefix=/usr.</para>
+
+                </listitem>
+
+                <listitem>
+
+                  <para>--infodir=DIR   To change the default 
+                  installation for info documentation (default is 
+                  [PREFIX/info]). Example --infodir=/usr/share/info (or 
+                  /usr/local/share/info).</para>
+
+                </listitem>
+
+                <listitem>
+
+                  <para>--mandir=DIR   To change the default 
+                  installation for man documentation (default is 
+                  [PREFIX/man]). Example --mandir=/usr/share/man (or 
+                  /usr/local/share/man).</para>
 
                 </listitem>
 
@@ -316,8 +335,8 @@
 
         <listitem>
 
-          <para>&lt;errorlist version=&quot;0.3&quot;&gt;
-          <indexterm><primary>errorlist</primary></indexterm></para>
+          <para>&lt;errorlist version=&quot;0.3&quot;&gt; <indexterm>
+          <primary>errorlist</primary></indexterm></para>
 
           <para>This tag starts the document itself. The version 
           attribute is a string of your choosing and is there to help 
@@ -329,8 +348,8 @@
 
         <listitem>
 
-          <para>&lt;copyright_group&gt;
-          <indexterm><primary>copyright_group</primary></indexterm></para>
+          <para>&lt;copyright_group&gt; <indexterm>
+          <primary>copyright_group</primary></indexterm></para>
 
           <para>This is an optional tag. You use it if you want to 
           generate copyright information in the output files. This tag 
@@ -347,8 +366,8 @@
 
         <listitem>
 
-          <para>&lt;copyright&gt;
-          <indexterm><primary>copyright</primary></indexterm></para>
+          <para>&lt;copyright&gt; <indexterm>
+          <primary>copyright</primary></indexterm></para>
 
           <para>Allows you to enter copyright information in the output 
           files. It has multiple sub-tags. As mentioned previously, 
@@ -358,8 +377,8 @@
 
             <listitem>
 
-              <para>&lt;years&gt;
-              <indexterm><primary>years</primary></indexterm></para>
+              <para>&lt;years&gt; <indexterm>
+              <primary>years</primary></indexterm></para>
 
               <para>The interval of years for the current copyright 
               notice.</para>
@@ -368,8 +387,8 @@
 
             <listitem>
 
-              <para>&lt;authors&gt;
-              <indexterm><primary>authors</primary></indexterm></para>
+              <para>&lt;authors&gt; <indexterm>
+              <primary>authors</primary></indexterm></para>
 
               <para>The name(s) of the owner(s) of the copyright.</para>
 
@@ -377,8 +396,8 @@
 
             <listitem>
 
-              <para>&lt;notice&gt;
-              <indexterm><primary>notice</primary></indexterm></para>
+              <para>&lt;notice&gt; <indexterm>
+              <primary>notice</primary></indexterm></para>
 
               <para>The text of the license. More exactly, a paragraph 
               of the license. Use multiple &lt;notice&gt; if your 
@@ -393,8 +412,8 @@
 
         <listitem>
 
-          <para>&lt;errgroup&gt;
-          <indexterm><primary>errgroup</primary></indexterm></para>
+          <para>&lt;errgroup&gt; <indexterm>
+          <primary>errgroup</primary></indexterm></para>
 
           <para>&lt;errgroup&gt; is used to organize your errors in 
           groups, if you so desired (for example, a group of i/o 
@@ -409,8 +428,8 @@
 
         <listitem>
 
-          <para>&lt;errgroup_ident&gt;
-          <indexterm><primary>errgroup_ident</primary></indexterm></para>
+          <para>&lt;errgroup_ident&gt; <indexterm>
+          <primary>errgroup_ident</primary></indexterm></para>
 
           <para>This sub-tag of &lt;errgroup&gt; is optional. The 
           sub-tags associated with this tag are used to generate 
@@ -433,8 +452,8 @@
 
             <listitem>
 
-              <para>&lt;errgroup_name&gt;
-              <indexterm><primary>errgroup_name</primary></indexterm></para>
+              <para>&lt;errgroup_name&gt; <indexterm>
+              <primary>errgroup_name</primary></indexterm></para>
 
               <para>A name for this group of errors. For example, 
               Network errors.</para>
@@ -443,8 +462,8 @@
 
             <listitem>
 
-              <para>&lt;errgroup_desc&gt;
-              <indexterm><primary>errgroup_desc</primary></indexterm></para>
+              <para>&lt;errgroup_desc&gt; <indexterm>
+              <primary>errgroup_desc</primary></indexterm></para>
 
               <para>Description of this group of errors. You must have 
               at least one &lt;errgroup_desc&gt; but you can have 
@@ -459,8 +478,8 @@
 
         <listitem>
 
-          <para>&lt;error&gt;
-          <indexterm><primary>error</primary></indexterm></para>
+          <para>&lt;error&gt; <indexterm>
+          <primary>error</primary></indexterm></para>
 
           <para>This tag is also a sub-tag of &lt;errgroup&gt;. You 
           need at least one &lt;error&gt; for each &lt;errgroup&gt; but 
@@ -470,8 +489,8 @@
 
             <listitem>
 
-              <para>&lt;errnumber&gt;
-              <indexterm><primary>errnumber</primary></indexterm></para>
+              <para>&lt;errnumber&gt; <indexterm>
+              <primary>errnumber</primary></indexterm></para>
 
               <para>The numerical value of the error code.</para>
 
@@ -479,8 +498,8 @@
 
             <listitem>
 
-              <para>&lt;errname&gt;
-              <indexterm><primary>errname</primary></indexterm></para>
+              <para>&lt;errname&gt; <indexterm>
+              <primary>errname</primary></indexterm></para>
 
               <para>The generic name of the error. This name is going 
               to be used to generate either an enum entry or a #define 
@@ -497,8 +516,8 @@
 
             <listitem>
 
-              <para>&lt;message_group&gt;
-              <indexterm><primary>message_group</primary></indexterm></para>
+              <para>&lt;message_group&gt; <indexterm>
+              <primary>message_group</primary></indexterm></para>
 
               <para>This tag is used to group the error messages and 
               the documentation for the error - which are encapsulated 
@@ -516,8 +535,8 @@
 
             <listitem>
 
-              <para>&lt;message&gt;
-              <indexterm><primary>message</primary></indexterm></para>
+              <para>&lt;message&gt; <indexterm>
+              <primary>message</primary></indexterm></para>
 
               <para>Container for both the error message and the 
               documentation for this error. This tag has an optional 
@@ -539,8 +558,8 @@
 
                 <listitem>
 
-                  <para>&lt;errormsg&gt;
-                  <indexterm><primary>errormsg</primary></indexterm></para>
+                  <para>&lt;errormsg&gt; <indexterm>
+                  <primary>errormsg</primary></indexterm></para>
 
                   <para>The text of the error message that will be 
                   retrieved by the function 
@@ -556,8 +575,8 @@
 
                 <listitem>
 
-                  <para>&lt;errordoc&gt;
-                  <indexterm><primary>errordoc</primary></indexterm></para>
+                  <para>&lt;errordoc&gt; <indexterm>
+                  <primary>errordoc</primary></indexterm></para>
 
                   <para>Each &lt;errordoc&gt; is a paragraph of the 
                   documentation. Therefore, you can have multiple 
@@ -592,8 +611,8 @@
 
         <listitem>
 
-          <para>&lt;options&gt;
-          <indexterm><primary>options</primary></indexterm></para>
+          <para>&lt;options&gt; <indexterm>
+          <primary>options</primary></indexterm></para>
 
           <para>The root element.</para>
 
@@ -601,8 +620,8 @@
 
         <listitem>
 
-          <para>&lt;enumname&gt;
-          <indexterm><primary>enumname</primary></indexterm></para>
+          <para>&lt;enumname&gt; <indexterm>
+          <primary>enumname</primary></indexterm></para>
 
           <para>Optional. The name of the enum. If absent, #define will 
           be generated instead.</para>
@@ -611,8 +630,8 @@
 
         <listitem>
 
-          <para>&lt;header_name_dir&gt;
-          <indexterm><primary>header_name_dir</primary></indexterm></para>
+          <para>&lt;header_name_dir&gt; <indexterm>
+          <primary>header_name_dir</primary></indexterm></para>
 
           <para>Optional. The name of the directory where the error 
           header file is to be created. If absent, the current 
@@ -649,8 +668,8 @@
 
         <listitem>
 
-          <para>&lt;header_name&gt;
-          <indexterm><primary>header_name</primary></indexterm></para>
+          <para>&lt;header_name&gt; <indexterm>
+          <primary>header_name</primary></indexterm></para>
 
           <para>The name of the header file for errors. See the 
           previous discussion (&lt;header_name_dir&gt;) for more 
@@ -660,8 +679,8 @@
 
         <listitem>
 
-          <para>&lt;errmsg_dir&gt;
-          <indexterm><primary>errmsg_dir</primary></indexterm></para>
+          <para>&lt;errmsg_dir&gt; <indexterm>
+          <primary>errmsg_dir</primary></indexterm></para>
 
           <para>Optional. The name of the directory where the header 
           file and &quot;C&quot; file (for the code to retrieve the 
@@ -675,8 +694,8 @@
 
         <listitem>
 
-          <para>&lt;errmsg_header_name&gt;
-          <indexterm><primary>errmsg_header_name</primary></indexterm></para>
+          <para>&lt;errmsg_header_name&gt; <indexterm>
+          <primary>errmsg_header_name</primary></indexterm></para>
 
           <para>The name of the header file for the code to retrieve 
           the error messages. See the previous discussion 
@@ -686,8 +705,8 @@
 
         <listitem>
 
-          <para>&lt;errmsg_c_name&gt;
-          <indexterm><primary>errmsg_c_name</primary></indexterm></para>
+          <para>&lt;errmsg_c_name&gt; <indexterm>
+          <primary>errmsg_c_name</primary></indexterm></para>
 
           <para>The name of the &quot;C&quot; file for the code to 
           retrieve the error messages. See the previous discussion 
@@ -697,8 +716,8 @@
 
         <listitem>
 
-          <para>&lt;prefix_error&gt;
-          <indexterm><primary>prefix_error</primary></indexterm></para>
+          <para>&lt;prefix_error&gt; <indexterm>
+          <primary>prefix_error</primary></indexterm></para>
 
           <para>The prefix to be used for the error codes (enum or 
           #define).</para>
@@ -707,8 +726,8 @@
 
         <listitem>
 
-          <para>&lt;prefix_variable&gt;
-          <indexterm><primary>prefix_variable</primary></indexterm></para>
+          <para>&lt;prefix_variable&gt; <indexterm>
+          <primary>prefix_variable</primary></indexterm></para>
 
           <para>The prefix to be used for all variables in the code to 
           retrieve the error messages.</para>
@@ -717,8 +736,8 @@
 
         <listitem>
 
-          <para>&lt;err_msg&gt;
-          <indexterm><primary>err_msg</primary></indexterm></para>
+          <para>&lt;err_msg&gt; <indexterm>
+          <primary>err_msg</primary></indexterm></para>
 
           <para>This tag has no content but its attributes are 
           important - they define the allowed characteristics (and the 
@@ -738,8 +757,8 @@
 
             <listitem>
 
-              <para>allow_escapes
-              <indexterm><primary>allow_escapes</primary><secondary>escape</secondary></indexterm></para>
+              <para>allow_escapes <indexterm>
+              <primary>allow_escapes</primary><secondary>escape</secondary></indexterm></para>
 
               <para>An enumeration with two values, yes and no. The 
               default is no, escape sequences are not permitted (a more 
@@ -750,8 +769,8 @@
 
             <listitem>
 
-              <para>allow_quotes
-              <indexterm><primary>allow_quotes</primary><secondary>quotes</secondary></indexterm></para>
+              <para>allow_quotes <indexterm>
+              <primary>allow_quotes</primary><secondary>quotes</secondary></indexterm></para>
 
               <para>An enumeration with two values, yes and no. The 
               default is yes, quotes (&apos; and &quot;) are allowed 
@@ -761,8 +780,8 @@
 
             <listitem>
 
-              <para>percent
-              <indexterm><primary>percent</primary></indexterm></para>
+              <para>percent <indexterm>
+              <primary>percent</primary></indexterm></para>
 
               <para>The text to use to replace the % symbol. No 
               default. I recommend the textual 
