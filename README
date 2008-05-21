@@ -1,13 +1,10 @@
-Welcome to errorparser - the error parser and code generator version 0.2.0.
+Welcome to errorparser - the error parser and code generator version 0.3.0.
 
 WARNING: this version is an alpha release.
 
 errorparser is distributed under the MIT license (see the file COPYING
 for details).
 
-Sorry, work on the documentation has not been started yet. You can 
-try the web site (hhtp://errorparser.sourceforge.net) or the example
-files or the DTD itself.
-
 For building and installation instructions please see the INSTALL file.
 
+For documentation, see the doc directory (manual.html, manual.pdf, etc.).

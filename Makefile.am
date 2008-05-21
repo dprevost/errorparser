@@ -27,7 +27,7 @@ EXTRA_DIST =                             \
         README                           \
         DTD/errorParser12.dtd            \
         DTD/errorParserOptions10.dtd     \
-        DTD/catalog.xml                \
+        DTD/catalog.xml                  \
         examples/example_options.xml     \
         examples/example_vdsf.xml        \
         examples/simple_example.xml      \

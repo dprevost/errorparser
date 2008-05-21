@@ -23,7 +23,11 @@ EXTRA_DIST =            \
         xml2chm.xsl     \
         xml2html.xsl    
 
-all-local: chm.zip manual.html manual.pdf
+if COND_USE_DB2PDF
+ LOCAL_PDF=manual.pdf
+endif
+
+all-local: chm.zip manual.html $(LOCAL_PDF)
 
 chm.zip: manual.xml
 	-rm -rf chm
@@ -35,8 +39,10 @@ chm.zip: manual.xml
 manual.html: manual.xml xml2html.xsl
 	xsltproc xml2html.xsl manual.xml > manual.html
 
+if COND_USE_DB2PDF
 manual.pdf: manual.xml
 	db2pdf manual.xml 
+endif
 
 install-data-local:
 	-mkdir -p $(DESTDIR)$(datadir)/doc/errorParser
