@@ -14,21 +14,24 @@ OutputBaseFilename=errorParser-0.3.0
 ChangesEnvironment=yes
 
 [Files]
-Source: DTD\catalog12.xml; DestDir: {app}\DTD
+Source: DTD\catalog.xml; DestDir: {app}\DTD
 Source: DTD\errorParser12.dtd; DestDir: {app}\DTD
+Source: DTD\errorParserOptions10.dtd; DestDir: {app}\DTD
+Source: DTD\main_catalog_win32.xml; DestDir: {app}\DTD
+Source: installation\install_catalog.vbs; DestDir: {app}\DTD
 Source: doc\errorParser.chm; DestDir: {app}
+Source: doc\manual.html; DestDir: {app}
+Source: doc\manual.pdf; DestDir: {app}
 Source: examples\example_options.xml; DestDir: {app}\Examples
 Source: examples\example_vdsf.xml; DestDir: {app}\Examples
 Source: examples\simple_example.xml; DestDir: {app}\Examples
 Source: parser\Project_Files\Release\errorParser.exe; DestDir: {app}\bin
 Source: COPYING; DestDir: {app}
-Source: installation\install_catalog.vbs; DestDir: {app}\DTD
 Source: installation\SetEnv.exe; DestDir: {app}\bin
 Source: C:\Program Files\libxml2\bin\iconv.dll; DestDir: {app}\bin; Components: libxml2
 Source: C:\Program Files\libxml2\bin\iconv.exe; DestDir: {app}\bin; Components: libxml2
 Source: C:\Program Files\libxml2\bin\libxml2.dll; DestDir: {app}\bin; Components: libxml2
 Source: C:\Program Files\libxml2\bin\xmlcatalog.exe; DestDir: {app}\bin; Components: libxml2
-Source: DTD\main_catalog_win32.xml; DestDir: {app}\DTD
 
 [Icons]
 Name: {group}\Error Parser Help; Filename: {app}\errorParser.chm
