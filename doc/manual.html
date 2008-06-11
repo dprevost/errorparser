@@ -1,5 +1,5 @@
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Error Parser Manual</title><meta name="generator" content="DocBook XSL Stylesheets V1.70.1"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="book" lang="en"><div class="titlepage"><div><div><h1 class="title"><a name="id2432943"></a>Error Parser Manuel</h1></div><div><div class="author"><h3 class="author"><span class="firstname">Daniel</span> <span class="surname">Prévost</span></h3></div></div><div><p class="copyright">Copyright © 2008 Daniel 
-    Prévost</p></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="chapter"><a href="#Installation">1. Installation</a></span></dt><dd><dl><dt><span class="sect1"><a href="#catalog_linux">1. The xml catalog on Linux/Unix</a></span></dt><dt><span class="sect1"><a href="#catalog_windows">2. The xml catalog on Windows</a></span></dt><dt><span class="sect1"><a href="#libxml2_windows">3. libxml2 on Windows</a></span></dt></dl></dd><dt><span class="chapter"><a href="#building">2. Building the Software</a></span></dt><dd><dl><dt><span class="sect1"><a href="#build_linux_repo">1. Building on Linux/Unix from the repository</a></span></dt><dt><span class="sect1"><a href="#build_linux_tar">2. Building on Linux/Unix from the tar file</a></span></dt><dt><span class="sect1"><a href="#build_windows_repo">3. Building on Windows from the repository</a></span></dt><dt><span class="sect1"><a href="#build_windows_zip">4. Building on Windows from a zip file</a></span></dt></dl></dd><dt><span class="chapter"><a href="#id2486714">3. User Guide</a></span></dt><dd><dl><dt><span class="sect1"><a href="#intro">1. Introduction</a></span></dt><dt><span class="sect1"><a href="#xml_file">2. The xml error file</a></span></dt><dt><span class="sect1"><a href="#option_file">3. The xml option file file</a></span></dt></dl></dd></dl></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="Installation"></a>Chapter 1. Installation</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#catalog_linux">1. The xml catalog on Linux/Unix</a></span></dt><dt><span class="sect1"><a href="#catalog_windows">2. The xml catalog on Windows</a></span></dt><dt><span class="sect1"><a href="#libxml2_windows">3. libxml2 on Windows</a></span></dt></dl></div><p>The installation procedure of the software itself is 
+    Prévost</p></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="chapter"><a href="#Installation">1. Installation</a></span></dt><dd><dl><dt><span class="sect1"><a href="#catalog_linux">1. The xml catalog on Linux/Unix</a></span></dt><dt><span class="sect1"><a href="#catalog_windows">2. The xml catalog on Windows</a></span></dt><dt><span class="sect1"><a href="#libxml2_windows">3. libxml2 on Windows</a></span></dt></dl></dd><dt><span class="chapter"><a href="#building">2. Building the Software</a></span></dt><dd><dl><dt><span class="sect1"><a href="#build_linux_repo">1. Building on Linux/Unix from the repository</a></span></dt><dt><span class="sect1"><a href="#build_linux_tar">2. Building on Linux/Unix from the tar file</a></span></dt><dt><span class="sect1"><a href="#build_windows_repo">3. Building on Windows from the repository</a></span></dt><dt><span class="sect1"><a href="#build_windows_zip">4. Building on Windows from a zip file</a></span></dt></dl></dd><dt><span class="chapter"><a href="#user_guide">3. User Guide</a></span></dt><dd><dl><dt><span class="sect1"><a href="#intro">1. Introduction</a></span></dt><dt><span class="sect1"><a href="#xml_file">2. The xml error file</a></span></dt><dt><span class="sect1"><a href="#option_file">3. The xml option file file</a></span></dt><dt><span class="sect1"><a href="#watchdog">4. Example: the VDSF watchdog</a></span></dt><dd><dl><dt><span class="sect2"><a href="#makefile_am">4.1. Makefile.am</a></span></dt><dt><span class="sect2"><a href="#wderrors">4.2. wdErrors.xml</a></span></dt><dt><span class="sect2"><a href="#wdoptions">4.3. wdOptions.xml</a></span></dt></dl></dd></dl></dd></dl></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="Installation"></a>Chapter 1. Installation</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#catalog_linux">1. The xml catalog on Linux/Unix</a></span></dt><dt><span class="sect1"><a href="#catalog_windows">2. The xml catalog on Windows</a></span></dt><dt><span class="sect1"><a href="#libxml2_windows">3. libxml2 on Windows</a></span></dt></dl></div><p>The installation procedure of the software itself is 
     relatively simple if you use the pre-packaged version of the 
     software (RPM, Inno setup, etc.) or if you build the software from 
     scratch and use make install.</p><p>There are some potential complications however in some cases. 
@@ -102,7 +102,7 @@
       Gnu diff</a> GNU diff for Windows.</p><p>To build the package, you will need 
       <a href="http://www.jrsoftware.org/isinfo.php" target="_top">Inno 
       Setup</a>. The Inno Setup file to open is 
-      installation\errorParser.iss.</p></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="id2486714"></a>Chapter 3. User Guide</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#intro">1. Introduction</a></span></dt><dt><span class="sect1"><a href="#xml_file">2. The xml error file</a></span></dt><dt><span class="sect1"><a href="#option_file">3. The xml option file file</a></span></dt></dl></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="intro"></a>1. Introduction</h2></div></div></div><p>The program errorParser is very easy to use. From the 
+      installation\errorParser.iss.</p></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="user_guide"></a>Chapter 3. User Guide</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#intro">1. Introduction</a></span></dt><dt><span class="sect1"><a href="#xml_file">2. The xml error file</a></span></dt><dt><span class="sect1"><a href="#option_file">3. The xml option file file</a></span></dt><dt><span class="sect1"><a href="#watchdog">4. Example: the VDSF watchdog</a></span></dt><dd><dl><dt><span class="sect2"><a href="#makefile_am">4.1. Makefile.am</a></span></dt><dt><span class="sect2"><a href="#wderrors">4.2. wdErrors.xml</a></span></dt><dt><span class="sect2"><a href="#wdoptions">4.3. wdOptions.xml</a></span></dt></dl></dd></dl></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="intro"></a>1. Introduction</h2></div></div></div><p>The program errorParser is very easy to use. From the 
       command line just enter:</p><pre class="programlisting">errorParser -o <code class="varname">option_file</code> <code class="varname">error_file</code></pre><p>where <code class="varname">option_file</code> and 
       <code class="varname">error_file</code> are the names of two xml files 
       specifying the options and all the data associated with the 
@@ -225,9 +225,17 @@
           the error messages. See the previous discussion 
           (&lt;header_name_dir&gt;) for more details.</p></li><li><p>&lt;errmsg_c_name&gt; <a class="indexterm" name="id2533865"></a></p><p>The name of the "C" file for the code to 
           retrieve the error messages. See the previous discussion 
-          (&lt;header_name_dir&gt;) for more details.</p></li><li><p>&lt;prefix_error&gt; <a class="indexterm" name="id2533887"></a></p><p>The prefix to be used for the error codes (enum or 
-          #define).</p></li><li><p>&lt;prefix_variable&gt; <a class="indexterm" name="id2533905"></a></p><p>The prefix to be used for all variables in the code to 
-          retrieve the error messages.</p></li><li><p>&lt;err_msg&gt; <a class="indexterm" name="id2533924"></a></p><p>This tag has no content but its attributes are 
+          (&lt;header_name_dir&gt;) for more details.</p></li><li><p>&lt;prefix_error&gt; <a class="indexterm" name="id2533887"></a></p><p>
+            The prefix to be used for the error codes (enum or 
+            #define). For example, if your error is OBJECT_IS_DELETED 
+            (using the &lt;errname&gt; tag) and your prefix is VDS, the error
+            code becomes VDS_OBJECT_IS_DELETED.
+          </p><p>
+            The prefix should be optional (and if empty the underscore should
+            not be added). This was added on the to-do list for the next 
+            release.
+          </p></li><li><p>&lt;prefix_variable&gt; <a class="indexterm" name="id2533916"></a></p><p>The prefix to be used for all variables in the code to 
+          retrieve the error messages.</p></li><li><p>&lt;err_msg&gt; <a class="indexterm" name="id2533935"></a></p><p>This tag has no content but its attributes are 
           important - they define the allowed characteristics (and the 
           transformations, if needed of the error messages defined in 
           the xml error file (&lt;errormsg&gt;).</p><p>The problem: the generated C strings will be use, 
@@ -235,11 +243,442 @@
           characters could have some bad side effects (possibly some 
           security issues?). The most problematic issue is likely the 
           %symbol - it is interpreted differently by libc (printf()) 
-          and the iostream library (cout).</p><p>The attributes:</p><div class="itemizedlist"><ul type="circle"><li><p>allow_escapes <a class="indexterm" name="id2533962"></a></p><p>An enumeration with two values, yes and no. The 
+          and the iostream library (cout).</p><p>The attributes:</p><div class="itemizedlist"><ul type="circle"><li><p>allow_escapes <a class="indexterm" name="id2533973"></a></p><p>An enumeration with two values, yes and no. The 
               default is no, escape sequences are not permitted (a more 
               fine grain approach could be written if the need 
-              arise).</p></li><li><p>allow_quotes <a class="indexterm" name="id2533985"></a></p><p>An enumeration with two values, yes and no. The 
+              arise).</p></li><li><p>allow_quotes <a class="indexterm" name="id2533996"></a></p><p>An enumeration with two values, yes and no. The 
               default is yes, quotes (' and ") are allowed 
-              (and will be escaped as needed).</p></li><li><p>percent <a class="indexterm" name="id2534008"></a></p><p>The text to use to replace the % symbol. No 
+              (and will be escaped as needed).</p></li><li><p>percent <a class="indexterm" name="id2534019"></a></p><p>The text to use to replace the % symbol. No 
               default. I recommend the textual 
-              "percent".</p></li></ul></div></li></ul></div></div></div></div></body></html>
+              "percent".</p></li></ul></div></li></ul></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="watchdog"></a>4. Example: the VDSF watchdog</h2></div></div></div><p>
+    This is work in progress for the next iteration of the VDSF project. As a
+    matter of fact, while working on this, I've discovered that adding
+    new error codes this way was no more complex than adding error codes 
+    to an header file (once you understand the basics).
+  </p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="makefile_am"></a>4.1. Makefile.am</h3></div></div></div><p>
+         How to include this in a project? Here's an example of how I've 
+         included it in the Makefile.am of the VDSF Watchdog (the syntax for
+         ordinary makefiles should be similar).
+       </p><pre class="programlisting"># The main target, vdswd
+bin_PROGRAMS = vdswd
+
+# The list of files generated by errorParser.
+OUTPUT_FILES =           \
+        wdErrors.h       \
+        wdErrorHandler.c \
+        wdErrorHandler.h 
+
+# This is "true" if the autoconf program found errorParser. Otherwise
+# we will not attempt to redo the generated files.
+if COND_USE_ERRORPARSER
+$(OUTPUT_FILES): wdOptions.xml wdErrors.xml
+	errorParser --options wdOptions.xml wdErrors.xml
+endif
+
+# The source code needed to build the watchdog. We list the errorParser 
+# generated files first since they must be "refreshed" first since they
+# might be used in the rest of the code (certainly true for wdErrors.h).
+vdswd_SOURCES =         \
+        $(OUTPUT_FILES) \
+        Acceptor.cpp    \
+        ...
+</pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="wderrors"></a>4.2. wdErrors.xml</h3></div></div></div><pre class="programlisting">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE errorlist PUBLIC "-//Error Parser project//DTD Error Parser XML V1.2//EN"
+             "http://errorparser.sourceforge.net/xml/errorParser12.dtd"&gt; 
+&lt;!-- 
+    This file contains the error codes specific to the watchdog of
+    VDSF.
+    
+    You can replace the DOCTYPE with this, if you prefer:
+&lt;!DOCTYPE errorlist SYSTEM 
+             "/usr/local/share/xml/errorParser/DTD/errorParser12.dtd"&gt;
+    
+--&gt;
+
+&lt;!-- VDSF next version is 0.3 --&gt;
+&lt;errorlist version="0.3"&gt;
+  &lt;!-- Copyright information and any additional info that will appear at 
+       the top of the generated files. This is optional. --&gt;
+  &lt;copyright_group&gt;
+    &lt;copyright&gt;
+      &lt;years&gt;2006-2008&lt;/years&gt;
+      &lt;authors&gt;Daniel Prevost&lt;/authors&gt;
+      &lt;!-- Each &lt;notice&gt; is mapped to a paragraph (easier to read) --&gt;
+      &lt;notice&gt;
+        This file is part of the vdsf library (Virtual Data Space Framework).
+      &lt;/notice&gt;
+      &lt;!-- The GPL license is of course for VDSF, not for Error Parser... --&gt;
+      &lt;notice&gt;
+        This file may be distributed and/or modified under the terms of the
+        GNU General Public License version 2 as published by the Free Software
+        Foundation and appearing in the file COPYING included in the
+        packaging of this library.
+      &lt;/notice&gt;
+      &lt;notice&gt;
+        This library is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+      &lt;/notice&gt;
+    &lt;/copyright&gt;
+  &lt;/copyright_group&gt;
+  &lt;errgroup&gt;
+    &lt;error&gt;
+      &lt;errnumber&gt; 0 &lt;/errnumber&gt;
+      &lt;errname&gt; OK &lt;/errname&gt;
+      &lt;message_group&gt;
+        &lt;message xml:lang="en"&gt;
+          &lt;errormsg&gt;No error...&lt;/errormsg&gt;
+          &lt;errordoc&gt;No error...&lt;/errordoc&gt;
+        &lt;/message&gt;
+      &lt;/message_group&gt;
+    &lt;/error&gt;
+  &lt;/errgroup&gt;
+  &lt;errgroup&gt;
+    &lt;errgroup_ident xml:lang="en"&gt;
+      &lt;errgroup_name&gt;XML config errors&lt;/errgroup_name&gt;
+      &lt;errgroup_desc&gt;
+        This group of errors described potential errors with the code to read
+        and parse the XML configuration file.
+      &lt;/errgroup_desc&gt;
+    &lt;/errgroup_ident&gt;
+
+    &lt;error&gt;
+      &lt;errnumber&gt; 100 &lt;/errnumber&gt;
+      &lt;errname&gt; XML_CONFIG_NOT_OPEN&lt;/errname&gt;
+      &lt;message_group&gt;
+        &lt;message xml:lang="en"&gt;
+          &lt;errormsg&gt;Error opening the XML config file.&lt;/errormsg&gt;
+          &lt;errordoc&gt;Error opening the XML configuration file.&lt;/errordoc&gt;
+          &lt;errordoc&gt;
+            Most likely reason: the file does not exist but it might also be
+            a problem with access permissions (on the file itself or one
+            of its parent directories.
+          &lt;/errordoc&gt;
+        &lt;/message&gt;
+      &lt;/message_group&gt;
+    &lt;/error&gt;
+
+    &lt;error&gt;
+      &lt;errnumber&gt; 101 &lt;/errnumber&gt;
+      &lt;errname&gt; XML_READ_ERROR&lt;/errname&gt;
+      &lt;message_group&gt;
+        &lt;message xml:lang="en"&gt;
+          &lt;errormsg&gt;Error reading the XML config file.&lt;/errormsg&gt;
+          &lt;errordoc&gt;Error reading the XML configuration file.&lt;/errordoc&gt;
+          &lt;errordoc&gt;
+            No validation is done at this point. Therefore the error is likely
+            something like a missing end-tag or some other non-conformance to 
+            the XML's syntax rules. 
+          &lt;/errordoc&gt;
+          &lt;errordoc&gt;
+            A simple Google search for "well-formed xml" returns many web sites 
+            that describe the syntax rules for XML. You can also use the 
+            program xmllint (included in the distribution of libxm2) to
+            pinpoint the issue.
+          &lt;/errordoc&gt;
+        &lt;/message&gt;
+      &lt;/message_group&gt;
+    &lt;/error&gt;
+
+    &lt;error&gt;
+      &lt;errnumber&gt; 102 &lt;/errnumber&gt;
+      &lt;errname&gt; XML_NO_ROOT&lt;/errname&gt;
+      &lt;message_group&gt;
+        &lt;message xml:lang="en"&gt;
+          &lt;errormsg&gt;No root element in the XML document.&lt;/errormsg&gt;
+          &lt;errordoc&gt;No root element in the XML document.&lt;/errordoc&gt;
+          &lt;errordoc&gt;
+            This error is very unlikely - without a root element, the document
+            cannot be parsed into a tree and you'll get the error 
+            XML_READ_ERROR instead.
+          &lt;/errordoc&gt;
+        &lt;/message&gt;
+      &lt;/message_group&gt;
+    &lt;/error&gt;
+
+    &lt;error&gt;
+      &lt;errnumber&gt; 103 &lt;/errnumber&gt;
+      &lt;errname&gt; XML_INVALID_ROOT&lt;/errname&gt;
+      &lt;message_group&gt;
+        &lt;message xml:lang="en"&gt;
+          &lt;errormsg&gt;The root element is not the expected root.&lt;/errormsg&gt;
+          &lt;errordoc&gt;
+            The root element is not the expected root, &lt;vdsf_config&gt;.
+          &lt;/errordoc&gt;
+        &lt;/message&gt;
+      &lt;/message_group&gt;
+    &lt;/error&gt;
+
+    &lt;error&gt;
+      &lt;errnumber&gt; 104 &lt;/errnumber&gt;
+      &lt;errname&gt; XML_NO_SCHEMA_LOCATION&lt;/errname&gt;
+      &lt;message_group&gt;
+        &lt;message xml:lang="en"&gt;
+          &lt;errormsg&gt;The attribute xsi:schemaLocation was not found.&lt;/errormsg&gt;
+          &lt;errordoc&gt;
+            The root element must have an attribute named schemaLocation (in 
+            the namespace "http://www.w3.org/2001/XMLSchema-instance") to
+            point to the schema use for the watchdog configuration file.
+          &lt;/errordoc&gt;
+        &lt;/message&gt;
+      &lt;/message_group&gt;
+    &lt;/error&gt;
+
+    &lt;error&gt;
+      &lt;errnumber&gt; 105 &lt;/errnumber&gt;
+      &lt;errname&gt; XML_MALFORMED_SCHEMA_LOCATION&lt;/errname&gt;
+      &lt;message_group&gt;
+        &lt;message xml:lang="en"&gt;
+          &lt;errormsg&gt;The attribute xsi:schemaLocation is not well formed.&lt;/errormsg&gt;
+          &lt;errordoc&gt;
+            The attribute schemaLocation of the root element 
+            should contain both the namespace and the location of the 
+            schema file, separated by a space. You'll get this error if
+            the white space is not found.
+          &lt;/errordoc&gt;
+        &lt;/message&gt;
+      &lt;/message_group&gt;
+    &lt;/error&gt;
+
+    &lt;error&gt;
+      &lt;errnumber&gt; 106 &lt;/errnumber&gt;
+      &lt;errname&gt; XML_PARSER_CONTEXT_FAILED&lt;/errname&gt;
+      &lt;message_group&gt;
+        &lt;message xml:lang="en"&gt;
+          &lt;errormsg&gt;The creation of a new schema parser context failed.&lt;/errormsg&gt;
+          &lt;errordoc&gt;
+            The creation of a new schema parser context failed. There might
+            be multiple reasons for this, for example, a memory-allocation
+            failure in libxml2. However, the most likely reason is that the
+            schema file is not at the location indicated by the attribute 
+            schemaLocation of the root element of the config file.
+          &lt;/errordoc&gt;
+        &lt;/message&gt;
+      &lt;/message_group&gt;
+    &lt;/error&gt;
+
+    &lt;error&gt;
+      &lt;errnumber&gt; 107 &lt;/errnumber&gt;
+      &lt;errname&gt; XML_PARSE_SCHEMA_FAILED&lt;/errname&gt;
+      &lt;message_group&gt;
+        &lt;message xml:lang="en"&gt;
+          &lt;errormsg&gt;Failure when parsing the XML schema for config.&lt;/errormsg&gt;
+          &lt;errordoc&gt;
+            The parse operation of the schema failed. Most likely, there
+            is an error in the schema for the configuration. To debug this
+            you can use xmllint (part of the libxml2 package).
+          &lt;/errordoc&gt;
+        &lt;/message&gt;
+      &lt;/message_group&gt;
+    &lt;/error&gt;
+
+    &lt;error&gt;
+      &lt;errnumber&gt; 108 &lt;/errnumber&gt;
+      &lt;errname&gt; XML_VALID_CONTEXT_FAILED&lt;/errname&gt;
+      &lt;message_group&gt;
+        &lt;message xml:lang="en"&gt;
+          &lt;errormsg&gt;The creation of a new XML Schemas validation context failed.&lt;/errormsg&gt;
+          &lt;errordoc&gt;
+            The creation of a new schema validation context failed. There might
+            be multiple reasons for this, for example, a memory-allocation
+            failure in libxml2.
+          &lt;/errordoc&gt;
+        &lt;/message&gt;
+      &lt;/message_group&gt;
+    &lt;/error&gt;
+
+    &lt;error&gt;
+      &lt;errnumber&gt; 109 &lt;/errnumber&gt;
+      &lt;errname&gt; XML_VALIDATION_FAILED&lt;/errname&gt;
+      &lt;message_group&gt;
+        &lt;message xml:lang="en"&gt;
+          &lt;errormsg&gt;Document validation for the config file failed.&lt;/errormsg&gt;
+          &lt;errordoc&gt;
+            Document validation for the config file failed. To debug this
+            problem you can use xmllint (part of the libxml2 package).
+          &lt;/errordoc&gt;
+        &lt;/message&gt;
+      &lt;/message_group&gt;
+    &lt;/error&gt;
+
+    &lt;error&gt;
+      &lt;errnumber&gt; 110 &lt;/errnumber&gt;
+      &lt;errname&gt; CFG_VDS_LOCATION_TOO_LONG&lt;/errname&gt;
+      &lt;message_group&gt;
+        &lt;message xml:lang="en"&gt;
+          &lt;errormsg&gt;Config: vds_location is too long.&lt;/errormsg&gt;
+          &lt;errordoc&gt;
+            The path associated with the tag &lt;vds_location&gt; is longer 
+            than PATH_MAX (the maximum length of a filename/pathname).
+          &lt;/errordoc&gt;
+        &lt;/message&gt;
+      &lt;/message_group&gt;
+    &lt;/error&gt;
+
+    &lt;error&gt;
+      &lt;errnumber&gt; 111 &lt;/errnumber&gt;
+      &lt;errname&gt; CFG_VDS_LOCATION_IS_MISSING&lt;/errname&gt;
+      &lt;message_group&gt;
+        &lt;message xml:lang="en"&gt;
+          &lt;errormsg&gt;Config: vds_location is missing.&lt;/errormsg&gt;
+          &lt;errordoc&gt;
+            The tag &lt;vds_location&gt; is missing. This would normally
+            be caught when the configuration is validated using the schema 
+            unless of course there is a bug in the code or the schema
+            itself was modified.
+          &lt;/errordoc&gt;
+        &lt;/message&gt;
+      &lt;/message_group&gt;
+    &lt;/error&gt;
+
+    &lt;error&gt;
+      &lt;errnumber&gt; 112 &lt;/errnumber&gt;
+      &lt;errname&gt; CFG_MEM_SIZE_IS_MISSING&lt;/errname&gt;
+      &lt;message_group&gt;
+        &lt;message xml:lang="en"&gt;
+          &lt;errormsg&gt;Config: mem_size is missing.&lt;/errormsg&gt;
+          &lt;errordoc&gt;
+            The tag &lt;mem_size&gt; is missing. This would normally
+            be caught when the configuration is validated using the schema 
+            unless of course there is a bug in the code or the schema
+            itself was modified.
+          &lt;/errordoc&gt;
+        &lt;/message&gt;
+      &lt;/message_group&gt;
+    &lt;/error&gt;
+
+    &lt;error&gt;
+      &lt;errnumber&gt; 113 &lt;/errnumber&gt;
+      &lt;errname&gt; CFG_SIZE_IS_MISSING&lt;/errname&gt;
+      &lt;message_group&gt;
+        &lt;message xml:lang="en"&gt;
+          &lt;errormsg&gt;Config: mem_size:size is missing.&lt;/errormsg&gt;
+          &lt;errordoc&gt;
+            The attribute "size" of the tag &lt;mem_size&gt; is missing. 
+            This would normally be caught when the configuration is 
+            validated using the schema unless of course there is a bug 
+            in the code or the schema itself was modified.
+          &lt;/errordoc&gt;
+        &lt;/message&gt;
+      &lt;/message_group&gt;
+    &lt;/error&gt;
+
+    &lt;error&gt;
+      &lt;errnumber&gt; 114 &lt;/errnumber&gt;
+      &lt;errname&gt; CFG_UNITS_IS_MISSING&lt;/errname&gt;
+      &lt;message_group&gt;
+        &lt;message xml:lang="en"&gt;
+          &lt;errormsg&gt;Config: mem_size:units is missing.&lt;/errormsg&gt;
+          &lt;errordoc&gt;
+            The attribute "units" of the tag &lt;mem_size&gt; is missing. 
+            This would normally be caught when the configuration is 
+            validated using the schema unless of course there is a bug 
+            in the code or the schema itself was modified.
+          &lt;/errordoc&gt;
+        &lt;/message&gt;
+      &lt;/message_group&gt;
+    &lt;/error&gt;
+
+    &lt;error&gt;
+      &lt;errnumber&gt; 115 &lt;/errnumber&gt;
+      &lt;errname&gt; CFG_WATCHDOG_ADDRESS_IS_MISSING&lt;/errname&gt;
+      &lt;message_group&gt;
+        &lt;message xml:lang="en"&gt;
+          &lt;errormsg&gt;Config: watchdog_address is missing.&lt;/errormsg&gt;
+          &lt;errordoc&gt;
+            The tag &lt;watchdog_address&gt; is missing. This would normally
+            be caught when the configuration is validated using the schema 
+            unless of course there is a bug in the code or the schema
+            itself was modified.
+          &lt;/errordoc&gt;
+        &lt;/message&gt;
+      &lt;/message_group&gt;
+    &lt;/error&gt;
+
+    &lt;error&gt;
+      &lt;errnumber&gt; 116 &lt;/errnumber&gt;
+      &lt;errname&gt; CFG_FILE_ACCESS_IS_MISSING&lt;/errname&gt;
+      &lt;message_group&gt;
+        &lt;message xml:lang="en"&gt;
+          &lt;errormsg&gt;Config: file_access is missing.&lt;/errormsg&gt;
+          &lt;errordoc&gt;
+            The tag &lt;file_access&gt; is missing. This would normally
+            be caught when the configuration is validated using the schema 
+            unless of course there is a bug in the code or the schema
+            itself was modified.
+          &lt;/errordoc&gt;
+        &lt;/message&gt;
+      &lt;/message_group&gt;
+    &lt;/error&gt;
+
+    &lt;error&gt;
+      &lt;errnumber&gt; 117 &lt;/errnumber&gt;
+      &lt;errname&gt; CFG_ACCESS_IS_MISSING&lt;/errname&gt;
+      &lt;message_group&gt;
+        &lt;message xml:lang="en"&gt;
+          &lt;errormsg&gt;Config: file_access:access is missing.&lt;/errormsg&gt;
+          &lt;errordoc&gt;
+            The attribute "access" of the tag &lt;file_access&gt; is missing. 
+            This would normally be caught when the configuration is 
+            validated using the schema unless of course there is a bug 
+            in the code or the schema itself was modified.
+          &lt;/errordoc&gt;
+        &lt;/message&gt;
+      &lt;/message_group&gt;
+    &lt;/error&gt;
+
+  &lt;/errgroup&gt;
+
+&lt;/errorlist&gt;
+</pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="wdoptions"></a>4.3. wdOptions.xml</h3></div></div></div><pre class="programlisting">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE options SYSTEM 
+             "/usr/local/share/xml/errorParser/errorParserOptions10.dtd"&gt;
+
+&lt;options&gt;
+  &lt;!-- The name of the enum. If absent, #define will be generated instead. --&gt;
+  &lt;enumname&gt; vdswErrors&lt;/enumname&gt;
+  &lt;!-- Name of the output dir for the error header file. If absent, the 
+       current directory will be used.
+       
+       Alternatively, you can put the directory directly in the header_name 
+       element. But if you do, the "GUARD" will use that directory name.
+  &lt;header_name_dir&gt;  &lt;/header_name_dir&gt; --&gt;
+  &lt;!-- The file name for the .h file which will hold the errors. --&gt;
+  &lt;header_name&gt; wdErrors.h &lt;/header_name&gt;
+  &lt;!-- Name of the output dir for the code to retrieve the error messages. 
+       If absent, the current directory will be used.
+
+       Alternatively, you can put the directory directly in the 2 
+       "errmsg_*_name" elements. If you do, the "GUARD" will use that 
+       directory name and the .c file will include the header using the 
+       full name (errmsg_header_name) 
+   &lt;errmsg_dir&gt; ../Engine &lt;/errmsg_dir&gt; --&gt;
+  &lt;!-- The file name for the .h file for the code to retrieve the error 
+       messages. --&gt;
+  &lt;errmsg_header_name&gt; wdErrorHandler.h &lt;/errmsg_header_name&gt;
+  &lt;!-- The file name for the .c file for the code to retrieve the error 
+       messages. --&gt;
+  &lt;errmsg_c_name&gt; wdErrorHandler.c &lt;/errmsg_c_name&gt;
+  &lt;!-- Prefix to be used for the error codes (enum or #define). --&gt;
+  &lt;prefix_error&gt; VDSW &lt;/prefix_error&gt;
+  &lt;!-- Prefix to be used for all variables in the code to retrieve the 
+       error messages --&gt;
+  &lt;prefix_variable&gt; vdsw &lt;/prefix_variable&gt;
+  &lt;!-- How to handle the error message. The problem: the generated C strings
+       will be use, eventually, by standard C/C++ libraries and some 
+       sequence of characters could have some bad side effects, possibly
+       including security issues.
+       The defaults:
+         - escape sequences are not permitted (a more fine grain approach
+           could be written if the need arise).
+         - quotes (' and ") are allowed (and will be escaped as needed) 
+         - The % symbol. No default. I recommend the textual "percent" 
+           (% is the most problematic one, IMHO. %d %p, etc are interpreted
+           differently by libc (printf()) and the iostream library (cout) --&gt;         
+  &lt;err_msg percent="percent" /&gt;
+  &lt;selected_lang xml:lang="en" /&gt;
+&lt;/options&gt;
+
+</pre></div></div></div></div></body></html>
