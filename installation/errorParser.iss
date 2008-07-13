@@ -32,6 +32,7 @@ Source: C:\Program Files\libxml2\bin\iconv.dll; DestDir: {app}\bin; Components: 
 Source: C:\Program Files\libxml2\bin\iconv.exe; DestDir: {app}\bin; Components: libxml2
 Source: C:\Program Files\libxml2\bin\libxml2.dll; DestDir: {app}\bin; Components: libxml2
 Source: C:\Program Files\libxml2\bin\xmlcatalog.exe; DestDir: {app}\bin; Components: libxml2
+Source: C:\Program Files\libxml2\bin\zlib1.dll; DestDir: {app}\bin; Components: libxml2
 
 [Icons]
 Name: {group}\Error Parser Help; Filename: {app}\errorParser.chm
