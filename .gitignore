@@ -1,0 +1,10 @@
+/configure
+/Makefile.in
+/config.log
+/config.status
+/libtool
+/autom4te.cache
+/aclocal.m4
+/Makefile
+/errorParser*.tar.gz
+
