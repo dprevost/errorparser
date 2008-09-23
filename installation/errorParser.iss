@@ -5,7 +5,7 @@ AppVerName=Error Parser Version 0.3.1
 AppVersion=0.3.1
 AppSupportURL=http://errorparser.sourceforge.net/
 AppId=ERRP_V0
-LicenseFile=COPYING
+InfoBeforeFile=COPYING
 DefaultDirName={pf}\errorParser
 DefaultGroupName=Error Parser
 SourceDir=..
@@ -55,3 +55,49 @@ Name: libxml2; Description: The libxml2 library; Types: with_libxml2
 [Types]
 Name: with_libxml2; Description: Install everything including libxml2 (run-time)
 Name: without_libxml2; Description: Install everything except libxml2
+[Code]
+function InitializeSetup(): Boolean;
+
+var
+  installedVersion: String;
+  removeOld: Boolean;
+  strUninstall: String;
+  errcode: Integer;
+
+begin
+  removeOld := False;
+  Result := True;
+
+  if RegKeyExists(HKEY_LOCAL_MACHINE,
+    'SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ERRP_V0_is1') then
+  begin
+    RegQueryStringValue(HKEY_LOCAL_MACHINE,
+      'SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ERRP_V0_is1',
+      'DisplayVersion', installedVersion);
+
+
+    if MsgBox('Error Parser version ' + installedVersion + ' is already installed. Continue with the installation?',
+      mbConfirmation, MB_YESNO) = IDYES then
+    begin
+      removeOld := True;
+      RegQueryStringValue(HKEY_LOCAL_MACHINE,
+        'SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ERRP_V0_is1',
+        'UninstallString', strUninstall);
+    end
+    else
+    begin
+      Result := False;
+    end;
+  end;
+
+  if removeOld = True then
+  begin
+    ShellExec('', strUninstall, '/SILENT', '', SW_HIDE, ewWaitUntilTerminated, errcode);
+    if errcode <> 0 then
+    begin
+      MsgBox('Failure when attempting to uninstall the previous version - aborting the installation.',
+        mbInformation, MB_OK);
+      Result := False;
+    end;
+  end;
+end;
