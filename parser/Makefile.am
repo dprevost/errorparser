@@ -21,12 +21,12 @@ CLEANFILES        = *~
 bin_PROGRAMS = errorParser
 
 man_MANS = errorParser.1
-info_TEXINFOS = errorparser.texi
+info_TEXINFOS = errorParser.texi
 
 if COND_USE_DOCBOOK2TEXI
 errorparser.texi: errorParser.xml
 	docbook2x-texi --encoding=iso-8859-1 errorParser.xml
-	-mv errorparser.texi errorParser.texi
+#	-mv errorparser.texi errorParser.texi
 endif
 if COND_USE_DOCBOOK2MAN
 errorParser.1: errorParser.xml
