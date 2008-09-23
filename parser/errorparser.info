@@ -1,3 +1,89 @@
 This is errorparser.info, produced by makeinfo version 4.8 from
 errorparser.texi.
 
+START-INFO-DIR-ENTRY
+* errorParser: (errorparser).   Generate code for handling error messages
+END-INFO-DIR-ENTRY
+
+
+File: errorparser.info,  Node: Top,  Up: (dir)
+
+errorParser
+***********
+
+
+
+Name
+****
+
+errorParser -- Generate code for handling error messages
+
+
+
+Synopsis
+********
+
+
+
+Getting (minimal) help:
+=======================
+
+`errorParser -h|--help|-?'
+
+
+
+Running normally:
+=================
+
+`errorParser -o|--options' _options_xml_file input_xml_file_
+
+
+
+DESCRIPTION
+***********
+
+From a single XML source file, errorParser generates the error-code
+header file, the code to access the error messages and the documentation
+(doxygen). Error messages and documentation for multiple languages are
+supported.
+
+
+
+OPTIONS
+*******
+
+`-o', `--options' OPTIONS_XML_FILE
+     The name of the XML file used to set the options of errorParser,
+     for example the target language, the names of output files, etc.
+
+INPUT_XML_FILE
+     The input XML file containing the raw data: the error codes, the
+     error messages and the documentation.
+
+
+REPORTING BUGS
+**************
+
+Report bugs to <dprevost@users.sourceforge.net>.
+
+
+
+COPYRIGHT
+*********
+
+Copyright (C) 2008 Daniel Pre'vost.
+
+
+
+Tag Table:
+Node: Top198
+Ref: name273
+Ref: synopsis344
+Ref: Getting [minimal] help;365
+Ref: Running normally;444
+Ref: DESCRIPTION545
+Ref: OPTIONS796
+Ref: REPORTING BUGS1120
+Ref: COPYRIGHT1202
+
+End Tag Table

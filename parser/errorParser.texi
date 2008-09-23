@@ -1,0 +1,70 @@
+\input texinfo
+@setfilename errorparser.info
+@documentencoding iso-8859-1
+@settitle errorParser
+@direntry
+* errorParser: (errorparser).   Generate code for handling error messages
+@end direntry
+
+@node Top
+@top errorParser
+
+@noindent
+@anchor{name}
+@chapheading Name
+
+errorParser --- Generate code for handling error messages
+
+@noindent
+@anchor{synopsis}
+@chapheading Synopsis
+
+@noindent
+@anchor{Getting [minimal] help;}
+@heading Getting (minimal) help:
+
+@samp{errorParser -h|--help|-?}
+
+@noindent
+@anchor{Running normally;}
+@heading Running normally:
+
+@samp{errorParser -o|--options} @emph{options_xml_file input_xml_file}
+
+@noindent
+@anchor{DESCRIPTION}
+@chapheading DESCRIPTION
+
+From a single XML source file, errorParser generates the error-code header 
+file, the code to access the error messages and the documentation 
+(doxygen). Error messages and documentation for multiple languages are 
+supported.
+
+@noindent
+@anchor{OPTIONS}
+@chapheading OPTIONS
+
+@table @asis
+
+@item @code{-o}, @code{--options} @var{options_xml_file}
+The name of the XML file used to set the options of errorParser, 
+for example the target language, the names of output files, etc.
+
+@item @var{input_xml_file}
+The input XML file containing the raw data: the error codes, the error 
+messages and the documentation.
+@end table
+
+@noindent
+@anchor{REPORTING BUGS}
+@chapheading REPORTING BUGS
+
+Report bugs to <dprevost@@users.sourceforge.net>.
+
+@noindent
+@anchor{COPYRIGHT}
+@chapheading COPYRIGHT
+
+Copyright @copyright{} 2008 Daniel Pr@'evost.
+
+@bye
