@@ -70,7 +70,7 @@ void startHeaderGuard( const char * name, FILE * fp )
    unsigned int i;
    char * tmp = NULL;
    
-   tmp = calloc( strlen(name), sizeof(char) );
+   tmp = calloc( strlen(name)+1, sizeof(char) );
    if ( tmp == NULL ) {
       fprintf( stderr, "Malloc error\n" );
       exit(1);
@@ -102,7 +102,7 @@ void stopHeaderGuard( const char * name, FILE * fp )
    unsigned int i;
    char * tmp = NULL;
    
-   tmp = calloc( strlen(name), sizeof(char) );
+   tmp = calloc( strlen(name)+1, sizeof(char) );
    if ( tmp == NULL ) {
       fprintf( stderr, "Malloc error\n" );
       exit(1);
