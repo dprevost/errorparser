@@ -14,7 +14,7 @@
 #############################################################################
 
 AC_INIT([Error Parser],
-        [0.3.1],
+        [0.3.2],
         [Daniel Prevost <dprevost@users.sourceforge.net>],
         [errorParser])
 

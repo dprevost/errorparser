@@ -19,5 +19,13 @@
         * More tests (still not enough...).
         * A DTD for the option file.
         * Documentation was written.
-    
-    * first beta release (0.4.0)
+
+    * bug release - second alpha release (0.3.1)
+        * zlib1.dll was missing (needed on Windows for libxml2 optional
+        * installation.
+        * Corrected a bug - extra characters in the output files (two memory 
+          allocations of a string with no space for the NULL byte...).
+
+    * bug release - second alpha release (0.3.2)
+        * Corrected the lack of __declspec(dllexport) on Windows (for project 
+          with more than one DLL, this is a must).

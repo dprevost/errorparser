@@ -18,6 +18,18 @@ extern "C" {
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
+#if defined(WIN32)
+#  if defined(BULDING_ERROR_MESSAGE)
+#    define ERROR_MESSAGE_EXPORT __declspec ( dllexport )
+#  else
+#    define ERROR_MESSAGE_EXPORT __declspec ( dllimport )
+#  endif
+#else
+#  define ERROR_MESSAGE_EXPORT
+#endif
+
+/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+
 /*
  * Use this function to access the error messages (defined in the xml
  * input file).
@@ -29,6 +41,7 @@ extern "C" {
  *   - the error message if errnum is valid (exists)
  *   - NULL otherwise
  */
+ERROR_MESSAGE_EXPORT
 const char * prog_ErrorMessage( int errnum );
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */

@@ -129,20 +129,35 @@ void stopHeaderGuard( const char * name, FILE * fp )
 
 void writeMsgHeader( errp_common * commonArgs )
 {
-   fprintf( commonArgs->fpMsgH, "/*\n" );
-   fprintf( commonArgs->fpMsgH, "%s\n", 
+   FILE * fp = commonArgs->fpMsgH; /* To simplify the code */
+   
+   /* Windows export/import decoration. */
+   fprintf( fp, "#if defined(WIN32)\n" );
+   fprintf( fp, "#  if defined(BULDING_ERROR_MESSAGE)\n" );
+   fprintf( fp, "#    define ERROR_MESSAGE_EXPORT __declspec ( dllexport )\n" );
+   fprintf( fp, "#  else\n" );
+   fprintf( fp, "#    define ERROR_MESSAGE_EXPORT __declspec ( dllimport )\n" );
+   fprintf( fp, "#  endif\n" );
+   fprintf( fp, "#else\n" );
+   fprintf( fp, "#  define ERROR_MESSAGE_EXPORT\n" );
+   fprintf( fp, "#endif\n\n" );
+   fprintf( fp, "%s\n\n", g_barrier );
+   
+   fprintf( fp, "/*\n" );
+   fprintf( fp, "%s\n", 
       " * Use this function to access the error messages (defined in the xml" );
-   fprintf( commonArgs->fpMsgH, " * input file).\n" );
-   fprintf( commonArgs->fpMsgH, " * \n" );
-   fprintf( commonArgs->fpMsgH, " * Parameters:\n" );
-   fprintf( commonArgs->fpMsgH, " *   - errnum    The error number\n" );
-   fprintf( commonArgs->fpMsgH, " *\n" );
-   fprintf( commonArgs->fpMsgH, " * Return values:\n" );
-   fprintf( commonArgs->fpMsgH, " *   - the error message if errnum is valid (exists)\n" );
-   fprintf( commonArgs->fpMsgH, " *   - NULL otherwise\n" );
-   fprintf( commonArgs->fpMsgH, " */\n" );
+   fprintf( fp, " * input file).\n" );
+   fprintf( fp, " * \n" );
+   fprintf( fp, " * Parameters:\n" );
+   fprintf( fp, " *   - errnum    The error number\n" );
+   fprintf( fp, " *\n" );
+   fprintf( fp, " * Return values:\n" );
+   fprintf( fp, " *   - the error message if errnum is valid (exists)\n" );
+   fprintf( fp, " *   - NULL otherwise\n" );
+   fprintf( fp, " */\n" );
 
-   fprintf( commonArgs->fpMsgH, "const char * %s%s( int errnum );\n\n",
+   fprintf( fp, "ERROR_MESSAGE_EXPORT\n" );
+   fprintf( fp, "const char * %s%s( int errnum );\n\n",
       commonArgs->varPrefix, g_functionName );
 }
 
@@ -150,8 +165,9 @@ void writeMsgHeader( errp_common * commonArgs )
 
 void writeTopC(  errp_common * commonArgs )
 {
-fprintf( commonArgs->fpMsgC, "#include <stdlib.h> %s\n",
-   "/* Any system file will do. Needed for NULL. */" );
+   fprintf( commonArgs->fpMsgC, "#include <stdlib.h> %s\n",
+      "/* Any system file will do. Needed for NULL. */" );
+   fprintf( commonArgs->fpMsgC, "#define BULDING_ERROR_MESSAGE\n" );
 
    fprintf( commonArgs->fpMsgC, "#include \"%s\"\n\n", commonArgs->outputNameH );
    fprintf( commonArgs->fpMsgC, "struct %s_MsgStruct\n", commonArgs->varPrefix );

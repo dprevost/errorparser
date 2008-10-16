@@ -48,6 +48,7 @@
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
 #include <stdlib.h> /* Any system file will do. Needed for NULL. */
+#define BULDING_ERROR_MESSAGE
 #include "getError.h"
 
 struct prog_MsgStruct
