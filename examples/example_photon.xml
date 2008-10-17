@@ -2,9 +2,9 @@
 <!DOCTYPE errorlist PUBLIC "-//Error Parser project//DTD Error Parser XML V1.2//EN"
              "http://errorparser.sourceforge.net/xml/errorParser12.dtd"> 
 <!-- 
-    This example is going to be used for an existing project, VDSF 
-    (http://sourceforge.net/projects/vdsf), once Error Parser is able
-    to create code to retrieve error messages using the error number.
+    This example is currently being used for an existing project, Photon
+    (http://photonsoftware.org) to create code to retrieve error messages 
+    using the error number.
 
     You can replace the DOCTYPE with this, if you prefer:
 <!DOCTYPE errorlist SYSTEM 
@@ -12,7 +12,7 @@
     
 -->
 
-<!-- VDSF next version is 0.3 -->
+<!-- Photon next version is 0.3 -->
 <errorlist version="0.3">
   <!-- Copyright information and any additional info that will appear at 
        the top of the generated files. This is optional. -->
@@ -22,9 +22,9 @@
       <authors>Daniel Prevost</authors>
       <!-- Each <notice> is mapped to a paragraph (easier to read) -->
       <notice>
-        This file is part of the vdsf library (Virtual Data Space Framework).
+        This file is part of Photon (photonsoftware.org).
       </notice>
-      <!-- The GPL license is of course for VDSF, not for Error Parser... -->
+      <!-- The GPL license is of course for Photon, not for Error Parser... -->
       <notice>
         This file may be distributed and/or modified under the terms of the
         GNU General Public License version 2 as published by the Free Software
@@ -85,11 +85,11 @@
 
     <error>
       <errnumber> 2 </errnumber>
-      <errname> NOT_ENOUGH_VDS_MEMORY </errname>
+      <errname> NOT_ENOUGH_PSO_MEMORY </errname>
       <message_group>
         <message xml:lang="en">
-          <errormsg>Not enough memory in the VDS.</errormsg>
-          <errordoc>Not enough memory in the VDS.</errordoc>
+          <errormsg>Not enough memory in the PSO.</errormsg>
+          <errordoc>Not enough memory in the PSO.</errordoc>
         </message>
       </message_group>
     </error>
@@ -100,10 +100,10 @@
       <message_group>
         <message xml:lang="en">
           <errormsg>
-            Not enough heap memory (non-VDS memory). 
+            Not enough heap memory (non-PSO memory). 
           </errormsg>
           <errordoc>
-            Not enough heap memory (non-VDS memory).
+            Not enough heap memory (non-PSO memory).
           </errordoc>
         </message>
       </message_group>
@@ -121,10 +121,10 @@
             There are not enough resources to correctly process the call.
           </errordoc>
           <errordoc>
-            There are not enough resources to correctly process the call. 
-            This might be due to a lack of POSIX semaphores on systems 
-            where locks are implemented that way or a failure in initializing
-            a pthread_mutex (or on Windows, a critical section).
+            Possible explanations: it might be a lack of POSIX semaphores 
+            on systems where atomic locks are implemented that way or a 
+            failure in initializing a pthread_mutex (or on Windows, a 
+            critical section).
           </errordoc>
         </message>
       </message_group>
@@ -141,7 +141,8 @@
           <errordoc>
             The provided handle is of the wrong type (C API). This could
             happen if you provide a queue handle to access a hash map or
-            something similar.
+            something similar. It can also occur if you try to access an
+            object after closing it.
           </errordoc>
           <errordoc>
             If you are seeing this error for the C++ API (or some other
@@ -212,7 +213,7 @@
           </errormsg>
           <errordoc>
             The process was already initialized. 
-            One possibility: was vdsInit() called for a second time?
+            One possibility: was psoInit() called for a second time?
           </errordoc>
         </message>
       </message_group>
@@ -227,7 +228,7 @@
             The process was not properly initialized.
           </errormsg>
           <errordoc>
-            The process was not properly initialized. One possibility: was vdsInit() called?
+            The process was not properly initialized. One possibility: was psoInit() called?
           </errordoc>
         </message>
       </message_group>
@@ -329,11 +330,11 @@
       <message_group>
         <message xml:lang="en">
           <errormsg>
-            The vds backstore file is missing.
+            The shared-memory backstore file is missing.
           </errormsg>
           <errordoc>
-            The vds backstore file is missing. The name of this file is 
-            provided by the watchdog - if it is missing, something really
+            The shared-memory backstore file is missing. The name of this file is 
+            provided by the server (quasar) - if it is missing, something really
             weird is going on.
           </errordoc>
         </message>
@@ -342,14 +343,14 @@
    
     <error>
       <errnumber> 30 </errnumber>
-      <errname> ERROR_OPENING_VDS </errname>
+      <errname> ERROR_OPENING_MEMORY </errname>
       <message_group>
         <message xml:lang="en">
           <errormsg>
-            Generic i/o error when attempting to open the vds.
+            Generic i/o error when attempting to open the shared memory.
           </errormsg>
           <errordoc>
-            Generic i/o error when attempting to open the vds.
+            Generic i/o error when attempting to open the shared memory.
           </errordoc>
         </message>
       </message_group>
@@ -546,10 +547,10 @@
       <message_group>
         <message xml:lang="en">
           <errormsg>
-            An invalid value was used for a vdsIteratorType parameter.
+            An invalid value was used for a psoIteratorType parameter.
           </errormsg>
           <errordoc>
-            An invalid value was used for a vdsIteratorType parameter.
+            An invalid value was used for a psoIteratorType parameter.
           </errordoc>
         </message>
       </message_group>
@@ -562,13 +563,13 @@
         <message xml:lang="en">
           <errormsg>
             The name of the object is too long.
-            The maximum length of a name cannot be more than VDS_MAX_NAME_LENGTH
-            (or VDS_MAX_FULL_NAME_LENGTH for the fully qualified name).
+            The maximum length of a name cannot be more than PSO_MAX_NAME_LENGTH
+            (or PSO_MAX_FULL_NAME_LENGTH for the fully qualified name).
           </errormsg>
           <errordoc>
             The name of the object is too long.
-            The maximum length of a name cannot be more than VDS_MAX_NAME_LENGTH
-            (or VDS_MAX_FULL_NAME_LENGTH for the fully qualified name).
+            The maximum length of a name cannot be more than PSO_MAX_NAME_LENGTH
+            (or PSO_MAX_FULL_NAME_LENGTH for the fully qualified name).
           </errordoc>
         </message>
       </message_group>
@@ -695,23 +696,6 @@
     </error>
 
     <error>
-      <errnumber> 68 </errnumber>
-      <errname> I18N_CONVERSION_ERROR </errname>
-      <message_group>
-        <message xml:lang="en">
-          <errormsg>
-            i18n string conversion error. In other words, the name of the object cannot be
-            converted to/from your current locale.
-          </errormsg>
-          <errordoc>
-            i18n string conversion error. In other words, the name of the 
-            object cannot be converted to/from your current locale.
-          </errordoc>
-        </message>
-      </message_group>
-    </error>
-
-    <error>
       <errnumber> 69 </errnumber>
       <errname> OBJECT_IS_IN_USE </errname>
       <message_group>
@@ -729,7 +713,356 @@
         </message>
       </message_group>
     </error>
+
+    <error>
+      <errnumber> 70 </errnumber>
+      <errname> OBJECT_IS_READ_ONLY </errname>
+      <message_group>
+        <message xml:lang="en">
+          <errormsg>
+            The object is read-only and update operations on it are not 
+            permitted.
+          </errormsg>
+          <errordoc>
+            The object is read-only and update operations (delete/insert/replace)
+            on it are not permitted.
+            at this time.
+          </errordoc>
+        </message>
+      </message_group>
+    </error>
+
+    <error>
+      <errnumber> 71 </errnumber>
+      <errname> NOT_ALL_EDIT_ARE_CLOSED </errname>
+      <message_group>
+        <message xml:lang="en">
+          <errormsg>
+            All edits must be closed before a commit. 
+          </errormsg>
+          <errordoc>
+            All read-only objects open for updates (as temporary objects)
+            must be closed prior to doing a commit on the session.
+          </errordoc>
+        </message>
+      </message_group>
+    </error>
+
+    <error>
+      <errnumber> 72 </errnumber>
+      <errname> A_SINGLE_UPDATER_IS_ALLOWED </errname>
+      <message_group>
+        <message xml:lang="en">
+          <errormsg>
+            Read-only objects can only have one updater at a time.
+          </errormsg>
+          <errordoc>
+            Read-only objects are not updated very frequently and therefore
+            only a single editing copy is allowed. To allow concurrent editors
+            (either all working on the same copy or each working with its 
+            own copy would have been be possible but was deemed unnecessary.
+          </errordoc>
+        </message>
+      </message_group>
+    </error>
+
+    <error>
+      <errnumber> 101 </errnumber>
+      <errname> INVALID_NUM_FIELDS </errname>
+      <message_group>
+        <message xml:lang="en">
+          <errormsg>
+            The number of fields in the data definition is invalid.
+          </errormsg>
+          <errordoc>
+            The number of fields in the data definition is invalid - either 
+            zero or greater than PSO_MAX_FIELDS (defined in photon/psoCommon.h).
+          </errordoc>
+        </message>
+      </message_group>
+    </error>
+
+    <error>
+      <errnumber> 102 </errnumber>
+      <errname> INVALID_FIELD_TYPE </errname>
+      <message_group>
+        <message xml:lang="en">
+          <errormsg>
+            The data type of the field definition is invalid.
+          </errormsg>
+          <errordoc>
+            The data type of the field definition does not correspond to one of
+            the data type defined in the enum psoFieldType (photon/psoCommon.h).
+            or you've used PSO_VAR_STRING or PSO_VAR_BINARY at the wrong place.
+          </errordoc>
+          <errordoc> 
+            Do not forget that PSO_VAR_STRING and PSO_VAR_BINAR can only be
+            used for the last field of your data definition.
+          </errordoc>
+        </message>
+      </message_group>
+    </error>
+
+    <error>
+      <errnumber> 103 </errnumber>
+      <errname> INVALID_FIELD_LENGTH_INT </errname>
+      <message_group>
+        <message xml:lang="en">
+          <errormsg>
+            The length of an integer field (PSO_INTEGER) is invalid.
+          </errormsg>
+          <errordoc>
+            The length of an integer field (PSO_INTEGER) is invalid. Valid
+            values are 1, 2, 4 and 8.
+          </errordoc>
+        </message>
+      </message_group>
+    </error>
+
+    <error>
+      <errnumber> 104 </errnumber>
+      <errname> INVALID_FIELD_LENGTH </errname>
+      <message_group>
+        <message xml:lang="en">
+          <errormsg>
+            The length of a field (string or binary) is invalid.
+          </errormsg>
+          <errordoc>
+            The length of a field (string or binary) is invalid. Valid
+            values are all numbers greater than zero and less than 
+            4294967296 (4 Giga).
+          </errordoc>
+        </message>
+      </message_group>
+    </error>
+
+    <error>
+      <errnumber> 105 </errnumber>
+      <errname> INVALID_FIELD_NAME </errname>
+      <message_group>
+        <message xml:lang="en">
+          <errormsg>
+            The name of the field contains invalid characters.
+          </errormsg>
+          <errordoc>
+            The name of the field contains invalid characters. Valid
+            characters are the standard ASCII alphanumerics ([a-zA-Z0-9])
+            and the underscore ('_'). 
+            The first character of the name must be letter.
+          </errordoc>
+        </message>
+      </message_group>
+    </error>
+
+    <error>
+      <errnumber> 106 </errnumber>
+      <errname> DUPLICATE_FIELD_NAME </errname>
+      <message_group>
+        <message xml:lang="en">
+          <errormsg>
+            The name of the field is already used by another field in the
+            current definition.
+          </errormsg>
+          <errordoc>
+            The name of the field is already used by another field in the
+            current definition.
+          </errordoc>
+          <errordoc>
+            Note: at the moment field names are case sensitive (for
+            example "account_id" and "Account_Id" are considered different).
+            This might be changed eventually so this practice should
+            be avoided.
+          </errordoc>
+        </message>
+      </message_group>
+    </error>
+
+    <error>
+      <errnumber> 107 </errnumber>
+      <errname> INVALID_PRECISION </errname>
+      <message_group>
+        <message xml:lang="en">
+          <errormsg>
+            The precision of a PSO_DECIMAL field is invalid.
+          </errormsg>
+          <errordoc>
+            The precision of a PSO_DECIMAL field is either zero or over the 
+            limit for this type (set at 30 currently). Note: precision 
+            is the number of digits in a number.
+          </errordoc>
+        </message>
+      </message_group>
+    </error>
+
+    <error>
+      <errnumber> 108 </errnumber>
+      <errname> INVALID_SCALE </errname>
+      <message_group>
+        <message xml:lang="en">
+          <errormsg>
+            The scale of a PSO_DECIMAL field is invalid.
+          </errormsg>
+          <errordoc>
+            The scale of a PSO_DECIMAL field is invalid (greater than the
+            value of precision. Note: scale is the number of digits to the 
+            right of the decimal separator in a number.
+          </errordoc>
+        </message>
+      </message_group>
+    </error>
+
+    <error>
+      <errnumber> 109 </errnumber>
+      <errname> INVALID_KEY_DEF </errname>
+      <message_group>
+        <message xml:lang="en">
+          <errormsg>
+            The key definition is invalid or missing.
+          </errormsg>
+          <errordoc>
+            The key definition for a hash map is either invalid or missing.
+          </errordoc>
+        </message>
+      </message_group>
+    </error>
+
+    <error>
+      <errnumber> 201 </errnumber>
+      <errname> XML_READ_ERROR</errname>
+      <message_group>
+        <message xml:lang="en">
+          <errormsg>Error reading the XML buffer.</errormsg>
+          <errordoc>Error reading the XML buffer stream.</errordoc>
+          <errordoc>
+            No validation is done at this point. Therefore the error is likely
+            something like a missing end-tag or some other non-conformance to 
+            the XML's syntax rules. 
+          </errordoc>
+          <errordoc>
+            A simple Google search for "well-formed xml" returns many web sites 
+            that describe the syntax rules for XML. You can also use the 
+            program xmllint (included in the distribution of libxm2) to
+            pinpoint the issue.
+          </errordoc>
+        </message>
+      </message_group>
+    </error>
+
+    <error>
+      <errnumber> 202 </errnumber>
+      <errname> XML_INVALID_ROOT</errname>
+      <message_group>
+        <message xml:lang="en">
+          <errormsg>The root element is not the expected root.</errormsg>
+          <errordoc>
+            The root element is not the expected root, &lt;folder&gt; and
+            similar.
+          </errordoc>
+        </message>
+      </message_group>
+    </error>
+
+    <error>
+      <errnumber> 203 </errnumber>
+      <errname> XML_NO_SCHEMA_LOCATION</errname>
+      <message_group>
+        <message xml:lang="en">
+          <errormsg>
+            The attribute xsi:schemaLocation was not found or is invalid.
+          </errormsg>
+          <errordoc>
+            The root element must have an attribute named schemaLocation (in 
+            the namespace "http://www.w3.org/2001/XMLSchema-instance") to
+            point to the schema use for the xml buffer stream.
+          </errordoc>
+          <errordoc>
+            This attribute is in two parts separated by a space. The code
+            expects the file name of the schema in the second element of
+            this attribute.
+          </errordoc>
+        </message>
+      </message_group>
+    </error>
+
+    <error>
+      <errnumber> 204 </errnumber>
+      <errname> XML_PARSER_CONTEXT_FAILED</errname>
+      <message_group>
+        <message xml:lang="en">
+          <errormsg>The creation of a new schema parser context failed.</errormsg>
+          <errordoc>
+            The creation of a new schema parser context failed. There might
+            be multiple reasons for this, for example, a memory-allocation
+            failure in libxml2. However, the most likely reason is that the
+            schema file is not at the location indicated by the attribute 
+            schemaLocation of the root element of the buffer stream.
+          </errordoc>
+        </message>
+      </message_group>
+    </error>
+
+    <error>
+      <errnumber> 205 </errnumber>
+      <errname> XML_PARSE_SCHEMA_FAILED</errname>
+      <message_group>
+        <message xml:lang="en">
+          <errormsg>Failure when parsing the XML schema.</errormsg>
+          <errordoc>
+            The parse operation of the schema failed. Most likely, there
+            is an error in the schema. To debug this
+            you can use xmllint (part of the libxml2 package).
+          </errordoc>
+        </message>
+      </message_group>
+    </error>
+
+    <error>
+      <errnumber> 206 </errnumber>
+      <errname> XML_VALID_CONTEXT_FAILED</errname>
+      <message_group>
+        <message xml:lang="en">
+          <errormsg>The creation of a new XML Schemas validation context failed.</errormsg>
+          <errordoc>
+            The creation of a new schema validation context failed. There might
+            be multiple reasons for this, for example, a memory-allocation
+            failure in libxml2.
+          </errordoc>
+        </message>
+      </message_group>
+    </error>
+
+    <error>
+      <errnumber> 207 </errnumber>
+      <errname> XML_VALIDATION_FAILED</errname>
+      <message_group>
+        <message xml:lang="en">
+          <errormsg>Document validation for the xml buffer failed.</errormsg>
+          <errordoc>
+            Document validation for the xml buffer failed. To debug this
+            problem you can use xmllint (part of the libxml2 package).
+          </errordoc>
+        </message>
+      </message_group>
+    </error>
+
+    <error>
+      <errnumber> 601 </errnumber>
+      <errname> SEM_DESTROY_ERROR </errname>
+      <message_group>
+        <message xml:lang="en">
+          <errormsg>Abnormal internal error with sem_destroy.</errormsg>
+          <errordoc>
+            Abnormal internal error with sem_destroy. It should not happen!
+            It could indicate that the memory allocated for the semaphore 
+            was corrupted (errno = EINVAL) or that the reference counting 
+            is wrong (errno = EBUSY). Please contact us.
+          </errordoc>
+        </message>
+      </message_group>
+    </error>
+
   </errgroup>
     
+  
 </errorlist>
 

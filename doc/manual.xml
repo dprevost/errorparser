@@ -137,7 +137,7 @@
 
       <title>Building on Linux/Unix from the repository</title>
 
-      <para>To retrieve the latest version of vdsf, use the following 
+      <para>To retrieve the latest version of Error Parser, use the following 
       command:</para>
 
       <programlisting>svn export https://errorparser.svn.sourceforge.net/svnroot/errorparser/trunk my_local_dir</programlisting>
@@ -147,12 +147,42 @@
       the current directory will be used).</para>
 
       <warning>
-
-        <para>The code in the repository is not always stable, be 
-        careful.</para>
-
+        <para>
+	  The code in the repository is not always stable, be 
+          careful (hint: unstable commits will usually have the string
+	  "work in progress" included in the commit message).
+	</para>
       </warning>
 
+      <para>
+        The Error Parser software can also be downloaded by using git 
+	(git is a very fast distributed version control system created for the
+	Linux kernel).
+	Visit <ulink url="http://git.or.cz/index.html">git home page </ulink> 
+	for more information on this open-source software.
+      </para>
+      <para>
+        Error Parser uses two external git repositories. They are both kept 
+	in sync with the main repository. To retrieve the latest version 
+	from github.com, use the following command:
+      </para>
+      <para>
+        git-clone git@github.com:dprevost/errorparser.git my_repo
+      </para>
+      <para>
+        or use the following command to get it from gitorious.org
+      </para>
+      <para>
+        git-clone git@gitorious.org:errorparser/mainline.git my_repo
+      </para>
+      <warning>
+        <para>
+	  git was developed for linux and will likely runs without problems on 
+	  most Unix systems. On Microsoft Windows however, things might be 
+	  different. There are two ports for Windows but I haven't try them (yet).
+	</para>
+      </warning>
+      
       <para>The next step is to run the shell script autogen.sh (in the 
       trunk directory). This will generate everything you need (the 
       makefiles, the configure script). The script will also run 
@@ -251,15 +281,18 @@
       one possible choice. The repository is:</para>
 
       <programlisting>https://errorparser.svn.sourceforge.net/svnroot/errorparser/trunk</programlisting>
+
       <warning>
-
-        <para>The code in the repository is not always stable, be 
-        careful.</para>
-
+        <para>
+	  The code in the repository is not always stable, be 
+          careful (hint: unstable commits will usually have the string
+	  "work in progress" included in the commit message).
+	</para>
       </warning>
-
-      <para>The remaining instructions are similar to the instructions 
-      for building the software from a zip file.</para>
+      <para>
+        The remaining instructions are similar to the instructions 
+        for building the software from a zip file.
+      </para>
 
     </sect1>
 
@@ -279,11 +312,11 @@
       <para>To run the tests, from a command shell run cscript 
       RunTests.vbs (in the tests directory). You will also need 
       <ulink url="http://gnuwin32.sourceforge.net/packages/diffutils.htm">
-      Gnu diff</ulink> GNU diff for Windows.</para>
+      Gnu diff</ulink> for Windows.</para>
 
-      <para>To build the package, you will need 
+      <para>To build the installation package itself, you will need 
       <ulink url="http://www.jrsoftware.org/isinfo.php">Inno 
-      Setup</ulink>. The Inno Setup file to open is 
+      Setup</ulink>. The Inno Setup file is located in 
       installation\errorParser.iss.</para>
 
     </sect1>

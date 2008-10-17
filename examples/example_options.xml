@@ -12,21 +12,21 @@
    makes it easier to reuse the same options, evidently]
    
    Why xml? Easier to program (libxml2 does the parsing) and easy to
-   provide default values for some.
+   provide default values for some of the attributes.
    
 -->
 
 <options>
   <!-- The name of the enum. If absent, #define will be generated instead. -->
-  <enumname> vdsErrors</enumname>
+  <enumname> psoErrors</enumname>
   <!-- Name of the output dir for the error header file. If absent, the 
        current directory will be used.
        
        Alternatively, you can put the directory directly in the header_name 
        element. But if you do, the "GUARD" will use that directory name. -->
-  <header_name_dir> include/vdsf </header_name_dir>
+  <header_name_dir> include/photon </header_name_dir>
   <!-- The file name for the .h file which will hold the errors. -->
-  <header_name> vdsErrors.h </header_name>
+  <header_name> psoErrors.h </header_name>
   <!-- Name of the output dir for the code to retrieve the error messages. 
        If absent, the current directory will be used.
 
@@ -37,15 +37,15 @@
    <errmsg_dir> engine </errmsg_dir>
   <!-- The file name for the .h file for the code to retrieve the error 
        messages. -->
-  <errmsg_header_name> VdsErrorHandler.h </errmsg_header_name>
+  <errmsg_header_name> psoErrorHandler.h </errmsg_header_name>
   <!-- The file name for the .c file for the code to retrieve the error 
        messages. -->
-  <errmsg_c_name> VdsErrorHandler.c </errmsg_c_name>
+  <errmsg_c_name> psoErrorHandler.c </errmsg_c_name>
   <!-- Prefix to be used for the error codes (enum or #define). -->
-  <prefix_error> VDS </prefix_error>
+  <prefix_error> PSO </prefix_error>
   <!-- Prefix to be used for all variables in the code to retrieve the 
        error messages -->
-  <prefix_variable> vdse </prefix_variable>
+  <prefix_variable> pson </prefix_variable>
   <!-- How to handle the error message. The problem: the generated C strings
        will be use, eventually, by standard C/C++ libraries and some 
        sequence of characters could have some bad side effects, possibly
