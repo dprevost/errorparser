@@ -29,8 +29,9 @@
     that will do it painlessly). On Windows, this is often not the case 
     - the Inno Setup installation can installed the run-time 
     environment needed by Error Parser but you may prefer to install 
-    everything yourself (this will include the development environment 
-    if you want to integrate xml in your application).</para>
+    everything yourself - for example, you might want to add the 
+    development environment of libxml2 (not included in Error Parser) 
+    to integrate xml in your application).</para>
 
     <para>This section will look into installation issues in some 
     details.</para>

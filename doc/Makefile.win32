@@ -1,0 +1,36 @@
+###########################################################################
+#
+# Copyright (C) 2008 Daniel Prevost <dprevost@users.sourceforge.net>
+#  
+# This file is free software; as a special exception the author gives
+# unlimited permission to copy and/or distribute it, with or without 
+# modifications, as long as this notice is preserved.
+# 
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY, to the extent permitted by law; without even the
+# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+#
+
+CLEANFILES = *~
+
+doc: errorParser.chm manual.html
+
+errorParser.chm: manual.xml  # manual.pdf
+	-@erase /Q  chm
+	-@rmdir /Q  chm
+	mkdir chm
+	cd chm && xsltproc ..\xml2chm.xsl ..\manual.xml && cd ..
+   -"C:\Program Files\HTML Help Workshop\hhc.exe" chm\errorParser.hhp
+	copy chm\errorParser.chm .
+
+manual.html: manual.xml xml2html.xsl
+	xsltproc xml2html.xsl manual.xml > manual.html
+
+manual.pdf: manual.xml
+	db2pdf manual.xml 
+
+clean: 
+	-@erase /Q  chm
+	-@rmdir /Q  chm
+	-@erase /Q $(CLEANFILES)
+

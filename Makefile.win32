@@ -21,11 +21,18 @@ all:
 	cd parser && nmake -f Makefile.win32 && cd ..
    
 check:
-	cd parser && nmake -f Makefile.win32 check VBS_VERBOSE=$(VBS_VERBOSE) && cd ..
+	cd parser && nmake -f Makefile.win32 check && cd ..
+	cd tests  && nmake -f Makefile.win32 check && cd ..
 
 checkdebug: 
-	cd parser && nmake -f Makefile.win32 checkdebug VBS_VERBOSE=$(VBS_VERBOSE) && cd ..
+	cd parser && nmake -f Makefile.win32 checkdebug && cd ..
+	cd tests  && nmake -f Makefile.win32 checkdebug && cd ..
 
 clean: 
+	cd doc    && nmake -f Makefile.win32 clean && cd ..
 	cd parser && nmake -f Makefile.win32 clean && cd ..
+	cd tests  && nmake -f Makefile.win32 clean && cd ..
+
+docs: 
+	cd doc    && nmake -f Makefile.win32 doc && cd ..
 

@@ -23,7 +23,7 @@ Source: doc\errorParser.chm; DestDir: {app}
 Source: doc\manual.html; DestDir: {app}
 Source: doc\manual.pdf; DestDir: {app}
 Source: examples\example_options.xml; DestDir: {app}\Examples
-Source: examples\example_vdsf.xml; DestDir: {app}\Examples
+Source: examples\example_photon.xml; DestDir: {app}\Examples
 Source: examples\simple_example.xml; DestDir: {app}\Examples
 Source: parser\Project_Files\Release\errorParser.exe; DestDir: {app}\bin
 Source: COPYING; DestDir: {app}

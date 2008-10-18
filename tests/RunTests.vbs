@@ -84,14 +84,17 @@ For Each strArg in objArgs
    If Left(LCase(strArg), 6) = "--path" AND Len(strArg) > 6 Then
       prog_path = Right(strArg, Len(strArg)-7)
    end if
-   if LCase(strArg) = "--verbose" then 
-      verbose = True
-   end if
 Next 
 
 if Not consoleMode then
    wscript.echo "Be patient - running the tests in batch mode - click ok to start"
 end if
+
+'Turn on error handling
+On Error Resume Next
+fso.CreateFolder("junk")
+'wscript.echo Err.Number
+On Error GoTo 0 
 
 ' Run all tests
 
