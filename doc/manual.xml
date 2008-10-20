@@ -36,7 +36,7 @@
       to integrate this library with your applications.
     </para>
     <para>
-      This section will look into installation issues in some details.
+      This section will look into some potential installation issues in some details.
     </para>
 
     <sect1 id="catalog_linux">
@@ -66,17 +66,16 @@
    &quot;/usr/local/share/xml/errorParser/errorParser12.dtd&quot;&gt;
         </programlisting>
       <para>
-        Using SYSTEM is perfectly ok if you have a single developer 
-        per workstation. If development is done on a shared box however, 
-        using the PUBLIC clause is one way to make sure that every 
-        developer uses the same copy of the DTD.
+        Using SYSTEM is perfectly ok in most cases. The main advantage
+        of the PUBLIC clause is to make sure that multiple developpers uses
+        the same DTD (if you modify it).
       </para>
 
       <para>
         If you decide to use the PUBLIC clause and do not want to download
         the DTD on every invocation of Error Parser, adding the Error Parser
         catalog to your main catalog is the way to go. The program xmlcatalog,
-        included in the libxml2 package, can help do this. 
+        included in the libxml2 package, will simplify this task.
         Furthermore a bash script is provided by Error Parser (possibly 
         installed in /usr/local/share/xml/errorParser/install_catalog.sh 
         if Error Parser is installed in /usr/local). You&apos;ll need to 
@@ -86,7 +85,8 @@
         there is likely no real needs to use the xml catalog (the exception
         to this: if you decide to modify Error Parser itself, using both
         SYSTEM and PUBLIC might be handy to distinguish between the production
-        and the development version).
+        and the development version, although using version identifiers might
+        be a better solution).
       </para>
 
     </sect1>
@@ -367,6 +367,9 @@
         to build the program and &quot;nmake -f makefile.win32 check&quot; to run the
         tests (other targets: clean, checkdebug (to run the tests with the 
         debug version of Error Parser) and docs (to build the documentation)).
+        You might need to modify parser/Makefile.win32 if you install libxml2
+        in a non-standard directory (the hardcoded path for libxml2 is
+        &quot;C:\Program Files\libxml2&quot;).
       </para>
       <para>
         To build the installation package itself, you will need 
@@ -422,16 +425,20 @@
 
       <title>Introduction</title>
 
-      <para>The program errorParser is very easy to use. From the 
-      command line just enter:</para>
+      <para>
+        The program errorParser is very easy to use. From the 
+        command line just enter:
+      </para>
 
       <programlisting>errorParser -o <varname>option_file</varname> <varname>error_file</varname></programlisting>
-      <para>where <varname>option_file</varname> and 
-      <varname>error_file</varname> are the names of two xml files 
-      specifying the options and all the data associated with the 
-      errors. The real complexity is of course in the xml files 
-      themselves. There are examples of these files in the distribution
-      directory and their syntax is explained below.</para>
+      <para>
+        where <varname>option_file</varname> and 
+        <varname>error_file</varname> are the names of two xml files 
+        specifying the options and all the data associated with the 
+        errors. The real complexity is of course in the xml files 
+        themselves. There are examples of these files in the distribution
+        directory and their syntax is explained below.
+      </para>
 
     </sect1>
 
@@ -445,8 +452,9 @@
         you&apos;re not familiar with xml and want more information on 
         this, you might want to read additional documentation, for 
         example the website of the 
-        <ulink url="http://www.w3schools.com/xml/default.asp">W3 
-        Schools</ulink> .
+        <ulink url="http://www.w3schools.com/xml/default.asp">
+          W3 Schools
+        </ulink>.
       </para>
       <para>
         Each of the xml tag specific to Error Parser is explained 
@@ -927,59 +935,85 @@
             </listitem>
           </itemizedlist>
         </listitem>
-      </itemizedlist>
-            
-      </sect1>
-<sect1 id="quasar">
-  <title>Example: Quasar, the Photon Server </title>
-  <para>
-    This is work in progress for the next iteration of the PSO project
-    (photonsoftware.org). 
-    As a matter of fact, while working on this, I've discovered that adding
-    new error codes this way was no more complex than adding error codes 
-    to an header file (once you understand the basics).
-  </para>
-    
-  <sect2 id="configure.ac">
+        <listitem>
+          <para>
+            &lt;selected_lang&gt;
+            <indexterm><primary>selected_lang</primary></indexterm>
+          </para>
 
-    <title>configure.ac</title>
+          <para>
+            Optional parameter to select the language that will be used for
+            the documentation and error messages. If absent, the first 
+            &lt;message&gt; tag will be used.
+          </para>
+          <para>
+            For each error, if there are no &lt;message&gt; for the selected 
+            language the first &lt;message&gt; tag will be used.
+          </para>
+          <para>
+            The chosen language is specified using the xml:lang attribute. 
+            For example:
+          </para>
+          <para>
+            <programlisting>&lt;selected_lang xml:lang=&quot;en&quot;/&gt;</programlisting>
+          </para>
+        </listitem>
+      </itemizedlist>
+
+    </sect1>
+
+    <sect1 id="quasar">
+  
+      <title>Example: Quasar, the connection/recovery server of Photon</title>
+
+      <para>
+        This is work in progress for the next iteration of the PSO project
+        (photonsoftware.org). 
+        As a matter of fact, while working on this, I've discovered that adding
+        new error codes this way was no more complex than adding error codes 
+        to an header file (once you understand the basics).
+      </para>
     
-    <para>
-      The autoconf program is used to determine if Error Parser is installed
-      on the system. If it is absent, the Makefile will not attempt to
-      regenerate the error files even if the xml error file itself is
-      modified).
-    </para>
-    <programlisting>
+      <sect2 id="configure.ac">
+
+        <title>configure.ac</title>
+    
+        <para>
+          The autoconf program is used to determine if Error Parser is installed
+          on the system. If it is absent, the Makefile will not attempt to
+          regenerate the error files even if the xml error file itself is
+          modified).
+        </para>
+        <programlisting>
 # Tell our makefiles that we can use errorParser to regenerate the error
 # handling code, as needed.
 AC_CHECK_PROG([ERRORPARSER_IS_PRESENT], [errorParser], [yes], [no])
 AM_CONDITIONAL([COND_USE_ERRORPARSER], [test "$ERRORPARSER_IS_PRESENT" = yes])
-    </programlisting>
-    <para>
-      Explanation: to download and buid Photon without modifying it, Error
-      Parser is not required (the tar file contains the default files
-      generated by Error Parser). This is the default behaviour.
-    </para>
-    <para>
-      I do expect that maintainers or anyone else planning to modify the 
-      code (specially the xml error file), will install all the tools 
-      required including Error Parser.
-    </para>
+        </programlisting>
+        <para>
+          Explanation: to download and buid Photon without modifying it, Error
+          Parser is not required (the tar file contains the default files
+          generated by Error Parser). This is the default behaviour.
+        </para>
+        <para>
+          I do expect that maintainers or anyone else planning to modify the 
+          code of Photon (specially the xml error file), will install all the 
+          tools required including Error Parser.
+        </para>
     
-  </sect2>
+      </sect2>
 
-  <sect2 id="makefile_am">
+      <sect2 id="makefile_am">
 
-    <title>Makefile.am</title>
+        <title>Makefile.am</title>
 
-    <para>
-      Including the parser in a Makefile is relatively simple. Here are code
-      snippets from the Makefile.am of Quasar (the syntax for
-      ordinary makefiles should be similar).
-    </para>
+        <para>
+          Including the parser in a Makefile is relatively simple. Here are code
+          snippets from the Makefile.am of Quasar (the syntax for
+          ordinary makefiles should be similar).
+        </para>
        
-    <programlisting># The main target, quasar
+        <programlisting># The main target, quasar
 bin_PROGRAMS = quasar
 
 # The list of files generated by errorParser.
@@ -1002,13 +1036,13 @@ quasar_SOURCES =             \
         $(OUTPUT_FILES) \
         Acceptor.cpp    \
         ...</programlisting>
-  </sect2>
+      </sect2>
 
-  <sect2 id="quasaroptions">
+      <sect2 id="quasaroptions">
 
-    <title>quasarOptions.xml</title>
+        <title>quasarOptions.xml</title>
 
-      <programlisting>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+          <programlisting>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPE options SYSTEM 
              "/usr/local/share/xml/errorParser/errorParserOptions10.dtd"&gt;
 
@@ -1054,13 +1088,13 @@ quasar_SOURCES =             \
   &lt;selected_lang xml:lang="en" /&gt;
 &lt;/options&gt;</programlisting>
 
-  </sect2>
+      </sect2>
 
-  <sect2 id="quasarerrors">
+      <sect2 id="quasarerrors">
 
-    <title>quasarErrors.xml</title>
+        <title>quasarErrors.xml</title>
     
-      <programlisting>
+          <programlisting>
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPE errorlist PUBLIC "-//Error Parser project//DTD Error Parser XML V1.2//EN"
              "http://errorparser.sourceforge.net/xml/errorParser12.dtd"&gt; 
@@ -1578,12 +1612,8 @@ quasar_SOURCES =             \
   &lt;/errgroup&gt;
 
 &lt;/errorlist&gt;</programlisting>
-  </sect2>
-
-
-        </sect1>
-      
+      </sect2>
+    </sect1>
   </chapter>
-
 </book>
 

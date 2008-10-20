@@ -29,7 +29,7 @@ EXTRA_DIST =                             \
         DTD/errorParserOptions10.dtd     \
         DTD/catalog.xml                  \
         examples/example_options.xml     \
-        examples/example_vdsf.xml        \
+        examples/example_photon.xml      \
         examples/simple_example.xml      \
         installation/errorParser.spec    \
         installation/install_catalog.sh  \
@@ -44,7 +44,7 @@ install-data-local:
 	$(install_sh_DATA) $(top_srcdir)/README                          $(DESTDIR)$(datadir)/doc/errorParser/README
 	$(install_sh_DATA) $(top_srcdir)/COPYING                         $(DESTDIR)$(datadir)/doc/errorParser/COPYING
 	$(install_sh_DATA) $(top_srcdir)/examples/example_options.xml    $(DESTDIR)$(datadir)/doc/errorParser/examples/example_options.xml
-	$(install_sh_DATA) $(top_srcdir)/examples/example_vdsf.xml       $(DESTDIR)$(datadir)/doc/errorParser/examples/example_vdsf.xml
+	$(install_sh_DATA) $(top_srcdir)/examples/example_photon.xml     $(DESTDIR)$(datadir)/doc/errorParser/examples/example_photon.xml
 	$(install_sh_DATA) $(top_srcdir)/examples/simple_example.xml     $(DESTDIR)$(datadir)/doc/errorParser/examples/simple_example.xml
 	$(install_sh_DATA) $(top_srcdir)/DTD/errorParser12.dtd           $(DESTDIR)$(datadir)/xml/errorParser/errorParser12.dtd
 	$(install_sh_DATA) $(top_srcdir)/DTD/errorParserOptions10.dtd    $(DESTDIR)$(datadir)/xml/errorParser/errorParserOptions10.dtd
@@ -53,7 +53,7 @@ install-data-local:
 
 uninstall-local:
 	-rm -f $(DESTDIR)$(datadir)/xml/errorParser/install_catalog.sh
-	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/examples/example_vdsf.xml
+	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/examples/example_photon.xml
 	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/examples/example_options.xml
 	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/examples/simple_example.xml
 	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/README
