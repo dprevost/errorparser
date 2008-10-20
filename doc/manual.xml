@@ -75,8 +75,8 @@
       <para>
         If you decide to use the PUBLIC clause and do not want to download
         the DTD on every invocation of Error Parser, adding the Error Parser
-        catalog to your main catalog is the way to go. The program 
-        used to do this (xmlcatalog) is included in the libxml2 package. 
+        catalog to your main catalog is the way to go. The program xmlcatalog,
+        included in the libxml2 package, can help do this. 
         Furthermore a bash script is provided by Error Parser (possibly 
         installed in /usr/local/share/xml/errorParser/install_catalog.sh 
         if Error Parser is installed in /usr/local). You&apos;ll need to 
@@ -85,7 +85,8 @@
         Recommendation: using the SYSTEM clause is perfectly ok and 
         there is likely no real needs to use the xml catalog (the exception
         to this: if you decide to modify Error Parser itself, using both
-        SYSTEM and PUBLIC might be handy).
+        SYSTEM and PUBLIC might be handy to distinguish between the production
+        and the development version).
       </para>
 
     </sect1>
@@ -175,7 +176,7 @@
         <para>
           The code in the repository is not always stable, be 
           careful (hint: unstable commits will usually have the string
-          "work in progress" included in the commit message).
+          &quot;work in progress&quot; included in the commit message).
         </para>
       </warning>
       <para>
@@ -329,7 +330,7 @@
         <para>
           The code in the repository is not always stable, be 
           careful (hint: unstable commits will usually have the string
-          "work in progress" included in the commit message).
+          &quot;work in progress&quot; included in the commit message).
         </para>
       </warning>
       <para>
@@ -362,8 +363,8 @@
       </para>
       <para>
         You can also build the software and run the tests from the command 
-        line. From the root directory, simply type "nmake -f makefile.win32" 
-        to build the program and "nmake -f makefile.win32 check" to run the
+        line. From the root directory, simply type &quot;nmake -f makefile.win32&quot; 
+        to build the program and &quot;nmake -f makefile.win32 check&quot; to run the
         tests (other targets: clean, checkdebug (to run the tests with the 
         debug version of Error Parser) and docs (to build the documentation)).
       </para>
@@ -398,7 +399,7 @@
       </para>
       <para>
         As mentioned earlier, the documentation can be updated using
-        "nmake -f makefile.win32 docs". This will update the Microsoft
+        &quot;nmake -f makefile.win32 docs&quot;. This will update the Microsoft
         help-file (chm) version of this manual and the html version. The PDF
         version and the man and info pages requires a Unix/Linux environment
         (if you use cygwin or MinGW, it might work).
