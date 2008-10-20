@@ -27,14 +27,7 @@ if COND_USE_DB2PDF
  LOCAL_PDF=manual.pdf
 endif
 
-all-local: chm.zip manual.html $(LOCAL_PDF)
-
-chm.zip: manual.xml
-	-rm -rf chm
-	-rm -f chm.zip
-	mkdir chm
-	cd chm; xsltproc ../$(top_srcdir)/doc/xml2chm.xsl ../$(top_srcdir)/doc/manual.xml; cd ..
-	zip chm.zip $(top_builddir)/doc/chm/*
+all-local: manual.html $(LOCAL_PDF)
 
 manual.html: manual.xml xml2html.xsl
 	xsltproc xml2html.xsl manual.xml > manual.html
@@ -54,10 +47,4 @@ uninstall-local:
 	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/manual.pdf
 	-rmdir $(DESTDIR)$(datadir)/doc/errorParser
 	-rmdir $(DESTDIR)$(datadir)/doc
-
-clean-local:
-	-rm -rf chm
-   
-distclean-local:
-	-rm -f chm.zip
 
