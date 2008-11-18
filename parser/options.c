@@ -38,6 +38,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
    xmlDoc  * doc;
    int i;
    xmlChar * prop;
+   int version;
    
    if ( argc == 2 ) {
       if ( strcmp("--help",argv[1]) == 0 || strcmp("-h",argv[1]) == 0 ||
@@ -78,6 +79,15 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
    }
    
    root = xmlDocGetRootElement( doc );
+
+   prop = xmlGetProp( root, BAD_CAST "version" );
+   if ( prop == NULL ) {
+      version = 10;
+   }
+   else {
+      /* We hardcode it - for the moment */
+      version = 11;
+   }
 
    node = root->children;
 
@@ -256,17 +266,34 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
                return -1;
             }
             commonArgs->language = prop;
-
-            break;
+            node = node->next;
          }
+         break; 
       }
       node = node->next;
    }
-   if ( commonArgs->language == NULL ) {
-      fprintf( stderr, "Error: missing <selected_lang> in options file\n" );
-      return -1;
+  
+   if ( version > 10 ) {
+      /* Will we create a C# enum? */
+      while ( node != NULL ) {
+         if ( node->type == XML_ELEMENT_NODE ) {
+            if ( xmlStrcmp( node->name, BAD_CAST "csharp") == 0 ) {
+               cs = true;
+               node = node->next;
+            }
+            else {
+               /* No -> next here. The node might be for Java/Python or ... */
+               cs = false;
+            }
+            break;
+         }
+         node = node->next;
+      }
+      
+      if ( cs ) {
+      }
    }
-   
+
    xmlFreeDoc( doc );
    xmlFreeParserCtxt( context );
    xmlCleanupParser();

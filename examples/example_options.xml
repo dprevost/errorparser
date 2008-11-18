@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE options SYSTEM 
-             "/usr/local/share/xml/errorParser/errorParserOptions10.dtd">
-<!-- 
+             "/usr/local/share/xml/errorParser/errorParserOptions11.dtd">
+
+<!-- /usr/local/share/xml/errorParser/errorParserOptions10
    This xml file provides the options to the errorParser program.
    
    Why a file? The number of options was getting too large. Using a file
@@ -16,7 +17,7 @@
    
 -->
 
-<options>
+<options version="1.1">
   <!-- The name of the enum. If absent, #define will be generated instead. -->
   <enumname> psoErrors</enumname>
   <!-- Name of the output dir for the error header file. If absent, the 
@@ -58,5 +59,14 @@
            (% is the most problematic one, IMHO. %d %p, etc are interpreted
            differently by libc (printf()) and the iostream library (cout) -->         
   <err_msg percent="percent" />
+  <selected_lang xml:lang="en"/>
+  <!-- Optional section for creating an enum for C# -->
+  <csharp>
+    <!-- Full or relative path to the generated C# code -->
+    <cs_filename> CS/Errors.cs </cs_filename>
+    <!-- The namespace is optional -->
+    <cs_namespace> Photon </cs_namespace>
+    <cs_enum> Errors </cs_enum>
+  </csharp>
 </options>
 

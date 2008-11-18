@@ -16,7 +16,7 @@
     It is recommended to use the SYSTEM declaration, something like:
 
     <!DOCTYPE options SYSTEM 
-             "/usr/local/share/xml/errorParser/errorParserOptions10.dtd">
+             "/usr/local/share/xml/errorParser/errorParserOptions11.dtd">
 
     (if Error Parser is installed in /usr/local).
     
@@ -25,13 +25,13 @@
     If you want/prefer to use a PUBLIC declaration, the following public 
     identifier can be used to identify it:
 
-     "-//Error Parser project//DTD Error Parser Options XML V1.0//EN"
+     "-//Error Parser project//DTD Error Parser Options XML V1.1//EN"
 
     The full DOCTYPE declaration should then look like this:
     
     <!DOCTYPE options PUBLIC 
-           "-//Error Parser project//DTD Error Parser Options XML V1.0//EN"
-           "http://errorparser.sourceforge.net/xml/errorParserOptions10.dtd">
+           "-//Error Parser project//DTD Error Parser Options XML V1.1//EN"
+           "http://errorparser.sourceforge.net/xml/errorParserOptions11.dtd">
     
 -->
 
@@ -54,7 +54,8 @@
 
 <!ELEMENT options      (enumname?,header_name_dir?,header_name,
                         errmsg_dir?,errmsg_header_name,errmsg_c_name,
-                        prefix_error,prefix_variable,err_msg,selected_lang?)>
+                        prefix_error,prefix_variable,err_msg,selected_lang,
+                        csharp?)>
 <!ELEMENT enumname           (#PCDATA)>
 <!ELEMENT header_name_dir    (#PCDATA)>
 <!ELEMENT header_name        (#PCDATA)>
@@ -65,7 +66,12 @@
 <!ELEMENT prefix_variable    (#PCDATA)>
 <!ELEMENT err_msg            EMPTY>
 <!ELEMENT selected_lang      EMPTY>
+<!ELEMENT csharp             (cs_filename, cs_namespace?, cs_enum)>
+<!ELEMENT cs_filename        (#PCDATA)>
+<!ELEMENT cs_namespace       (#PCDATA)>
+<!ELEMENT cs_enum            (#PCDATA)>
 
+<!ATTLIST options version CDATA #REQUIRED>
 <!ATTLIST err_msg allow_escapes (yes|no) "no">
 <!ATTLIST err_msg allow_quotes  (yes|no) "yes">
 <!ATTLIST err_msg percent CDATA #REQUIRED>

@@ -26,6 +26,10 @@
         * Corrected a bug - extra characters in the output files (two memory 
           allocations of a string with no space for the NULL byte...).
 
-    * bug release - second alpha release (0.3.2)
+    * bug release - first beta release (0.3.2)
         * Corrected the lack of __declspec(dllexport) on Windows (for project 
           with more than one DLL, this is a must).
+          
+    * version 0.4.0
+        * Added support for C#
+
