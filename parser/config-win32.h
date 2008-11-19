@@ -23,6 +23,8 @@
 #pragma warning(disable:4514) /* unreferenced inline function has been removed */
 #pragma warning(disable:4710) /* inline function was not inlined */
 
+#define _CRT_SECURE_NO_DEPRECATE
+
 /* #define _WIN32_WINNT 0x0500 */
 
 /* Define to 1 if you have the <ctype.h> header file. */

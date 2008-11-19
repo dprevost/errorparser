@@ -319,10 +319,10 @@ void navigate( errp_common * commonArgs,
    if ( commonArgs->using_cs ) {
       if ( commonArgs->cs_namespace != NULL ) {
          fprintf( commonArgs->fpCS, "namespace %s\n{\n", commonArgs->cs_namespace );
-         fprintf( commonArgs->fpCS, "    enum %s\n    {\n", commonArgs->cs_enum );
+         fprintf( commonArgs->fpCS, "    public enum %s\n    {\n", commonArgs->cs_enum );
       }
       else {
-         fprintf( commonArgs->fpCS, "enum %s\n{\n", commonArgs->cs_enum );
+         fprintf( commonArgs->fpCS, "public enum %s\n{\n", commonArgs->cs_enum );
       }
    }
    
