@@ -34,7 +34,7 @@ void usage( char * progName )
 int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
 {
    xmlParserCtxtPtr context = NULL;  /* The parser context */
-   xmlNode * root = NULL, * node;
+   xmlNode * root = NULL, * node, * child = NULL;
    xmlDoc  * doc;
    int i;
    xmlChar * prop;
@@ -88,7 +88,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
       /* We hardcode it - for the moment */
       version = 11;
    }
-
+   
    node = root->children;
 
    /* 
@@ -273,24 +273,64 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
       node = node->next;
    }
   
+   commonArgs->using_cs = 0;
    if ( version > 10 ) {
       /* Will we create a C# enum? */
       while ( node != NULL ) {
          if ( node->type == XML_ELEMENT_NODE ) {
             if ( xmlStrcmp( node->name, BAD_CAST "csharp") == 0 ) {
-               cs = true;
+               commonArgs->using_cs = 1;
+               child = node->children;
                node = node->next;
             }
-            else {
-               /* No -> next here. The node might be for Java/Python or ... */
-               cs = false;
-            }
+            /*
+             * No node->next if the if is false. The current node might be 
+             * used, eventually, for Java or Python or ...
+             */
             break;
          }
          node = node->next;
       }
-      
-      if ( cs ) {
+
+      if ( commonArgs->using_cs ) {
+         /* The name of the output file for the C# enum. */
+         while ( child != NULL ) {
+            if ( child->type == XML_ELEMENT_NODE ) {
+               if ( xmlStrcmp( child->name, BAD_CAST "cs_filename") == 0 ) {
+                  commonArgs->cs_filename = stripText( child->children->content );
+                  child = child->next;
+                  break;
+               }
+               fprintf( stderr, "Error: missing <cs_filename> in options file\n" );
+               return -1;
+            }
+            child = child->next;
+         }
+         /* The name of the enum for the C# enum. */
+         while ( child != NULL ) {
+            if ( child->type == XML_ELEMENT_NODE ) {
+               if ( xmlStrcmp( child->name, BAD_CAST "cs_enum") == 0 ) {
+                  commonArgs->cs_enum = stripText( child->children->content );
+                  child = child->next;
+                  break;
+               }
+               fprintf( stderr, "Error: missing <cs_filename> in options file\n" );
+               return -1;
+            }
+            child = child->next;
+         }
+         /* The name of the C# namespace. */
+         while ( child != NULL ) {
+            if ( child->type == XML_ELEMENT_NODE ) {
+               if ( xmlStrcmp( child->name, BAD_CAST "cs_namespace") == 0 ) {
+                  commonArgs->cs_namespace = stripText( child->children->content );
+                  child = child->next;
+               }
+               break;
+            }
+            child = child->next;
+         }
+
       }
    }
 

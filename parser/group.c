@@ -67,6 +67,45 @@ void addDocumentation( errp_common * commonArgs,
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
+void addDocumentationCS( errp_common * commonArgs,
+                         xmlNode     * node )
+{
+   xmlChar * paragraph, * tmp1;
+   int firstpara = 1;
+   
+   do {
+      if ( node->type == XML_ELEMENT_NODE ) {
+         /* This can only be a paragraph of the documentation */
+         tmp1 = stripText( node->children->content );
+         
+         if ( firstpara ) firstpara = 0;
+         else {
+            if ( commonArgs->cs_namespace == NULL ) {
+               fprintf( commonArgs->fpCS, "    //\n" );
+            }
+            else {
+               fprintf( commonArgs->fpCS, "        //\n" );
+            }
+         }
+         if ( commonArgs->cs_namespace == NULL ) {
+            paragraph = prettify( tmp1, "    // ", ERRP_LINE_LENGTH );
+         }
+         else {
+            paragraph = prettify( tmp1, "        // ", ERRP_LINE_LENGTH );
+         }
+         fprintf( commonArgs->fpCS, "%s\n", paragraph );
+
+         free( paragraph );
+         free( tmp1 );
+      }
+      
+      node = node->next;
+
+   } while ( node != NULL );
+}
+
+/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+
 void addMessages( errp_common * commonArgs,
                   xmlNode     * messages )
 {
@@ -107,6 +146,7 @@ void addMessages( errp_common * commonArgs,
    while ( node != NULL ) {
       if ( node->type == XML_ELEMENT_NODE ) {
          addDocumentation( commonArgs, node );
+         if ( commonArgs->using_cs ) addDocumentationCS( commonArgs, node );
          break;
       }
       node = node->next;
@@ -207,7 +247,20 @@ void addError( errp_common * commonArgs,
                errName,
                errNumber );
    }
-
+   if ( commonArgs->using_cs ) {
+      if ( commonArgs->cs_namespace == NULL ) {
+         fprintf( commonArgs->fpCS, "    %s = %s",
+               errName,
+               errNumber );
+      }
+      else
+      {
+         fprintf( commonArgs->fpCS, "        %s = %s",
+                  errName,
+                  errNumber );
+      }
+   }
+   
    free( errNumber );
    free( errName );
 
@@ -331,9 +384,11 @@ void addGroup( errp_common * commonArgs,
          if ( ! firstOfGroup ) {
             if ( commonArgs->writingEnum ) {
                fprintf( commonArgs->fpHeader, ",\n\n" );
+               if (commonArgs->using_cs) fprintf( commonArgs->fpCS, ",\n\n" );
             }
             else {
                fprintf( commonArgs->fpHeader, "\n\n" );
+               if (commonArgs->using_cs) fprintf( commonArgs->fpCS, "\n\n" );
             }
          }
          addError( commonArgs, node );
@@ -344,17 +399,21 @@ void addGroup( errp_common * commonArgs,
    if ( lastGroup ) {
       if ( commonArgs->writingEnum ) {
          fprintf( commonArgs->fpHeader, "\n" );
+         if (commonArgs->using_cs) fprintf( commonArgs->fpCS, "\n" );
       }
       else {
          fprintf( commonArgs->fpHeader, "\n\n" );
+         if (commonArgs->using_cs) fprintf( commonArgs->fpCS, "\n\n" );
       }
    }
    else {
       if ( commonArgs->writingEnum ) {
          fprintf( commonArgs->fpHeader, ",\n\n" );
+         if (commonArgs->using_cs) fprintf( commonArgs->fpCS, ",\n\n" );
       }
       else {
          fprintf( commonArgs->fpHeader, "\n\n" );
+         if (commonArgs->using_cs) fprintf( commonArgs->fpCS, "\n\n" );
       }
    }      
 

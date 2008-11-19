@@ -93,6 +93,7 @@ struct errp_common {
    FILE    * fpHeader;
    FILE    * fpMsgC;
    FILE    * fpMsgH;
+   FILE    * fpCS;
    xmlChar * headerDir;
    xmlChar * headerName;
    xmlChar * outputDir;
@@ -109,6 +110,10 @@ struct errp_common {
    int       allowQuotes;
    xmlChar * percent;
    xmlChar * language;
+   int       using_cs;
+   xmlChar * cs_filename;
+   xmlChar * cs_enum;
+   xmlChar * cs_namespace;
 };
 
 typedef struct errp_common errp_common;

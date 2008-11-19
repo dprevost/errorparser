@@ -66,10 +66,10 @@
 <!ELEMENT prefix_variable    (#PCDATA)>
 <!ELEMENT err_msg            EMPTY>
 <!ELEMENT selected_lang      EMPTY>
-<!ELEMENT csharp             (cs_filename, cs_namespace?, cs_enum)>
+<!ELEMENT csharp             (cs_filename, cs_enum, cs_namespace?)>
 <!ELEMENT cs_filename        (#PCDATA)>
-<!ELEMENT cs_namespace       (#PCDATA)>
 <!ELEMENT cs_enum            (#PCDATA)>
+<!ELEMENT cs_namespace       (#PCDATA)>
 
 <!ATTLIST options version CDATA #REQUIRED>
 <!ATTLIST err_msg allow_escapes (yes|no) "no">
