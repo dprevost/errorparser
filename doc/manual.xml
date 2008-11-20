@@ -6,14 +6,41 @@
 
   <bookinfo>
 
-    <title>Error Parser Manuel</title>
+    <title>Error Parser Manual</title>
 
     <author><firstname>Daniel</firstname><surname>Pr&eacute;vost</surname></author>
 
     <copyright><year>2008</year><holder>Daniel 
     Pr&eacute;vost</holder></copyright>
+    <releaseinfo>This manual is for release 0.4.0 of Error Parser</releaseinfo>
   </bookinfo>
 
+  <chapter id="New">
+
+    <title>New in this release</title>
+  
+    <para> 
+      This release is not a major update but adds a few interesting 
+      enhancements to the product:
+      <itemizedlist>
+        <listitem>
+          <para>
+            Support for C#. The parser can generates code that can be
+            included in a C# project (in the form of an enum for errors).
+            This can be useful to add error codes from unmanaged code to 
+            a .NET environment.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            On Windows, libxml2 is linked statically to the parser, 
+            removing a possible headache for those who already have a 
+            copy of libxml2.
+          </para>
+        </listitem>
+    </para>
+  </chapter>
+    
   <chapter id="Installation">
 
     <title>Installation</title>
@@ -23,17 +50,6 @@
       relatively simple if you use the pre-packaged version of the 
       software (RPM, Inno setup, etc.) or if you build the software from 
       scratch and use make install.
-    </para>
-    <para>
-      There are some potential complications however in some cases. 
-      For example: this software requires libxml2 - on Unix/Linux, 
-      libxml2 will usually already be installed (or you can find packages 
-      that will do it painlessly). On Windows, this is often not the case
-      and the Inno Setup installation can optionally installed the run-time 
-      environment needed by Error Parser. Alternatively, you might prefer to 
-      install libxml2 yourself - for example, you might want to add the 
-      development environment of libxml2 (not included in Error Parser) 
-      to integrate this library with your applications.
     </para>
     <para>
       This section will look into some potential installation issues in some details.
@@ -130,11 +146,10 @@
         Parser from scratch.
       </para>
       <para>
-        As mentioned previously, the Error Parser package will give 
+        In previous releases, the Error Parser installer gave 
         you the option of installing the run-time environment needed to 
-        run errorParser.exe. This include iconv.exe, iconv.dll, 
-        libxml2.dll and xmlcatalog.exe. Do not install them if 
-        you&apos;re installing the complete libxml2 package.
+        run errorParser.exe. This is no longer needed - libxml is now
+        included in Error Parser (linked statically).
       </para>
 
     </sect1>
