@@ -1,5 +1,4 @@
-<!-- $Id$
-
+<!--
     Document Type Definition for the options of Error Parser.
     
     Copyright (C) 2008 Daniel Prevost.
@@ -31,7 +30,7 @@
     
     <!DOCTYPE options PUBLIC 
            "-//Error Parser project//DTD Error Parser Options XML V1.1//EN"
-           "http://errorparser.sourceforge.net/xml/errorParserOptions11.dtd">
+           "http://photonsoftware.org/xml/ep/errorParserOptions11.dtd">
     
 -->
 

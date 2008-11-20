@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE errorlist PUBLIC "-//Error Parser project//DTD Error Parser XML V1.2//EN"
-             "http://errorparser.sourceforge.net/xml/errorParser12.dtd"> 
+             "http://photonsoftware.org/xml/ep/errorParser12.dtd"> 
 <!-- 
     This example is currently being used for an existing project, Photon
     (http://photonsoftware.org) to create code to retrieve error messages 

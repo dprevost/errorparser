@@ -2,7 +2,7 @@
 <!DOCTYPE options SYSTEM 
              "/usr/local/share/xml/errorParser/errorParserOptions11.dtd">
 
-<!-- /usr/local/share/xml/errorParser/errorParserOptions10
+<!-- 
    This xml file provides the options to the errorParser program.
    
    Why a file? The number of options was getting too large. Using a file

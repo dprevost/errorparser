@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE options SYSTEM 
-             "http://errorparser.sourceforge.net/xml/errorParserOptions10.dtd">
+             "http://photonsoftware.org/xml/ep/errorParserOptions11.dtd">
 <!-- 
    This xml file provides the options to the errorParser program.
    
@@ -16,7 +16,7 @@
    
 -->
 
-<options>
+<options version="1.1">
   <!-- The name of the enum. If absent, #define will be generated instead. -->
   <enumname> enumErrors</enumname>
   <!-- Name of the output dir for the error header file. If absent, the 

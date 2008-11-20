@@ -72,7 +72,7 @@
       <para>
         <programlisting>&lt;!DOCTYPE errorlist PUBLIC 
    &quot;-//Error Parser project//DTD Error Parser XML V1.2//EN&quot;
-    &quot;http://errorparser.sourceforge.net/xml/errorParser12.dtd&quot;&gt;
+    &quot;http://photonsoftware.org/xml/ep/errorParser12.dtd&quot;&gt;
         </programlisting>
       </para>
       <para>
@@ -756,13 +756,35 @@
         options in a configuration file (written in xml). These options 
         are described below.
       </para>
+      <para>
+        This section document version 1.1 of the DTD. The parser still
+        understands version 1.0 of the DTD. These two versions are not 
+        backward compatible (see the new attribute "version" for a
+        detailed explanation).
+      </para>
+      
       <itemizedlist>
         <listitem>
           <para>
-            &lt;options&gt;
+            &lt;options version="1.1"&gt;
             <indexterm><primary>options</primary></indexterm>
           </para>
-          <para>This tag starts the document itself (the root element).</para>
+          <para>
+            This tag starts the document itself (the root element). The 
+            attribute "version" (the version of the DTD) is required - it 
+            will be used by the parser to support multiple versions 
+            of the DTD, if needed.
+          </para>
+          <para>
+            This new attribute breaks backward compatibility between 
+            the new version (1.1) and the old version. To use an
+            existing option file with the newer DTD you must modify the
+            option file to include this attribute.
+          </para>
+          <para>
+            Ironically, the new attribute was added to provide better
+            compatibility between versions...
+          </para>
         </listitem>
         <listitem>
           <para>
@@ -1109,7 +1131,7 @@ quasar_SOURCES =             \
 
 &lt;!-- This xml file provides the options to the errorParser program. --&gt;
 
-&lt;options&gt;
+&lt;options version="1.1"&gt;
   &lt;!-- The name of the enum. If absent, #define will be generated instead. --&gt;
   &lt;enumname&gt; psoqErrors&lt;/enumname&gt;
   &lt;!-- Name of the output dir for the error header file. If absent, the 
@@ -1168,7 +1190,7 @@ quasar_SOURCES =             \
           <programlisting>
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPE errorlist PUBLIC "-//Error Parser project//DTD Error Parser XML V1.2//EN"
-             "http://errorparser.sourceforge.net/xml/errorParser12.dtd"&gt; 
+             "http://photonsoftware.org/xml/ep/errorParser12.dtd"&gt; 
 &lt;!-- 
     This file contains the error codes specific to the server of
     Photon, quasar.
