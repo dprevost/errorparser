@@ -20,6 +20,7 @@
 #  include "config.h"
 #endif
 #if defined WIN32
+#  define _CRT_SECURE_NO_DEPRECATE
 #  include "config-win32.h"
    /* 
     * The pragma is to hide a warning in Microsoft include files

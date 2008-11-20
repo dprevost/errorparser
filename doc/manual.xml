@@ -25,7 +25,7 @@
       <itemizedlist>
         <listitem>
           <para>
-            Support for C#. The parser can generates code that can be
+            Support for C#. The parser can generate code that can be
             included in a C# project (in the form of an enum for errors).
             This can be useful to add error codes from unmanaged code to 
             a .NET environment.
@@ -33,11 +33,12 @@
         </listitem>
         <listitem>
           <para>
-            On Windows, libxml2 is linked statically to the parser, 
+            On Windows, libxml2 is now linked statically to the parser, 
             removing a possible headache for those who already have a 
-            copy of libxml2.
+            copy of libxml2 installed.
           </para>
         </listitem>
+      </itemizedlist>
     </para>
   </chapter>
     
@@ -361,13 +362,15 @@
 
       <para>
         Very simple, to build the software, just use the workspace 
-        file parser\parser.dsw. If you use a modern version of Visual 
-        Studio, it will likely ask you to convert the workspace.
+        file parser\parser.snl (VC++ v8, know as VS 2005). 
+        Previous versions were built with VC++ 6 but support for VS 6 
+        is now deprecated and parser.dsw and parser.dsp 
+        will be removed in the near future.
       </para>
       <para>
         One additional note: you will need to add the directory for 
         the header files for libxml2 to the list of directories in Visual 
-        Studio. For VS 6, you can set this in Options (in the Tools 
+        Studio. For VS 2005, you can set this in Options (in the Tools 
         menu).
       </para>
       <para>
@@ -973,6 +976,49 @@
             <programlisting>&lt;selected_lang xml:lang=&quot;en&quot;/&gt;</programlisting>
           </para>
         </listitem>
+
+        <listitem>
+          <para>
+            &lt;csharp&gt;
+            <indexterm><primary>c#</primary></indexterm>
+            <indexterm><primary>csharp</primary></indexterm>
+          </para>
+          <para>
+            Optional. If present, code for C# will be generated (in the
+            form of an enum). Additional sub-tags,described below, are used 
+            to provide the required parameters.
+          </para>
+        </listitem>
+
+        <listitem>
+          <para>
+            &lt;cs_filename&gt;
+            <indexterm><primary>cs_filename</primary></indexterm>
+          </para>
+          <para>
+            Full or relative path to the generated C# code
+          </para>
+        </listitem>
+
+        <listitem>
+          <para>
+            &lt;cs_enum&gt;
+            <indexterm><primary>cs_enum</primary></indexterm>
+          </para>
+          <para>
+            The name of the C# enum.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            &lt;cs_namespace&gt;
+            <indexterm><primary>cs_namespace</primary></indexterm>
+          </para>
+          <para>
+            Optional. The name of the C# namespace. If absent, the code
+            is generated without anamespace.
+          </para>
+        </listitem>
       </itemizedlist>
 
     </sect1>
@@ -1059,7 +1105,7 @@ quasar_SOURCES =             \
 
           <programlisting>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPE options SYSTEM 
-             "/usr/local/share/xml/errorParser/errorParserOptions10.dtd"&gt;
+             "/usr/local/share/xml/errorParser/errorParserOptions11.dtd"&gt;
 
 &lt;!-- This xml file provides the options to the errorParser program. --&gt;
 
@@ -1101,6 +1147,16 @@ quasar_SOURCES =             \
            differently by libc (printf()) and the iostream library (cout) --&gt;         
   &lt;err_msg percent="percent" /&gt;
   &lt;selected_lang xml:lang="en" /&gt;
+
+  &lt;!-- Optional section for creating an enum for C#
+       Commented out - included for completeness --&gt;
+  &lt;!-- &lt;csharp&gt; --&gt;
+    &lt;!-- Full or relative path to the generated C# code --&gt;
+    &lt;!-- &lt;cs_filename&gt; CS/Errors.cs &lt;/cs_filename&gt; --&gt;
+    &lt;!-- &lt;cs_enum&gt; Errors &lt;/cs_enum&gt; --&gt;
+    &lt;!-- The namespace is optional --&gt;
+    &lt;!-- &lt;cs_namespace&gt; Photon &lt;/cs_namespace&gt; --&gt;
+  &lt;!-- &lt;/csharp&gt;   --&gt;
 &lt;/options&gt;</programlisting>
 
       </sect2>
@@ -1123,8 +1179,8 @@ quasar_SOURCES =             \
     
 --&gt;
 
-&lt;!-- Photon next version is 0.3 --&gt;
-&lt;errorlist version="0.3"&gt;
+&lt;!-- Photon next version is 0.4 --&gt;
+&lt;errorlist version="0.4"&gt;
   &lt;!-- Copyright information and any additional info that will appear at 
        the top of the generated files. This is optional. --&gt;
   &lt;copyright_group&gt;

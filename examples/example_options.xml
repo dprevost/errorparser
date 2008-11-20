@@ -64,9 +64,9 @@
   <csharp>
     <!-- Full or relative path to the generated C# code -->
     <cs_filename> CS/Errors.cs </cs_filename>
+    <cs_enum> Errors </cs_enum>
     <!-- The namespace is optional -->
     <cs_namespace> Photon </cs_namespace>
-    <cs_enum> Errors </cs_enum>
   </csharp>
 </options>
 

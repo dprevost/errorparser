@@ -68,7 +68,7 @@ xmlChar * escapeUnescapedQuotes( xmlChar * inStr )
       if ( inStr[i] == '\'' && inStr[i-1] != '\\' ) n++;
    }
 
-   outStr = calloc( xmlStrlen(inStr) + 1 + n, sizeof(xmlChar) );
+   outStr = (xmlChar *)calloc( xmlStrlen(inStr) + 1 + n, sizeof(xmlChar) );
    if ( outStr == NULL ) {
       fprintf( stderr, "Malloc error\n" );
       exit(1);
@@ -173,7 +173,7 @@ xmlChar * prettify( xmlChar* inStr, char* prefix, int lineLength )
    size = xmlStrlen(inStr);
    
    lines = size / lineLength + 2; /* To be safe */
-   outStr = calloc( size+lines*(strlen(prefix)+1), sizeof(xmlChar) );
+   outStr = (xmlChar *)calloc( size+lines*(strlen(prefix)+1), sizeof(xmlChar) );
    if ( outStr == NULL ) {
       fprintf(stderr, "Malloc error\n" );
       exit(1);
@@ -216,7 +216,7 @@ xmlChar * replaceChar( xmlChar * inStr, xmlChar old_c, xmlChar * new_c )
    for ( i = 0; i < xmlStrlen(inStr); i++ ) {
       if ( inStr[i] == old_c ) count++;
    }
-   outStr = calloc( xmlStrlen(inStr)+1+count*(xmlStrlen(new_c)-1), sizeof(xmlChar) );
+   outStr = (xmlChar *)calloc( xmlStrlen(inStr)+1+count*(xmlStrlen(new_c)-1), sizeof(xmlChar) );
    if ( outStr == NULL ) {
       fprintf(stderr, "Malloc error\n" );
       exit(1);
@@ -260,7 +260,7 @@ xmlChar * stripText( xmlChar * inStr )
    end = size = xmlStrlen(inStr);
    start = 0;
    
-   outStr = calloc( (size+1), sizeof(xmlChar) );
+   outStr = (xmlChar *)calloc( (size+1), sizeof(xmlChar) );
    if ( outStr == NULL ) {
       fprintf( stderr, "Malloc error\n" );
       exit(1);
