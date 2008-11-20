@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Error Parser Manual</title><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="book" lang="en"><div class="titlepage"><div><div><h1 class="title"><a name="id2425050"></a>Error Parser Manual</h1></div><div><div class="author"><h3 class="author"><span class="firstname">Daniel</span> <span class="surname">Prévost</span></h3></div></div><div><p class="releaseinfo">This manual is for release 0.4.0 of Error Parser</p></div><div><p class="copyright">Copyright © 2008 Daniel 
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Error Parser Manual</title><meta name="generator" content="DocBook XSL Stylesheets V1.74.0"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="book" lang="en"><div class="titlepage"><div><div><h1 class="title"><a name="id92532"></a>Error Parser Manual</h1></div><div><div class="author"><h3 class="author"><span class="firstname">Daniel</span> <span class="surname">Prévost</span></h3></div></div><div><p class="releaseinfo">This manual is for release 0.4.0 of Error Parser</p></div><div><p class="copyright">Copyright © 2008 Daniel 
     Prévost</p></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="chapter"><a href="#New">1. New in this release</a></span></dt><dt><span class="chapter"><a href="#Installation">2. Installation</a></span></dt><dd><dl><dt><span class="sect1"><a href="#catalog_linux">1. The xml catalog on Linux/Unix</a></span></dt><dt><span class="sect1"><a href="#catalog_windows">2. The xml catalog on Windows</a></span></dt><dt><span class="sect1"><a href="#libxml2_windows">3. libxml2 on Windows</a></span></dt></dl></dd><dt><span class="chapter"><a href="#building">3. Building the Software</a></span></dt><dd><dl><dt><span class="sect1"><a href="#build_linux_repo">1. Building on Linux/Unix from the repository</a></span></dt><dt><span class="sect1"><a href="#build_linux_tar">2. Building on Linux/Unix from the tar file</a></span></dt><dt><span class="sect1"><a href="#build_doc_linux">3. Building the documentation on Linux/Unix</a></span></dt><dt><span class="sect1"><a href="#build_windows_repo">4. Building on Windows from the repository</a></span></dt><dt><span class="sect1"><a href="#build_windows_zip">5. Building on Windows from a zip file</a></span></dt><dt><span class="sect1"><a href="#build_doc_windows">6. Building the documentation on Windows</a></span></dt></dl></dd><dt><span class="chapter"><a href="#user_guide">4. User Guide</a></span></dt><dd><dl><dt><span class="sect1"><a href="#intro">1. Introduction</a></span></dt><dt><span class="sect1"><a href="#xml_file">2. The xml error file</a></span></dt><dt><span class="sect1"><a href="#option_file">3. The xml option file </a></span></dt><dt><span class="sect1"><a href="#quasar">4. Example: Quasar, the connection/recovery server of Photon</a></span></dt><dd><dl><dt><span class="sect2"><a href="#configure.ac">4.1. configure.ac</a></span></dt><dt><span class="sect2"><a href="#makefile_am">4.2. Makefile.am</a></span></dt><dt><span class="sect2"><a href="#quasaroptions">4.3. quasarOptions.xml</a></span></dt><dt><span class="sect2"><a href="#quasarerrors">4.4. quasarErrors.xml</a></span></dt></dl></dd></dl></dd></dl></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="New"></a>Chapter 1. New in this release</h2></div></div></div><p> 
       This release is not a major update but adds a few interesting 
       enhancements to the product:
@@ -11,6 +11,9 @@
             On Windows, libxml2 is now linked statically to the parser, 
             removing a possible headache for those who already have a 
             copy of libxml2 installed.
+          </p></li><li><p>
+            The XML Data Definition files are now on the Photon web site
+            (http://photonsoftware.org/) instead of sourceforge. 
           </p></li></ul></div><p>
     </p></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="Installation"></a>Chapter 2. Installation</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#catalog_linux">1. The xml catalog on Linux/Unix</a></span></dt><dt><span class="sect1"><a href="#catalog_windows">2. The xml catalog on Windows</a></span></dt><dt><span class="sect1"><a href="#libxml2_windows">3. libxml2 on Windows</a></span></dt></dl></div><p>
       The installation procedure of the software itself is 
@@ -279,7 +282,7 @@
         sub-tag.
       </p><div class="itemizedlist"><ul type="disc"><li><p>
             &lt;errorlist version="0.3"&gt; 
-            <a class="indexterm" name="id2475773"></a>
+            <a class="indexterm" name="id535237"></a>
           </p><p>
             This tag starts the document itself (the root element). 
             The version attribute is a string of your choosing and is there 
@@ -288,7 +291,7 @@
             attribute is optional.
           </p></li><li><p>
             &lt;copyright_group&gt; 
-            <a class="indexterm" name="id2475797"></a>
+            <a class="indexterm" name="id535256"></a>
           </p><p>
             This is an optional tag. You use it if you want to 
             generate copyright information in the output files. This tag 
@@ -302,24 +305,24 @@
             is simplify because of it, so...
           </p></li><li><p>
             &lt;copyright&gt; 
-            <a class="indexterm" name="id2475834"></a>
+            <a class="indexterm" name="id535295"></a>
           </p><p>
             Allows you to enter copyright information in the output 
             files. It has multiple sub-tags. As mentioned previously, 
             multiple &lt;copyright&gt; tags are allowed.
           </p><div class="itemizedlist"><ul type="circle"><li><p>
                 &lt;years&gt;
-                <a class="indexterm" name="id2526652"></a>
+                <a class="indexterm" name="id535321"></a>
               </p><p>
                 The interval of years for the current copyright notice.
               </p></li><li><p>
                 &lt;authors&gt;
-                <a class="indexterm" name="id2526672"></a>
+                <a class="indexterm" name="id535343"></a>
               </p><p>
                 The name(s) of the owner(s) of the copyright.
               </p></li><li><p>
                 &lt;notice&gt;
-                <a class="indexterm" name="id2526691"></a>
+                <a class="indexterm" name="id535364"></a>
               </p><p>
                 The text of the license. More exactly, a paragraph 
                 of the license. Use multiple &lt;notice&gt; if your 
@@ -327,7 +330,7 @@
                 one &lt;notice&gt; for each &lt;copyright&gt;.
               </p></li></ul></div></li><li><p>
             &lt;errgroup&gt;
-            <a class="indexterm" name="id2526718"></a>
+            <a class="indexterm" name="id535394"></a>
           </p><p>
             &lt;errgroup&gt; is used to organize your errors in 
             groups, if you so desired (for example, a group of i/o 
@@ -339,7 +342,7 @@
             sub-tag.
           </p></li><li><p>
             &lt;errgroup_ident&gt;
-            <a class="indexterm" name="id2526751"></a>
+            <a class="indexterm" name="id535430"></a>
           </p><p>
             This sub-tag of &lt;errgroup&gt; is optional. The 
             sub-tags associated with this tag are used to generate 
@@ -359,12 +362,12 @@
             &lt;errgroup_ident&gt; is used.
           </p><div class="itemizedlist"><ul type="circle"><li><p>
                 &lt;errgroup_name&gt;
-                <a class="indexterm" name="id2526806"></a>
+                <a class="indexterm" name="id535487"></a>
               </p><p>
                 A name for this group of errors. For example, Network errors.
               </p></li><li><p>
                 &lt;errgroup_desc&gt;
-                <a class="indexterm" name="id2526825"></a>
+                <a class="indexterm" name="id535509"></a>
               </p><p>
                 Description of this group of errors. You must have 
                 at least one &lt;errgroup_desc&gt; but you can have 
@@ -372,17 +375,17 @@
                 paragraph.
               </p></li></ul></div></li><li><p>
             &lt;error&gt;
-            <a class="indexterm" name="id2526856"></a>
+            <a class="indexterm" name="id535542"></a>
           </p><p>
             This tag is also a sub-tag of &lt;errgroup&gt;. You 
             need at least one &lt;error&gt; for each &lt;errgroup&gt; but 
             you can have as many as needed.
           </p><div class="itemizedlist"><ul type="circle"><li><p>
                 &lt;errnumber&gt;
-                <a class="indexterm" name="id2526879"></a>
+                <a class="indexterm" name="id535567"></a>
               </p><p>The numerical value of the error code.</p></li><li><p>
                 &lt;errname&gt;
-                <a class="indexterm" name="id2526898"></a>
+                <a class="indexterm" name="id535588"></a>
               </p><p>
                 The generic name of the error. This name is going 
                 to be used to generate either an enum entry or a #define 
@@ -396,7 +399,7 @@
                 file.
               </p></li><li><p>
                 &lt;message_group&gt;
-                <a class="indexterm" name="id2526930"></a>
+                <a class="indexterm" name="id535623"></a>
               </p><p>
                 This tag is used to group the error messages and 
                 the documentation for the error - which are encapsulated 
@@ -411,7 +414,7 @@
                 so...
               </p></li><li><p>
                 &lt;message&gt;
-                <a class="indexterm" name="id2526968"></a>
+                <a class="indexterm" name="id535663"></a>
               </p><p>
                 Container for both the error message and the 
                 documentation for this error. This tag has an optional 
@@ -430,7 +433,7 @@
                 is used.
               </p><div class="itemizedlist"><ul type="square"><li><p>
                     &lt;errormsg&gt;
-                    <a class="indexterm" name="id2527019"></a>
+                    <a class="indexterm" name="id535717"></a>
                   </p><p>
                     The text of the error message that will be 
                     retrieved by the function 
@@ -443,7 +446,7 @@
                     the appropriate options in the option file.
                   </p></li><li><p>
                     &lt;errordoc&gt;
-                    <a class="indexterm" name="id2527063"></a>
+                    <a class="indexterm" name="id535764"></a>
                   </p><p>
                     Each &lt;errordoc&gt; is a paragraph of the 
                     documentation. Therefore, you can have multiple 
@@ -460,7 +463,7 @@
         detailed explanation).
       </p><div class="itemizedlist"><ul type="disc"><li><p>
             &lt;options version="1.1"&gt;
-            <a class="indexterm" name="id2527120"></a>
+            <a class="indexterm" name="id535824"></a>
           </p><p>
             This tag starts the document itself (the root element). The 
             attribute "version" (the version of the DTD) is required - it 
@@ -476,13 +479,13 @@
             compatibility between versions...
           </p></li><li><p>
             &lt;enumname&gt;
-            <a class="indexterm" name="id2527155"></a>
+            <a class="indexterm" name="id535863"></a>
           </p><p>
             Optional. The name of the enum. If absent, #define will 
             be generated instead.
           </p></li><li><p>
             &lt;header_name_dir&gt;
-            <a class="indexterm" name="id2527174"></a>
+            <a class="indexterm" name="id535884"></a>
           </p><p>
             Optional. The name of the directory where the error 
             header file is to be created. If absent, the current 
@@ -510,14 +513,14 @@
             </pre><p>
           </p></li><li><p>
             &lt;header_name&gt;
-            <a class="indexterm" name="id2527250"></a>
+            <a class="indexterm" name="id532562"></a>
           </p><p>
             The name of the header file for errors. See the 
             item &lt;header_name_dir&gt; for a discussion on names of files,
             directories and the generated header guard.
           </p></li><li><p>
             &lt;errmsg_dir&gt;
-            <a class="indexterm" name="id2527277"></a>
+            <a class="indexterm" name="id532590"></a>
           </p><p>
             Optional. The name of the directory where the header 
             file and "C" file (for the code to retrieve the 
@@ -528,7 +531,7 @@
             of files, directories and the generated header guard.
           </p></li><li><p>
             &lt;errmsg_header_name&gt;
-            <a class="indexterm" name="id2527314"></a>
+            <a class="indexterm" name="id532630"></a>
           </p><p>
             The name of the header file for the code to retrieve 
             the error messages. 
@@ -536,14 +539,14 @@
             of files, directories and the generated header guard.
           </p></li><li><p>
             &lt;errmsg_c_name&gt;
-            <a class="indexterm" name="id2527336"></a></p><p>
+            <a class="indexterm" name="id532654"></a></p><p>
             The name of the "C" file for the code to 
             retrieve the error messages.
             See the item &lt;header_name_dir&gt; for a discussion on names 
             of files, directories and the generated header guard.
           </p></li><li><p>
             &lt;prefix_error&gt;
-            <a class="indexterm" name="id2527358"></a>
+            <a class="indexterm" name="id532677"></a>
           </p><p>
             The prefix to be used for the error codes (enum or 
             #define). For example, if your error is OBJECT_IS_DELETED 
@@ -555,13 +558,13 @@
             release.
           </p></li><li><p>
             &lt;prefix_variable&gt;
-            <a class="indexterm" name="id2527387"></a>
+            <a class="indexterm" name="id532709"></a>
           </p><p>
             The prefix to be used for all variables in the code to 
             retrieve the error messages.
           </p></li><li><p>
             &lt;err_msg&gt;
-            <a class="indexterm" name="id2527406"></a>
+            <a class="indexterm" name="id532731"></a>
           </p><p>
             This tag has no content but its attributes are 
             important - they define the allowed characteristics (and the 
@@ -576,7 +579,7 @@
             and the iostream library (cout).
           </p><p>The attributes:</p><div class="itemizedlist"><ul type="circle"><li><p>
                 allow_escapes
-                <a class="indexterm" name="id2527446"></a>
+                <a class="indexterm" name="id532773"></a>
               </p><p>
                 An enumeration with two values, yes and no. The 
                 default is no, escape sequences are not permitted (a more 
@@ -584,21 +587,21 @@
                 arise).
               </p></li><li><p>
                 allow_quotes 
-                <a class="indexterm" name="id2527472"></a>
+                <a class="indexterm" name="id532802"></a>
               </p><p>
                 An enumeration with two values, yes and no. The 
                 default is yes, quotes (' and ") are allowed 
                 (and will be escaped as needed).
               </p></li><li><p>
                 percent
-                <a class="indexterm" name="id2527498"></a>
+                <a class="indexterm" name="id532831"></a>
               </p><p>
                 The text that will be used to replace the % symbol. 
                 This attribute is mandatory and has no default value.
                 I recommend the textual "percent".
               </p></li></ul></div></li><li><p>
             &lt;selected_lang&gt;
-            <a class="indexterm" name="id2527524"></a>
+            <a class="indexterm" name="id532859"></a>
           </p><p>
             Optional parameter to select the language that will be used for
             the documentation and error messages. If absent, the first 
@@ -613,25 +616,25 @@
             </p><pre class="programlisting">&lt;selected_lang xml:lang="en"/&gt;</pre><p>
           </p></li><li><p>
             &lt;csharp&gt;
-            <a class="indexterm" name="id2527569"></a>
-            <a class="indexterm" name="id2527576"></a>
+            <a class="indexterm" name="id532909"></a>
+            <a class="indexterm" name="id532916"></a>
           </p><p>
             Optional. If present, code for C# will be generated (in the
             form of an enum). Additional sub-tags,described below, are used 
             to provide the required parameters.
           </p></li><li><p>
             &lt;cs_filename&gt;
-            <a class="indexterm" name="id2527597"></a>
+            <a class="indexterm" name="id532940"></a>
           </p><p>
             Full or relative path to the generated C# code
           </p></li><li><p>
             &lt;cs_enum&gt;
-            <a class="indexterm" name="id2527615"></a>
+            <a class="indexterm" name="id532960"></a>
           </p><p>
             The name of the C# enum.
           </p></li><li><p>
             &lt;cs_namespace&gt;
-            <a class="indexterm" name="id2527634"></a>
+            <a class="indexterm" name="id532981"></a>
           </p><p>
             Optional. The name of the C# namespace. If absent, the code
             is generated without anamespace.

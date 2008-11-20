@@ -38,6 +38,12 @@
             copy of libxml2 installed.
           </para>
         </listitem>
+        <listitem>
+          <para>
+            The XML Document Type Definition files are now on the Photon 
+            web site (http://photonsoftware.org/) instead of sourceforge. 
+          </para>
+        </listitem>
       </itemizedlist>
     </para>
   </chapter>
