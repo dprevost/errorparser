@@ -71,7 +71,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="libxml2_a.lib zlib.lib iconv_a.lib ws2_32.lib"
-				OutputFile="Release\errorPparser.exe"
+				OutputFile="Release\errorParser.exe"
 				Version="0.40"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
