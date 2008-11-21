@@ -52,16 +52,15 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root)
 %docdir /usr/local/share/doc/errorParser 
-%docdir /usr/local/share/info 
 %docdir /usr/local/share/man
 /usr/local/share/doc/errorParser
 /usr/local/bin/errorParser
 /usr/local/share/xml/errorParser/catalog.xml
 /usr/local/share/xml/errorParser/errorParser12.dtd
 /usr/local/share/xml/errorParser/errorParserOptions10.dtd
+/usr/local/share/xml/errorParser/errorParserOptions11.dtd
 /usr/local/share/xml/errorParser/install_catalog.sh
-/usr/local/share/info/errorparser.info
 /usr/local/share/man/man1/errorParser.1
-/usr/local/share/info/dir
+
 
 %changelog

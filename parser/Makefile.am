@@ -16,28 +16,29 @@
 AM_CPPFLAGS = -Wall
 AM_CPPFLAGS += @ERR_PARSER_CFLAGS@
 
-CLEANFILES = *~ errorParser.dvi
+CLEANFILES = *~ 
 
 bin_PROGRAMS = errorParser
 
 man_MANS = errorParser.1
-info_TEXINFOS = errorParser.texi
 
-if COND_USE_DOCBOOK2TEXI
-errorParser.texi: errorParser.xml
-	docbook2x-texi --encoding=iso-8859-1 errorParser.xml
-endif
 if COND_USE_DOCBOOK2MAN
 errorParser.1: errorParser.xml
 	docbook2x-man --encoding=iso-8859-1 errorParser.xml
 endif
 
-EXTRA_DIST =                     \
-        config-win32.h           \
-        errorParser.1            \
-        errorParser.xml          \
-        parser.dsw               \
-        Project_Files/parser.dsp 
+EXTRA_DIST =                        \
+        config-win32.h              \
+        errorParser.1               \
+        errorParser.xml             \
+        icon2.ico                   \
+        Makefile.win32              \
+        parser.dsw                  \
+        parser.rc                   \
+        parser.sln                  \
+        Project_Files/parser.dsp    \
+        Project_Files/parser.vcproj \
+        resource.h
 
 errorParser_SOURCES = \
         group.c   \
