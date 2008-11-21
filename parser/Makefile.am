@@ -24,7 +24,12 @@ man_MANS = errorParser.1
 
 if COND_USE_DOCBOOK2MAN
 errorParser.1: errorParser.xml
+	docbook2man --encoding=iso-8859-1 errorParser.xml
+else 
+  if COND_USE_DOCBOOK2XMAN
+errorParser.1: errorParser.xml
 	docbook2x-man --encoding=iso-8859-1 errorParser.xml
+  endif
 endif
 
 EXTRA_DIST =                        \

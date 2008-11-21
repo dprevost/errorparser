@@ -39,7 +39,12 @@ AC_PROG_LIBTOOL
 
 # Tell our makefiles if we can use docbook2x to regenerate some 
 # of the documentation, as needed.
-AC_CHECK_PROG([DOCBOOK2MAN_IS_PRESENT], [docbook2x-man], [yes], [no])
+# WARNING: On fedora, the program is called docbook2man and on
+# ubuntu (and debian I guess) it is called docbook2x-man. There might
+# be other variations out there...
+AC_CHECK_PROG([DOCBOOK2XMAN_IS_PRESENT], [docbook2x-man], [yes], [no])
+AM_CONDITIONAL([COND_USE_DOCBOOK2XMAN], [test "$DOCBOOK2XMAN_IS_PRESENT" = yes])
+AC_CHECK_PROG([DOCBOOK2MAN_IS_PRESENT], [docbook2man], [yes], [no])
 AM_CONDITIONAL([COND_USE_DOCBOOK2MAN], [test "$DOCBOOK2MAN_IS_PRESENT" = yes])
 # Tell our makefiles if we can use db2pdf to regenerate some 
 # of the documentation, as needed.
