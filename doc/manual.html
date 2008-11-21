@@ -39,8 +39,8 @@
       </p><p>You can also use SYSTEM instead:</p><pre class="programlisting">&lt;!DOCTYPE errorlist SYSTEM
    "/usr/local/share/xml/errorParser/errorParser12.dtd"&gt;
         </pre><p>
-        Using SYSTEM is perfectly ok in most cases. The main advantage
-        of the PUBLIC clause is to make sure that multiple developpers uses
+        Using SYSTEM is perfectly correct in most cases. The main advantage
+        of the PUBLIC clause is to make sure that multiple developers uses
         the same DTD (if you modify it).
       </p><p>
         If you decide to use the PUBLIC clause and do not want to download
@@ -51,8 +51,8 @@
         installed in /usr/local/share/xml/errorParser/install_catalog.sh 
         if Error Parser is installed in /usr/local). You'll need to 
         edit this script to tailor it for your installation.</p><p>
-        Recommendation: using the SYSTEM clause is perfectly ok and 
-        there is likely no real needs to use the xml catalog (the exception
+        Recommendation: use the SYSTEM clause.
+        There is likely no real needs to use the xml catalog (the exception
         to this: if you decide to modify Error Parser itself, using both
         SYSTEM and PUBLIC might be handy to distinguish between the production
         and the development version, although using version identifiers might
@@ -123,7 +123,7 @@
       </p><p>
         git-clone git@gitorious.org:errorparser/mainline.git my_repo
       </p><div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Warning"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="images/warning.png"></td><th align="left">Warning</th></tr><tr><td align="left" valign="top"><p>
-          git was developed for linux and will likely runs without problems on 
+          git was developed for Linux and will likely runs without problems on 
           most Unix systems. On Microsoft Windows however, things might be 
           different. There are two ports for Windows but I haven't try them 
           (yet).
@@ -149,11 +149,6 @@
                     installation directory (default is /usr/local). 
                     Example: --prefix=/usr.
                   </p></li><li><p>
-                    --infodir=DIR   To change the default 
-                    installation for info documentation (default is 
-                    [PREFIX/info]). Example --infodir=/usr/share/info (or 
-                    /usr/local/share/info).
-                  </p></li><li><p>
                     --mandir=DIR   To change the default 
                     installation for man documentation (default is 
                     [PREFIX/man]). Example --mandir=/usr/share/man (or 
@@ -169,13 +164,14 @@
       </p><p>
         The documentation is written in DocBook xml. The source for the current
         document is doc/manual.xml. There is also parser/errorParser.xml used
-        to generate the man page and the info page. You can use a proper xml
+        to generate the man page. You can use a proper xml
         editor to edit these two files but this might be overkill - a simple
         text editor which understands xml syntax is likely good enough (I use
         jedit with the XML plugin).
       </p><p>
-        To create or refresh the man page and info page, you will need to 
-        install the DocBook DTD itself, docbook2x-man and docbook2x-texi. 
+        To create or refresh the man page, you will need to 
+        install the DocBook DTD itself and the docbook2x package (for the 
+        program docbook2x-man which can also be installed as docbook2man).. 
         If present, autoconf (./configure) will detect them and make will 
         refresh the documentation if the source file was modified.
       </p><p>
@@ -200,15 +196,16 @@
         for building the software from a zip file.
       </p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="build_windows_zip"></a>5. Building on Windows from a zip file</h2></div></div></div><p>
         Very simple, to build the software, just use the workspace 
-        file parser\parser.snl (VC++ v8, know as VS 2005). 
+        file parser\parser.snl (VC++ v8, known as VS 2005). 
         Previous versions were built with VC++ 6 but support for VS 6 
         is now deprecated and parser.dsw and parser.dsp 
         will be removed in the near future.
       </p><p>
         One additional note: you will need to add the directory for 
-        the header files for libxml2 to the list of directories in Visual 
-        Studio. For VS 2005, you can set this in Options (in the Tools 
-        menu).
+        the header files for libxml2 to the list of include directories in 
+        Visual Studio. You will also need to add a directory for the 
+        library files (.lib). For VS 2005, you can set this in Options 
+        (in the Tools menu).
       </p><p>
         To run the tests, from a command shell run cscript 
         RunTests.vbs (in the tests directory). You will also need 
@@ -227,7 +224,7 @@
         To build the installation package itself, you will need 
         <a class="ulink" href="http://www.jrsoftware.org/isinfo.php" target="_top">Inno 
         Setup</a>. The Inno Setup file is located in 
-        installation\errorParser.iss (note: you might need to ajust the file
+        installation\errorParser.iss (note: you might need to adjust the file
         for the location of the libxml2 DLLs and exes).
       </p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="build_doc_windows"></a>6. Building the documentation on Windows</h2></div></div></div><p>
         The documentation is provided as part of the source package. If you
@@ -268,7 +265,7 @@
         xml, encoding of the file, the location of the DTD, etc.). If 
         you're not familiar with xml and want more information on 
         this, you might want to read additional documentation, for 
-        example the website of the 
+        example the web site of the 
         <a class="ulink" href="http://www.w3schools.com/xml/default.asp" target="_top">
           W3 Schools
         </a>.
@@ -282,7 +279,7 @@
         sub-tag.
       </p><div class="itemizedlist"><ul type="disc"><li><p>
             &lt;errorlist version="0.3"&gt; 
-            <a class="indexterm" name="id535238"></a>
+            <a class="indexterm" name="id535357"></a>
           </p><p>
             This tag starts the document itself (the root element). 
             The version attribute is a string of your choosing and is there 
@@ -291,7 +288,7 @@
             attribute is optional.
           </p></li><li><p>
             &lt;copyright_group&gt; 
-            <a class="indexterm" name="id535257"></a>
+            <a class="indexterm" name="id535376"></a>
           </p><p>
             This is an optional tag. You use it if you want to 
             generate copyright information in the output files. This tag 
@@ -305,24 +302,24 @@
             is simplify because of it, so...
           </p></li><li><p>
             &lt;copyright&gt; 
-            <a class="indexterm" name="id535295"></a>
+            <a class="indexterm" name="id535414"></a>
           </p><p>
             Allows you to enter copyright information in the output 
             files. It has multiple sub-tags. As mentioned previously, 
             multiple &lt;copyright&gt; tags are allowed.
           </p><div class="itemizedlist"><ul type="circle"><li><p>
                 &lt;years&gt;
-                <a class="indexterm" name="id535322"></a>
+                <a class="indexterm" name="id535441"></a>
               </p><p>
                 The interval of years for the current copyright notice.
               </p></li><li><p>
                 &lt;authors&gt;
-                <a class="indexterm" name="id535343"></a>
+                <a class="indexterm" name="id535462"></a>
               </p><p>
                 The name(s) of the owner(s) of the copyright.
               </p></li><li><p>
                 &lt;notice&gt;
-                <a class="indexterm" name="id535364"></a>
+                <a class="indexterm" name="id535483"></a>
               </p><p>
                 The text of the license. More exactly, a paragraph 
                 of the license. Use multiple &lt;notice&gt; if your 
@@ -330,7 +327,7 @@
                 one &lt;notice&gt; for each &lt;copyright&gt;.
               </p></li></ul></div></li><li><p>
             &lt;errgroup&gt;
-            <a class="indexterm" name="id535394"></a>
+            <a class="indexterm" name="id535513"></a>
           </p><p>
             &lt;errgroup&gt; is used to organize your errors in 
             groups, if you so desired (for example, a group of i/o 
@@ -342,12 +339,12 @@
             sub-tag.
           </p></li><li><p>
             &lt;errgroup_ident&gt;
-            <a class="indexterm" name="id535430"></a>
+            <a class="indexterm" name="id535549"></a>
           </p><p>
             This sub-tag of &lt;errgroup&gt; is optional. The 
             sub-tags associated with this tag are used to generate 
             comments in your output header file (and will be used to 
-            generate the docbook documentation eventually).
+            generate the DocBook documentation eventually).
           </p><p>
             You can have multiple &lt;errgroup_ident&gt; - one for 
             each language supported by your application. This is done 
@@ -362,12 +359,12 @@
             &lt;errgroup_ident&gt; is used.
           </p><div class="itemizedlist"><ul type="circle"><li><p>
                 &lt;errgroup_name&gt;
-                <a class="indexterm" name="id535488"></a>
+                <a class="indexterm" name="id535607"></a>
               </p><p>
                 A name for this group of errors. For example, Network errors.
               </p></li><li><p>
                 &lt;errgroup_desc&gt;
-                <a class="indexterm" name="id535509"></a>
+                <a class="indexterm" name="id535628"></a>
               </p><p>
                 Description of this group of errors. You must have 
                 at least one &lt;errgroup_desc&gt; but you can have 
@@ -375,17 +372,17 @@
                 paragraph.
               </p></li></ul></div></li><li><p>
             &lt;error&gt;
-            <a class="indexterm" name="id535542"></a>
+            <a class="indexterm" name="id535661"></a>
           </p><p>
             This tag is also a sub-tag of &lt;errgroup&gt;. You 
             need at least one &lt;error&gt; for each &lt;errgroup&gt; but 
             you can have as many as needed.
           </p><div class="itemizedlist"><ul type="circle"><li><p>
                 &lt;errnumber&gt;
-                <a class="indexterm" name="id535567"></a>
+                <a class="indexterm" name="id535686"></a>
               </p><p>The numerical value of the error code.</p></li><li><p>
                 &lt;errname&gt;
-                <a class="indexterm" name="id535588"></a>
+                <a class="indexterm" name="id535707"></a>
               </p><p>
                 The generic name of the error. This name is going 
                 to be used to generate either an enum entry or a #define 
@@ -399,7 +396,7 @@
                 file.
               </p></li><li><p>
                 &lt;message_group&gt;
-                <a class="indexterm" name="id535623"></a>
+                <a class="indexterm" name="id535734"></a>
               </p><p>
                 This tag is used to group the error messages and 
                 the documentation for the error - which are encapsulated 
@@ -414,11 +411,11 @@
                 so...
               </p></li><li><p>
                 &lt;message&gt;
-                <a class="indexterm" name="id535663"></a>
+                <a class="indexterm" name="id535774"></a>
               </p><p>
                 Container for both the error message and the 
                 documentation for this error. This tag has an optional 
-                attribute, xml:lang.If the xml:lang attribute is missing 
+                attribute, xml:lang. If the xml:lang attribute is missing 
                 the default attribute will be used (currently 
                 'en' but you can modify the shipped DTD to use 
                 a different default tailored for your needs).
@@ -433,7 +430,7 @@
                 is used.
               </p><div class="itemizedlist"><ul type="square"><li><p>
                     &lt;errormsg&gt;
-                    <a class="indexterm" name="id535717"></a>
+                    <a class="indexterm" name="id535828"></a>
                   </p><p>
                     The text of the error message that will be 
                     retrieved by the function 
@@ -446,7 +443,7 @@
                     the appropriate options in the option file.
                   </p></li><li><p>
                     &lt;errordoc&gt;
-                    <a class="indexterm" name="id535764"></a>
+                    <a class="indexterm" name="id535875"></a>
                   </p><p>
                     Each &lt;errordoc&gt; is a paragraph of the 
                     documentation. Therefore, you can have multiple 
@@ -463,7 +460,7 @@
         detailed explanation).
       </p><div class="itemizedlist"><ul type="disc"><li><p>
             &lt;options version="1.1"&gt;
-            <a class="indexterm" name="id535825"></a>
+            <a class="indexterm" name="id535936"></a>
           </p><p>
             This tag starts the document itself (the root element). The 
             attribute "version" (the version of the DTD) is required - it 
@@ -479,13 +476,13 @@
             compatibility between versions...
           </p></li><li><p>
             &lt;enumname&gt;
-            <a class="indexterm" name="id535863"></a>
+            <a class="indexterm" name="id532566"></a>
           </p><p>
             Optional. The name of the enum. If absent, #define will 
             be generated instead.
           </p></li><li><p>
             &lt;header_name_dir&gt;
-            <a class="indexterm" name="id535884"></a>
+            <a class="indexterm" name="id532587"></a>
           </p><p>
             Optional. The name of the directory where the error 
             header file is to be created. If absent, the current 
@@ -513,14 +510,14 @@
             </pre><p>
           </p></li><li><p>
             &lt;header_name&gt;
-            <a class="indexterm" name="id532563"></a>
+            <a class="indexterm" name="id532663"></a>
           </p><p>
             The name of the header file for errors. See the 
             item &lt;header_name_dir&gt; for a discussion on names of files,
             directories and the generated header guard.
           </p></li><li><p>
             &lt;errmsg_dir&gt;
-            <a class="indexterm" name="id532590"></a>
+            <a class="indexterm" name="id532692"></a>
           </p><p>
             Optional. The name of the directory where the header 
             file and "C" file (for the code to retrieve the 
@@ -531,7 +528,7 @@
             of files, directories and the generated header guard.
           </p></li><li><p>
             &lt;errmsg_header_name&gt;
-            <a class="indexterm" name="id532630"></a>
+            <a class="indexterm" name="id532731"></a>
           </p><p>
             The name of the header file for the code to retrieve 
             the error messages. 
@@ -539,14 +536,14 @@
             of files, directories and the generated header guard.
           </p></li><li><p>
             &lt;errmsg_c_name&gt;
-            <a class="indexterm" name="id532654"></a></p><p>
+            <a class="indexterm" name="id532755"></a></p><p>
             The name of the "C" file for the code to 
             retrieve the error messages.
             See the item &lt;header_name_dir&gt; for a discussion on names 
             of files, directories and the generated header guard.
           </p></li><li><p>
             &lt;prefix_error&gt;
-            <a class="indexterm" name="id532678"></a>
+            <a class="indexterm" name="id532779"></a>
           </p><p>
             The prefix to be used for the error codes (enum or 
             #define). For example, if your error is OBJECT_IS_DELETED 
@@ -558,13 +555,13 @@
             release.
           </p></li><li><p>
             &lt;prefix_variable&gt;
-            <a class="indexterm" name="id532709"></a>
+            <a class="indexterm" name="id532810"></a>
           </p><p>
             The prefix to be used for all variables in the code to 
             retrieve the error messages.
           </p></li><li><p>
             &lt;err_msg&gt;
-            <a class="indexterm" name="id532731"></a>
+            <a class="indexterm" name="id532832"></a>
           </p><p>
             This tag has no content but its attributes are 
             important - they define the allowed characteristics (and the 
@@ -579,7 +576,7 @@
             and the iostream library (cout).
           </p><p>The attributes:</p><div class="itemizedlist"><ul type="circle"><li><p>
                 allow_escapes
-                <a class="indexterm" name="id532774"></a>
+                <a class="indexterm" name="id532875"></a>
               </p><p>
                 An enumeration with two values, yes and no. The 
                 default is no, escape sequences are not permitted (a more 
@@ -587,21 +584,21 @@
                 arise).
               </p></li><li><p>
                 allow_quotes 
-                <a class="indexterm" name="id532803"></a>
+                <a class="indexterm" name="id532899"></a>
               </p><p>
                 An enumeration with two values, yes and no. The 
                 default is yes, quotes (' and ") are allowed 
                 (and will be escaped as needed).
               </p></li><li><p>
                 percent
-                <a class="indexterm" name="id532831"></a>
+                <a class="indexterm" name="id532928"></a>
               </p><p>
                 The text that will be used to replace the % symbol. 
                 This attribute is mandatory and has no default value.
                 I recommend the textual "percent".
               </p></li></ul></div></li><li><p>
             &lt;selected_lang&gt;
-            <a class="indexterm" name="id532859"></a>
+            <a class="indexterm" name="id532956"></a>
           </p><p>
             Optional parameter to select the language that will be used for
             the documentation and error messages. If absent, the first 
@@ -616,28 +613,28 @@
             </p><pre class="programlisting">&lt;selected_lang xml:lang="en"/&gt;</pre><p>
           </p></li><li><p>
             &lt;csharp&gt;
-            <a class="indexterm" name="id532909"></a>
-            <a class="indexterm" name="id532916"></a>
+            <a class="indexterm" name="id533006"></a>
+            <a class="indexterm" name="id533013"></a>
           </p><p>
             Optional. If present, code for C# will be generated (in the
             form of an enum). Additional sub-tags,described below, are used 
             to provide the required parameters.
           </p></li><li><p>
             &lt;cs_filename&gt;
-            <a class="indexterm" name="id532940"></a>
+            <a class="indexterm" name="id533036"></a>
           </p><p>
             Full or relative path to the generated C# code
           </p></li><li><p>
             &lt;cs_enum&gt;
-            <a class="indexterm" name="id532961"></a>
+            <a class="indexterm" name="id533057"></a>
           </p><p>
             The name of the C# enum.
           </p></li><li><p>
             &lt;cs_namespace&gt;
-            <a class="indexterm" name="id532981"></a>
+            <a class="indexterm" name="id533078"></a>
           </p><p>
             Optional. The name of the C# namespace. If absent, the code
-            is generated without anamespace.
+            is generated without a namespace.
           </p></li></ul></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="quasar"></a>4. Example: Quasar, the connection/recovery server of Photon</h2></div></div></div><p>
         This is work in progress for the next iteration of the PSO project
         (photonsoftware.org). 
@@ -655,7 +652,7 @@
 AC_CHECK_PROG([ERRORPARSER_IS_PRESENT], [errorParser], [yes], [no])
 AM_CONDITIONAL([COND_USE_ERRORPARSER], [test "$ERRORPARSER_IS_PRESENT" = yes])
         </pre><p>
-          Explanation: to download and buid Photon without modifying it, Error
+          Explanation: to download and build Photon without modifying it, Error
           Parser is not required (the tar file contains the default files
           generated by Error Parser). This is the default behaviour.
         </p><p>
@@ -923,7 +920,7 @@ quasar_SOURCES =             \
           &lt;/errormsg&gt;
           &lt;errordoc&gt;
             The version of the existing memory-file on disk does not match the
-            version supported by the watchdog.
+            version supported by the Photon server.
           &lt;/errordoc&gt;
         &lt;/message&gt;
       &lt;/message_group&gt;
@@ -1048,7 +1045,7 @@ quasar_SOURCES =             \
           &lt;errordoc&gt;
             The root element must have an attribute named schemaLocation (in 
             the namespace "http://www.w3.org/2001/XMLSchema-instance") to
-            point to the schema use for the watchdog configuration file.
+            point to the schema use for the server configuration file.
           &lt;/errordoc&gt;
         &lt;/message&gt;
       &lt;/message_group&gt;
@@ -1081,7 +1078,7 @@ quasar_SOURCES =             \
             be multiple reasons for this, for example, a memory-allocation
             failure in libxml2. However, the most likely reason is that the
             schema file is not at the location indicated by the attribute 
-            schemaLocation of the root element of the config file.
+            schemaLocation of the root element of the configuration file.
           &lt;/errordoc&gt;
         &lt;/message&gt;
       &lt;/message_group&gt;
@@ -1122,9 +1119,9 @@ quasar_SOURCES =             \
       &lt;errname&gt; XML_VALIDATION_FAILED&lt;/errname&gt;
       &lt;message_group&gt;
         &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Document validation for the config file failed.&lt;/errormsg&gt;
+          &lt;errormsg&gt;Document validation for the configuration file failed.&lt;/errormsg&gt;
           &lt;errordoc&gt;
-            Document validation for the config file failed. To debug this
+            Document validation for the configuration file failed. To debug this
             problem you can use xmllint (part of the libxml2 package).
           &lt;/errordoc&gt;
         &lt;/message&gt;
