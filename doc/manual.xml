@@ -89,8 +89,8 @@
    &quot;/usr/local/share/xml/errorParser/errorParser12.dtd&quot;&gt;
         </programlisting>
       <para>
-        Using SYSTEM is perfectly ok in most cases. The main advantage
-        of the PUBLIC clause is to make sure that multiple developpers uses
+        Using SYSTEM is perfectly correct in most cases. The main advantage
+        of the PUBLIC clause is to make sure that multiple developers uses
         the same DTD (if you modify it).
       </para>
 
@@ -104,8 +104,8 @@
         if Error Parser is installed in /usr/local). You&apos;ll need to 
         edit this script to tailor it for your installation.</para>
       <para>
-        Recommendation: using the SYSTEM clause is perfectly ok and 
-        there is likely no real needs to use the xml catalog (the exception
+        Recommendation: use the SYSTEM clause.
+        There is likely no real needs to use the xml catalog (the exception
         to this: if you decide to modify Error Parser itself, using both
         SYSTEM and PUBLIC might be handy to distinguish between the production
         and the development version, although using version identifiers might
@@ -224,7 +224,7 @@
       </para>
       <warning>
         <para>
-          git was developed for linux and will likely runs without problems on 
+          git was developed for Linux and will likely runs without problems on 
           most Unix systems. On Microsoft Windows however, things might be 
           different. There are two ports for Windows but I haven't try them 
           (yet).
@@ -270,14 +270,6 @@
                 </listitem>
                 <listitem>
                   <para>
-                    --infodir=DIR   To change the default 
-                    installation for info documentation (default is 
-                    [PREFIX/info]). Example --infodir=/usr/share/info (or 
-                    /usr/local/share/info).
-                  </para>
-                </listitem>
-                <listitem>
-                  <para>
                     --mandir=DIR   To change the default 
                     installation for man documentation (default is 
                     [PREFIX/man]). Example --mandir=/usr/share/man (or 
@@ -314,14 +306,15 @@
       <para>
         The documentation is written in DocBook xml. The source for the current
         document is doc/manual.xml. There is also parser/errorParser.xml used
-        to generate the man page and the info page. You can use a proper xml
+        to generate the man page. You can use a proper xml
         editor to edit these two files but this might be overkill - a simple
         text editor which understands xml syntax is likely good enough (I use
         jedit with the XML plugin).
       </para>
       <para>
-        To create or refresh the man page and info page, you will need to 
-        install the DocBook DTD itself, docbook2x-man and docbook2x-texi. 
+        To create or refresh the man page, you will need to 
+        install the DocBook DTD itself and the docbook2x package (for the 
+        program docbook2x-man which can also be installed as docbook2man).. 
         If present, autoconf (./configure) will detect them and make will 
         refresh the documentation if the source file was modified.
       </para>
@@ -368,16 +361,17 @@
 
       <para>
         Very simple, to build the software, just use the workspace 
-        file parser\parser.snl (VC++ v8, know as VS 2005). 
+        file parser\parser.snl (VC++ v8, known as VS 2005). 
         Previous versions were built with VC++ 6 but support for VS 6 
         is now deprecated and parser.dsw and parser.dsp 
         will be removed in the near future.
       </para>
       <para>
         One additional note: you will need to add the directory for 
-        the header files for libxml2 to the list of directories in Visual 
-        Studio. For VS 2005, you can set this in Options (in the Tools 
-        menu).
+        the header files for libxml2 to the list of include directories in 
+        Visual Studio. You will also need to add a directory for the 
+        library files (.lib). For VS 2005, you can set this in Options 
+        (in the Tools menu).
       </para>
       <para>
         To run the tests, from a command shell run cscript 
@@ -399,7 +393,7 @@
         To build the installation package itself, you will need 
         <ulink url="http://www.jrsoftware.org/isinfo.php">Inno 
         Setup</ulink>. The Inno Setup file is located in 
-        installation\errorParser.iss (note: you might need to ajust the file
+        installation\errorParser.iss (note: you might need to adjust the file
         for the location of the libxml2 DLLs and exes).
       </para>
 
@@ -475,7 +469,7 @@
         xml, encoding of the file, the location of the DTD, etc.). If 
         you&apos;re not familiar with xml and want more information on 
         this, you might want to read additional documentation, for 
-        example the website of the 
+        example the web site of the 
         <ulink url="http://www.w3schools.com/xml/default.asp">
           W3 Schools
         </ulink>.
@@ -592,7 +586,7 @@
             This sub-tag of &lt;errgroup&gt; is optional. The 
             sub-tags associated with this tag are used to generate 
             comments in your output header file (and will be used to 
-            generate the docbook documentation eventually).
+            generate the DocBook documentation eventually).
           </para>
           <para>
             You can have multiple &lt;errgroup_ident&gt; - one for 
@@ -697,7 +691,7 @@
               <para>
                 Container for both the error message and the 
                 documentation for this error. This tag has an optional 
-                attribute, xml:lang.If the xml:lang attribute is missing 
+                attribute, xml:lang. If the xml:lang attribute is missing 
                 the default attribute will be used (currently 
                 &apos;en&apos; but you can modify the shipped DTD to use 
                 a different default tailored for your needs).
@@ -1044,7 +1038,7 @@
           </para>
           <para>
             Optional. The name of the C# namespace. If absent, the code
-            is generated without anamespace.
+            is generated without a namespace.
           </para>
         </listitem>
       </itemizedlist>
@@ -1080,7 +1074,7 @@ AC_CHECK_PROG([ERRORPARSER_IS_PRESENT], [errorParser], [yes], [no])
 AM_CONDITIONAL([COND_USE_ERRORPARSER], [test "$ERRORPARSER_IS_PRESENT" = yes])
         </programlisting>
         <para>
-          Explanation: to download and buid Photon without modifying it, Error
+          Explanation: to download and build Photon without modifying it, Error
           Parser is not required (the tar file contains the default files
           generated by Error Parser). This is the default behaviour.
         </para>
@@ -1374,7 +1368,7 @@ quasar_SOURCES =             \
           &lt;/errormsg&gt;
           &lt;errordoc&gt;
             The version of the existing memory-file on disk does not match the
-            version supported by the watchdog.
+            version supported by the Photon server.
           &lt;/errordoc&gt;
         &lt;/message&gt;
       &lt;/message_group&gt;
@@ -1499,7 +1493,7 @@ quasar_SOURCES =             \
           &lt;errordoc&gt;
             The root element must have an attribute named schemaLocation (in 
             the namespace "http://www.w3.org/2001/XMLSchema-instance") to
-            point to the schema use for the watchdog configuration file.
+            point to the schema use for the server configuration file.
           &lt;/errordoc&gt;
         &lt;/message&gt;
       &lt;/message_group&gt;
@@ -1532,7 +1526,7 @@ quasar_SOURCES =             \
             be multiple reasons for this, for example, a memory-allocation
             failure in libxml2. However, the most likely reason is that the
             schema file is not at the location indicated by the attribute 
-            schemaLocation of the root element of the config file.
+            schemaLocation of the root element of the configuration file.
           &lt;/errordoc&gt;
         &lt;/message&gt;
       &lt;/message_group&gt;
@@ -1573,9 +1567,9 @@ quasar_SOURCES =             \
       &lt;errname&gt; XML_VALIDATION_FAILED&lt;/errname&gt;
       &lt;message_group&gt;
         &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Document validation for the config file failed.&lt;/errormsg&gt;
+          &lt;errormsg&gt;Document validation for the configuration file failed.&lt;/errormsg&gt;
           &lt;errordoc&gt;
-            Document validation for the config file failed. To debug this
+            Document validation for the configuration file failed. To debug this
             problem you can use xmllint (part of the libxml2 package).
           &lt;/errordoc&gt;
         &lt;/message&gt;
