@@ -31,7 +31,7 @@ Dim objWshScriptExec
 Dim fso
 
 '$THE_PROGRAM --noout --add delegatePublic "-//Error Parser project//DTD Error Parser XML V1.1" $THE_ERRP_CATALOG $THE_TOP_CATALOG
-'$THE_PROGRAM --noout --add delegateSystem "http://photonsoftware.org/xml/ep/1.1/" $THE_ERRP_CATALOG $THE_TOP_CATALOG
+'$THE_PROGRAM --noout --add delegateSystem "http://photonsoftware.org/xml/ep/1.2/" $THE_ERRP_CATALOG $THE_TOP_CATALOG
 
 'Dim exe_name, prog_path, program, wd_path, tmpDir, cmdFile, exeName
 Dim consoleMode
@@ -113,6 +113,24 @@ if rc <> 0 then
    wscript.quit(1)
 end if
 
+cmd = exeName & " --noout --add delegatePublic ""-//Error Parser project//DTD Error Parser Options XML V1.2"" " & " " & errpCatalog & " " & topCatalog
+if consoleMode then 
+   WScript.Echo "Inserting the second delegatePublic to the top catalog..."
+   Set objWshScriptExec = objShell.Exec("%comspec% /c " & Chr(34) & cmd & Chr(34))
+   status = objWshScriptExec.Status
+   Do While objWshScriptExec.Status = 0
+      WScript.Sleep 100
+   Loop
+   strOutput = objWshScriptExec.StdOut.ReadAll
+   WScript.Stdout.Write objWshScriptExec.StdErr.ReadAll
+   rc = objWshScriptExec.ExitCode
+else
+   rc = objShell.Run("%comspec% /c " & Chr(34) & cmd & Chr(34), 2, true)
+end if
+if rc <> 0 then   
+   wscript.echo "Failed with rc = " & rc & ": " & strOutput
+   wscript.quit(1)
+end if
 cmd = exeName & " --noout --add delegatePublic ""-//Error Parser project//DTD Error Parser Options XML V1.1"" " & " " & errpCatalog & " " & topCatalog
 if consoleMode then 
    WScript.Echo "Inserting the second delegatePublic to the top catalog..."

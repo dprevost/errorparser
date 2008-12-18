@@ -28,7 +28,7 @@ errorParser.1: errorParser.xml
 endif
 if COND_USE_DOCBOOK2MAN
 errorParser.1: errorParser.xml
-	docbook2man --encoding=iso-8859-1 errorParser.xml
+	db2x_docbook2man --encoding=iso-8859-1 errorParser.xml
 endif
 
 EXTRA_DIST =                        \
@@ -37,10 +37,8 @@ EXTRA_DIST =                        \
         errorParser.xml             \
         icon2.ico                   \
         Makefile.win32              \
-        parser.dsw                  \
         parser.rc                   \
         parser.sln                  \
-        Project_Files/parser.dsp    \
         Project_Files/parser.vcproj \
         resource.h
 

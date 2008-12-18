@@ -7,9 +7,11 @@
   <!-- version 1.2 -->
   <public publicId="-//Error Parser project//DTD Error Parser XML V1.2//EN"         uri="errorParser12.dtd"/>
   <system systemId="http://photonsoftware.org/xml/ep/errorParser12.dtd"             uri="errorParser12.dtd"/>
+  <public publicId="-//Error Parser project//DTD Error Parser Options XML V1.2//EN" uri="errorParserOptions12.dtd"/>
+  <system systemId="http://photonsoftware.org/xml/ep/errorParserOptions12.dtd"      uri="errorParserOptions12.dtd"/>
+  <!-- Deprecated - will be removed in the near future -->
   <public publicId="-//Error Parser project//DTD Error Parser Options XML V1.1//EN" uri="errorParserOptions11.dtd"/>
   <system systemId="http://photonsoftware.org/xml/ep/errorParserOptions11.dtd"      uri="errorParserOptions11.dtd"/>
-  <!-- Deprecated - will be removed in the near future -->
   <system systemId="http://photonsoftware.org/xml/ep/errorParserOptions10.dtd"      uri="errorParserOptions10.dtd"/>
   <public publicId="-//Error Parser project//DTD Error Parser Options XML V1.0//EN" uri="errorParserOptions10.dtd"/>
 </catalog>

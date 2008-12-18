@@ -32,3 +32,5 @@ $THE_PROGRAM --noout --add delegatePublic "-//Error Parser project//DTD Error Pa
 $THE_PROGRAM --noout --add delegateSystem "http://photonsoftware.org/xml/ep/" $THE_ERRP_CATALOG $THE_TOP_CATALOG
 $THE_PROGRAM --noout --add delegatePublic "-//Error Parser project//DTD Error Parser Options XML V1.0"  $THE_ERRP_CATALOG $THE_TOP_CATALOG
 $THE_PROGRAM --noout --add delegatePublic "-//Error Parser project//DTD Error Parser Options XML V1.1"  $THE_ERRP_CATALOG $THE_TOP_CATALOG
+$THE_PROGRAM --noout --add delegatePublic "-//Error Parser project//DTD Error Parser Options XML V1.2"  $THE_ERRP_CATALOG $THE_TOP_CATALOG
+

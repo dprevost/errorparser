@@ -35,7 +35,7 @@ languages (although one language must be selected when parsing).
 %setup
 
 %build
-./configure --prefix=/usr/local --mandir=/usr/local/share/man --infodir=/usr/local/share/info
+./configure --prefix=/usr/local --mandir=/usr/local/share/man
 make
 
 %install
@@ -59,6 +59,7 @@ rm -rf $RPM_BUILD_ROOT
 /usr/local/share/xml/errorParser/errorParser12.dtd
 /usr/local/share/xml/errorParser/errorParserOptions10.dtd
 /usr/local/share/xml/errorParser/errorParserOptions11.dtd
+/usr/local/share/xml/errorParser/errorParserOptions12.dtd
 /usr/local/share/xml/errorParser/install_catalog.sh
 /usr/local/share/man/man1/errorParser.1
 

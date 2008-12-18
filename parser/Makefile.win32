@@ -27,7 +27,7 @@ INTDIR_RELEASE = .\Project_Files\Release
 OUTDIR_DEBUG   = .\Project_Files\Debug
 INTDIR_DEBUG   = .\Project_Files\Debug
 
-CLEANFILES = *~ parser.plg errorParser.dep vc60.idb vc60.pdb
+CLEANFILES = *~ parser.plg errorParser.dep
 
 W32_SYS_LIBS=kernel32.lib ws2_32.lib
 

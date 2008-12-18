@@ -14,7 +14,7 @@
 #############################################################################
 
 AC_INIT([Error Parser],
-        [0.4.0],
+        [0.5.0],
         [Daniel Prevost <dprevost@users.sourceforge.net>],
         [errorParser])
 
@@ -37,15 +37,18 @@ AC_MINIX
 
 AC_PROG_LIBTOOL
 
-# Tell our makefiles if we can use docbook2x to regenerate some 
+# Tell our makefiles that we can use docbook2x to regenerate some 
 # of the documentation, as needed.
-# WARNING: On fedora, the program is called docbook2man and on
+# WARNING: On fedora, the program is called db2x_docbook2man and on
 # ubuntu (and debian I guess) it is called docbook2x-man. There might
 # be other variations out there...
+
 AC_CHECK_PROG([DOCBOOK2XMAN_IS_PRESENT], [docbook2x-man], [yes], [no])
 AM_CONDITIONAL([COND_USE_DOCBOOK2XMAN], [test "$DOCBOOK2XMAN_IS_PRESENT" = yes])
-AC_CHECK_PROG([DOCBOOK2MAN_IS_PRESENT], [docbook2man], [yes], [no])
+# On fedora, the exe has a different name
+AC_CHECK_PROG([DOCBOOK2MAN_IS_PRESENT], [db2x_docbook2man], [yes], [no])
 AM_CONDITIONAL([COND_USE_DOCBOOK2MAN], [test "$DOCBOOK2MAN_IS_PRESENT" = yes])
+
 # Tell our makefiles if we can use db2pdf to regenerate some 
 # of the documentation, as needed.
 AC_CHECK_PROG([DB2PDF_IS_PRESENT], [db2pdf], [yes], [no])

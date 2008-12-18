@@ -1,8 +1,8 @@
 [Setup]
 MinVersion=0,4.0
 AppName=Error Parser
-AppVerName=Error Parser Version 0.4.0
-AppVersion=0.4.0
+AppVerName=Error Parser Version 0.5.0
+AppVersion=0.5.0
 AppSupportURL=http://errorparser.sourceforge.net/
 AppId=ERRP_V0
 InfoBeforeFile=COPYING
@@ -10,13 +10,15 @@ DefaultDirName={pf}\errorParser
 DefaultGroupName=Error Parser
 SourceDir=..
 OutputDir=installation\Output
-OutputBaseFilename=errorParser-0.4.0
+OutputBaseFilename=errorParser-0.5.0
 ChangesEnvironment=yes
 
 [Files]
 Source: DTD\catalog.xml; DestDir: {app}\DTD
 Source: DTD\errorParser12.dtd; DestDir: {app}\DTD
 Source: DTD\errorParserOptions10.dtd; DestDir: {app}\DTD
+Source: DTD\errorParserOptions11.dtd; DestDir: {app}\DTD
+Source: DTD\errorParserOptions12.dtd; DestDir: {app}\DTD
 Source: DTD\main_catalog_win32.xml; DestDir: {app}\DTD
 Source: installation\install_catalog.vbs; DestDir: {app}\DTD
 Source: doc\errorParser.chm; DestDir: {app}
