@@ -69,12 +69,15 @@
 <!ELEMENT cs_filename        (#PCDATA)>
 <!ELEMENT cs_enum            (#PCDATA)>
 <!ELEMENT cs_namespace       (#PCDATA)>
-<!ELEMENT python             (py_option, py_dirname, py_filename)>
+<!ELEMENT python             (py_options, py_dirname, py_filename)>
+<!ELEMENT py_options          EMPTY>
+<!ELEMENT py_dirname         (#PCDATA)>
+<!ELEMENT py_filename        (#PCDATA)>
 
 <!ATTLIST options version CDATA #REQUIRED>
 <!ATTLIST err_msg allow_escapes (yes|no) "no">
 <!ATTLIST err_msg allow_quotes  (yes|no) "yes">
 <!ATTLIST err_msg percent CDATA #REQUIRED>
 <!ATTLIST selected_lang xml:lang CDATA #REQUIRED>
-<!ATTLIST py_option extended (yes|no) "yes">
+<!ATTLIST py_options extended (yes|no) "yes">
 

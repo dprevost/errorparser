@@ -247,6 +247,7 @@ void addError( errp_common * commonArgs,
                errName,
                errNumber );
    }
+
    if ( commonArgs->using_cs ) {
       if ( commonArgs->cs_namespace == NULL ) {
          fprintf( commonArgs->fpCS, "    %s = %s",
@@ -259,6 +260,26 @@ void addError( errp_common * commonArgs,
                   errName,
                   errNumber );
       }
+   }
+
+   if ( commonArgs->fpPyH ) {
+      fprintf( commonArgs->fpPyH, "    value = PyInt_FromLong( %s );\n", errNumber );
+      fprintf( commonArgs->fpPyH, "    if ( value == NULL ) {\n" );
+      fprintf( commonArgs->fpPyH, "        PyDict_Clear( errors );\n" );
+      fprintf( commonArgs->fpPyH, "        Py_DECREF(errors);\n" );
+      fprintf( commonArgs->fpPyH, "        return NULL;\n" );
+      fprintf( commonArgs->fpPyH, "    }\n" );
+      fprintf( commonArgs->fpPyH, "    errcode = PyDict_SetItemString( errors, \"%s\", value);\n", errName );
+      fprintf( commonArgs->fpPyH, "    Py_DECREF(value);\n" );
+      fprintf( commonArgs->fpPyH, "    if (errcode != 0) {\n" );
+      fprintf( commonArgs->fpPyH, "        PyDict_Clear( errors );\n" );
+      fprintf( commonArgs->fpPyH, "        Py_DECREF(errors);\n" );
+      fprintf( commonArgs->fpPyH, "        return NULL;\n" );
+      fprintf( commonArgs->fpPyH, "    }\n\n" );
+   }
+
+   if ( commonArgs->fpPyPy ) {
+      fprintf( commonArgs->fpPyPy, "errs['%s'] = %s\n", errName, errNumber );
    }
    
    free( errNumber );

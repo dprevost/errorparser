@@ -85,8 +85,13 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
       version = 10;
    }
    else {
-      /* We hardcode it - for the moment */
-      version = 11;
+      
+      for ( i = 0, version = 0; i < xmlStrlen( prop ); i++ ) {
+         if ( prop[i] >= '0' && prop[i] <= '9' ) {
+            version *= 10;
+            version += prop[i] - '0';
+         }
+      }
    }
    
    node = root->children;
@@ -357,10 +362,10 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
          /* Using extended module (or pure python)? */
          while ( child != NULL ) {
             if ( child->type == XML_ELEMENT_NODE ) {
-               if ( xmlStrcmp( child->name, BAD_CAST "py_option") == 0 ) {
-                  prop = xmlGetProp( node, BAD_CAST "lang" );
+               if ( xmlStrcmp( child->name, BAD_CAST "py_options") == 0 ) {
+                  prop = xmlGetProp( child, BAD_CAST "extended" );
                   if ( prop == NULL ) {
-                     fprintf( stderr, "Error: missing \"py_option:extended\" in options file\n" );
+                     fprintf( stderr, "Error: missing   \"py_options:extended\" in options file\n" );
                      return -1;
                   }
                   commonArgs->using_py_extended = 0;
@@ -371,7 +376,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
                   child = child->next;
                   break;
                }
-               fprintf( stderr, "Error: missing <py_option> in options file\n" );
+               fprintf( stderr, "Error: missing <py_options> in options file\n" );
                return -1;
             }
             child = child->next;
@@ -397,7 +402,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
                   child = child->next;
                   break;
                }
-               fprintf( stderr, "Error: missing <py_dirname> in options file\n" );
+               fprintf( stderr, "Error: missing <py_filename> in options file\n" );
                return -1;
             }
             child = child->next;
