@@ -150,18 +150,20 @@ void stopHeaderGuard( const char * name, FILE * fp )
 void writeMsgHeader( errp_common * commonArgs )
 {
    FILE * fp = commonArgs->fpMsgH; /* To simplify the code */
-   
-   /* Windows export/import decoration. */
-   fprintf( fp, "#if defined(WIN32)\n" );
-   fprintf( fp, "#  if defined(BULDING_ERROR_MESSAGE)\n" );
-   fprintf( fp, "#    define ERROR_MESSAGE_EXPORT __declspec ( dllexport )\n" );
-   fprintf( fp, "#  else\n" );
-   fprintf( fp, "#    define ERROR_MESSAGE_EXPORT __declspec ( dllimport )\n" );
-   fprintf( fp, "#  endif\n" );
-   fprintf( fp, "#else\n" );
-   fprintf( fp, "#  define ERROR_MESSAGE_EXPORT\n" );
-   fprintf( fp, "#endif\n\n" );
-   fprintf( fp, "%s\n\n", g_barrier );
+
+   if ( commonArgs->build_dll ) {
+      /* Windows export/import decoration. */
+      fprintf( fp, "#if defined(WIN32)\n" );
+      fprintf( fp, "#  if defined(BULDING_ERROR_MESSAGE)\n" );
+      fprintf( fp, "#    define ERROR_MESSAGE_EXPORT __declspec ( dllexport )\n" );
+      fprintf( fp, "#  else\n" );
+      fprintf( fp, "#    define ERROR_MESSAGE_EXPORT __declspec ( dllimport )\n" );
+      fprintf( fp, "#  endif\n" );
+      fprintf( fp, "#else\n" );
+      fprintf( fp, "#  define ERROR_MESSAGE_EXPORT\n" );
+      fprintf( fp, "#endif\n\n" );
+      fprintf( fp, "%s\n\n", g_barrier );
+   }
    
    fprintf( fp, "/*\n" );
    fprintf( fp, "%s\n", 
@@ -176,7 +178,7 @@ void writeMsgHeader( errp_common * commonArgs )
    fprintf( fp, " *   - NULL otherwise\n" );
    fprintf( fp, " */\n" );
 
-   fprintf( fp, "ERROR_MESSAGE_EXPORT\n" );
+   if ( commonArgs->build_dll ) fprintf( fp, "ERROR_MESSAGE_EXPORT\n" );
    fprintf( fp, "const char * %s%s( int errnum );\n\n",
       commonArgs->varPrefix, g_functionName );
 }

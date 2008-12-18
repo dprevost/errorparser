@@ -53,6 +53,7 @@
 
 <!ELEMENT options      (enumname?,header_name_dir?,header_name,
                         errmsg_dir?,errmsg_header_name,errmsg_c_name,
+                        errmsg_options?,
                         prefix_error,prefix_variable,err_msg,selected_lang,
                         csharp?,python?)>
 <!ELEMENT enumname           (#PCDATA)>
@@ -61,6 +62,7 @@
 <!ELEMENT errmsg_dir         (#PCDATA)>
 <!ELEMENT errmsg_header_name (#PCDATA)>
 <!ELEMENT errmsg_c_name      (#PCDATA)>
+<!ELEMENT errmsg_options     EMPTY>
 <!ELEMENT prefix_error       (#PCDATA)>
 <!ELEMENT prefix_variable    (#PCDATA)>
 <!ELEMENT err_msg            EMPTY>
@@ -75,6 +77,7 @@
 <!ELEMENT py_filename        (#PCDATA)>
 
 <!ATTLIST options version CDATA #REQUIRED>
+<!ATTLIST errmsg_options build_dll (yes|no) "no">
 <!ATTLIST err_msg allow_escapes (yes|no) "no">
 <!ATTLIST err_msg allow_quotes  (yes|no) "yes">
 <!ATTLIST err_msg percent CDATA #REQUIRED>

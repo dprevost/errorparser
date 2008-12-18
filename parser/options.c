@@ -182,6 +182,27 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
       node = node->next;
    }
 
+   /* Do we need to export the error message function? */
+   while ( node != NULL ) {
+      if ( node->type == XML_ELEMENT_NODE ) {
+         if ( xmlStrcmp( node->name, BAD_CAST "errmsg_options") == 0 ) {
+            prop = xmlGetProp( node, BAD_CAST "build_dll" );
+            if ( prop == NULL ) {
+               fprintf( stderr, "Error: missing \"build_dll\" in options file\n" );
+               return -1;
+            }
+            commonArgs->build_dll = 0;
+            if ( xmlStrcmp( prop, BAD_CAST "yes") == 0 ) {
+               commonArgs->build_dll = 1;
+            }
+            xmlFree(prop);
+            node = node->next;
+         }
+         break;
+      }
+      node = node->next;
+   }
+
    /* The prefix to be used by the error code. */
    while ( node != NULL ) {
       if ( node->type == XML_ELEMENT_NODE ) {

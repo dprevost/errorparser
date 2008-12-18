@@ -121,6 +121,7 @@ struct errp_common {
    int       using_py_extended;
    xmlChar * py_dirname;
    xmlChar * py_filename;
+   int       build_dll;
 };
 
 typedef struct errp_common errp_common;
