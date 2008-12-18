@@ -95,6 +95,8 @@ struct errp_common {
    FILE    * fpMsgC;
    FILE    * fpMsgH;
    FILE    * fpCS;
+   FILE    * fpPyH;
+   FILE    * fpPyPy; 
    xmlChar * headerDir;
    xmlChar * headerName;
    xmlChar * outputDir;
@@ -115,6 +117,10 @@ struct errp_common {
    xmlChar * cs_filename;
    xmlChar * cs_enum;
    xmlChar * cs_namespace;
+   int       using_py;
+   int       using_py_extended;
+   xmlChar * py_dirname;
+   xmlChar * py_filename;
 };
 
 typedef struct errp_common errp_common;

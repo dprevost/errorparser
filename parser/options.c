@@ -256,7 +256,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
       node = node->next;
    }
 
-   /* This is the last element of the option file - it is optional */
+   /* This is the last element of the option file (v 1.0) - it is optional */
    while ( node != NULL ) {
       if ( node->type == XML_ELEMENT_NODE ) {
          if ( xmlStrcmp( node->name, BAD_CAST "selected_lang") == 0 ) {
@@ -314,7 +314,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
                   child = child->next;
                   break;
                }
-               fprintf( stderr, "Error: missing <cs_filename> in options file\n" );
+               fprintf( stderr, "Error: missing <cs_enum> in options file\n" );
                return -1;
             }
             child = child->next;
@@ -331,6 +331,77 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
             child = child->next;
          }
 
+      }
+   }
+
+   commonArgs->using_py = 0;
+   if ( version > 11 ) {
+      /* Will we create a python dictionary? */
+      while ( node != NULL ) {
+         if ( node->type == XML_ELEMENT_NODE ) {
+            if ( xmlStrcmp( node->name, BAD_CAST "python") == 0 ) {
+               commonArgs->using_py = 1;
+               child = node->children;
+               node = node->next;
+            }
+            /*
+             * No node->next if the if is false. The current node might be 
+             * used, eventually, for Java or ...
+             */
+            break;
+         }
+         node = node->next;
+      }
+
+      if ( commonArgs->using_py ) {
+         /* Using extended module (or pure python)? */
+         while ( child != NULL ) {
+            if ( child->type == XML_ELEMENT_NODE ) {
+               if ( xmlStrcmp( child->name, BAD_CAST "py_option") == 0 ) {
+                  prop = xmlGetProp( node, BAD_CAST "lang" );
+                  if ( prop == NULL ) {
+                     fprintf( stderr, "Error: missing \"py_option:extended\" in options file\n" );
+                     return -1;
+                  }
+                  commonArgs->using_py_extended = 0;
+                  if ( xmlStrcmp( prop, BAD_CAST "yes") == 0 ) {
+                     commonArgs->using_py_extended = 1;
+                  }
+                  xmlFree(prop);
+                  child = child->next;
+                  break;
+               }
+               fprintf( stderr, "Error: missing <py_option> in options file\n" );
+               return -1;
+            }
+            child = child->next;
+         }
+         /* The directory name for the python output file. */
+         while ( child != NULL ) {
+            if ( child->type == XML_ELEMENT_NODE ) {
+               if ( xmlStrcmp( child->name, BAD_CAST "py_dirname") == 0 ) {
+                  commonArgs->py_dirname = stripText( child->children->content );
+                  child = child->next;
+                  break;
+               }
+               fprintf( stderr, "Error: missing <py_dirname> in options file\n" );
+               return -1;
+            }
+            child = child->next;
+         }
+         /* The name of the python output file (C header file or pure python). */
+         while ( child != NULL ) {
+            if ( child->type == XML_ELEMENT_NODE ) {
+               if ( xmlStrcmp( child->name, BAD_CAST "py_filename") == 0 ) {
+                  commonArgs->py_filename = stripText( child->children->content );
+                  child = child->next;
+                  break;
+               }
+               fprintf( stderr, "Error: missing <py_dirname> in options file\n" );
+               return -1;
+            }
+            child = child->next;
+         }
       }
    }
 
