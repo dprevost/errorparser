@@ -1841,25 +1841,31 @@ quasar_SOURCES =             \
       <title>Example: python extended module</title>
 
       <para>
-        Adding the generated header file to a C module is very simple. Here's
-        a code snippet (you'll have to modify it heavily, evidently): 
+        Adding the generated header file to a C module is very simple. All
+        you have to do is to create the two dict objects using the provided 
+        function (AddErrors()) in the init function of your module 
+        (inityourmodule()).
+      </para>
+      <para>
+        Here's a code snippet (you'll have to modify it, evidently): 
       </para>
       <programlisting>
-# include "errors.h" /* Our generated header file */
+# include "errors.h" /* Error Parser generated header file */
 
 PyMODINIT_FUNC
-inita_module(void) 
+inityourmodule(void) 
 {
    PyObject * m = NULL, * tup = NULL, * errs = NULL, * errNames = NULL;
 
-   m = Py_InitModule3( "a_module", 
-                       a_module_methods,
+   m = Py_InitModule3( "yourmodule", 
+                       yourmodule_methods,
                        "Example module.");
    if (m == NULL) return;
 
    /* 
-    * AddErrors() is defined in errors.h - it creates the two dict needed
-    * to access the errcodes (values and/or symbolic names).
+    * AddErrors() is defined in errors.h - it creates the two dict objects
+    * needed to access the error codes (values and/or symbolic names) and
+    * returns them, as a tuple.
     */
    tup = AddErrors(); 
    if ( tup == NULL ) return;
@@ -1867,13 +1873,16 @@ inita_module(void)
    if ( ! PyArg_ParseTuple(tup, "OO", &amp;errs, &amp;errNames) ) return;
    
    /* 
-    * errs allows you to do a_module.errs['INVALID_NAME'] to test for
-    * specific errcode without having to hardcode the error number.
+    * errs allows you to do yourmodule.errs['INVALID_NAME'] in Python to 
+    * test for specific errcode without having to hardcode the error number.
+    *
+    * [example: it can be used in tests to make sure that functions in your
+    * module return the expected error (on invalid parameters, etc.).
     */
    PyModule_AddObject( m, "errs", errs );
    /*
     * err_names allows you to retrieve the symbolic name of an error
-    * from a returned error number (a_module.err_name[err_number]).
+    * from a returned error number (a_module.err_names[err_number]).
     */
    PyModule_AddObject( m, "err_names", errNames );
    

@@ -23,16 +23,14 @@ Some notes specific to Error Parser:
 
     * --prefix=PREFIX To change the default installation directory 
         (/usr/local).
-    * --infodir=DIR   To change the default installation for info 
-                      documentation [PREFIX/info]
     * --mandir=DIR    To change the default installation for man 
                       documentation [PREFIX/man]
 
     Note: for the installation done with RPM, I've modified 
-    /usr/local/info(man) to /usr/local/share/info(man). 
+    /usr/local/man to /usr/local/share/man. 
 
  * Each time errorParser is run, it will try to access the DTD on the
-   Error Parser website (if using the PUBLIC declaration, see the manual for
+   Photon website (if using the PUBLIC declaration, see the manual for
    details). To avoid this, it is possible to install
    the DTD on the local machine and to set the catalog to access
    the local file instead of the network version.
