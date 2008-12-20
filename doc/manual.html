@@ -1,19 +1,22 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Error Parser Manual</title><meta name="generator" content="DocBook XSL Stylesheets V1.74.0"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="book" lang="en"><div class="titlepage"><div><div><h1 class="title"><a name="id92532"></a>Error Parser Manual</h1></div><div><div class="author"><h3 class="author"><span class="firstname">Daniel</span> <span class="surname">Prévost</span></h3></div></div><div><p class="releaseinfo">This manual is for release 0.4.0 of Error Parser</p></div><div><p class="copyright">Copyright © 2008 Daniel 
-    Prévost</p></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="chapter"><a href="#New">1. New in this release</a></span></dt><dt><span class="chapter"><a href="#Installation">2. Installation</a></span></dt><dd><dl><dt><span class="sect1"><a href="#catalog_linux">1. The xml catalog on Linux/Unix</a></span></dt><dt><span class="sect1"><a href="#catalog_windows">2. The xml catalog on Windows</a></span></dt><dt><span class="sect1"><a href="#libxml2_windows">3. libxml2 on Windows</a></span></dt></dl></dd><dt><span class="chapter"><a href="#building">3. Building the Software</a></span></dt><dd><dl><dt><span class="sect1"><a href="#build_linux_repo">1. Building on Linux/Unix from the repository</a></span></dt><dt><span class="sect1"><a href="#build_linux_tar">2. Building on Linux/Unix from the tar file</a></span></dt><dt><span class="sect1"><a href="#build_doc_linux">3. Building the documentation on Linux/Unix</a></span></dt><dt><span class="sect1"><a href="#build_windows_repo">4. Building on Windows from the repository</a></span></dt><dt><span class="sect1"><a href="#build_windows_zip">5. Building on Windows from a zip file</a></span></dt><dt><span class="sect1"><a href="#build_doc_windows">6. Building the documentation on Windows</a></span></dt></dl></dd><dt><span class="chapter"><a href="#user_guide">4. User Guide</a></span></dt><dd><dl><dt><span class="sect1"><a href="#intro">1. Introduction</a></span></dt><dt><span class="sect1"><a href="#xml_file">2. The xml error file</a></span></dt><dt><span class="sect1"><a href="#option_file">3. The xml option file </a></span></dt><dt><span class="sect1"><a href="#quasar">4. Example: Quasar, the connection/recovery server of Photon</a></span></dt><dd><dl><dt><span class="sect2"><a href="#configure.ac">4.1. configure.ac</a></span></dt><dt><span class="sect2"><a href="#makefile_am">4.2. Makefile.am</a></span></dt><dt><span class="sect2"><a href="#quasaroptions">4.3. quasarOptions.xml</a></span></dt><dt><span class="sect2"><a href="#quasarerrors">4.4. quasarErrors.xml</a></span></dt></dl></dd></dl></dd></dl></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="New"></a>Chapter 1. New in this release</h2></div></div></div><p> 
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Error Parser Manual</title><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="book" lang="en"><div class="titlepage"><div><div><h1 class="title"><a name="id2425050"></a>Error Parser Manual</h1></div><div><div class="author"><h3 class="author"><span class="firstname">Daniel</span> <span class="surname">Prévost</span></h3></div></div><div><p class="releaseinfo">This manual is for release 0.5.0 of Error Parser</p></div><div><p class="copyright">Copyright © 2008 Daniel 
+    Prévost</p></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="chapter"><a href="#New">1. New in this release</a></span></dt><dt><span class="chapter"><a href="#Installation">2. Installation</a></span></dt><dd><dl><dt><span class="sect1"><a href="#catalog_linux">1. The xml catalog on Linux/Unix</a></span></dt><dt><span class="sect1"><a href="#catalog_windows">2. The xml catalog on Windows</a></span></dt><dt><span class="sect1"><a href="#libxml2_windows">3. libxml2 on Windows</a></span></dt></dl></dd><dt><span class="chapter"><a href="#building">3. Building the Software</a></span></dt><dd><dl><dt><span class="sect1"><a href="#build_linux_repo">1. Building on Linux/Unix from the repository</a></span></dt><dt><span class="sect1"><a href="#build_linux_tar">2. Building on Linux/Unix from the tar file</a></span></dt><dt><span class="sect1"><a href="#build_doc_linux">3. Building the documentation on Linux/Unix</a></span></dt><dt><span class="sect1"><a href="#build_windows_repo">4. Building on Windows from the repository</a></span></dt><dt><span class="sect1"><a href="#build_windows_zip">5. Building on Windows from a zip file</a></span></dt><dt><span class="sect1"><a href="#build_doc_windows">6. Building the documentation on Windows</a></span></dt></dl></dd><dt><span class="chapter"><a href="#user_guide">4. User Guide</a></span></dt><dd><dl><dt><span class="sect1"><a href="#intro">1. Introduction</a></span></dt><dt><span class="sect1"><a href="#xml_file">2. The xml error file</a></span></dt><dt><span class="sect1"><a href="#option_file">3. The xml option file </a></span></dt><dt><span class="sect1"><a href="#quasar">4. Example: Quasar, the connection/recovery server of Photon</a></span></dt><dd><dl><dt><span class="sect2"><a href="#configure.ac">4.1. configure.ac</a></span></dt><dt><span class="sect2"><a href="#makefile_am">4.2. Makefile.am</a></span></dt><dt><span class="sect2"><a href="#quasaroptions">4.3. quasarOptions.xml</a></span></dt><dt><span class="sect2"><a href="#quasarerrors">4.4. quasarErrors.xml</a></span></dt></dl></dd><dt><span class="sect1"><a href="#example_python_extended_module">5. Example: python extended module</a></span></dt></dl></dd></dl></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="New"></a>Chapter 1. New in this release</h2></div></div></div><p> 
       This release is not a major update but adds a few interesting 
       enhancements to the product:
       </p><div class="itemizedlist"><ul type="disc"><li><p>
-            Support for C#. The parser can generate code that can be
-            included in a C# project (in the form of an enum for errors).
-            This can be useful to add error codes from unmanaged code to 
-            a .NET environment.
+            Support for Python. The parser can generate code that can be
+            included in either a pure Python module (coded in Python) or
+            an extension module (coded in C).
           </p></li><li><p>
-            On Windows, libxml2 is now linked statically to the parser, 
-            removing a possible headache for those who already have a 
-            copy of libxml2 installed.
+            An additional option for the error message that controls if
+            you want to export (__declspec (dllexport))the error-message 
+            function or not.
+          </p><p>
+            In the previous versions, the function was exported by default
+            but when building an executable (instead of a shared library),
+            warnings were generated by the compiler.
           </p></li><li><p>
-            The XML Document Type Definition files are now on the Photon 
-            web site (http://photonsoftware.org/) instead of sourceforge. 
+            Version 1.0 of the DTD for the options is now deprecated and 
+            support for it will be dropped in a future release. 
           </p></li></ul></div><p>
     </p></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="Installation"></a>Chapter 2. Installation</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#catalog_linux">1. The xml catalog on Linux/Unix</a></span></dt><dt><span class="sect1"><a href="#catalog_windows">2. The xml catalog on Windows</a></span></dt><dt><span class="sect1"><a href="#libxml2_windows">3. libxml2 on Windows</a></span></dt></dl></div><p>
       The installation procedure of the software itself is 
@@ -171,7 +174,8 @@
       </p><p>
         To create or refresh the man page, you will need to 
         install the DocBook DTD itself and the docbook2x package (for the 
-        program docbook2x-man which can also be installed as docbook2man).. 
+        program docbook2x-man which can also be installed as db2x_docbook2man
+        for example on Fedora 9). 
         If present, autoconf (./configure) will detect them and make will 
         refresh the documentation if the source file was modified.
       </p><p>
@@ -197,9 +201,7 @@
       </p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="build_windows_zip"></a>5. Building on Windows from a zip file</h2></div></div></div><p>
         Very simple, to build the software, just use the workspace 
         file parser\parser.snl (VC++ v8, known as VS 2005). 
-        Previous versions were built with VC++ 6 but support for VS 6 
-        is now deprecated and parser.dsw and parser.dsp 
-        will be removed in the near future.
+        It might also work with the newer VS 2008 (untested yet).
       </p><p>
         One additional note: you will need to add the directory for 
         the header files for libxml2 to the list of include directories in 
@@ -213,8 +215,8 @@
         Gnu diff</a> for Windows.
       </p><p>
         You can also build the software and run the tests from the command 
-        line. From the root directory, simply type "nmake -f makefile.win32" 
-        to build the program and "nmake -f makefile.win32 check" to run the
+        line. From the root directory, simply type "nmake -f Makefile.win32" 
+        to build the program and "nmake -f Makefile.win32 check" to run the
         tests (other targets: clean, checkdebug (to run the tests with the 
         debug version of Error Parser) and docs (to build the documentation)).
         You might need to modify parser/Makefile.win32 if you install libxml2
@@ -241,7 +243,7 @@
         jedit with the XML plugin).
       </p><p>
         As mentioned earlier, the documentation can be updated using
-        "nmake -f makefile.win32 docs". This will update the Microsoft
+        "nmake -f Makefile.win32 docs". This will update the Microsoft
         help-file (chm) version of this manual and the html version. The PDF
         version and the man and info pages requires a Unix/Linux environment
         (if you use cygwin or MinGW, it might work).
@@ -250,7 +252,7 @@
         xsltproc and the Microsoft HTML Help Compiler (hhc.exe) which you can get
         from the HTML Help Workshop from Microsoft (and possibly other similar 
         authoring tools).
-      </p></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="user_guide"></a>Chapter 4. User Guide</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#intro">1. Introduction</a></span></dt><dt><span class="sect1"><a href="#xml_file">2. The xml error file</a></span></dt><dt><span class="sect1"><a href="#option_file">3. The xml option file </a></span></dt><dt><span class="sect1"><a href="#quasar">4. Example: Quasar, the connection/recovery server of Photon</a></span></dt><dd><dl><dt><span class="sect2"><a href="#configure.ac">4.1. configure.ac</a></span></dt><dt><span class="sect2"><a href="#makefile_am">4.2. Makefile.am</a></span></dt><dt><span class="sect2"><a href="#quasaroptions">4.3. quasarOptions.xml</a></span></dt><dt><span class="sect2"><a href="#quasarerrors">4.4. quasarErrors.xml</a></span></dt></dl></dd></dl></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="intro"></a>1. Introduction</h2></div></div></div><p>
+      </p></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="user_guide"></a>Chapter 4. User Guide</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#intro">1. Introduction</a></span></dt><dt><span class="sect1"><a href="#xml_file">2. The xml error file</a></span></dt><dt><span class="sect1"><a href="#option_file">3. The xml option file </a></span></dt><dt><span class="sect1"><a href="#quasar">4. Example: Quasar, the connection/recovery server of Photon</a></span></dt><dd><dl><dt><span class="sect2"><a href="#configure.ac">4.1. configure.ac</a></span></dt><dt><span class="sect2"><a href="#makefile_am">4.2. Makefile.am</a></span></dt><dt><span class="sect2"><a href="#quasaroptions">4.3. quasarOptions.xml</a></span></dt><dt><span class="sect2"><a href="#quasarerrors">4.4. quasarErrors.xml</a></span></dt></dl></dd><dt><span class="sect1"><a href="#example_python_extended_module">5. Example: python extended module</a></span></dt></dl></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="intro"></a>1. Introduction</h2></div></div></div><p>
         The program errorParser is very easy to use. From the 
         command line just enter:
       </p><pre class="programlisting">errorParser -o <code class="varname">option_file</code> <code class="varname">error_file</code></pre><p>
@@ -279,7 +281,7 @@
         sub-tag.
       </p><div class="itemizedlist"><ul type="disc"><li><p>
             &lt;errorlist version="0.3"&gt; 
-            <a class="indexterm" name="id535357"></a>
+            <a class="indexterm" name="id2477254"></a>
           </p><p>
             This tag starts the document itself (the root element). 
             The version attribute is a string of your choosing and is there 
@@ -288,7 +290,7 @@
             attribute is optional.
           </p></li><li><p>
             &lt;copyright_group&gt; 
-            <a class="indexterm" name="id535376"></a>
+            <a class="indexterm" name="id2477277"></a>
           </p><p>
             This is an optional tag. You use it if you want to 
             generate copyright information in the output files. This tag 
@@ -302,24 +304,24 @@
             is simplify because of it, so...
           </p></li><li><p>
             &lt;copyright&gt; 
-            <a class="indexterm" name="id535414"></a>
+            <a class="indexterm" name="id2477314"></a>
           </p><p>
             Allows you to enter copyright information in the output 
             files. It has multiple sub-tags. As mentioned previously, 
             multiple &lt;copyright&gt; tags are allowed.
           </p><div class="itemizedlist"><ul type="circle"><li><p>
                 &lt;years&gt;
-                <a class="indexterm" name="id535441"></a>
+                <a class="indexterm" name="id2477339"></a>
               </p><p>
                 The interval of years for the current copyright notice.
               </p></li><li><p>
                 &lt;authors&gt;
-                <a class="indexterm" name="id535462"></a>
+                <a class="indexterm" name="id2477359"></a>
               </p><p>
                 The name(s) of the owner(s) of the copyright.
               </p></li><li><p>
                 &lt;notice&gt;
-                <a class="indexterm" name="id535483"></a>
+                <a class="indexterm" name="id2477379"></a>
               </p><p>
                 The text of the license. More exactly, a paragraph 
                 of the license. Use multiple &lt;notice&gt; if your 
@@ -327,7 +329,7 @@
                 one &lt;notice&gt; for each &lt;copyright&gt;.
               </p></li></ul></div></li><li><p>
             &lt;errgroup&gt;
-            <a class="indexterm" name="id535513"></a>
+            <a class="indexterm" name="id2477407"></a>
           </p><p>
             &lt;errgroup&gt; is used to organize your errors in 
             groups, if you so desired (for example, a group of i/o 
@@ -339,7 +341,7 @@
             sub-tag.
           </p></li><li><p>
             &lt;errgroup_ident&gt;
-            <a class="indexterm" name="id535549"></a>
+            <a class="indexterm" name="id2477440"></a>
           </p><p>
             This sub-tag of &lt;errgroup&gt; is optional. The 
             sub-tags associated with this tag are used to generate 
@@ -359,12 +361,12 @@
             &lt;errgroup_ident&gt; is used.
           </p><div class="itemizedlist"><ul type="circle"><li><p>
                 &lt;errgroup_name&gt;
-                <a class="indexterm" name="id535607"></a>
+                <a class="indexterm" name="id2526672"></a>
               </p><p>
                 A name for this group of errors. For example, Network errors.
               </p></li><li><p>
                 &lt;errgroup_desc&gt;
-                <a class="indexterm" name="id535628"></a>
+                <a class="indexterm" name="id2526692"></a>
               </p><p>
                 Description of this group of errors. You must have 
                 at least one &lt;errgroup_desc&gt; but you can have 
@@ -372,17 +374,17 @@
                 paragraph.
               </p></li></ul></div></li><li><p>
             &lt;error&gt;
-            <a class="indexterm" name="id535661"></a>
+            <a class="indexterm" name="id2526722"></a>
           </p><p>
             This tag is also a sub-tag of &lt;errgroup&gt;. You 
             need at least one &lt;error&gt; for each &lt;errgroup&gt; but 
             you can have as many as needed.
           </p><div class="itemizedlist"><ul type="circle"><li><p>
                 &lt;errnumber&gt;
-                <a class="indexterm" name="id535686"></a>
+                <a class="indexterm" name="id2526746"></a>
               </p><p>The numerical value of the error code.</p></li><li><p>
                 &lt;errname&gt;
-                <a class="indexterm" name="id535707"></a>
+                <a class="indexterm" name="id2526764"></a>
               </p><p>
                 The generic name of the error. This name is going 
                 to be used to generate either an enum entry or a #define 
@@ -396,7 +398,7 @@
                 file.
               </p></li><li><p>
                 &lt;message_group&gt;
-                <a class="indexterm" name="id535734"></a>
+                <a class="indexterm" name="id2526797"></a>
               </p><p>
                 This tag is used to group the error messages and 
                 the documentation for the error - which are encapsulated 
@@ -411,7 +413,7 @@
                 so...
               </p></li><li><p>
                 &lt;message&gt;
-                <a class="indexterm" name="id535774"></a>
+                <a class="indexterm" name="id2526834"></a>
               </p><p>
                 Container for both the error message and the 
                 documentation for this error. This tag has an optional 
@@ -430,7 +432,7 @@
                 is used.
               </p><div class="itemizedlist"><ul type="square"><li><p>
                     &lt;errormsg&gt;
-                    <a class="indexterm" name="id535828"></a>
+                    <a class="indexterm" name="id2526885"></a>
                   </p><p>
                     The text of the error message that will be 
                     retrieved by the function 
@@ -443,7 +445,7 @@
                     the appropriate options in the option file.
                   </p></li><li><p>
                     &lt;errordoc&gt;
-                    <a class="indexterm" name="id535875"></a>
+                    <a class="indexterm" name="id2526930"></a>
                   </p><p>
                     Each &lt;errordoc&gt; is a paragraph of the 
                     documentation. Therefore, you can have multiple 
@@ -454,21 +456,22 @@
         options in a configuration file (written in xml). These options 
         are described below.
       </p><p>
-        This section document version 1.1 of the DTD. The parser still
-        understands version 1.0 of the DTD. These two versions are not 
-        backward compatible (see the new attribute "version" for a
-        detailed explanation).
+        This section document version 1.2 of the DTD. The parser still
+        understands version 1.0 and 1.1 of the DTD. Versions 1.1 and 1.2 
+        are not backward compatible with version 1.0 (you must add the new
+        "version" attribute to the your XML file to upgrade it - see 
+        "version" for a detailed explanation). 
       </p><div class="itemizedlist"><ul type="disc"><li><p>
-            &lt;options version="1.1"&gt;
-            <a class="indexterm" name="id535936"></a>
+            &lt;options version="1.2"&gt;
+            <a class="indexterm" name="id2526988"></a>
           </p><p>
             This tag starts the document itself (the root element). The 
             attribute "version" (the version of the DTD) is required - it 
             will be used by the parser to support multiple versions 
-            of the DTD, if needed.
+            of the DTD, as needed.
           </p><p>
             This new attribute breaks backward compatibility between 
-            the new version (1.1) and the old version. To use an
+            the newer versions (1.1 and up) and the old 1.0 version. To use an
             existing option file with the newer DTD you must modify the
             option file to include this attribute.
           </p><p>
@@ -476,13 +479,13 @@
             compatibility between versions...
           </p></li><li><p>
             &lt;enumname&gt;
-            <a class="indexterm" name="id532566"></a>
+            <a class="indexterm" name="id2527023"></a>
           </p><p>
             Optional. The name of the enum. If absent, #define will 
             be generated instead.
           </p></li><li><p>
             &lt;header_name_dir&gt;
-            <a class="indexterm" name="id532587"></a>
+            <a class="indexterm" name="id2527042"></a>
           </p><p>
             Optional. The name of the directory where the error 
             header file is to be created. If absent, the current 
@@ -510,14 +513,14 @@
             </pre><p>
           </p></li><li><p>
             &lt;header_name&gt;
-            <a class="indexterm" name="id532663"></a>
+            <a class="indexterm" name="id2527119"></a>
           </p><p>
             The name of the header file for errors. See the 
             item &lt;header_name_dir&gt; for a discussion on names of files,
             directories and the generated header guard.
           </p></li><li><p>
             &lt;errmsg_dir&gt;
-            <a class="indexterm" name="id532692"></a>
+            <a class="indexterm" name="id2527145"></a>
           </p><p>
             Optional. The name of the directory where the header 
             file and "C" file (for the code to retrieve the 
@@ -528,7 +531,7 @@
             of files, directories and the generated header guard.
           </p></li><li><p>
             &lt;errmsg_header_name&gt;
-            <a class="indexterm" name="id532731"></a>
+            <a class="indexterm" name="id2527183"></a>
           </p><p>
             The name of the header file for the code to retrieve 
             the error messages. 
@@ -536,14 +539,37 @@
             of files, directories and the generated header guard.
           </p></li><li><p>
             &lt;errmsg_c_name&gt;
-            <a class="indexterm" name="id532755"></a></p><p>
+            <a class="indexterm" name="id2527204"></a></p><p>
             The name of the "C" file for the code to 
             retrieve the error messages.
             See the item &lt;header_name_dir&gt; for a discussion on names 
             of files, directories and the generated header guard.
           </p></li><li><p>
+            &lt;errmsg_c_name&gt;
+            <a class="indexterm" name="id2527226"></a>
+          </p><p>
+            The name of the "C" file for the code to 
+            retrieve the error messages.
+            See the item &lt;header_name_dir&gt; for a discussion on names 
+            of files, directories and the generated header guard.
+          </p></li><li><p>
+            &lt;errmsg_options&gt;
+            <a class="indexterm" name="id2527249"></a></p><a class="indexterm" name="id2527255"></a><p>
+            Optional (new in this version).
+          </p><p>
+            This tag has no content and a single attribute, build_dll.
+            The attribute is an enumeration with two values, yes and no. 
+            The default is no. Set it to yes if you are building a DLL on
+            Microsoft Windows and you want to access the error-message
+            function from outside the DLL.
+          </p><p>
+            If you are setting the attribute to yes on other platforms it
+            will generate an empty macro, in other words no side effects.
+            However, if you are building a self-contained EXE on Windows,
+            Visual Studio will warn you about this.
+          </p></li><li><p>
             &lt;prefix_error&gt;
-            <a class="indexterm" name="id532779"></a>
+            <a class="indexterm" name="id2527295"></a>
           </p><p>
             The prefix to be used for the error codes (enum or 
             #define). For example, if your error is OBJECT_IS_DELETED 
@@ -555,13 +581,13 @@
             release.
           </p></li><li><p>
             &lt;prefix_variable&gt;
-            <a class="indexterm" name="id532810"></a>
+            <a class="indexterm" name="id2527324"></a>
           </p><p>
             The prefix to be used for all variables in the code to 
             retrieve the error messages.
           </p></li><li><p>
             &lt;err_msg&gt;
-            <a class="indexterm" name="id532832"></a>
+            <a class="indexterm" name="id2527344"></a>
           </p><p>
             This tag has no content but its attributes are 
             important - they define the allowed characteristics (and the 
@@ -576,7 +602,7 @@
             and the iostream library (cout).
           </p><p>The attributes:</p><div class="itemizedlist"><ul type="circle"><li><p>
                 allow_escapes
-                <a class="indexterm" name="id532875"></a>
+                <a class="indexterm" name="id2527383"></a>
               </p><p>
                 An enumeration with two values, yes and no. The 
                 default is no, escape sequences are not permitted (a more 
@@ -584,21 +610,21 @@
                 arise).
               </p></li><li><p>
                 allow_quotes 
-                <a class="indexterm" name="id532899"></a>
+                <a class="indexterm" name="id2527410"></a>
               </p><p>
                 An enumeration with two values, yes and no. The 
                 default is yes, quotes (' and ") are allowed 
                 (and will be escaped as needed).
               </p></li><li><p>
                 percent
-                <a class="indexterm" name="id532928"></a>
+                <a class="indexterm" name="id2527435"></a>
               </p><p>
                 The text that will be used to replace the % symbol. 
                 This attribute is mandatory and has no default value.
                 I recommend the textual "percent".
               </p></li></ul></div></li><li><p>
             &lt;selected_lang&gt;
-            <a class="indexterm" name="id532956"></a>
+            <a class="indexterm" name="id2527461"></a>
           </p><p>
             Optional parameter to select the language that will be used for
             the documentation and error messages. If absent, the first 
@@ -613,28 +639,81 @@
             </p><pre class="programlisting">&lt;selected_lang xml:lang="en"/&gt;</pre><p>
           </p></li><li><p>
             &lt;csharp&gt;
-            <a class="indexterm" name="id533006"></a>
-            <a class="indexterm" name="id533013"></a>
+            <a class="indexterm" name="id2527507"></a>
+            <a class="indexterm" name="id2527513"></a>
           </p><p>
             Optional. If present, code for C# will be generated (in the
             form of an enum). Additional sub-tags,described below, are used 
             to provide the required parameters.
           </p></li><li><p>
             &lt;cs_filename&gt;
-            <a class="indexterm" name="id533036"></a>
+            <a class="indexterm" name="id2527534"></a>
           </p><p>
-            Full or relative path to the generated C# code
+            Full or relative path to the generated C# code.
           </p></li><li><p>
             &lt;cs_enum&gt;
-            <a class="indexterm" name="id533057"></a>
+            <a class="indexterm" name="id2527553"></a>
           </p><p>
             The name of the C# enum.
           </p></li><li><p>
             &lt;cs_namespace&gt;
-            <a class="indexterm" name="id533078"></a>
+            <a class="indexterm" name="id2527571"></a>
           </p><p>
             Optional. The name of the C# namespace. If absent, the code
             is generated without a namespace.
+          </p></li><li><p>
+            &lt;python&gt;
+            <a class="indexterm" name="id2527591"></a>
+          </p><p>
+            Optional. If present, code for Python will be generated.
+            Additional sub-tags,described below, are used 
+            to provide the required parameters.
+          </p><p>
+            The code generates a function (C or Python) to create 2 dict
+            objects. The first dict uses the error symbolic name as the key
+            and the error number as the value. The second dict is reverse
+            (error number as the key, symbolic name as values. 
+            Example (take from the tests of Photon):
+          </p><p>
+            </p><pre class="programlisting">    try:
+        s.create_object( '', pso.BaseDef(pso.FOLDER, 0) )
+    except pso.error, (msg, errcode):
+        if errcode != pso.errs['INVALID_LENGTH']:
+            print 'error = ', pso.errnames[errcode]
+            print msg
+            raise
+            </pre><p>
+          </p></li><li><p>
+            &lt;py_options&gt;
+            <a class="indexterm" name="id2527634"></a>
+            <a class="indexterm" name="id2527640"></a>
+          </p><p>
+            An empty tag with a single attribute, extended.
+            This attribute is an enumeration with two values, yes and no.
+          </p><p>
+            The default value for the extended attribute is yes.
+            If set to yes, the parser will generate C code (a header file) 
+            that can be used to build an extension module. Otherwise a
+            Python file will be generated (and could be included in a
+            pure Python module).
+          </p></li><li><p>
+            &lt;py_dirname&gt;
+            <a class="indexterm" name="id2475718"></a>
+          </p><p>
+            Optional. The name of the directory where the code should be
+            generated. If absent, the current directory will be used.
+          </p><p>
+            For extension modules, see the item &lt;header_name_dir&gt; for 
+            a discussion on names of files, directories and the 
+            generated header guard.
+          </p></li><li><p>
+            &lt;py_filename&gt;
+            <a class="indexterm" name="id2475749"></a>
+          </p><p>
+            The name of the header file or python file.
+            Again, for extension modules, 
+            see the item &lt;header_name_dir&gt; for a discussion on names 
+            of files, directories and the generated header guard.
           </p></li></ul></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="quasar"></a>4. Example: Quasar, the connection/recovery server of Photon</h2></div></div></div><p>
         This is work in progress for the next iteration of the PSO project
         (photonsoftware.org). 
@@ -687,11 +766,11 @@ quasar_SOURCES =             \
         Acceptor.cpp    \
         ...</pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="quasaroptions"></a>4.3. quasarOptions.xml</h3></div></div></div><pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPE options SYSTEM 
-             "/usr/local/share/xml/errorParser/errorParserOptions11.dtd"&gt;
+             "/usr/local/share/xml/errorParser/errorParserOptions12.dtd"&gt;
 
 &lt;!-- This xml file provides the options to the errorParser program. --&gt;
 
-&lt;options version="1.1"&gt;
+&lt;options version="1.2"&gt;
   &lt;!-- The name of the enum. If absent, #define will be generated instead. --&gt;
   &lt;enumname&gt; psoqErrors&lt;/enumname&gt;
   &lt;!-- Name of the output dir for the error header file. If absent, the 
@@ -711,6 +790,8 @@ quasar_SOURCES =             \
   &lt;!-- The file name for the .c file for the code to retrieve the error 
        messages. --&gt;
   &lt;errmsg_c_name&gt; quasarErrorHandler.c &lt;/errmsg_c_name&gt;
+  &lt;!-- Options for the error message --&gt;
+  &lt;errmsg_options build_dll="no" /&gt;
   &lt;!-- Prefix to be used for the error codes (enum or #define). --&gt;
   &lt;prefix_error&gt; PSOQ &lt;/prefix_error&gt;
   &lt;!-- Prefix to be used for all variables in the code to retrieve the 
@@ -739,6 +820,17 @@ quasar_SOURCES =             \
     &lt;!-- The namespace is optional --&gt;
     &lt;!-- &lt;cs_namespace&gt; Photon &lt;/cs_namespace&gt; --&gt;
   &lt;!-- &lt;/csharp&gt;   --&gt;
+
+  &lt;!-- Optional section for Python 
+       Commented out - included for completeness --&gt;
+  &lt;!-- &lt;python&gt; --&gt;
+    &lt;!-- Options for code generation --&gt;
+    &lt;!-- &lt;py_options extended="yes" /&gt; --&gt;
+    &lt;!-- &lt;py_dirname&gt; ../Python &lt;/py_dirname&gt; --&gt;
+    &lt;!-- The file name can be a python or C header (see py_options) --&gt;
+    &lt;!-- &lt;py_filename&gt; errors.h &lt;/py_filename&gt; --&gt;
+  &lt;!-- &lt;/python&gt;   --&gt;
+  
 &lt;/options&gt;</pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="quasarerrors"></a>4.4. quasarErrors.xml</h3></div></div></div><pre class="programlisting">
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPE errorlist PUBLIC "-//Error Parser project//DTD Error Parser XML V1.2//EN"
@@ -1256,4 +1348,40 @@ quasar_SOURCES =             \
 
   &lt;/errgroup&gt;
 
-&lt;/errorlist&gt;</pre></div></div></div></div></body></html>
+&lt;/errorlist&gt;</pre></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="example_python_extended_module"></a>5. Example: python extended module</h2></div></div></div><p>
+        Adding the generated header file to a C module is very simple. Here's
+        a code snippet (you'll have to modify it heavily, evidently): 
+      </p><pre class="programlisting">
+# include "errors.h" /* Our generated header file */
+
+PyMODINIT_FUNC
+inita_module(void) 
+{
+   PyObject * m = NULL, * tup = NULL, * errs = NULL, * errNames = NULL;
+
+   m = Py_InitModule3( "a_module", 
+                       a_module_methods,
+                       "Example module.");
+   if (m == NULL) return;
+
+   /* 
+    * AddErrors() is defined in errors.h - it creates the two dict needed
+    * to access the errcodes (values and/or symbolic names).
+    */
+   tup = AddErrors(); 
+   if ( tup == NULL ) return;
+   
+   if ( ! PyArg_ParseTuple(tup, "OO", &amp;errs, &amp;errNames) ) return;
+   
+   /* 
+    * errs allows you to do a_module.errs['INVALID_NAME'] to test for
+    * specific errcode without having to hardcode the error number.
+    */
+   PyModule_AddObject( m, "errs", errs );
+   /*
+    * err_names allows you to retrieve the symbolic name of an error
+    * from a returned error number (a_module.err_name[err_number]).
+    */
+   PyModule_AddObject( m, "err_names", errNames );
+   
+   ...</pre></div></div></div></body></html>
