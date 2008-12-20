@@ -71,7 +71,7 @@
 <!ELEMENT cs_filename        (#PCDATA)>
 <!ELEMENT cs_enum            (#PCDATA)>
 <!ELEMENT cs_namespace       (#PCDATA)>
-<!ELEMENT python             (py_options, py_dirname, py_filename)>
+<!ELEMENT python             (py_options, py_dirname?, py_filename)>
 <!ELEMENT py_options          EMPTY>
 <!ELEMENT py_dirname         (#PCDATA)>
 <!ELEMENT py_filename        (#PCDATA)>

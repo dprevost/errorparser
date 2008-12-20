@@ -263,23 +263,48 @@ void addError( errp_common * commonArgs,
    }
 
    if ( commonArgs->fpPyH ) {
-      fprintf( commonArgs->fpPyH, "    value = PyInt_FromLong( %s );\n", errNumber );
+      fprintf( commonArgs->fpPyH, "    value = PyInt_FromLong(%s);\n", errNumber );
       fprintf( commonArgs->fpPyH, "    if ( value == NULL ) {\n" );
-      fprintf( commonArgs->fpPyH, "        PyDict_Clear( errors );\n" );
+      fprintf( commonArgs->fpPyH, "        PyDict_Clear(errors);\n" );
       fprintf( commonArgs->fpPyH, "        Py_DECREF(errors);\n" );
+      fprintf( commonArgs->fpPyH, "        PyDict_Clear(errorNames);\n" );
+      fprintf( commonArgs->fpPyH, "        Py_DECREF(errorNames);\n" );
       fprintf( commonArgs->fpPyH, "        return NULL;\n" );
       fprintf( commonArgs->fpPyH, "    }\n" );
-      fprintf( commonArgs->fpPyH, "    errcode = PyDict_SetItemString( errors, \"%s\", value);\n", errName );
-      fprintf( commonArgs->fpPyH, "    Py_DECREF(value);\n" );
-      fprintf( commonArgs->fpPyH, "    if (errcode != 0) {\n" );
-      fprintf( commonArgs->fpPyH, "        PyDict_Clear( errors );\n" );
+      fprintf( commonArgs->fpPyH, "    key = PyString_FromString(\"%s\");\n", errName );
+      fprintf( commonArgs->fpPyH, "    if ( key == NULL ) {\n" );
+      fprintf( commonArgs->fpPyH, "        Py_DECREF(value);\n" );
+      fprintf( commonArgs->fpPyH, "        PyDict_Clear(errors);\n" );
       fprintf( commonArgs->fpPyH, "        Py_DECREF(errors);\n" );
+      fprintf( commonArgs->fpPyH, "        PyDict_Clear(errorNames);\n" );
+      fprintf( commonArgs->fpPyH, "        Py_DECREF(errorNames);\n" );
+      fprintf( commonArgs->fpPyH, "        return NULL;\n" );
+      fprintf( commonArgs->fpPyH, "    }\n" );
+      fprintf( commonArgs->fpPyH, "    errcode = PyDict_SetItem(errors, key, value);\n" );
+      fprintf( commonArgs->fpPyH, "    if (errcode != 0) {\n" );
+      fprintf( commonArgs->fpPyH, "        Py_DECREF(value);\n" );
+      fprintf( commonArgs->fpPyH, "        Py_DECREF(key);\n" );
+      fprintf( commonArgs->fpPyH, "        PyDict_Clear(errors);\n" );
+      fprintf( commonArgs->fpPyH, "        Py_DECREF(errors);\n" );
+      fprintf( commonArgs->fpPyH, "        PyDict_Clear(errorNames);\n" );
+      fprintf( commonArgs->fpPyH, "        Py_DECREF(errorNames);\n" );
+      fprintf( commonArgs->fpPyH, "        return NULL;\n" );
+      fprintf( commonArgs->fpPyH, "    }\n" );
+      fprintf( commonArgs->fpPyH, "    errcode = PyDict_SetItem(errorNames, value, key);\n" );
+      fprintf( commonArgs->fpPyH, "    Py_DECREF(value);\n" );
+      fprintf( commonArgs->fpPyH, "    Py_DECREF(key);\n" );
+      fprintf( commonArgs->fpPyH, "    if (errcode != 0) {\n" );
+      fprintf( commonArgs->fpPyH, "        PyDict_Clear(errors);\n" );
+      fprintf( commonArgs->fpPyH, "        Py_DECREF(errors);\n" );
+      fprintf( commonArgs->fpPyH, "        PyDict_Clear(errorNames);\n" );
+      fprintf( commonArgs->fpPyH, "        Py_DECREF(errorNames);\n" );
       fprintf( commonArgs->fpPyH, "        return NULL;\n" );
       fprintf( commonArgs->fpPyH, "    }\n\n" );
    }
 
    if ( commonArgs->fpPyPy ) {
-      fprintf( commonArgs->fpPyPy, "errs['%s'] = %s\n", errName, errNumber );
+      fprintf( commonArgs->fpPyPy, "    errors['%s'] = %s\n", errName, errNumber );
+      fprintf( commonArgs->fpPyPy, "    error_names[%s] = '%s'\n", errNumber, errName );
    }
    
    free( errNumber );

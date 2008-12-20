@@ -381,13 +381,19 @@ void navigate( errp_common * commonArgs,
    }
    if ( commonArgs->fpPyH ) {
       fprintf( commonArgs->fpPyH, "PyObject * AddErrors(void)\n{\n" );
-      fprintf( commonArgs->fpPyH, "    PyObject * errors = NULL, * value = NULL;\n" );
+      fprintf( commonArgs->fpPyH, "    PyObject * errors = NULL, * errorNames = NULL, * value = NULL, * key = NULL;\n" );
       fprintf( commonArgs->fpPyH, "    int errcode;\n\n" );
       fprintf( commonArgs->fpPyH, "    errors = PyDict_New();\n" );
       fprintf( commonArgs->fpPyH, "    if ( errors == NULL ) return NULL;\n\n" );
+      fprintf( commonArgs->fpPyH, "    errorNames = PyDict_New();\n" );
+      fprintf( commonArgs->fpPyH, "    if ( errorNames == NULL ) {\n" );
+      fprintf( commonArgs->fpPyH, "        Py_DECREF(errors);\n" );
+      fprintf( commonArgs->fpPyH, "        return NULL;\n    }\n\n" );
    }
    if ( commonArgs->fpPyPy ) {
-      fprintf( commonArgs->fpPyPy, "errs = dict()\n\n" );
+      fprintf( commonArgs->fpPyPy, "def add_errors():\n\n" );
+      fprintf( commonArgs->fpPyPy, "    errors = dict()\n" );
+      fprintf( commonArgs->fpPyPy, "    error_names = dict()\n\n" );
    }
    
    /*
@@ -421,9 +427,12 @@ void navigate( errp_common * commonArgs,
       }
    }
    if ( commonArgs->fpPyH ) {
-      fprintf( commonArgs->fpPyH, "    return errors;\n}\n\n" );
+      fprintf( commonArgs->fpPyH, "    return Py_BuildValue(\"OO\", errors, errorNames);\n}\n\n" );
    }
-
+   if ( commonArgs->fpPyPy ) {
+      fprintf( commonArgs->fpPyPy, "\n    return tuple(errors, error_names)\n\n" );
+   }
+   
    writeMsgHeader( commonArgs );
    writeErrorMessage( commonArgs );
 

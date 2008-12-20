@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE options SYSTEM 
-             "/usr/local/share/xml/errorParser/errorParserOptions11.dtd">
+             "/usr/local/share/xml/errorParser/errorParserOptions12.dtd">
 
 <!-- 
    This xml file provides the options to the errorParser program.
@@ -17,7 +17,7 @@
    
 -->
 
-<options version="1.1">
+<options version="1.2">
   <!-- The name of the enum. If absent, #define will be generated instead. -->
   <enumname> psoErrors</enumname>
   <!-- Name of the output dir for the error header file. If absent, the 
@@ -42,6 +42,10 @@
   <!-- The file name for the .c file for the code to retrieve the error 
        messages. -->
   <errmsg_c_name> psoErrorHandler.c </errmsg_c_name>
+  <!-- Options for the error messages. We are building a shared library
+       and we want to export the function so...
+       This field is optional - new in version 1.2 -->
+  <errmsg_options build_dll="yes" />
   <!-- Prefix to be used for the error codes (enum or #define). -->
   <prefix_error> PSO </prefix_error>
   <!-- Prefix to be used for all variables in the code to retrieve the 
@@ -60,7 +64,7 @@
            differently by libc (printf()) and the iostream library (cout) -->         
   <err_msg percent="percent" />
   <selected_lang xml:lang="en"/>
-  <!-- Optional section for creating an enum for C# -->
+  <!-- Optional section for creating an enum for C# (new in v 1.1) -->
   <csharp>
     <!-- Full or relative path to the generated C# code -->
     <cs_filename> CS/Errors.cs </cs_filename>
@@ -68,5 +72,14 @@
     <!-- The namespace is optional -->
     <cs_namespace> Photon </cs_namespace>
   </csharp>
+  <!-- Optional section for Python (new in v. 1.2) -->
+  <python>
+    <!-- Options. We are building an extended (C) module -->
+    <py_options extended="yes" />
+    <!-- Directory for the python output file -->
+    <py_dirname> ../Python/src </py_dirname>
+    <!-- Name of the output file -->
+    <py_filename> errors.h </py_filename>
+  </python>
 </options>
 

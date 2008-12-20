@@ -402,16 +402,14 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
             }
             child = child->next;
          }
-         /* The directory name for the python output file. */
+         /* The directory name for the python output file (optional). */
          while ( child != NULL ) {
             if ( child->type == XML_ELEMENT_NODE ) {
                if ( xmlStrcmp( child->name, BAD_CAST "py_dirname") == 0 ) {
                   commonArgs->py_dirname = stripText( child->children->content );
                   child = child->next;
-                  break;
                }
-               fprintf( stderr, "Error: missing <py_dirname> in options file\n" );
-               return -1;
+               break;
             }
             child = child->next;
          }
