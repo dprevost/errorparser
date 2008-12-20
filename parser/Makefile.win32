@@ -31,13 +31,11 @@ CLEANFILES = *~ parser.plg errorParser.dep
 
 W32_SYS_LIBS=kernel32.lib ws2_32.lib
 
-LDD_FLAGS_RELEASE = $(W32_SYS_LIBS) $(LIBXML2_LIB) /nologo /version:0.40 /subsystem:console /incremental:no         /machine:I386 /out:"$(OUTDIR_RELEASE)\errorParser.exe" /libpath:"..\Release" 
-LDD_FLAGS_DEBUG   = $(W32_SYS_LIBS) $(LIBXML2_LIB) /nologo /version:0.40 /subsystem:console /incremental:yes /debug /machine:I386 /out:"$(OUTDIR_DEBUG)\errorParser.exe"   /libpath:"..\Debug" 
+LDD_FLAGS_RELEASE = $(W32_SYS_LIBS) $(LIBXML2_LIB) /nologo /version:0.50 /subsystem:console /incremental:no  /MANIFEST        /machine:I386 /out:"$(OUTDIR_RELEASE)\errorParser.exe" /libpath:"..\Release" 
+LDD_FLAGS_DEBUG   = $(W32_SYS_LIBS) $(LIBXML2_LIB) /nologo /version:0.50 /subsystem:console /incremental:no /MANIFEST /debug /machine:I386 /out:"$(OUTDIR_DEBUG)\errorParser.exe"   /libpath:"..\Debug" 
 
-#CFLAGS_RELEASE = /nologo /MD  /W3 /GX     /O2 /I $(LIBXML2_INCLUDE) /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /Fo"$(INTDIR_RELEASE)\\"     /c 
-CFLAGS_RELEASE = /O2 /Ob1 /I $(LIBXML2_INCLUDE) /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "LIBXML_STATIC" /D "_VC80_UPGRADE=0x0600" /D "_MBCS" /GF /FD /EHsc /MD /Gy /Fp".\$(OUTDIR_RELEASE)/parser.pch" /Fo".\$(OUTDIR_RELEASE)/" /Fd".\$(OUTDIR_RELEASE)/" /W3 /nologo /c /TP /errorReport:prompt
-#CFLAGS_DEBUG   = /nologo /MDd /W3 /GX /ZI /Od /I $(LIBXML2_INCLUDE) /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fo"$(INTDIR_DEBUG)\\"   /GZ /c 
-CFLAGS_DEBUG   = /Od /I $(LIBXML2_INCLUDE) /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "LIBXML_STATIC" /D "_VC80_UPGRADE=0x0600" /D "_MBCS" /FD /EHsc /RTC1 /MD /Fp".\$(OUTDIR_DEBUG)/parser.pch" /Fo".\$(OUTDIR_DEBUG)/" /Fd".\$(OUTDIR_DEBUG)/" /W3 /nologo /c /ZI /TP /errorReport:prompt
+CFLAGS_RELEASE = /O2 /Ob1 /I $(LIBXML2_INCLUDE) /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "LIBXML_STATIC" /D "_MBCS" /GF /FD /EHsc       /MD /Gy /Fp".\$(OUTDIR_RELEASE)/parser.pch" /Fo".\$(OUTDIR_RELEASE)/" /Fd".\$(OUTDIR_RELEASE)/" /W3 /nologo /c     /TP /errorReport:prompt
+CFLAGS_DEBUG   = /Od      /I $(LIBXML2_INCLUDE) /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "LIBXML_STATIC" /D "_MBCS"     /FD /EHsc /RTC1 /MD     /Fp".\$(OUTDIR_DEBUG)/parser.pch"   /Fo".\$(OUTDIR_DEBUG)/"   /Fd".\$(OUTDIR_DEBUG)/"   /W3 /nologo /c /ZI /TP /errorReport:prompt
 
 OBJS_RELEASE=                                      \
 	"$(INTDIR_RELEASE)\group.obj" \
@@ -76,10 +74,12 @@ all: $(OUTDIR_RELEASE) $(OUTDIR_RELEASE)\errorParser.exe $(OUTDIR_DEBUG) $(OUTDI
 "$(OUTDIR_RELEASE)\errorParser.exe" : "$(OUTDIR_RELEASE)" $(OBJS_RELEASE)
    -del $(OUTDIR_RELEASE)\errorParser.exe
 	$(LINK32) $(LDD_FLAGS_RELEASE) $(OBJS_RELEASE)
+	mt.exe -manifest $(OUTDIR_RELEASE)\errorParser.exe.manifest -outputresource:$(OUTDIR_RELEASE)\errorParser.exe;1
 
 "$(OUTDIR_DEBUG)\errorParser.exe" : "$(OUTDIR_DEBUG)" $(OBJS_DEBUG)
    -del $(OUTDIR_DEBUG)\errorParser.exe
 	$(LINK32) $(LDD_FLAGS_DEBUG) $(OBJS_DEBUG)
+	mt.exe -manifest $(OUTDIR_DEBUG)\errorParser.exe.manifest -outputresource:$(OUTDIR_DEBUG)\errorParser.exe;1
 
 ###########################################################################
 #
