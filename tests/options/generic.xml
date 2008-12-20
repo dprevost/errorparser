@@ -41,6 +41,8 @@
   <!-- The file name for the .c file for the code to retrieve the error 
        messages. -->
   <errmsg_c_name> getError.c </errmsg_c_name>
+  <!-- We want the Win32 export decoration -->
+  <errmsg_options build_dll="yes" />
   <!-- Prefix to be used for the error codes (enum or #define). -->
   <prefix_error> MY_PROG </prefix_error>
   <!-- Prefix to be used for all variables in the code to retrieve the 
