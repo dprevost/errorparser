@@ -18,7 +18,7 @@ AM_CPPFLAGS += @ERR_PARSER_CFLAGS@
 
 CLEANFILES = *~ 
 
-bin_PROGRAMS = errorParser
+bin_PROGRAMS = errorParser errorParser1_0
 
 man_MANS = errorParser.1
 
@@ -50,5 +50,29 @@ errorParser_SOURCES = \
         parser.h  \
         text.c    
 
+errorParser1_0_SOURCES =     \
+        group1.cpp           \
+        message1.cpp         \
+        options1.cpp         \
+        parser1.cpp          \
+        parser1.h            \
+        text1.cpp            \
+        AbstractHandler.h    \
+        CfamilyHandler.cpp   \
+        CfamilyHandler.h     \
+        CSharp.cpp           \
+        CSharp.h             \
+        ErrMessage.cpp       \
+        ErrMessage.h         \
+        ErrMessageHeader.cpp \
+        ErrMessageHeader.h   \
+        ExtPython.cpp        \
+        ExtPython.h          \
+        HeaderHandler.cpp    \
+        HeaderHandler.h      \
+        PurePython.cpp       \
+        PurePython.h         
+
 errorParser_LDFLAGS = @ERR_PARSER_LIBS@
+errorParser1_0_LDFLAGS = @ERR_PARSER_LIBS@
 
