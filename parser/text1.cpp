@@ -149,14 +149,15 @@ void hasEscapeSequence( errp_common * commonArgs, xmlChar * str )
  * This function check that the UTF-8 string is indeed ascii (needed when
  * constructing variables, enums or #defines).
  */
-int isAsciiStr( xmlChar * str )
+bool isAsciiStr( const char * str, size_t len )
 {
-   int i;
+   size_t i;
    
-   for ( i = 0; i < xmlStrlen(str); i++ ) {
-      if ( str[i] > 0x7f ) return 0;
+   for ( i = 0; i < len ; i++ ) {
+      if ( ! isascii(str[i]) ) return false;
    }
-   return 1;
+   
+   return true;
 }
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */

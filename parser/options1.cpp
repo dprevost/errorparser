@@ -13,10 +13,11 @@
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
-#include "parser.h"
+#include "parser1.h"
+
+using namespace std;
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
-#if 0
 
 void usage( char * progName ) 
 {
@@ -40,6 +41,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
    int i;
    xmlChar * prop;
    int version;
+   string tmp;
    
    if ( argc == 2 ) {
       if ( strcmp("--help",argv[1]) == 0 || strcmp("-h",argv[1]) == 0 ||
@@ -109,7 +111,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
       if ( node->type == XML_ELEMENT_NODE ) {
          if ( xmlStrcmp( node->name, BAD_CAST "enumname") == 0 ) {
             commonArgs->writingEnum = 1;
-            commonArgs->enumname = stripText( node->children->content );
+            stripText( node->children->content, commonArgs->enumname );
             node = node->next;
          }
          break;
@@ -121,7 +123,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
    while ( node != NULL ) {
       if ( node->type == XML_ELEMENT_NODE ) {
          if ( xmlStrcmp( node->name, BAD_CAST "header_name_dir") == 0 ) {
-            commonArgs->headerDir = stripText( node->children->content );
+            stripText( node->children->content, commonArgs->headerDir );
             node = node->next;
          }
          break;
@@ -133,7 +135,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
    while ( node != NULL ) {
       if ( node->type == XML_ELEMENT_NODE ) {
          if ( xmlStrcmp( node->name, BAD_CAST "header_name") == 0 ) {
-            commonArgs->headerName = stripText( node->children->content );
+            stripText( node->children->content, commonArgs->headerName );
             node = node->next;
             break;
          }
@@ -147,7 +149,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
    while ( node != NULL ) {
       if ( node->type == XML_ELEMENT_NODE ) {
          if ( xmlStrcmp( node->name, BAD_CAST "errmsg_dir") == 0 ) {
-            commonArgs->outputDir = stripText( node->children->content );
+            stripText( node->children->content, commonArgs->outputDir );
             node = node->next;
          }
          break;
@@ -159,7 +161,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
    while ( node != NULL ) {
       if ( node->type == XML_ELEMENT_NODE ) {
          if ( xmlStrcmp( node->name, BAD_CAST "errmsg_header_name") == 0 ) {
-            commonArgs->outputNameH = stripText( node->children->content );
+            stripText( node->children->content, commonArgs->outputNameH );
             node = node->next;
             break;
          }
@@ -173,7 +175,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
    while ( node != NULL ) {
       if ( node->type == XML_ELEMENT_NODE ) {
          if ( xmlStrcmp( node->name, BAD_CAST "errmsg_c_name") == 0 ) {
-            commonArgs->outputNameC = stripText( node->children->content );
+            stripText( node->children->content, commonArgs->outputNameC );
             node = node->next;
             break;
          }
@@ -208,10 +210,12 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
    while ( node != NULL ) {
       if ( node->type == XML_ELEMENT_NODE ) {
          if ( xmlStrcmp( node->name, BAD_CAST "prefix_error") == 0 ) {
-            commonArgs->prefix = stripText( node->children->content );
-            if ( isAsciiStr(commonArgs->prefix) ) {
-               for ( i = 0; i < xmlStrlen(commonArgs->prefix); ++i ) {
-                  commonArgs->prefix[i] = toupper(commonArgs->prefix[i]);
+            commonArgs->prefix.clear();
+            stripText( node->children->content, tmp );
+//            commonArgs->prefix = stripText( node->children->content );
+            if ( isAsciiStr(tmp.c_str(), tmp.length()) ) {
+               for ( i = 0; i < (int)tmp.length(); ++i ) {
+                  commonArgs->prefix += toupper(tmp[i]);
                }
             }
             else {
@@ -231,7 +235,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
    while ( node != NULL ) {
       if ( node->type == XML_ELEMENT_NODE ) {
          if ( xmlStrcmp( node->name, BAD_CAST "prefix_variable") == 0 ) {
-            commonArgs->varPrefix = stripText( node->children->content );
+            stripText( node->children->content, commonArgs->varPrefix );
             node = node->next;
             break;
          }
@@ -324,7 +328,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
          while ( child != NULL ) {
             if ( child->type == XML_ELEMENT_NODE ) {
                if ( xmlStrcmp( child->name, BAD_CAST "cs_filename") == 0 ) {
-                  commonArgs->cs_filename = stripText( child->children->content );
+                  stripText( child->children->content, commonArgs->cs_filename );
                   child = child->next;
                   break;
                }
@@ -337,7 +341,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
          while ( child != NULL ) {
             if ( child->type == XML_ELEMENT_NODE ) {
                if ( xmlStrcmp( child->name, BAD_CAST "cs_enum") == 0 ) {
-                  commonArgs->cs_enum = stripText( child->children->content );
+                  stripText( child->children->content, commonArgs->cs_enum );
                   child = child->next;
                   break;
                }
@@ -350,7 +354,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
          while ( child != NULL ) {
             if ( child->type == XML_ELEMENT_NODE ) {
                if ( xmlStrcmp( child->name, BAD_CAST "cs_namespace") == 0 ) {
-                  commonArgs->cs_namespace = stripText( child->children->content );
+                  stripText( child->children->content, commonArgs->cs_namespace );
                   child = child->next;
                }
                break;
@@ -407,7 +411,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
          while ( child != NULL ) {
             if ( child->type == XML_ELEMENT_NODE ) {
                if ( xmlStrcmp( child->name, BAD_CAST "py_dirname") == 0 ) {
-                  commonArgs->py_dirname = stripText( child->children->content );
+                  stripText( child->children->content, commonArgs->py_dirname );
                   child = child->next;
                }
                break;
@@ -418,7 +422,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
          while ( child != NULL ) {
             if ( child->type == XML_ELEMENT_NODE ) {
                if ( xmlStrcmp( child->name, BAD_CAST "py_filename") == 0 ) {
-                  commonArgs->py_filename = stripText( child->children->content );
+                  stripText( child->children->content, commonArgs->py_filename );
                   child = child->next;
                   break;
                }
@@ -436,7 +440,6 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
 
    return 0;
 }
-#endif
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 

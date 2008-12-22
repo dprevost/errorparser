@@ -13,7 +13,12 @@
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
+#include <vector>
+
 #include "parser.h"
+#include "AbstractHandler.h"
+
+using namespace std;
 
 void addGroup( errp_common * commonArgs, xmlNode * group, int last );
 int handleOptions( errp_common * commonArgs, int argc, char * argv[] );
@@ -147,7 +152,8 @@ int main( int argc, char * argv[] )
    struct errp_common commonArgs;
    char filename[PATH_MAX];
    FILE * fp_dummy;
-   
+   vector<AbstractHandler> handlers;
+
    /*
     * this initialize the library and check potential ABI mismatches
     * between the version it was compiled for and the actual shared
@@ -163,6 +169,7 @@ int main( int argc, char * argv[] )
       return 1;
    }
    
+#if 0
    buildPath( filename, commonArgs.headerDir, commonArgs.headerName );
    commonArgs.fpHeader = fopen( filename, "w" );
    if ( commonArgs.fpHeader == NULL ) {
@@ -204,7 +211,8 @@ int main( int argc, char * argv[] )
       if ( commonArgs.using_py_extended ) commonArgs.fpPyH = fp_dummy;
       else commonArgs.fpPyPy = fp_dummy;
    }
-   
+#endif
+
    context = xmlNewParserCtxt();
    if ( context == NULL ) {
       fprintf(stderr, "Error allocating the parser context\n");

@@ -58,16 +58,16 @@ struct errp_common {
    FILE    * fpCS;
    FILE    * fpPyH;
    FILE    * fpPyPy; 
-   xmlChar * headerDir;
-   xmlChar * headerName;
-   xmlChar * outputDir;
-   xmlChar * outputNameC;
-   xmlChar * outputNameH;
-   xmlChar * enumname;
+   std::string headerDir;
+   std::string headerName;
+   std::string outputDir;
+   std::string outputNameC;
+   std::string outputNameH;
+   std::string enumname;
    char      outputNameGuard[PATH_MAX];
-   xmlChar * varPrefix;
+   std::string varPrefix;
    int       writingEnum;
-   xmlChar * prefix;
+   std::string prefix;
    int       errorCount;
    int       groupCount;
    int       allowEscapes;
@@ -75,13 +75,13 @@ struct errp_common {
    xmlChar * percent;
    xmlChar * language;
    int       using_cs;
-   xmlChar * cs_filename;
-   xmlChar * cs_enum;
-   xmlChar * cs_namespace;
+   std::string cs_filename;
+   std::string cs_enum;
+   std::string cs_namespace;
    int       using_py;
    int       using_py_extended;
-   xmlChar * py_dirname;
-   xmlChar * py_filename;
+   std::string py_dirname;
+   std::string py_filename;
    int       build_dll;
 };
 
@@ -104,10 +104,11 @@ void prettify( std::string & inStr,
 
 void stripText( xmlChar * inStr, std::string & outStr );
 
+bool isAsciiStr( const char * str, size_t len );
+
 xmlChar * escapeUnescapedQuotes( xmlChar * inStr );
 int hasUnescapedQuotes( xmlChar * str );
 void hasEscapeSequence( errp_common * commonArgs, xmlChar * str );
-int isAsciiStr( xmlChar * str );
 xmlChar * replaceChar( xmlChar * inStr, xmlChar old_c, xmlChar * new_c );
 
 void writeErrorMessage( errp_common * commonArgs );
