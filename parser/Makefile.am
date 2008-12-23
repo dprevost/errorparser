@@ -52,7 +52,6 @@ errorParser_SOURCES = \
 
 errorParser1_0_SOURCES =     \
         group1.cpp           \
-        message1.cpp         \
         options1.cpp         \
         parser1.cpp          \
         parser1.h            \

@@ -13,33 +13,84 @@
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
+#include <vector>
+#include <iostream>
+
 #include "parser1.h"
+#include "AbstractHandler.h"
+#include "ErrorHeader.h"
 
 using namespace std;
+
+bool GetHeaderFile( vector<AbstractHandler> & handlers,
+                    xmlNode                 * child );
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
 void usage( char * progName ) 
 {
-   fprintf( stderr, "Usage:\n\n%s %s\n",
-      progName,
-      "-o|--options options_xml_file  input_xml_file" );
-   fprintf( stderr, "  or\n" );
-   fprintf( stderr, "%s -h|-?|--help\n\n", progName );
-   fprintf( stderr, "Options:\n\n" );
-   fprintf( stderr, "  -o,--options   the name of the xml file defining the options that will be\n" );
-   fprintf( stderr, "                 used to generate the code.\n" );
+   cerr << "Usage:" << endl << endl;
+   cerr << progName << "-o|--options options_xml_file  input_xml_file" << endl;
+   cerr << "  or" << endl;
+   cerr << progName << " -h|-?|--help" << endl << endl;
+   cerr << "Options:" << endl << endl;
+   cerr << "  -o,--options   the name of the xml file defining the options that will be" << endl;
+   cerr << "                 used to generate the code." << endl;
 }
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
-int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
+xmlChar * GetMandatoryValue( xmlNode * & node, const char * tag )
+{
+   xmlChar * value = NULL;
+   
+   while ( node != NULL ) {
+      if ( node->type == XML_ELEMENT_NODE ) {
+         if ( xmlStrcmp( node->name, BAD_CAST tag) == 0 ) {
+            value = node->children->content;
+            node = node->next;
+            break;
+         }
+         return NULL;
+      }
+      node = node->next;
+   }
+   
+   return value;
+}
+
+/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+
+xmlNode * IsOptionalValuePresent( xmlNode * & node, const char * tag )
+{
+   xmlNode * nodeValue = NULL;
+   
+   while ( node != NULL ) {
+      if ( node->type == XML_ELEMENT_NODE ) {
+         if ( xmlStrcmp( node->name, BAD_CAST tag) == 0 ) {
+            nodeValue = node;
+            node = node->next;
+         }
+         break; 
+      }
+      node = node->next;
+   }
+
+   return nodeValue;
+}
+
+/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+
+int handleOptions( vector<AbstractHandler> & handlers,
+                   errp_common             * commonArgs, 
+                   int                       argc, 
+                   char                    * argv[] )
 {
    xmlParserCtxtPtr context = NULL;  /* The parser context */
-   xmlNode * root = NULL, * node, * child = NULL;
+   xmlNode * root = NULL, * node, * child = NULL, * nodeValue;
    xmlDoc  * doc;
    int i;
-   xmlChar * prop;
+   xmlChar * prop, * value;
    int version;
    string tmp;
    
@@ -63,7 +114,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
 
    context = xmlNewParserCtxt();
    if ( context == NULL ) {
-      fprintf(stderr, "Error allocating the parser context\n");
+      cerr << "Error allocating the parser context" << endl;
       return -1;
    }
 
@@ -73,11 +124,11 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
                           NULL,
                           XML_PARSE_DTDVALID );
    if ( doc == NULL ) {
-      fprintf( stderr, "Error while parsing the option file: %s\n", argv[2] );
+      cerr << "Error while parsing the option file: " << argv[2] << endl;
       return -1;
    }
    if ( context->valid == 0 ) {
-      fprintf( stderr, "Error: document validation (for options) failed\n" );
+      cerr << "Error: document validation (for options) failed" << endl;
       return -1;
    }
    
@@ -85,7 +136,8 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
 
    prop = xmlGetProp( root, BAD_CAST "version" );
    if ( prop == NULL ) {
-      version = 10;
+      cerr << "Error: missing \"version\" attribute to the root of the option XML" << endl;
+      return -1;
    }
    else {
       
@@ -96,54 +148,75 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
          }
       }
    }
+   if ( version < 20 ) {
+      cerr << "This version of Error Parser requires version 2.0 or greater" << endl;
+      cerr << "of the option file" << endl;
+   }
+   xmlFree(prop);
+   prop = NULL;
    
    node = root->children;
 
-   /* 
-    * enum information is only present if the target is an enum. If not
-    * present, we use "#define" instead.
-    *
-    * Note: from this point on we must check for NULL nodes because the
-    * DTD is not an external document.
-    */
-   commonArgs->writingEnum = 0;
-   while ( node != NULL ) {
-      if ( node->type == XML_ELEMENT_NODE ) {
-         if ( xmlStrcmp( node->name, BAD_CAST "enumname") == 0 ) {
-            commonArgs->writingEnum = 1;
-            stripText( node->children->content, commonArgs->enumname );
-            node = node->next;
-         }
-         break;
+   //
+   // General options
+   //
+   
+   // The prefix to be used by the error code for files not using a namespace.
+   // To avoid clashes with other libraries/software.
+   value = GetMandatoryValue( node, "prefix_error_no_namespace" );
+   if ( value == NULL ) {
+      cerr << "Error: missing <prefix_error_no_namespace> in options file" << endl;
+      return -1;
+   }
+   stripText( value, tmp );
+   if ( isAsciiStr(tmp.c_str(), tmp.length()) ) {
+      for ( i = 0; i < (int)tmp.length(); ++i ) {
+         commonArgs->prefix += toupper(tmp[i]);
       }
-      node = node->next;
+   }
+   else {
+      cerr << "Error: <prefix_error> must be in ASCII" << endl;
+      return -1;
    }
 
-   /* The directory of the output header file for the error codes. */
-   while ( node != NULL ) {
-      if ( node->type == XML_ELEMENT_NODE ) {
-         if ( xmlStrcmp( node->name, BAD_CAST "header_name_dir") == 0 ) {
-            stripText( node->children->content, commonArgs->headerDir );
-            node = node->next;
-         }
-         break;
-      }
-      node = node->next;
-   }
-
-   /* The name of the output header file for the error codes. */
-   while ( node != NULL ) {
-      if ( node->type == XML_ELEMENT_NODE ) {
-         if ( xmlStrcmp( node->name, BAD_CAST "header_name") == 0 ) {
-            stripText( node->children->content, commonArgs->headerName );
-            node = node->next;
-            break;
-         }
-         fprintf( stderr, "Error: missing <header_name> in options file\n" );
+   // Optional - selec a language for error messages/documentation.
+   nodeValue = IsOptionalValuePresent( node, "selected_lang" );
+   if ( nodeValue != NULL ) {
+      prop = xmlGetProp( nodeValue, BAD_CAST "lang" );
+      if ( prop == NULL ) {
+         cerr << "Error: missing \"xml:lang\" in options file" << endl;
          return -1;
       }
-      node = node->next;
+      commonArgs->language = prop;
    }
+   
+   //
+   // The standard header file for errors - optional section.
+   //
+   nodeValue = IsOptionalValuePresent( node, "header_file" );
+   if ( nodeValue != NULL ) {
+      if ( ! GetHeaderFile( handlers, nodeValue->children ) ) {
+         return -1;
+      }
+   }
+   
+   while ( node != NULL ) {
+      if ( node->type == XML_ELEMENT_NODE ) {
+         if ( xmlStrcmp( node->name, BAD_CAST "csharp") == 0 ) {
+            commonArgs->using_cs = 1;
+               child = node->children;
+               node = node->next;
+            }
+            /*
+             * No node->next if the if is false. The current node might be 
+             * used, eventually, for Java or Python or ...
+             */
+            break;
+         }
+         node = node->next;
+      }
+
+   
 
    /* The directory of the output files for the error messages. */
    while ( node != NULL ) {
@@ -165,7 +238,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
             node = node->next;
             break;
          }
-         fprintf( stderr, "Error: missing <errmsg_header_name> in options file\n" );
+         cerr << "Error: missing <errmsg_header_name> in options file" << endl;
          return -1;
       }
       node = node->next;
@@ -179,7 +252,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
             node = node->next;
             break;
          }
-         fprintf( stderr, "Error: missing <errmsg_c_name> in options file\n" );
+         cerr << "Error: missing <errmsg_c_name> in options file" << endl;
          return -1;
       }
       node = node->next;
@@ -191,7 +264,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
          if ( xmlStrcmp( node->name, BAD_CAST "errmsg_options") == 0 ) {
             prop = xmlGetProp( node, BAD_CAST "build_dll" );
             if ( prop == NULL ) {
-               fprintf( stderr, "Error: missing \"build_dll\" in options file\n" );
+               cerr << "Error: missing \"build_dll\" in options file" << endl;
                return -1;
             }
             commonArgs->build_dll = 0;
@@ -206,30 +279,6 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
       node = node->next;
    }
 
-   /* The prefix to be used by the error code. */
-   while ( node != NULL ) {
-      if ( node->type == XML_ELEMENT_NODE ) {
-         if ( xmlStrcmp( node->name, BAD_CAST "prefix_error") == 0 ) {
-            commonArgs->prefix.clear();
-            stripText( node->children->content, tmp );
-//            commonArgs->prefix = stripText( node->children->content );
-            if ( isAsciiStr(tmp.c_str(), tmp.length()) ) {
-               for ( i = 0; i < (int)tmp.length(); ++i ) {
-                  commonArgs->prefix += toupper(tmp[i]);
-               }
-            }
-            else {
-               fprintf( stderr, "Error: <prefix_error> must be in ASCII\n" );
-               return -1;
-            }
-            node = node->next;
-            break;
-         }
-         fprintf( stderr, "Error: missing <prefix_error> in options file\n" );
-         return -1;
-      }
-      node = node->next;
-   }
 
    /* The prefix to be used for the variables of the C code for error messages. */
    while ( node != NULL ) {
@@ -239,7 +288,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
             node = node->next;
             break;
          }
-         fprintf( stderr, "Error: missing <prefix_variable> in options file\n" );
+         cerr << "Error: missing <prefix_variable> in options file" << endl;
          return -1;
       }
       node = node->next;
@@ -251,7 +300,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
          if ( xmlStrcmp( node->name, BAD_CAST "err_msg") == 0 ) {
             prop = xmlGetProp( node, BAD_CAST "allow_escapes" );
             if ( prop == NULL ) {
-               fprintf( stderr, "Error: missing \"allow_escapes\" in options file\n" );
+               cerr << "Error: missing \"allow_escapes\" in options file" << endl;
                return -1;
             }
             commonArgs->allowEscapes = 0;
@@ -262,7 +311,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
 
             prop = xmlGetProp( node, BAD_CAST "allow_quotes" );
             if ( prop == NULL ) {
-               fprintf( stderr, "Error: missing \"allow_quotes\" in options file\n" );
+               cerr << "Error: missing \"allow_quotes\" in options file" << endl;
                return -1;
             }
             commonArgs->allowQuotes = 0;
@@ -273,7 +322,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
             
             prop = xmlGetProp( node, BAD_CAST "percent" );
             if ( prop == NULL ) {
-               fprintf( stderr, "Error: missing \"percent\" in options file\n" );
+               cerr << "Error: missing \"percent\" in options file" << endl;
                return -1;
             }
             commonArgs->percent = prop;
@@ -281,7 +330,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
             node = node->next;
             break;
          }
-         fprintf( stderr, "Error: missing <err_msg> in options file\n" );
+         cerr << "Error: missing <err_msg> in options file" << endl;
          return -1;
       }
       node = node->next;
@@ -293,7 +342,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
          if ( xmlStrcmp( node->name, BAD_CAST "selected_lang") == 0 ) {
             prop = xmlGetProp( node, BAD_CAST "lang" );
             if ( prop == NULL ) {
-               fprintf( stderr, "Error: missing \"xml:lang\" in options file\n" );
+               cerr << "Error: missing \"xml:lang\" in options file" << endl;
                return -1;
             }
             commonArgs->language = prop;
@@ -332,7 +381,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
                   child = child->next;
                   break;
                }
-               fprintf( stderr, "Error: missing <cs_filename> in options file\n" );
+               cerr << "Error: missing <cs_filename> in options file" << endl;
                return -1;
             }
             child = child->next;
@@ -345,7 +394,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
                   child = child->next;
                   break;
                }
-               fprintf( stderr, "Error: missing <cs_enum> in options file\n" );
+               cerr << "Error: missing <cs_enum> in options file" << endl;
                return -1;
             }
             child = child->next;
@@ -391,7 +440,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
                if ( xmlStrcmp( child->name, BAD_CAST "py_options") == 0 ) {
                   prop = xmlGetProp( child, BAD_CAST "extended" );
                   if ( prop == NULL ) {
-                     fprintf( stderr, "Error: missing   \"py_options:extended\" in options file\n" );
+                     cerr << "Error: missing   \"py_options:extended\" in options file" << endl;
                      return -1;
                   }
                   commonArgs->using_py_extended = 0;
@@ -402,7 +451,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
                   child = child->next;
                   break;
                }
-               fprintf( stderr, "Error: missing <py_options> in options file\n" );
+               cerr << "Error: missing <py_options> in options file" << endl;
                return -1;
             }
             child = child->next;
@@ -426,7 +475,7 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
                   child = child->next;
                   break;
                }
-               fprintf( stderr, "Error: missing <py_filename> in options file\n" );
+               cerr << "Error: missing <py_filename> in options file" << endl;
                return -1;
             }
             child = child->next;
@@ -439,6 +488,48 @@ int handleOptions( errp_common * commonArgs, int argc, char * argv[] )
    xmlCleanupParser();
 
    return 0;
+}
+
+/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+
+bool GetHeaderFile( vector<AbstractHandler> & handlers,
+                    xmlNode                 * node )
+{
+   bool usingEnums = false;
+   string enumname, dirname, filename;
+   xmlChar * value;
+   ErrorHeader * p;
+   
+   /* 
+    * enum information is only present if the target is an enum. If not
+    * present, we use "#define" instead.
+    */
+   value = GetOptionalValue( node, "header_enum" );
+   if ( value != NULL ) {
+      usingEnums = true;
+      stripText( node->children->content, enumname );
+   }
+
+   /* The directory of the output header file for the error codes. */
+   value = GetOptionalValue( node, "header_dirname" );
+   if ( value != NULL ) {
+      stripText( node->children->content, dirname );
+   }
+   
+   /* The name of the output header file for the error codes. */
+   value = GetMandatoryValue( node, "header_name" );
+   if ( value != NULL ) {
+      stripText( node->children->content, filename );
+   }
+   else {
+      cerr << "Error: missing <header_name> in options file" << endl;
+      return false;
+   }
+   
+   // Create the header file handler 
+   p = new ErrorHeader();
+   
+   // Add our handler to 
 }
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */

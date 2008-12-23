@@ -14,6 +14,7 @@
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
 #include <vector>
+#include <iostream>
 
 #include "parser.h"
 #include "AbstractHandler.h"
@@ -21,7 +22,10 @@
 using namespace std;
 
 void addGroup( errp_common * commonArgs, xmlNode * group, int last );
-int handleOptions( errp_common * commonArgs, int argc, char * argv[] );
+int handleOptions( vector<AbstractHandler> & handlers, 
+                   errp_common             * commonArgs, 
+                   int                       argc, 
+                   char                    * argv[] );
 
 #if 0
 
@@ -163,7 +167,7 @@ int main( int argc, char * argv[] )
 
    memset( &commonArgs, 0, sizeof(struct errp_common) );
    
-   rc = handleOptions( &commonArgs, argc, argv );
+   rc = handleOptions( handlers, &commonArgs, argc, argv );
    if ( rc != 0 ) {
       if ( rc == 1 ) return 0; /* help */
       return 1;
@@ -225,12 +229,12 @@ int main( int argc, char * argv[] )
                                           NULL,
                                           XML_PARSE_DTDVALID );
    if ( commonArgs.document == NULL ) {
-      fprintf( stderr, "Error while parsing the input file: %s\n", 
-               commonArgs.xmlFileName );
+      cerr << "Error while parsing the input file: " << 
+         commonArgs.xmlFileName << endl;
       return 1;
    }
    if ( context->valid == 0 ) {
-      fprintf( stderr, "Error: document validation failed\n" );
+      cerr << "Error: document validation failed" << endl;
       return 1;
    }
    

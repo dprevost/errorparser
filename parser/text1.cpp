@@ -68,7 +68,7 @@ xmlChar * escapeUnescapedQuotes( xmlChar * inStr )
 
    outStr = (xmlChar *)calloc( xmlStrlen(inStr) + 1 + n, sizeof(xmlChar) );
    if ( outStr == NULL ) {
-      fprintf( stderr, "Malloc error\n" );
+      cerr << "Malloc error" << endl;
       exit(1);
    }
 
@@ -94,6 +94,56 @@ xmlChar * escapeUnescapedQuotes( xmlChar * inStr )
 
    return outStr;
 }
+
+/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+
+/*
+ * This function escape all characters that needs to be escaped from 
+ * the input UTF-8 string.
+ */
+#if 0
+void escapeUnescapedQuotes2( xmlChar * inStr, string & outStr )
+{
+   int i, n = 0;
+   xmlChar* outStr2 = NULL;   
+
+   if ( inStr[0] == '"' ) n++;
+   if ( inStr[0] == '\'' ) n++;
+   
+   for ( i = 1; i < xmlStrlen(inStr); i++ ) {
+      if ( inStr[i] == '"'  && inStr[i-1] != '\\' ) n++;
+      if ( inStr[i] == '\'' && inStr[i-1] != '\\' ) n++;
+   }
+
+   outStr = (xmlChar *)calloc( xmlStrlen(inStr) + 1 + n, sizeof(xmlChar) );
+   if ( outStr == NULL ) {
+      cerr << "Malloc error" << endl;
+      exit(1);
+   }
+
+   n = 0;
+   if ( inStr[0] == '"' || inStr[0] == '\'' ) {
+      outStr[n] = '\\';
+      ++n;
+   }
+   outStr[n] = inStr[0];
+   n++;
+   
+   for ( i = 1; i < xmlStrlen(inStr); i++, n++ ) {
+      if ( inStr[i] == '"' && inStr[i-1] != '\\' ) {
+         outStr[n] = '\\';
+         ++n;
+      }
+      if ( inStr[i] == '\'' && inStr[i-1] != '\\' ) {
+         outStr[n] = '\\';
+         ++n;
+      }
+      outStr[n] = inStr[i];
+   }
+
+   return outStr;
+}
+#endif
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
@@ -137,7 +187,7 @@ void hasEscapeSequence( errp_common * commonArgs, xmlChar * str )
             i++;
             continue;
          }
-         fprintf( stderr, "Esc. sequences are not allowed, string: %s\n", str );
+         cerr << "Esc. sequences are not allowed, string: " << str << endl;
          exit(1);
       }
    }

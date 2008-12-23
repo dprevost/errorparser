@@ -51,7 +51,7 @@
     <errgroup_ident xml:lang="fr">
       <errgroup_name>Erreurs générales</errgroup_name>
       <errgroup_desc>
-        Les codes d'erreur qui suivent sont générales.
+        Une erreur générale s'est produite.
       </errgroup_desc>
     </errgroup_ident>
     <error>

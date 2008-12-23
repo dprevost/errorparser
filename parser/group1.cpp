@@ -134,7 +134,7 @@ void addMessages( errp_common * commonArgs,
 
    if ( hasUnescapedQuotes(errMessage) ) {
       if ( commonArgs->allowQuotes == 0 ) {
-         fprintf( stderr, "Quotes are not allowed, string: %s\n", errMessage );
+         cerr << "Quotes are not allowed, string: " << errMessage << endl;
          exit(1);
       }
       tmp = escapeUnescapedQuotes( errMessage );
