@@ -44,6 +44,8 @@ public:
    
    void addTopCode() {}
    
+   void addError() {}
+
    void addBottomCode();
    
 private:

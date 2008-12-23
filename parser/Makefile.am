@@ -65,6 +65,8 @@ errorParser1_0_SOURCES =     \
         ErrMessage.h         \
         ErrMessageHeader.cpp \
         ErrMessageHeader.h   \
+        ErrorHeader.cpp      \
+        ErrorHeader.h        \
         ExtPython.cpp        \
         ExtPython.h          \
         HeaderHandler.cpp    \

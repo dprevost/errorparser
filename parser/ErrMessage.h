@@ -38,14 +38,19 @@ class ErrMessage:  public CfamilyHandler {
    
 public:
    
-   ErrMessage( std::string & dirname,
-               std::string & filename,
+   ErrMessage( std::string & filename,
                std::string & header,
                std::string & prefix );
    
+   void startHeaderGuard() {}
+   
    void addTopCode();
    
+   void addError() {}
+
    void addBottomCode();
+   
+   void stopHeaderGuard() {}
    
 private:
    

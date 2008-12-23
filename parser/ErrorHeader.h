@@ -14,3 +14,43 @@
  */
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+
+#ifndef ERROR_HANDLER_H
+#define ERROR_HANDLER_H
+
+#include <string>
+#include "HeaderHandler.h"
+
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+
+/** 
+ * This class extend the abstract class abstractHandler - it generates
+ * code for Python extension modules.
+ */ 
+class ErrorHeader: public HeaderHandler{
+   
+public:
+   ErrorHeader( std::string & dir,
+                std::string & header,
+                std::string & enumName );
+   
+   void addTopCode();
+   
+   void addError();
+   
+   void addBottomCode();
+
+private:
+   
+   std::string enumName;
+
+   bool usingEnum;
+
+};
+
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+
+#endif // ERROR_HANDLER_H
+
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+

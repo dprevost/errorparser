@@ -50,7 +50,7 @@
  * functions...
  */
 struct errp_common {
-   char    * xmlFileName;
+   std::string xmlFileName;
    xmlDoc  * document;
    FILE    * fpHeader;
    FILE    * fpMsgC;
@@ -58,15 +58,10 @@ struct errp_common {
    FILE    * fpCS;
    FILE    * fpPyH;
    FILE    * fpPyPy; 
-   std::string headerDir;
-   std::string headerName;
    std::string outputDir;
    std::string outputNameC;
    std::string outputNameH;
-   std::string enumname;
-   char      outputNameGuard[PATH_MAX];
    std::string varPrefix;
-   int       writingEnum;
    std::string prefix;
    int       errorCount;
    int       groupCount;
@@ -110,8 +105,6 @@ xmlChar * escapeUnescapedQuotes( xmlChar * inStr );
 int hasUnescapedQuotes( xmlChar * str );
 void hasEscapeSequence( errp_common * commonArgs, xmlChar * str );
 xmlChar * replaceChar( xmlChar * inStr, xmlChar old_c, xmlChar * new_c );
-
-void writeErrorMessage( errp_common * commonArgs );
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 

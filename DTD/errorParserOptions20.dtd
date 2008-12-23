@@ -52,7 +52,7 @@
 -->
 
 <!ELEMENT options      (general_options,
-                        header_file?,
+                        header_files?,
                         errmsg_file?,
                         csharp?,
                         ex_python?,
@@ -69,8 +69,8 @@
 <!ELEMENT header_dirname     (#PCDATA)>
 <!ELEMENT header_name        (#PCDATA)>
 
-<!ELEMENT errmsg_file        (errmsg_dir,errmsg_header_name,errmsg_c_fullname,
-                             errmsg_options,errmsg_prefix_var,errmsg_msg)>
+<!ELEMENT errmsg_files       (errmsg_dir?,errmsg_header_name,errmsg_c_fullname,
+                              errmsg_options,errmsg_prefix_var,errmsg_msg)>
 <!ELEMENT errmsg_dirname     (#PCDATA)>
 <!ELEMENT errmsg_header_name (#PCDATA)>
 <!ELEMENT errmsg_c_fullname  (#PCDATA)>

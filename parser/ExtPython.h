@@ -24,7 +24,7 @@
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 /** 
- * This class extend the abstract class abstractHandler - it generates
+ * This class extend the abstract class HeaderHandler - it generates
  * code for Python extension modules.
  */ 
 class ExtPython: public HeaderHandler{
@@ -46,3 +46,4 @@ public:
 #endif // EXT_PYTHON_H
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+

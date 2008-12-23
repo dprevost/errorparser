@@ -20,19 +20,15 @@ using namespace std;
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-ErrMessage::ErrMessage( string & dirname,
-                        string & filename,
+ErrMessage::ErrMessage( string & filename,
                         string & header,
                         string & prefix )
    : errorCount ( 0 ),
      headerName ( header ),
      varPrefix  ( prefix )
 {
-   string name;
    
-   buildPath( dirname, filename, name );
-   
-   out_stream.open( name.c_str(), fstream::out );
+   out_stream.open( filename.c_str(), fstream::out );
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--

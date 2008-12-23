@@ -16,28 +16,24 @@
 #include <vector>
 #include <iostream>
 
-#include "parser.h"
+#include "parser1.h"
 #include "AbstractHandler.h"
 
 using namespace std;
 
 void addGroup( errp_common * commonArgs, xmlNode * group, int last );
-int handleOptions( vector<AbstractHandler> & handlers, 
-                   errp_common             * commonArgs, 
-                   int                       argc, 
-                   char                    * argv[] );
 
-#if 0
-
-const char * g_barrier = "/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */";
-const char * g_barrierPy = "# --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--";
-const char * g_functionName = "_ErrorMessage";
+int handleOptions( vector<AbstractHandler *> & handlers, 
+                   errp_common               * commonArgs, 
+                   int                         argc, 
+                   char                      * argv[] );
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
-void doTopOfFile( errp_common * commonArgs,
-                  xmlChar     * version,
-                  xmlNode     * copyNode ) 
+void doTopOfFile( errp_common               * commonArgs,
+                  xmlChar                   * version,
+                  xmlNode                   * copyNode,
+                  vector<AbstractHandler *> & handlers ) 
 {
    char timeBuf[30];
 #if defined (WIN32)
@@ -47,6 +43,7 @@ void doTopOfFile( errp_common * commonArgs,
    struct tm * formattedTime;
 #endif
    xmlNode * node;
+   vector<AbstractHandler *>::iterator it;
    
    memset( timeBuf, '\0', 30 );
 
@@ -62,13 +59,19 @@ void doTopOfFile( errp_common * commonArgs,
 #endif
 
    // loop on map for addTop()
-      
+   for ( it = handlers.begin(); it < handlers.end(); it++ ) {
+      (*it)->addTop(commonArgs->xmlFileName, timeBuf, version );
+   }
+   
    if ( copyNode != NULL ) {
       /* We extract the copyright element to be able to print them. */
       node = copyNode->children;
       while ( node != NULL ) {
          if ( node->type == XML_ELEMENT_NODE ) {
             // loop on map for addCopyright
+            for ( it = handlers.begin(); it < handlers.end(); it++ ) {
+                (*it)->addCopyright(node);
+            }
          }
          node = node->next;
       }
@@ -78,11 +81,13 @@ void doTopOfFile( errp_common * commonArgs,
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
-void navigate( errp_common * commonArgs,
-               xmlNode     * root )
+void navigate( errp_common               * commonArgs,
+               xmlNode                   * root,
+               vector<AbstractHandler *> & handlers )
 {
    xmlNode * node = NULL, * group = NULL;
    xmlChar * version;
+   vector<AbstractHandler *>::iterator it;
    
 	version = xmlGetProp( root, BAD_CAST "version" );
    
@@ -93,27 +98,20 @@ void navigate( errp_common * commonArgs,
 
    /* Copyrigth information is optional */
    if ( xmlStrcmp( node->name, BAD_CAST "copyright_group") == 0 ) {
-      doTopOfFile( commonArgs, version, node );
+      doTopOfFile( commonArgs, version, node, handlers );
       node = node->next;
    }
    else {
-      doTopOfFile( commonArgs, version, NULL );
+      doTopOfFile( commonArgs, version, NULL, handlers );
    }
 
    if ( version != NULL ) xmlFree(version);
 
    // loop on map for addEndTop
-   
-   // loop on map for startHeaderGuard
-   
-   // loop on map for addTopCode
-   
-   /* 
-    * enum information is only present if the target is an enum. If not
-    * present, we use "#define" instead.
-    */
-   if ( commonArgs->writingEnum == 1 ) {
-      fprintf( commonArgs->fpHeader, "enum %s\n{\n", commonArgs->enumname );
+   for ( it = handlers.begin(); it < handlers.end(); it++ ) {
+      (*it)->addEndTop();
+      (*it)->startHeaderGuard();
+      (*it)->addTopCode();
    }
    
    /*
@@ -125,26 +123,17 @@ void navigate( errp_common * commonArgs,
     */
    while ( node != NULL ) {
       if ( node->type == XML_ELEMENT_NODE ) {
-         if ( group != NULL ) addGroup( commonArgs, group, 0 );
+//         if ( group != NULL ) addGroup( commonArgs, group, 0 );
          group = node;
       }
       node = node->next; 
    }
-   addGroup( commonArgs, group, 1 );
+//   addGroup( commonArgs, group, 1 );
 
    // loop on map for addBottomCode()
    
-   if ( commonArgs->writingEnum == 1 ) {
-      fprintf( commonArgs->fpHeader, "};\n\n" );
-      fprintf( commonArgs->fpHeader, "typedef enum %s %s;\n\n", 
-         commonArgs->enumname, commonArgs->enumname );
-   }
-
-   writeErrorMessage( commonArgs );
-
    // loop on map for stopHeaderGuard
 }
-#endif
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
@@ -154,9 +143,7 @@ int main( int argc, char * argv[] )
    xmlNode * root = NULL;            /* The root node */
    int rc;
    struct errp_common commonArgs;
-   char filename[PATH_MAX];
-   FILE * fp_dummy;
-   vector<AbstractHandler> handlers;
+   vector<AbstractHandler *> handlers;
 
    /*
     * this initialize the library and check potential ABI mismatches
@@ -172,50 +159,6 @@ int main( int argc, char * argv[] )
       if ( rc == 1 ) return 0; /* help */
       return 1;
    }
-   
-#if 0
-   buildPath( filename, commonArgs.headerDir, commonArgs.headerName );
-   commonArgs.fpHeader = fopen( filename, "w" );
-   if ( commonArgs.fpHeader == NULL ) {
-      fprintf( stderr, "Error opening the header file %s.\n", filename );
-      return 1;
-   }
-   buildPath( filename, commonArgs.outputDir, commonArgs.outputNameH );
-   commonArgs.fpMsgH = fopen( filename, "w" );
-   if ( commonArgs.fpMsgH == NULL ) {
-      fprintf( stderr, "Error opening the error message header file %s.\n", 
-         filename );
-      return 1;
-   }
-   buildPath( filename, commonArgs.outputDir, commonArgs.outputNameC );
-   commonArgs.fpMsgC = fopen( filename, "w" );
-   if ( commonArgs.fpMsgC == NULL ) {
-      fprintf( stderr, "Error opening the error message C file %s.\n", 
-         filename );
-      return 1;
-   }
-
-   if ( commonArgs.using_cs ) {
-      commonArgs.fpCS = fopen( (char *)commonArgs.cs_filename, "w" );
-      if ( commonArgs.fpCS == NULL ) {
-         fprintf( stderr, "Error opening the C# file %s.\n", 
-            commonArgs.cs_filename );
-         return 1;
-      }
-   }
-
-   if ( commonArgs.using_py ) {
-      buildPath( filename, commonArgs.py_dirname, commonArgs.py_filename );
-      fp_dummy = fopen( filename, "w" );
-      if ( fp_dummy == NULL ) {
-         fprintf( stderr, "Error opening the Python file %s.\n", 
-            filename );
-         return 1;
-      }
-      if ( commonArgs.using_py_extended ) commonArgs.fpPyH = fp_dummy;
-      else commonArgs.fpPyPy = fp_dummy;
-   }
-#endif
 
    context = xmlNewParserCtxt();
    if ( context == NULL ) {
@@ -225,7 +168,7 @@ int main( int argc, char * argv[] )
 
    /* We create the document and validate in one go */
    commonArgs.document = xmlCtxtReadFile( context, 
-                                          (char*)commonArgs.xmlFileName, 
+                                          commonArgs.xmlFileName.c_str(), 
                                           NULL,
                                           XML_PARSE_DTDVALID );
    if ( commonArgs.document == NULL ) {
@@ -248,15 +191,6 @@ int main( int argc, char * argv[] )
 
    xmlCleanupParser();
 
-   fclose( commonArgs.fpHeader );
-   fclose( commonArgs.fpMsgC );
-   fclose( commonArgs.fpMsgH );
-   if (commonArgs.fpCS) fclose( commonArgs.fpCS );
-   if (commonArgs.fpPyH) fclose( commonArgs.fpPyH );
-   if (commonArgs.fpPyPy) fclose( commonArgs.fpPyPy );
-
-   if ( commonArgs.prefix != NULL ) free(commonArgs.prefix);
-      
    return 0;
 }
 

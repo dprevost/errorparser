@@ -20,15 +20,10 @@ using namespace std;
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-PurePython::PurePython( std::string & dir,
-                        std::string & header )
+PurePython::PurePython( std::string & filename )
    : AbstractHandler()
 {
-   string name;
-   
-   buildPath( dir, header, name );
-   
-   out_stream.open( name.c_str(), fstream::out );
+   out_stream.open( filename.c_str(), fstream::out );
    
    barrier = "# --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--";
 }

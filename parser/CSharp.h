@@ -40,10 +40,16 @@ public:
            std::string & cs_namespace,
            std::string & cs_enum );
    
+   void startHeaderGuard() {}
+   
    void addTopCode();
+   
+   void addError() {}
    
    void addBottomCode();
 
+   void stopHeaderGuard() {}
+   
 private:
    
    std::string my_namespace;

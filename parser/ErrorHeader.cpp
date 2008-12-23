@@ -16,7 +16,58 @@
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 #include "ErrorHeader.h"
+#include "parser1.h"
 
 using namespace std;
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+
+ErrorHeader::ErrorHeader( std::string & dir,
+                          std::string & header,
+                          std::string & ename )
+   : HeaderHandler( header ),
+     enumName     ( ename ),
+     usingEnum    ( false )
+{
+   string name;
+   
+   buildPath( dir, header, name );
+   
+   out_stream.open( name.c_str(), fstream::out );
+
+   if ( enumName.length() > 0 ) usingEnum = true;
+}
+
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+
+void ErrorHeader::addTopCode()
+{
+   /* 
+    * enum information is only present if the target is an enum. If not
+    * present, we use "#define" instead.
+    */
+   if ( usingEnum ) {
+      out_stream << "enum " << enumName << endl;
+      out_stream << "{" << endl;
+   }
+
+}
+
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+
+void ErrorHeader::addError()
+{
+}
+
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+
+void ErrorHeader::addBottomCode()
+{
+   if ( usingEnum ) {
+      out_stream << "};" << endl << endl;
+      out_stream << "typedef enum " << enumName << " " << enumName << ";" << endl << endl;
+   }
+}
+
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+

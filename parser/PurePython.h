@@ -34,8 +34,7 @@ class PurePython: public AbstractHandler {
    
 public:
 
-   PurePython( std::string & dir,
-               std::string & header );
+   PurePython( std::string & filename );
 
 //   ~PurePython() {}
    
