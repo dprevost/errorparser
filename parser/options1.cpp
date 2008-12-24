@@ -28,9 +28,10 @@
 using namespace std;
 
 bool AddHeaderFileHandler( vector<AbstractHandler *> & handlers,
-                    xmlNode                   * child );
+                           xmlNode                   * child );
 
 bool AddErrMessageHandlers( vector<AbstractHandler *> & handlers,
+                            string                    & prefix,
                             xmlNode                   * node );
 
 bool AddCSharpHandler( vector<AbstractHandler *> & handlers,
@@ -263,7 +264,8 @@ int handleOptions( vector<AbstractHandler *> & handlers,
    //
    nodeValue = IsOptionalValuePresent( node, "errmsg_files" );
    if ( nodeValue != NULL ) {
-      if ( ! AddErrMessageHandlers( handlers, nodeValue->children ) ) {
+      if ( ! AddErrMessageHandlers( handlers, commonArgs->prefix, 
+                  nodeValue->children ) ) {
          return -1;
       }
    }
@@ -353,6 +355,7 @@ bool AddHeaderFileHandler( vector<AbstractHandler *> & handlers,
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
 bool AddErrMessageHandlers( vector<AbstractHandler *> & handlers,
+                            string                    & prefix,
                             xmlNode                   * node )
 {
    string enumname, dirname, headername, cname, varPrefix, percent;
@@ -431,7 +434,8 @@ bool AddErrMessageHandlers( vector<AbstractHandler *> & handlers,
    xmlFree(prop);
 
    pH = new ErrMessageHeader( dirname, headername, varPrefix, buildDll );
-   pC = new ErrMessage( cname, headername, varPrefix );
+   pC = new ErrMessage( cname, headername, prefix, varPrefix, 
+      allowEscapes, allowQuotes );
    
    handlers.push_back(pH);
    handlers.push_back(pC);

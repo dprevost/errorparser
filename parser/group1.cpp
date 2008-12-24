@@ -122,31 +122,6 @@ void addMessages( errp_common * commonArgs,
    
    while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
    errMessage = stripText( node->children->content );
-
-#if 0  (like this in previous version)
-   if ( commonArgs->writingEnum ) {
-      fprintf( commonArgs->fpHeader, "    /**\n     * %s\n", errMessage );
-   }
-   else {
-      fprintf( commonArgs->fpHeader, "/**\n * %s\n", errMessage );
-   }
-#endif
-
-   /* Check for escape sequences */
-   hasEscapeSequence( commonArgs, errMessage );
-
-   if ( hasUnescapedQuotes(errMessage) ) {
-      if ( commonArgs->allowQuotes == 0 ) {
-         cerr << "Quotes are not allowed, string: " << errMessage << endl;
-         exit(1);
-      }
-      tmp = escapeUnescapedQuotes( errMessage );
-      fprintf( commonArgs->fpMsgC, "\"%s\" };\n\n", tmp );
-      free( tmp );
-   }
-   else {
-      fprintf( commonArgs->fpMsgC, "\"%s\" };\n\n", errMessage );
-   }
    
    node = node->next;
    while ( node != NULL ) {
@@ -167,6 +142,8 @@ void addMessages( errp_common * commonArgs,
    
    free( errMessage );
 }
+
+#endif
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
@@ -218,6 +195,8 @@ xmlNode * getMessageNode( errp_common * commonArgs,
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
+#if 0
+
 void doMessageGroup( errp_common * commonArgs,
                      xmlNode     * message_group )
 {
@@ -263,35 +242,39 @@ void doMessageGroup( errp_common * commonArgs,
    addMessages( commonArgs, chosenNode );
 }
 
+#endif
+
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
-void addError( errp_common * commonArgs,
-               xmlNode     * error )
+void addError( errp_common               * commonArgs,
+               xmlNode                   * error,
+               vector<AbstractHandler *> & handlers )
 {
-   xmlNode * node = NULL;
-   xmlChar * errNumber, * errName;
+   xmlNode * node = NULL, * messageNode = NULL;
+   string errNumber, errName;
+   vector<AbstractHandler *>::iterator it;
    
    node = error->children;
 
    /* Go to the first element (error number) */
    while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
-   errNumber = stripText( node->children->content );
+   stripText( node->children->content, errNumber );
 
    /* Second element (the error name) */
    do { node = node->next; } while ( node->type != XML_ELEMENT_NODE );
-   errName = stripText( node->children->content );
+   stripText( node->children->content, errName );
    
-   fprintf( commonArgs->fpMsgC, "/* %s_%s */\n", commonArgs->prefix, errName );
-   fprintf( commonArgs->fpMsgC, "%s_MsgStruct %s_Msg%d = {\n", 
-      commonArgs->varPrefix, commonArgs->varPrefix, commonArgs->errorCount );
-   fprintf( commonArgs->fpMsgC, "    %s, ", errNumber );
-
    do { node = node->next; } while ( node->type != XML_ELEMENT_NODE );
-   doMessageGroup( commonArgs, node );
+//   doMessageGroup( commonArgs, node );
 
-//   chosenNode = getMessageNode( commonArgs, node );
+   messageNode = getMessageNode( commonArgs, node );
 //   addMessages( commonArgs, chosenNode );
    
+   for ( it = handlers.begin(); it < handlers.end(); it++ ) {
+      (*it)->addError( errNumber, errName, messageNode );
+   }
+
+#if 0
    if ( commonArgs->writingEnum ) {
       fprintf( commonArgs->fpHeader, "    %s_%s = %s",
                commonArgs->prefix, 
@@ -368,10 +351,10 @@ void addError( errp_common * commonArgs,
    free( errName );
 
    commonArgs->errorCount++;
+#endif
 }
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
-#endif
 
 void addGroupIdentifier( errp_common               * commonArgs,
                          xmlNode                   * ident,

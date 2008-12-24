@@ -105,7 +105,9 @@ void ErrorHeader::endGroupDesc()
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-void ErrorHeader::addError()
+void ErrorHeader::addError( const std::string & errNumber,
+                            const std::string & errName,
+                            xmlNode           * messageNode )
 {
 }
 

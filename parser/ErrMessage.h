@@ -40,7 +40,10 @@ public:
    
    ErrMessage( std::string & filename,
                std::string & header,
-               std::string & prefix );
+               std::string & prefix,
+               std::string & varPrefix,
+               bool allowEscapes,
+               bool allowQuotes );
    
    void startHeaderGuard() {}
    
@@ -52,7 +55,9 @@ public:
 
    void endGroupDesc() {}
 
-   void addError() {}
+   void addError( const std::string & errNumber,
+                  const std::string & errName, 
+                  xmlNode           * messageNode );
 
    void addBottomCode();
    
@@ -62,7 +67,13 @@ private:
    
    int errorCount;
    std::string headerName;
+   std::string prefix;
    std::string varPrefix;
+   bool allowEscapes;
+   bool allowQuotes;
+
+   void hasEscapeSequence( std::string & str );
+
 };
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--

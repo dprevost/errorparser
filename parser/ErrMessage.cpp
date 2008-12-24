@@ -13,6 +13,7 @@
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
+#include <iostream>
 #include "ErrMessage.h"
 #include "parser1.h"
 
@@ -22,12 +23,17 @@ using namespace std;
 
 ErrMessage::ErrMessage( string & filename,
                         string & header,
-                        string & prefix )
+                        string & prefix,
+                        string & varPrefix,
+                        bool     allowEscapes,
+                        bool     allowQuotes )
    : errorCount ( 0 ),
      headerName ( header ),
-     varPrefix  ( prefix )
+     prefix     ( prefix ),
+     varPrefix  ( varPrefix ),
+     allowEscapes ( allowEscapes ),
+     allowQuotes  ( allowQuotes )
 {
-   
    out_stream.open( filename.c_str(), fstream::out );
 }
 
@@ -51,6 +57,45 @@ void ErrMessage::addTopCode()
    out_stream << "};" << endl << endl;
    out_stream << "typedef struct " << varPrefix << "_MsgStruct " << 
       varPrefix << "_MsgStruct;" << endl << endl;
+}
+
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+
+void ErrMessage::addError( const std::string & errNumber,
+                           const std::string & errName,
+                           xmlNode           * messageNode )
+{
+   xmlNode * node;
+   string errMessage;
+   
+   out_stream << "/* " << prefix << "_" << errName << " */" << endl;
+   out_stream << varPrefix << "_MsgStruct " << varPrefix << "_Msg" <<
+      errorCount << " = {" << endl;
+   out_stream << "    " << errNumber << ", " << endl;
+   
+   node = messageNode->children;
+   
+   while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
+
+   stripText( node->children->content, errMessage );
+
+   /* Check for escape sequences */
+   hasEscapeSequence( errMessage );
+
+#if 0
+   if ( hasUnescapedQuotes(errMessage) ) {
+      if ( ! allowQuotes ) {
+         cerr << "Quotes are not allowed, string: " << errMessage << endl;
+         exit(1);
+      }
+      tmp = escapeUnescapedQuotes( errMessage );
+      out_stream << "\"%s\" };\n\n", tmp );
+      free( tmp );
+   }
+   else {
+      out_stream << "\"%s\" };\n\n", errMessage );
+   }
+#endif
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
@@ -92,3 +137,30 @@ void ErrMessage::addBottomCode()
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+
+void ErrMessage::hasEscapeSequence( string & str )
+{
+   size_t i;
+   
+   if ( allowEscapes ) return;
+   
+   for ( i = 1; i < str.length()-1; i++ ) {
+      if ( str[i] == '\\' ) {
+         if ( allowQuotes ) {
+            if ( str[i+1] == '"' || str[i+1] == '\'' ) {
+               i++;
+               continue;
+            }
+         }
+         if ( str[i+1] == '\\' ) {
+            i++;
+            continue;
+         }
+         cerr << "Esc. sequences are not allowed, string: " << str << endl;
+         exit(1);
+      }
+   }
+}
+
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+

@@ -57,7 +57,9 @@ public:
 
    void endGroupDesc() {}
 
-   void addError();
+   void addError( const std::string & errNumber,
+                  const std::string & errName,
+                  xmlNode           * messageNode );
    
    void addBottomCode();
    

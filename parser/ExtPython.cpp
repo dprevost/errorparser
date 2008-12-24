@@ -51,7 +51,9 @@ void ExtPython::addTopCode()
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-void ExtPython::addError()
+void ExtPython::addError( const std::string & errNumber,
+                          const std::string & errName,
+                          xmlNode           * messageNode )
 {
 }
 

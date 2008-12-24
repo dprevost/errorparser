@@ -96,7 +96,9 @@ void PurePython::addTopCode()
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-void PurePython::addError()
+void PurePython::addError( const std::string & errNumber,
+                           const std::string & errName,
+                           xmlNode           * messageNode )
 {
 }
 

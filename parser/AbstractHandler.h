@@ -68,7 +68,9 @@ public:
 
    virtual void endGroupDesc() = 0;
    
-   virtual void addError() = 0;
+   virtual void addError( const std::string & errNumber, 
+                          const std::string & errName, 
+                          xmlNode           * messageNode ) = 0;
    
    virtual void addBottomCode() = 0;
    
