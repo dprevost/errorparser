@@ -55,6 +55,56 @@ void ErrorHeader::addTopCode()
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
+void ErrorHeader::addGroupName( std::string name )
+{
+   string prettyName;
+   
+   // We call prettify since we have no control over the length
+   // of that field in the xml input file.
+   if ( usingEnum ) {
+      out_stream << "    /*" << endl;
+      prettify( name, "     * ", prettyName, ERRP_LINE_LENGTH );
+   }
+   else {
+      out_stream << "/*" << endl;
+      prettify( name, " * ", prettyName, ERRP_LINE_LENGTH );
+   }
+
+   out_stream << prettyName << endl;
+}
+   
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+
+void ErrorHeader::addGroupDesc( std::string description )
+{
+   string prettyDesc;
+   
+   if ( usingEnum ) {
+      out_stream << "     *" << endl;
+      prettify( description, "     * ", prettyDesc, ERRP_LINE_LENGTH );
+   }
+   else {
+      out_stream << " *" << endl;
+      prettify( description, " * ", prettyDesc, ERRP_LINE_LENGTH );
+   }
+   
+   out_stream << prettyDesc << endl;
+}
+
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+
+void ErrorHeader::endGroupDesc()
+{
+   if ( usingEnum ) {
+      out_stream << "     */" << endl << endl;
+   }
+   else {
+      out_stream << " */" << endl << endl;
+   }
+}
+
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+
 void ErrorHeader::addError()
 {
 }

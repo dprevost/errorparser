@@ -44,6 +44,12 @@ public:
    
    void addTopCode() {}
    
+   void addGroupName( std::string name ) {}
+   
+   void addGroupDesc( std::string description ) {}
+
+   void endGroupDesc() {}
+
    void addError() {}
 
    void addBottomCode();

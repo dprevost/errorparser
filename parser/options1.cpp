@@ -145,7 +145,7 @@ int handleOptions( vector<AbstractHandler *> & handlers,
                    char                      * argv[] )
 {
    xmlParserCtxtPtr context = NULL;  /* The parser context */
-   xmlNode * root = NULL, * node, * child = NULL, * nodeValue;
+   xmlNode * root = NULL, * node, * nodeValue;
    xmlDoc  * doc;
    int i;
    xmlChar * prop, * value;
@@ -168,7 +168,7 @@ int handleOptions( vector<AbstractHandler *> & handlers,
       usage( argv[0] );
       return -1;
    }
-   commonArgs->xmlFileName = (char *)argv[argc-1];
+   commonArgs->xmlFileName = argv[argc-1];
 
    context = xmlNewParserCtxt();
    if ( context == NULL ) {
@@ -296,77 +296,6 @@ int handleOptions( vector<AbstractHandler *> & handlers,
    if ( nodeValue != NULL ) {
       if ( ! AddPurePythonHandler( handlers, nodeValue->children ) ) {
          return -1;
-      }
-   }
-
-   ////////////////////////////////
-   
-   commonArgs->using_py = 0;
-   if ( version > 11 ) {
-      /* Will we create a python dictionary? */
-      while ( node != NULL ) {
-         if ( node->type == XML_ELEMENT_NODE ) {
-            if ( xmlStrcmp( node->name, BAD_CAST "python") == 0 ) {
-               commonArgs->using_py = 1;
-               child = node->children;
-               node = node->next;
-            }
-            /*
-             * No node->next if the if is false. The current node might be 
-             * used, eventually, for Java or ...
-             */
-            break;
-         }
-         node = node->next;
-      }
-
-      if ( commonArgs->using_py ) {
-         /* Using extended module (or pure python)? */
-         while ( child != NULL ) {
-            if ( child->type == XML_ELEMENT_NODE ) {
-               if ( xmlStrcmp( child->name, BAD_CAST "py_options") == 0 ) {
-                  prop = xmlGetProp( child, BAD_CAST "extended" );
-                  if ( prop == NULL ) {
-                     cerr << "Error: missing   \"py_options:extended\" in options file" << endl;
-                     return -1;
-                  }
-                  commonArgs->using_py_extended = 0;
-                  if ( xmlStrcmp( prop, BAD_CAST "yes") == 0 ) {
-                     commonArgs->using_py_extended = 1;
-                  }
-                  xmlFree(prop);
-                  child = child->next;
-                  break;
-               }
-               cerr << "Error: missing <py_options> in options file" << endl;
-               return -1;
-            }
-            child = child->next;
-         }
-         /* The directory name for the python output file (optional). */
-         while ( child != NULL ) {
-            if ( child->type == XML_ELEMENT_NODE ) {
-               if ( xmlStrcmp( child->name, BAD_CAST "py_dirname") == 0 ) {
-                  stripText( child->children->content, commonArgs->py_dirname );
-                  child = child->next;
-               }
-               break;
-            }
-            child = child->next;
-         }
-         /* The name of the python output file (C header file or pure python). */
-         while ( child != NULL ) {
-            if ( child->type == XML_ELEMENT_NODE ) {
-               if ( xmlStrcmp( child->name, BAD_CAST "py_filename") == 0 ) {
-                  stripText( child->children->content, commonArgs->py_filename );
-                  child = child->next;
-                  break;
-               }
-               cerr << "Error: missing <py_filename> in options file" << endl;
-               return -1;
-            }
-            child = child->next;
-         }
       }
    }
 

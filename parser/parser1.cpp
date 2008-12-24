@@ -58,7 +58,6 @@ void doTopOfFile( errp_common               * commonArgs,
    strftime( timeBuf, 30, "%a %b %e %H:%M:%S %Y", formattedTime );
 #endif
 
-   // loop on map for addTop()
    for ( it = handlers.begin(); it < handlers.end(); it++ ) {
       (*it)->addTop(commonArgs->xmlFileName, timeBuf, version );
    }
@@ -68,7 +67,6 @@ void doTopOfFile( errp_common               * commonArgs,
       node = copyNode->children;
       while ( node != NULL ) {
          if ( node->type == XML_ELEMENT_NODE ) {
-            // loop on map for addCopyright
             for ( it = handlers.begin(); it < handlers.end(); it++ ) {
                 (*it)->addCopyright(node);
             }
@@ -107,7 +105,6 @@ void navigate( errp_common               * commonArgs,
 
    if ( version != NULL ) xmlFree(version);
 
-   // loop on map for addEndTop
    for ( it = handlers.begin(); it < handlers.end(); it++ ) {
       (*it)->addEndTop();
       (*it)->startHeaderGuard();
@@ -130,9 +127,10 @@ void navigate( errp_common               * commonArgs,
    }
 //   addGroup( commonArgs, group, 1 );
 
-   // loop on map for addBottomCode()
-   
-   // loop on map for stopHeaderGuard
+   for ( it = handlers.begin(); it < handlers.end(); it++ ) {
+      (*it)->addBottomCode();
+      (*it)->stopHeaderGuard();
+   }
 }
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
@@ -183,7 +181,7 @@ int main( int argc, char * argv[] )
    
    root = xmlDocGetRootElement( commonArgs.document );
 
-//   navigate( &commonArgs, root );
+   navigate( &commonArgs, root, handlers );
 
    xmlFreeDoc( commonArgs.document );
 

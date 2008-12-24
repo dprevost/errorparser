@@ -212,10 +212,10 @@ bool isAsciiStr( const char * str, size_t len )
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
-void prettify( string & inStr, 
-               string & prefix, 
-               string & outStr, 
-               size_t   lineLength )
+void prettify( const string & inStr, 
+               const string & prefix, 
+               string       & outStr, 
+               size_t         lineLength )
 {
    size_t size, i, lines, j, k, lastWhite, start;
    char newLine[1];

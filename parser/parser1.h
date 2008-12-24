@@ -92,10 +92,10 @@ void buildPath( std::string & filename,
                 std::string & dir, 
                 std::string & name );
 
-void prettify( std::string & inStr, 
-               std::string & prefix,
-               std::string & outStr,
-               size_t        lineLength );
+void prettify( const std::string & inStr, 
+               const std::string & prefix,
+               std::string       & outStr,
+               size_t              lineLength );
 
 void stripText( xmlChar * inStr, std::string & outStr );
 

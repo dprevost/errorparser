@@ -62,6 +62,12 @@ public:
    
    virtual void addTopCode() = 0;
    
+   virtual void addGroupName( std::string name ) = 0;
+   
+   virtual void addGroupDesc( std::string description ) = 0;
+
+   virtual void endGroupDesc() = 0;
+   
    virtual void addError() = 0;
    
    virtual void addBottomCode() = 0;

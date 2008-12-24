@@ -13,7 +13,10 @@
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
+#include <vector>
+
 #include "parser1.h"
+#include "AbstractHandler.h"
 
 using namespace std;
 
@@ -120,7 +123,7 @@ void addMessages( errp_common * commonArgs,
    while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
    errMessage = stripText( node->children->content );
 
-#if 0
+#if 0  (like this in previous version)
    if ( commonArgs->writingEnum ) {
       fprintf( commonArgs->fpHeader, "    /**\n     * %s\n", errMessage );
    }
@@ -163,6 +166,54 @@ void addMessages( errp_common * commonArgs,
    }
    
    free( errMessage );
+}
+
+/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+
+xmlNode * getMessageNode( errp_common * commonArgs,
+                          xmlNode     * message_group )
+{
+   xmlNode * node = NULL, * firstNode, * chosenNode = NULL;
+   xmlChar * prop;
+   
+   node = message_group->children;
+
+   while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
+   firstNode = node;
+
+   if ( commonArgs->language != NULL ) {
+      /* 
+       * This check on the first element is tedious but is needed in case
+       * someone uses the same "xml:lang="XX" for the first <message> and
+       * for a subsequent one. In such a case, the first one is the right one.
+       */
+      prop = xmlGetProp( node, BAD_CAST "lang" );
+      if ( prop != NULL ) {
+         if ( xmlStrcmp(prop, commonArgs->language) == 0 ) chosenNode = node;
+         xmlFree(prop);
+      }
+      
+      if ( chosenNode == NULL ) {
+         while ( node != NULL ) {
+            if ( node->type == XML_ELEMENT_NODE ) {
+               prop = xmlGetProp( node, BAD_CAST "lang" );
+               if ( prop != NULL ) {
+                  if ( xmlStrcmp(prop, commonArgs->language) == 0 ) {
+                     chosenNode = node;
+                     xmlFree(prop);
+                     break;
+                  }
+                  xmlFree(prop);
+               }
+            }
+            node = node->next; 
+         }
+      }
+   }
+   
+   if ( chosenNode == NULL ) chosenNode = firstNode;
+   
+   return chosenNode;
 }
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
@@ -237,6 +288,9 @@ void addError( errp_common * commonArgs,
 
    do { node = node->next; } while ( node->type != XML_ELEMENT_NODE );
    doMessageGroup( commonArgs, node );
+
+//   chosenNode = getMessageNode( commonArgs, node );
+//   addMessages( commonArgs, chosenNode );
    
    if ( commonArgs->writingEnum ) {
       fprintf( commonArgs->fpHeader, "    %s_%s = %s",
@@ -317,31 +371,25 @@ void addError( errp_common * commonArgs,
 }
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+#endif
 
-void addGroupIdentifier( errp_common * commonArgs,
-                         xmlNode     * ident )
+void addGroupIdentifier( errp_common               * commonArgs,
+                         xmlNode                   * ident,
+                         vector<AbstractHandler *> & handlers )
 {
-   xmlChar * comment, * tmp;
    xmlNode * node;
- 
+   vector<AbstractHandler *>::iterator it;
+   string tmp;
+   
    node = ident->children;
 
    /* Go to the first element, errgroup_name */
    while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
 
-   tmp = stripText( node->children->content );
-   if ( commonArgs->writingEnum ) {
-      fprintf( commonArgs->fpHeader, "    /*\n" );
-      comment = prettify( tmp, "     * ", ERRP_LINE_LENGTH );
-      fprintf( commonArgs->fpHeader, "%s\n", comment );
+   stripText( node->children->content, tmp );
+   for ( it = handlers.begin(); it < handlers.end(); it++ ) {
+      (*it)->addGroupName( tmp );
    }
-   else {
-      fprintf( commonArgs->fpHeader, "/*\n" );
-      comment = prettify( tmp, " * ", ERRP_LINE_LENGTH );
-      fprintf( commonArgs->fpHeader, "%s\n", comment );
-   }
-   free(tmp);
-   free(comment);
    
    do { 
       node = node->next;
@@ -349,32 +397,21 @@ void addGroupIdentifier( errp_common * commonArgs,
 
    while ( node != NULL ) {
       if ( node->type == XML_ELEMENT_NODE ) {
-         tmp = stripText( node->children->content );
-         if ( commonArgs->writingEnum ) {
-            fprintf( commonArgs->fpHeader, "     *\n" );
-            comment = prettify( tmp, "     * ", ERRP_LINE_LENGTH );
-            fprintf( commonArgs->fpHeader, "%s\n", comment );
+         stripText( node->children->content, tmp );
+         for ( it = handlers.begin(); it < handlers.end(); it++ ) {
+            (*it)->addGroupDesc( tmp );
          }
-         else {
-            fprintf( commonArgs->fpHeader, " *\n" );
-            comment = prettify( tmp, " * ", ERRP_LINE_LENGTH );
-            fprintf( commonArgs->fpHeader, "%s\n", comment );
-         }
-         free(tmp);
-         free(comment);
       }
       node = node->next;
    }
 
-   if ( commonArgs->writingEnum ) {
-      fprintf( commonArgs->fpHeader, "     */\n\n" );
-   }
-   else {
-      fprintf( commonArgs->fpHeader, " */\n\n" );
+   for ( it = handlers.begin(); it < handlers.end(); it++ ) {
+      (*it)->endGroupDesc();
    }
 }
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+#if 0
 
 void addGroup( errp_common * commonArgs,
                xmlNode     * group,

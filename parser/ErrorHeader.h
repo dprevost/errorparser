@@ -25,7 +25,7 @@
 
 /** 
  * This class extend the abstract class abstractHandler - it generates
- * code for Python extension modules.
+ * code for the C header file holding the error numbers.
  */ 
 class ErrorHeader: public HeaderHandler{
    
@@ -36,6 +36,12 @@ public:
    
    void addTopCode();
    
+   void addGroupName( std::string name );
+   
+   void addGroupDesc( std::string description );
+
+   void endGroupDesc();
+
    void addError();
    
    void addBottomCode();
