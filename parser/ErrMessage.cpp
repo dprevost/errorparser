@@ -66,7 +66,7 @@ void ErrMessage::addError( const std::string & errNumber,
                            xmlNode           * messageNode )
 {
    xmlNode * node;
-   string errMessage;
+   string errMessage, tmp;
    
    out_stream << "/* " << prefix << "_" << errName << " */" << endl;
    out_stream << varPrefix << "_MsgStruct " << varPrefix << "_Msg" <<
@@ -82,20 +82,17 @@ void ErrMessage::addError( const std::string & errNumber,
    /* Check for escape sequences */
    hasEscapeSequence( errMessage );
 
-#if 0
    if ( hasUnescapedQuotes(errMessage) ) {
       if ( ! allowQuotes ) {
          cerr << "Quotes are not allowed, string: " << errMessage << endl;
          exit(1);
       }
-      tmp = escapeUnescapedQuotes( errMessage );
-      out_stream << "\"%s\" };\n\n", tmp );
-      free( tmp );
+      escapeUnescapedQuotes( errMessage, tmp );
+      out_stream << "\"" << tmp << "\" };" << endl <<endl;
    }
    else {
-      out_stream << "\"%s\" };\n\n", errMessage );
+      out_stream << "\"" << errMessage << "\" };" << endl << endl;
    }
-#endif
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
@@ -159,6 +156,51 @@ void ErrMessage::hasEscapeSequence( string & str )
          cerr << "Esc. sequences are not allowed, string: " << str << endl;
          exit(1);
       }
+   }
+}
+
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+
+// This function checks the content of the UTF-8 string for quotes ('"').
+bool ErrMessage::hasUnescapedQuotes( string & str )
+{
+   size_t i;
+   
+   if ( str[0] == '"' ) return true;
+   if ( str[0] == '\'' ) return true;
+   
+   for ( i = 1; i < str.length(); i++ ) {
+      if ( str[i] == '"'  && str[i-1] != '\\' ) return true;
+      if ( str[i] == '\'' && str[i-1] != '\\' ) return true;
+   }
+   
+   return false;
+}
+
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+
+// This function escape all characters that needs to be escaped from 
+// the input UTF-8 string.
+
+void ErrMessage::escapeUnescapedQuotes( const string & inStr, string & outStr )
+{
+   size_t i;
+
+   outStr.clear();
+   
+   if ( inStr[0] == '"' || inStr[0] == '\'' ) {
+      outStr += '\\';
+   }
+   outStr += inStr[0];
+   
+   for ( i = 1; i < inStr.length(); i++ ) {
+      if ( inStr[i] == '"' && inStr[i-1] != '\\' ) {
+         outStr += '\\';
+      }
+      if ( inStr[i] == '\'' && inStr[i-1] != '\\' ) {
+         outStr += '\\';
+      }
+      outStr += inStr[i];
    }
 }
 

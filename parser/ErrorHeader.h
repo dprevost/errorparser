@@ -32,7 +32,8 @@ class ErrorHeader: public HeaderHandler{
 public:
    ErrorHeader( std::string & dir,
                 std::string & header,
-                std::string & enumName );
+                std::string & enumName,
+                std::string & prefix );
    
    void addTopCode();
    
@@ -52,6 +53,8 @@ private:
    
    std::string enumName;
 
+   std::string prefix;
+   
    bool usingEnum;
 
 };

@@ -22,11 +22,13 @@ using namespace std;
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-ErrorHeader::ErrorHeader( std::string & dir,
-                          std::string & header,
-                          std::string & ename )
+ErrorHeader::ErrorHeader( string & dir,
+                          string & header,
+                          string & ename,
+                          string & prefix )
    : HeaderHandler( header ),
      enumName     ( ename ),
+     prefix       ( prefix ),
      usingEnum    ( false )
 {
    string name;
@@ -109,6 +111,58 @@ void ErrorHeader::addError( const std::string & errNumber,
                             const std::string & errName,
                             xmlNode           * messageNode )
 {
+   xmlNode * node;
+   int firstpara = 1;
+   string tmp, paragraph;
+
+   node = messageNode->children;
+   
+   while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
+   
+   // jump over the error message - we only want the docu itself
+   node = node->next;
+
+   if ( usingEnum ) {
+      out_stream << "    /**" << endl;
+   }
+   else {
+      out_stream << "/**" << endl;
+   }
+
+   while ( node != NULL ) {
+      if ( node->type == XML_ELEMENT_NODE ) {
+         /* This can only be a paragraph of the documentation */
+         stripText( node->children->content, tmp );
+         
+         if ( firstpara ) firstpara = 0;
+         else {
+            if ( usingEnum ) {
+               out_stream << "     *" << endl;
+            }
+            else {
+               out_stream << " *" << endl;
+            }
+         }
+
+         if ( usingEnum ) {
+            prettify( tmp, "     * ", paragraph, ERRP_LINE_LENGTH );
+         }
+         else {
+            prettify( tmp, " * ", paragraph, ERRP_LINE_LENGTH );
+         }
+         out_stream << paragraph << endl;
+      }
+      node = node->next;
+   }
+
+   if ( usingEnum ) {
+      out_stream << "     */" << endl;
+      out_stream << "    " << prefix << "_" << errName << " = " << errNumber;
+   }
+   else {
+      out_stream << " */" << endl;
+      out_stream << "#define " << prefix << "_" << errName << " " << errNumber;
+   }
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--

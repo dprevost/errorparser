@@ -52,7 +52,7 @@ public:
 
    void addError( const std::string & errNumber, 
                   const std::string & errName, 
-                  xmlNode           * messageNode ) {}
+                  xmlNode           * messageNode );
    
    void addBottomCode();
 

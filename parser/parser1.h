@@ -50,34 +50,9 @@
  * functions...
  */
 struct errp_common {
-   std::string xmlFileName;
-   xmlDoc  * document;
-   FILE    * fpHeader;
-   FILE    * fpMsgC;
-   FILE    * fpMsgH;
-   FILE    * fpCS;
-   FILE    * fpPyH;
-   FILE    * fpPyPy; 
-   std::string outputDir;
-   std::string outputNameC;
-   std::string outputNameH;
-   std::string varPrefix;
+//   xmlDoc  * document;
    std::string prefix;
-   int       errorCount;
-   int       groupCount;
-   int       allowEscapes;
-   int       allowQuotes;
-   xmlChar * percent;
    xmlChar * language;
-   int       using_cs;
-   std::string cs_filename;
-   std::string cs_enum;
-   std::string cs_namespace;
-   int       using_py;
-   int       using_py_extended;
-   std::string py_dirname;
-   std::string py_filename;
-   int       build_dll;
 };
 
 typedef struct errp_common errp_common;
@@ -101,9 +76,6 @@ void stripText( xmlChar * inStr, std::string & outStr );
 
 bool isAsciiStr( const char * str, size_t len );
 
-xmlChar * escapeUnescapedQuotes( xmlChar * inStr );
-int hasUnescapedQuotes( xmlChar * str );
-void hasEscapeSequence( errp_common * commonArgs, xmlChar * str );
 xmlChar * replaceChar( xmlChar * inStr, xmlChar old_c, xmlChar * new_c );
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */

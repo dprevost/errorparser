@@ -55,6 +55,43 @@ void ExtPython::addError( const std::string & errNumber,
                           const std::string & errName,
                           xmlNode           * messageNode )
 {
+   out_stream << "    value = PyInt_FromLong(" << errNumber << ");" << endl;
+   out_stream << "    if ( value == NULL ) {" << endl;
+   out_stream << "        PyDict_Clear(errors);" << endl;
+   out_stream << "        Py_DECREF(errors);" << endl;
+   out_stream << "        PyDict_Clear(errorNames);" << endl;
+   out_stream << "        Py_DECREF(errorNames);" << endl;
+   out_stream << "        return NULL;" << endl;
+   out_stream << "    }" << endl;
+   out_stream << "    key = PyString_FromString(\"" << errName << "\");" << endl;
+   out_stream << "    if ( key == NULL ) {" << endl;
+   out_stream << "        Py_DECREF(value);" << endl;
+   out_stream << "        PyDict_Clear(errors);" << endl;
+   out_stream << "        Py_DECREF(errors);" << endl;
+   out_stream << "        PyDict_Clear(errorNames);" << endl;
+   out_stream << "        Py_DECREF(errorNames);" << endl;
+   out_stream << "        return NULL;" << endl;
+   out_stream << "    }" << endl;
+   out_stream << "    errcode = PyDict_SetItem(errors, key, value);" << endl;
+   out_stream << "    if (errcode != 0) {" << endl;
+   out_stream << "        Py_DECREF(value);" << endl;
+   out_stream << "        Py_DECREF(key);" << endl;
+   out_stream << "        PyDict_Clear(errors);" << endl;
+   out_stream << "        Py_DECREF(errors);" << endl;
+   out_stream << "        PyDict_Clear(errorNames);" << endl;
+   out_stream << "        Py_DECREF(errorNames);" << endl;
+   out_stream << "        return NULL;" << endl;
+   out_stream << "    }" << endl;
+   out_stream << "    errcode = PyDict_SetItem(errorNames, value, key);" << endl;
+   out_stream << "    Py_DECREF(value);" << endl;
+   out_stream << "    Py_DECREF(key);" << endl;
+   out_stream << "    if (errcode != 0) {" << endl;
+   out_stream << "        PyDict_Clear(errors);" << endl;
+   out_stream << "        Py_DECREF(errors);" << endl;
+   out_stream << "        PyDict_Clear(errorNames);" << endl;
+   out_stream << "        Py_DECREF(errorNames);" << endl;
+   out_stream << "        return NULL;" << endl;
+   out_stream << "    }" << endl << endl;
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--

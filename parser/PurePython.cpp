@@ -100,6 +100,8 @@ void PurePython::addError( const std::string & errNumber,
                            const std::string & errName,
                            xmlNode           * messageNode )
 {
+   out_stream << "    errors['" << errName << "'] = " << errNumber << endl;
+   out_stream << "    error_names[" << errNumber << "] = '" << errName << "'" << endl;
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--

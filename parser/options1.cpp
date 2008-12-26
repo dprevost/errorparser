@@ -28,6 +28,7 @@
 using namespace std;
 
 bool AddHeaderFileHandler( vector<AbstractHandler *> & handlers,
+                           string                    & prefix,
                            xmlNode                   * child );
 
 bool AddErrMessageHandlers( vector<AbstractHandler *> & handlers,
@@ -141,6 +142,7 @@ xmlNode * IsOptionalValuePresent( xmlNode * & node, const char * tag )
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
 int handleOptions( vector<AbstractHandler *> & handlers,
+                   string                    & xmlFileName,
                    errp_common               * commonArgs, 
                    int                         argc, 
                    char                      * argv[] )
@@ -169,7 +171,7 @@ int handleOptions( vector<AbstractHandler *> & handlers,
       usage( argv[0] );
       return -1;
    }
-   commonArgs->xmlFileName = argv[argc-1];
+   xmlFileName = argv[argc-1];
 
    context = xmlNewParserCtxt();
    if ( context == NULL ) {
@@ -254,7 +256,7 @@ int handleOptions( vector<AbstractHandler *> & handlers,
    //
    nodeValue = IsOptionalValuePresent( node, "header_file" );
    if ( nodeValue != NULL ) {
-      if ( ! AddHeaderFileHandler( handlers, nodeValue->children ) ) {
+      if ( ! AddHeaderFileHandler( handlers, commonArgs->prefix, nodeValue->children ) ) {
          return -1;
       }
    }
@@ -311,7 +313,8 @@ int handleOptions( vector<AbstractHandler *> & handlers,
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
 bool AddHeaderFileHandler( vector<AbstractHandler *> & handlers,
-                           xmlNode                 * node )
+                           string                    & prefix,
+                           xmlNode                   * node )
 {
    bool usingEnums = false;
    string enumname, dirname, filename;
@@ -345,7 +348,7 @@ bool AddHeaderFileHandler( vector<AbstractHandler *> & handlers,
    }
    
    // Create the header file handler 
-   p = new ErrorHeader( dirname, filename, enumname );
+   p = new ErrorHeader( dirname, filename, enumname, prefix );
    
    handlers.push_back(p);
    

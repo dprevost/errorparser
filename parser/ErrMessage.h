@@ -74,6 +74,11 @@ private:
 
    void hasEscapeSequence( std::string & str );
 
+   bool hasUnescapedQuotes( std::string & str );
+
+   void escapeUnescapedQuotes( const std::string & inStr, 
+                               std::string       & outStr );
+
 };
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
