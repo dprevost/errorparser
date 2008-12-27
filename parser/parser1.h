@@ -59,6 +59,12 @@ void prettify( const std::string & inStr,
                std::string       & outStr,
                size_t              lineLength );
 
+bool prettify2( const std::string & inStr, 
+                size_t            & where,
+                const std::string & prefix,
+                std::string       & outStr,
+                size_t              lineLength );
+
 void stripText( xmlChar * inStr, std::string & outStr );
 
 bool isAsciiStr( const char * str, size_t len );

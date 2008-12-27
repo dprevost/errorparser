@@ -50,6 +50,7 @@ void CfamilyHandler::addCopyright( xmlNode * node )
 {
    string years, authors;
    string tmp, notice, prefix = " * ";
+   size_t where = 0;
    
    node = node->children;
    
@@ -66,11 +67,13 @@ void CfamilyHandler::addCopyright( xmlNode * node )
    node = node->next;
    while ( node != NULL ) {
       if ( node->type == XML_ELEMENT_NODE ) {
+         where = 0;
          out_stream << " *" << endl;
 
          stripText( node->children->content, tmp );
-         prettify( tmp, prefix, notice, ERRP_LINE_LENGTH );
-         
+         while ( prettify2(tmp, where, prefix, notice, ERRP_LINE_LENGTH) ) {
+            out_stream << notice << endl;
+         }
          out_stream << notice << endl;
       }
       node = node->next;

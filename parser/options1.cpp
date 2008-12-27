@@ -27,6 +27,10 @@
 
 using namespace std;
 
+bool GetGeneralOptions( string  & prefix,
+                        string  & language,
+                        xmlNode * node );
+
 bool AddHeaderFileHandler( vector<AbstractHandler *> & handlers,
                            string                    & prefix,
                            xmlNode                   * child );
@@ -151,7 +155,7 @@ int handleOptions( vector<AbstractHandler *> & handlers,
    xmlNode * root = NULL, * node, * nodeValue;
    xmlDoc  * doc;
    int i;
-   xmlChar * prop, * value;
+   xmlChar * prop;
    int version;
    string tmp;
    string prefix;
@@ -223,37 +227,15 @@ int handleOptions( vector<AbstractHandler *> & handlers,
    //
    // General options
    //
-   
-   // The prefix to be used by the error code for files not using a namespace.
-   // To avoid clashes with other libraries/software.
-   value = GetMandatoryValue( node, "prefix_error_no_namespace" );
-   if ( value == NULL ) {
-      cerr << "Error: missing <prefix_error_no_namespace> in options file" << endl;
+   nodeValue = IsMandatoryValuePresent( node, "general_options" );
+   if ( nodeValue == NULL ) {
+      cerr << "Error: missing <general_options> in options file" << endl;
       return -1;
    }
-   stripText( value, tmp );
-   if ( isAsciiStr(tmp.c_str(), tmp.length()) ) {
-      for ( i = 0; i < (int)tmp.length(); ++i ) {
-         prefix += toupper(tmp[i]);
-      }
-   }
-   else {
-      cerr << "Error: <prefix_error> must be in ASCII" << endl;
+   if ( ! GetGeneralOptions( prefix, language, nodeValue->children ) ) {
       return -1;
    }
 
-   // Optional - selec a language for error messages/documentation.
-   nodeValue = IsOptionalValuePresent( node, "selected_lang" );
-   if ( nodeValue != NULL ) {
-      prop = xmlGetProp( nodeValue, BAD_CAST "lang" );
-      if ( prop == NULL ) {
-         cerr << "Error: missing \"xml:lang\" in options file" << endl;
-         return -1;
-      }
-      language = (char *)prop;
-      xmlFree(prop);
-   }
-   
    //
    // The standard header file for errors - optional section.
    //
@@ -314,6 +296,50 @@ int handleOptions( vector<AbstractHandler *> & handlers,
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
+bool GetGeneralOptions( string  & prefix,
+                        string  & language,
+                        xmlNode * node )
+{
+   xmlChar * value, * prop;
+   string tmp;
+   xmlNode * nodeValue;
+   size_t i;
+   
+   // The prefix to be used by the error code for files not using a namespace.
+   // To avoid clashes with other libraries/software.
+   value = GetMandatoryValue( node, "prefix_error_no_namespace" );
+   if ( value == NULL ) {
+      cerr << "Error: missing <prefix_error_no_namespace> in options file" << endl;
+      return false;
+   }
+   stripText( value, tmp );
+   if ( isAsciiStr(tmp.c_str(), tmp.length()) ) {
+      for ( i = 0; i < tmp.length(); ++i ) {
+         prefix += toupper(tmp[i]);
+      }
+   }
+   else {
+      cerr << "Error: <prefix_error_no_namespace> must be in ASCII" << endl;
+      return false;
+   }
+
+   // Optional - selec a language for error messages/documentation.
+   nodeValue = IsOptionalValuePresent( node, "selected_lang" );
+   if ( nodeValue != NULL ) {
+      prop = xmlGetProp( nodeValue, BAD_CAST "lang" );
+      if ( prop == NULL ) {
+         cerr << "Error: missing \"xml:lang\" in options file" << endl;
+         return false;
+      }
+      language = (char *)prop;
+      xmlFree(prop);
+   }
+   
+   return true;
+}
+
+/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+
 bool AddHeaderFileHandler( vector<AbstractHandler *> & handlers,
                            string                    & prefix,
                            xmlNode                   * node )
@@ -330,19 +356,19 @@ bool AddHeaderFileHandler( vector<AbstractHandler *> & handlers,
    value = GetOptionalValue( node, "header_enum" );
    if ( value != NULL ) {
       usingEnums = true;
-      stripText( node->children->content, enumname );
+      stripText( value, enumname );
    }
 
    /* The directory of the output header file for the error codes. */
    value = GetOptionalValue( node, "header_dirname" );
    if ( value != NULL ) {
-      stripText( node->children->content, dirname );
+      stripText( value, dirname );
    }
    
    /* The name of the output header file for the error codes. */
    value = GetMandatoryValue( node, "header_name" );
    if ( value != NULL ) {
-      stripText( node->children->content, filename );
+      stripText( value, filename );
    }
    else {
       cerr << "Error: missing <header_name> in options file" << endl;
@@ -372,7 +398,7 @@ bool AddErrMessageHandlers( vector<AbstractHandler *> & handlers,
    
    value = GetOptionalValue( node, "errmsg_dir" );
    if ( value != NULL ) {
-      stripText( node->children->content, dirname );
+      stripText( value, dirname );
    }
 
    value = GetMandatoryValue( node, "errmsg_header_name" );
@@ -380,14 +406,14 @@ bool AddErrMessageHandlers( vector<AbstractHandler *> & handlers,
       cerr << "Error: missing <errmsg_header_name> in options file" << endl;
       return false;
    }
-   stripText( node->children->content, headername );
+   stripText( value, headername );
 
    value = GetMandatoryValue( node, "errmsg_c_fullname" );
    if ( value == NULL ) {
       cerr << "Error: missing <errmsg_c_fullname> in options file" << endl;
       return false;
    }
-   stripText( node->children->content, cname );
+   stripText( value, cname );
 
    valueNode = IsMandatoryValuePresent( node, "errmsg_options" );
    if ( valueNode == NULL ) {
@@ -407,7 +433,7 @@ bool AddErrMessageHandlers( vector<AbstractHandler *> & handlers,
       cerr << "Error: missing <errmsg_prefix_var> in options file" << endl;
       return false;
    }
-   stripText( node->children->content, varPrefix );
+   stripText( value, varPrefix );
 
    valueNode = IsMandatoryValuePresent( node, "errmsg_msg" );
    if ( valueNode == NULL ) {
@@ -462,18 +488,18 @@ bool AddCSharpHandler( vector<AbstractHandler *> & handlers,
       cerr << "Error: missing <cs_filename> in options file" << endl;
       return false;
    }
-   stripText( node->children->content, filename );
+   stripText( value, filename );
 
    value = GetMandatoryValue( node, "cs_enum_name" );
    if ( value == NULL ) {
       cerr << "Error: missing <cs_enum_name> in options file" << endl;
       return false;
    }
-   stripText( node->children->content, enumname );
+   stripText( value, enumname );
 
    value = GetOptionalValue( node, "cs_namespace" );
    if ( value != NULL ) {
-      stripText( node->children->content, cs_namespace );
+      stripText( value, cs_namespace );
    }
 
    p = new CSharp( filename, enumname, cs_namespace );
@@ -494,7 +520,7 @@ bool AddExtPython( vector<AbstractHandler *> & handlers,
 
    value = GetOptionalValue( node, "ext_py_dirname" );
    if ( value != NULL ) {
-      stripText( node->children->content, dirname );
+      stripText( value, dirname );
    }
 
    value = GetMandatoryValue( node, "ext_py_filename" );
@@ -502,7 +528,7 @@ bool AddExtPython( vector<AbstractHandler *> & handlers,
       cerr << "Error: missing <ext_py_filename> in options file" << endl;
       return false;
    }
-   stripText( node->children->content, filename );
+   stripText( value, filename );
 
    p = new ExtPython( dirname, filename );
    
@@ -525,7 +551,7 @@ bool AddPurePythonHandler( vector<AbstractHandler *> & handlers,
       cerr << "Error: missing <pure_py_filename> in options file" << endl;
       return false;
    }
-   stripText( node->children->content, filename );
+   stripText( value, filename );
 
    p = new PurePython( filename );
    
