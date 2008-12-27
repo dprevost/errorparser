@@ -143,7 +143,7 @@ xmlNode * IsOptionalValuePresent( xmlNode * & node, const char * tag )
 
 int handleOptions( vector<AbstractHandler *> & handlers,
                    string                    & xmlFileName,
-                   errp_common               * commonArgs, 
+                   string                    & language,
                    int                         argc, 
                    char                      * argv[] )
 {
@@ -154,6 +154,7 @@ int handleOptions( vector<AbstractHandler *> & handlers,
    xmlChar * prop, * value;
    int version;
    string tmp;
+   string prefix;
    
    if ( argc == 2 ) {
       if ( strcmp("--help",argv[1]) == 0 || strcmp("-h",argv[1]) == 0 ||
@@ -201,7 +202,6 @@ int handleOptions( vector<AbstractHandler *> & handlers,
       return -1;
    }
    else {
-      
       for ( i = 0, version = 0; i < xmlStrlen( prop ); i++ ) {
          if ( prop[i] >= '0' && prop[i] <= '9' ) {
             version *= 10;
@@ -209,12 +209,14 @@ int handleOptions( vector<AbstractHandler *> & handlers,
          }
       }
    }
+   xmlFree(prop);
+   prop = NULL;
+
    if ( version < 20 ) {
       cerr << "This version of Error Parser requires version 2.0 or greater" << endl;
       cerr << "of the option file" << endl;
+      return -1;
    }
-   xmlFree(prop);
-   prop = NULL;
    
    node = root->children;
 
@@ -232,7 +234,7 @@ int handleOptions( vector<AbstractHandler *> & handlers,
    stripText( value, tmp );
    if ( isAsciiStr(tmp.c_str(), tmp.length()) ) {
       for ( i = 0; i < (int)tmp.length(); ++i ) {
-         commonArgs->prefix += toupper(tmp[i]);
+         prefix += toupper(tmp[i]);
       }
    }
    else {
@@ -248,7 +250,8 @@ int handleOptions( vector<AbstractHandler *> & handlers,
          cerr << "Error: missing \"xml:lang\" in options file" << endl;
          return -1;
       }
-      commonArgs->language = prop;
+      language = (char *)prop;
+      xmlFree(prop);
    }
    
    //
@@ -256,7 +259,7 @@ int handleOptions( vector<AbstractHandler *> & handlers,
    //
    nodeValue = IsOptionalValuePresent( node, "header_file" );
    if ( nodeValue != NULL ) {
-      if ( ! AddHeaderFileHandler( handlers, commonArgs->prefix, nodeValue->children ) ) {
+      if ( ! AddHeaderFileHandler( handlers, prefix, nodeValue->children ) ) {
          return -1;
       }
    }
@@ -266,8 +269,7 @@ int handleOptions( vector<AbstractHandler *> & handlers,
    //
    nodeValue = IsOptionalValuePresent( node, "errmsg_files" );
    if ( nodeValue != NULL ) {
-      if ( ! AddErrMessageHandlers( handlers, commonArgs->prefix, 
-                  nodeValue->children ) ) {
+      if ( ! AddErrMessageHandlers( handlers, prefix, nodeValue->children ) ) {
          return -1;
       }
    }

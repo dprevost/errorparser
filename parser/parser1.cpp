@@ -21,18 +21,17 @@
 
 using namespace std;
 
-void addGroup( errp_common * commonArgs, xmlNode * group, int last );
+void addGroup( string & language, xmlNode * group, int last );
 
 int handleOptions( vector<AbstractHandler *> & handlers, 
                    string                    & xmlFileName,
-                   errp_common               * commonArgs, 
-                   int                         argc, 
+                   string                    & language,
+                   int                         argc,
                    char                      * argv[] );
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
-void doTopOfFile( errp_common               * commonArgs,
-                  string                    & xmlFileName,
+void doTopOfFile( string                    & xmlFileName,
                   xmlChar                   * version,
                   xmlNode                   * copyNode,
                   vector<AbstractHandler *> & handlers ) 
@@ -80,8 +79,7 @@ void doTopOfFile( errp_common               * commonArgs,
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
-void navigate( errp_common               * commonArgs,
-               string                    & xmlFileName,
+void navigate( string                    & xmlFileName,
                xmlNode                   * root,
                vector<AbstractHandler *> & handlers )
 {
@@ -98,11 +96,11 @@ void navigate( errp_common               * commonArgs,
 
    /* Copyrigth information is optional */
    if ( xmlStrcmp( node->name, BAD_CAST "copyright_group") == 0 ) {
-      doTopOfFile( commonArgs, xmlFileName, version, node, handlers );
+      doTopOfFile( xmlFileName, version, node, handlers );
       node = node->next;
    }
    else {
-      doTopOfFile( commonArgs, xmlFileName, version, NULL, handlers );
+      doTopOfFile( xmlFileName, version, NULL, handlers );
    }
 
    if ( version != NULL ) xmlFree(version);
@@ -142,9 +140,9 @@ int main( int argc, char * argv[] )
    xmlParserCtxtPtr context = NULL;  /* The parser context */
    xmlNode * root = NULL;            /* The root node */
    int rc;
-   struct errp_common commonArgs;
    vector<AbstractHandler *> handlers;
    string xmlFileName;
+   string language;
    xmlDoc  * document = NULL;
    
    /*
@@ -154,9 +152,7 @@ int main( int argc, char * argv[] )
     */
    LIBXML_TEST_VERSION
 
-   memset( &commonArgs, 0, sizeof(struct errp_common) );
-   
-   rc = handleOptions( handlers, xmlFileName, &commonArgs, argc, argv );
+   rc = handleOptions( handlers, xmlFileName, language, argc, argv );
    if ( rc != 0 ) {
       if ( rc == 1 ) return 0; /* help */
       return 1;
@@ -185,7 +181,7 @@ int main( int argc, char * argv[] )
    
    root = xmlDocGetRootElement( document );
 
-   navigate( &commonArgs, xmlFileName, root, handlers );
+   navigate( xmlFileName, root, handlers );
 
    xmlFreeDoc( document );
 

@@ -22,8 +22,8 @@ using namespace std;
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
-xmlNode * getMessageNode( errp_common * commonArgs,
-                          xmlNode     * message_group )
+xmlNode * getMessageNode( string  & language,
+                          xmlNode * message_group )
 {
    xmlNode * node = NULL, * firstNode, * chosenNode = NULL;
    xmlChar * prop;
@@ -33,7 +33,7 @@ xmlNode * getMessageNode( errp_common * commonArgs,
    while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
    firstNode = node;
 
-   if ( commonArgs->language != NULL ) {
+   if ( language.length() != 0 ) {
       /* 
        * This check on the first element is tedious but is needed in case
        * someone uses the same "xml:lang="XX" for the first <message> and
@@ -41,7 +41,7 @@ xmlNode * getMessageNode( errp_common * commonArgs,
        */
       prop = xmlGetProp( node, BAD_CAST "lang" );
       if ( prop != NULL ) {
-         if ( xmlStrcmp(prop, commonArgs->language) == 0 ) chosenNode = node;
+         if ( xmlStrcmp(prop, BAD_CAST language.c_str()) == 0 ) chosenNode = node;
          xmlFree(prop);
       }
       
@@ -50,7 +50,7 @@ xmlNode * getMessageNode( errp_common * commonArgs,
             if ( node->type == XML_ELEMENT_NODE ) {
                prop = xmlGetProp( node, BAD_CAST "lang" );
                if ( prop != NULL ) {
-                  if ( xmlStrcmp(prop, commonArgs->language) == 0 ) {
+                  if ( xmlStrcmp(prop, BAD_CAST language.c_str()) == 0 ) {
                      chosenNode = node;
                      xmlFree(prop);
                      break;
@@ -70,7 +70,7 @@ xmlNode * getMessageNode( errp_common * commonArgs,
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
-void addError( errp_common               * commonArgs,
+void addError( string                    & language,
                xmlNode                   * error,
                vector<AbstractHandler *> & handlers )
 {
@@ -90,7 +90,7 @@ void addError( errp_common               * commonArgs,
    
    do { node = node->next; } while ( node->type != XML_ELEMENT_NODE );
 
-   messageNode = getMessageNode( commonArgs, node );
+   messageNode = getMessageNode( language, node );
    
    for ( it = handlers.begin(); it < handlers.end(); it++ ) {
       (*it)->addError( errNumber, errName, messageNode );
@@ -99,8 +99,7 @@ void addError( errp_common               * commonArgs,
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
-void addGroupIdentifier( errp_common               * commonArgs,
-                         xmlNode                   * ident,
+void addGroupIdentifier( xmlNode                   * ident,
                          vector<AbstractHandler *> & handlers )
 {
    xmlNode * node;
@@ -138,10 +137,11 @@ void addGroupIdentifier( errp_common               * commonArgs,
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
-void addGroup( errp_common * commonArgs,
+void addGroup( string      & language,
+               string      & prefix,
                xmlNode     * group,
                int           lastGroup,
-                         vector<AbstractHandler *> & handlers )
+               vector<AbstractHandler *> & handlers )
 {
    xmlNode * node = NULL, * firstNode, * chosenNode = NULL;
    xmlChar * prop;
@@ -159,10 +159,12 @@ void addGroup( errp_common * commonArgs,
       firstNode = node;
       node = node->next;
 
-      if ( commonArgs->language != NULL ) {
+      if ( language.length() != 0 ) {
          prop = xmlGetProp( node, BAD_CAST "lang" );
          if ( prop != NULL ) {
-            if ( xmlStrcmp(prop, commonArgs->language) == 0 ) chosenNode = node;
+            if ( xmlStrcmp(prop, BAD_CAST language.c_str()) == 0 ) {
+               chosenNode = node;
+            }
             xmlFree(prop);
          }
       
@@ -173,7 +175,7 @@ void addGroup( errp_common * commonArgs,
 
                   prop = xmlGetProp( node, BAD_CAST "lang" );
                   if ( prop != NULL ) {
-                     if ( xmlStrcmp(prop, commonArgs->language) == 0 ) {
+                     if ( xmlStrcmp(prop, BAD_CAST language.c_str()) == 0 ) {
                         chosenNode = node;
                         xmlFree(prop);
                         node = node->next;
@@ -188,7 +190,7 @@ void addGroup( errp_common * commonArgs,
       }
    
       if ( chosenNode == NULL ) chosenNode = firstNode;
-      addGroupIdentifier( commonArgs, chosenNode, handlers );    
+      addGroupIdentifier( chosenNode, handlers );    
    }
 
    while ( node != NULL ) {
@@ -203,7 +205,7 @@ void addGroup( errp_common * commonArgs,
 //               if (commonArgs->using_cs) fprintf( commonArgs->fpCS, "\n\n" );
 //            }
          }
-         addError( commonArgs, node, handlers );
+         addError( language, node, handlers );
          firstOfGroup = 0;
       }
       node = node->next; 

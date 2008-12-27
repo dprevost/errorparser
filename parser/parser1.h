@@ -44,19 +44,6 @@
 
 #define ERRP_LINE_LENGTH 72
 
-/* 
- * A "common" struct to pass all the parameters around (instead of
- * using many globals or passing tons of parameters to the different 
- * functions...
- */
-struct errp_common {
-//   xmlDoc  * document;
-   std::string prefix;
-   xmlChar * language;
-};
-
-typedef struct errp_common errp_common;
-
 extern const char * g_functionName;
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
