@@ -59,38 +59,30 @@ void ErrorHeader::addTopCode()
 
 void ErrorHeader::addGroupName( std::string name )
 {
-   string prettyName;
-   
    // We call prettify since we have no control over the length
    // of that field in the xml input file.
    if ( usingEnum ) {
       out_stream << "    /*" << endl;
-      prettify( name, "     * ", prettyName, ERRP_LINE_LENGTH );
+      prettify( out_stream, name, "     * ", ERRP_LINE_LENGTH );
    }
    else {
       out_stream << "/*" << endl;
-      prettify( name, " * ", prettyName, ERRP_LINE_LENGTH );
+      prettify( out_stream, name, " * ", ERRP_LINE_LENGTH );
    }
-
-   out_stream << prettyName << endl;
 }
    
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 void ErrorHeader::addGroupDesc( std::string description )
 {
-   string prettyDesc;
-   
    if ( usingEnum ) {
       out_stream << "     *" << endl;
-      prettify( description, "     * ", prettyDesc, ERRP_LINE_LENGTH );
+      prettify( out_stream, description, "     * ", ERRP_LINE_LENGTH );
    }
    else {
       out_stream << " *" << endl;
-      prettify( description, " * ", prettyDesc, ERRP_LINE_LENGTH );
+      prettify( out_stream, description, " * ", ERRP_LINE_LENGTH );
    }
-   
-   out_stream << prettyDesc << endl;
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
@@ -113,7 +105,7 @@ void ErrorHeader::addError( const std::string & errNumber,
 {
    xmlNode * node;
    int firstpara = 1;
-   string tmp, paragraph;
+   string tmp;
 
    node = messageNode->children;
    
@@ -145,12 +137,11 @@ void ErrorHeader::addError( const std::string & errNumber,
          }
 
          if ( usingEnum ) {
-            prettify( tmp, "     * ", paragraph, ERRP_LINE_LENGTH );
+            prettify( out_stream, tmp, "     * ", ERRP_LINE_LENGTH );
          }
          else {
-            prettify( tmp, " * ", paragraph, ERRP_LINE_LENGTH );
+            prettify( out_stream, tmp, " * ", ERRP_LINE_LENGTH );
          }
-         out_stream << paragraph << endl;
       }
       node = node->next;
    }
@@ -163,6 +154,16 @@ void ErrorHeader::addError( const std::string & errNumber,
       out_stream << " */" << endl;
       out_stream << "#define " << prefix << "_" << errName << " " << errNumber;
    }
+}
+
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+
+void ErrorHeader::addErrorTrailer()
+{
+   if ( usingEnum ) {
+      out_stream << ",";
+   }
+   out_stream << endl << endl;
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--

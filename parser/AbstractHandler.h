@@ -72,6 +72,10 @@ public:
                           const std::string & errName, 
                           xmlNode           * messageNode ) = 0;
    
+   // The trailer is added to all errors which are not the first or last of
+   // a group of errors. 
+   virtual void addErrorTrailer() = 0;
+   
    virtual void addBottomCode() = 0;
    
    virtual void stopHeaderGuard() = 0;

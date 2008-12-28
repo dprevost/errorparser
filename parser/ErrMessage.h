@@ -59,6 +59,8 @@ public:
                   const std::string & errName, 
                   xmlNode           * messageNode );
 
+   void addErrorTrailer() {}
+   
    void addBottomCode();
    
    void stopHeaderGuard() {}

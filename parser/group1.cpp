@@ -138,15 +138,15 @@ void addGroupIdentifier( xmlNode                   * ident,
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
 void addGroup( string      & language,
-               string      & prefix,
                xmlNode     * group,
-               int           lastGroup,
+               bool          lastGroup,
                vector<AbstractHandler *> & handlers )
 {
    xmlNode * node = NULL, * firstNode, * chosenNode = NULL;
    xmlChar * prop;
    int firstOfGroup = 1;
    node = group->children;
+   vector<AbstractHandler *>::iterator it;
 
    /* Go to the first element */
    while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
@@ -196,14 +196,9 @@ void addGroup( string      & language,
    while ( node != NULL ) {
       if ( node->type == XML_ELEMENT_NODE ) {
          if ( ! firstOfGroup ) {
-//            if ( commonArgs->writingEnum ) {
-//               fprintf( commonArgs->fpHeader, ",\n\n" );
-//               if (commonArgs->using_cs) fprintf( commonArgs->fpCS, ",\n\n" );
-//            }
-//            else {
-//               fprintf( commonArgs->fpHeader, "\n\n" );
-//               if (commonArgs->using_cs) fprintf( commonArgs->fpCS, "\n\n" );
-//            }
+            for ( it = handlers.begin(); it < handlers.end(); it++ ) {
+               (*it)->addErrorTrailer();
+            }
          }
          addError( language, node, handlers );
          firstOfGroup = 0;

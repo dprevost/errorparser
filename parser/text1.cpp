@@ -15,6 +15,7 @@
 
 #include <string>
 #include <iostream>
+#include <fstream>
 #include <cassert>
 #include "parser1.h"
 
@@ -67,11 +68,11 @@ bool isAsciiStr( const char * str, size_t len )
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
-bool prettify2( const string & inStr, 
-                size_t       & where,
-                const string & prefix,
-                string       & outStr,
-                size_t         lineLength )
+bool doPrettify( const string & inStr, 
+                 size_t       & where,
+                 const string & prefix,
+                 string       & outStr,
+                 size_t         lineLength )
 {
    size_t size, i, lastWhite = 0;
    
@@ -81,15 +82,12 @@ bool prettify2( const string & inStr,
    assert( where < inStr.length() );
    
    size = lineLength - prefix.length();
-cerr << size << " " << lineLength << " " << prefix.length() << endl;
-cerr << "where1 = " << where << " " << inStr.length() << endl;
    if ( size > inStr.length() - where ) {
       outStr.append( &inStr[where], inStr.length() - where );
       return false;
    }
    
    for ( i = size-1+where; i >= where; --i ) {
-cerr << " i = " << i <<endl;
       if ( inStr[i] == 0x20 ) {
          lastWhite = i;
          break;
@@ -97,90 +95,28 @@ cerr << " i = " << i <<endl;
    }
    
    assert( lastWhite );
-   cerr << " lw  " << lastWhite << endl;
    outStr.append( &inStr[where], lastWhite-where+1 );
 
-cerr << "where2 = " << where << endl;
    where = lastWhite+1;
-cerr << "where3 = " << where << endl;
-cerr << outStr << endl;
 
    return true;
 }
-#if 0
-   size_t size, i, lines, j, k, lastWhite, start;
-//   char newLine[1];
 
-//   newLine[0] = 0x0A;
-   size = inStr.length();
-   outStr.clear();
-   
-   lines = size / lineLength + 2; /* To be safe */
-
-   outStr = prefix;
-   j = prefix.length();
-   for ( i = where, k = 0, start = where, lastWhite = -1; i < size; ++i ) {
-
-      if ( j == lineLength ) {
-         outStr.append( &inStr[start], lastWhite-start );
-         where = i;
-         return true;
-         
-         j = lineLength - lastWhite + start;
-
-         start = lastWhite + 1;
-         lastWhite = -1;
-      }
-
-      if ( inStr[i] == 0x20 ) lastWhite = i;
-      j++;
-   }
-
-   if ( j > 0 ) {
-      outStr.append( &inStr[start], size-start+1 );
-   }
-   
-   return false;
-}
-#endif
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
-void prettify( const string & inStr, 
+void prettify( fstream      & outStream,
+               const string & inStr, 
                const string & prefix, 
-               string       & outStr, 
                size_t         lineLength )
 {
-   size_t size, i, lines, j, k, lastWhite, start;
-   char newLine[1];
-
-   newLine[0] = 0x0A;
-   size = inStr.length();
-   outStr.clear();
+   size_t where = 0;
+   string line;
    
-   lines = size / lineLength + 2; /* To be safe */
-
-   outStr = prefix;
-   j = prefix.length();
-   for ( i = 0, k = 0, start = 0, lastWhite = -1; i < size; ++i ) {
-
-      if ( j == lineLength ) {
-         outStr.append( &inStr[start], lastWhite-start );
-         outStr += newLine;
-         outStr += prefix;
-
-         j = lineLength - lastWhite + start;
-
-         start = lastWhite + 1;
-         lastWhite = -1;
-      }
-
-      if ( inStr[i] == 0x20 ) lastWhite = i;
-      j++;
+   while ( doPrettify(inStr, where, prefix, line, lineLength) ) {
+      outStream << line << endl;
    }
+   outStream << line << endl;
 
-   if ( j > 0 ) {
-      outStr.append( &inStr[start], size-start+1 );
-   }
 }
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */

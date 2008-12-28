@@ -54,16 +54,10 @@ void buildPath( std::string & filename,
                 std::string & dir, 
                 std::string & name );
 
-void prettify( const std::string & inStr, 
-               const std::string & prefix,
-               std::string       & outStr,
+void prettify( std::fstream      & outStream,
+               const std::string & inStr, 
+               const std::string & prefix, 
                size_t              lineLength );
-
-bool prettify2( const std::string & inStr, 
-                size_t            & where,
-                const std::string & prefix,
-                std::string       & outStr,
-                size_t              lineLength );
 
 void stripText( xmlChar * inStr, std::string & outStr );
 

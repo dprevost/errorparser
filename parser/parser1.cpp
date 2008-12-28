@@ -21,7 +21,8 @@
 
 using namespace std;
 
-void addGroup( string & language, xmlNode * group, int last );
+void addGroup( string & language, xmlNode * group, bool last, 
+               vector<AbstractHandler *> & handlers);
 
 int handleOptions( vector<AbstractHandler *> & handlers, 
                    string                    & xmlFileName,
@@ -80,6 +81,7 @@ void doTopOfFile( string                    & xmlFileName,
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
 void navigate( string                    & xmlFileName,
+               string                    & language,
                xmlNode                   * root,
                vector<AbstractHandler *> & handlers )
 {
@@ -120,12 +122,12 @@ void navigate( string                    & xmlFileName,
     */
    while ( node != NULL ) {
       if ( node->type == XML_ELEMENT_NODE ) {
-//         if ( group != NULL ) addGroup( commonArgs, group, 0 );
+         if ( group != NULL ) addGroup( language, group, false, handlers );
          group = node;
       }
       node = node->next; 
    }
-//   addGroup( commonArgs, group, 1 );
+   addGroup( language, group, true, handlers );
 
    for ( it = handlers.begin(); it < handlers.end(); it++ ) {
       (*it)->addBottomCode();
@@ -181,7 +183,7 @@ int main( int argc, char * argv[] )
    
    root = xmlDocGetRootElement( document );
 
-   navigate( xmlFileName, root, handlers );
+   navigate( language, xmlFileName, root, handlers );
 
    xmlFreeDoc( document );
 

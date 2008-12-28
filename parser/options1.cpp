@@ -502,7 +502,7 @@ bool AddCSharpHandler( vector<AbstractHandler *> & handlers,
       stripText( value, cs_namespace );
    }
 
-   p = new CSharp( filename, enumname, cs_namespace );
+   p = new CSharp( filename, cs_namespace, enumname );
    
    handlers.push_back(p);
 

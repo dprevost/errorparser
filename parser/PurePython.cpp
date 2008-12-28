@@ -48,7 +48,7 @@ void PurePython::addTop( std::string & xmlFilename,
 void PurePython::addCopyright( xmlNode * node )
 {
    string years, authors;
-   string tmp, notice, prefix = "# ";
+   string tmp, prefix = "# ";
    
    node = node->children;
    
@@ -68,9 +68,7 @@ void PurePython::addCopyright( xmlNode * node )
          out_stream << "#" << endl;
 
          stripText( node->children->content, tmp );
-         prettify( tmp, prefix, notice, ERRP_LINE_LENGTH );
-         
-         out_stream << notice << endl;
+         prettify( out_stream, tmp, prefix, ERRP_LINE_LENGTH );
       }
       node = node->next;
    }
@@ -100,8 +98,33 @@ void PurePython::addError( const std::string & errNumber,
                            const std::string & errName,
                            xmlNode           * messageNode )
 {
+   xmlNode * node;
+   bool firstpara = true;
+   string tmp;
+   
+   node = messageNode->children;
+   
+   while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
+   
+   // jump over the error message - we only want the docu itself
+   node = node->next;
+   
+   while ( node != NULL ) {
+      if ( node->type == XML_ELEMENT_NODE ) {
+         /* This can only be a paragraph of the documentation */
+         stripText( node->children->content, tmp );
+         
+         if ( firstpara ) firstpara = false;
+         else {
+            out_stream << "    #" << endl;
+         }
+         prettify( out_stream, tmp, "    # ", ERRP_LINE_LENGTH );
+      }
+      node = node->next;
+   }
+
    out_stream << "    errors['" << errName << "'] = " << errNumber << endl;
-   out_stream << "    error_names[" << errNumber << "] = '" << errName << "'" << endl;
+   out_stream << "    error_names[" << errNumber << "] = '" << errName << "'" << endl << endl;
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
