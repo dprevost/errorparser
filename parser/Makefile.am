@@ -42,20 +42,12 @@ EXTRA_DIST =                        \
         Project_Files/parser.vcproj \
         resource.h
 
-errorParser_SOURCES = \
-        group.c   \
-        message.c \
-        options.c \
-        parser.c  \
-        parser.h  \
-        text.c    
-
-errorParser1_0_SOURCES =     \
-        group1.cpp           \
-        options1.cpp         \
-        parser1.cpp          \
+errorParser_SOURCES =        \
+        group.cpp            \
+        options.cpp          \
+        parser.cpp           \
         parser1.h            \
-        text1.cpp            \
+        text.cpp             \
         AbstractHandler.h    \
         CfamilyHandler.cpp   \
         CfamilyHandler.h     \
@@ -75,5 +67,4 @@ errorParser1_0_SOURCES =     \
         PurePython.h         
 
 errorParser_LDFLAGS = @ERR_PARSER_LIBS@
-errorParser1_0_LDFLAGS = @ERR_PARSER_LIBS@
 
