@@ -18,7 +18,7 @@ AM_CPPFLAGS += @ERR_PARSER_CFLAGS@
 
 CLEANFILES = *~ 
 
-bin_PROGRAMS = errorParser errorParser1_0
+bin_PROGRAMS = errorParser
 
 man_MANS = errorParser.1
 
@@ -46,7 +46,7 @@ errorParser_SOURCES =        \
         group.cpp            \
         options.cpp          \
         parser.cpp           \
-        parser1.h            \
+        parser.h             \
         text.cpp             \
         AbstractHandler.h    \
         CfamilyHandler.cpp   \

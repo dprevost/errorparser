@@ -17,7 +17,7 @@
 #include <iostream>
 #include <fstream>
 #include <cassert>
-#include "parser1.h"
+#include "parser.h"
 
 using namespace std;
 

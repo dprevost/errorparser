@@ -48,3 +48,18 @@
     * version 0.5.0
         * Added support for Python
 
+2009-01-??  Daniel Prevost  <dprevost@users.sourceforge.net>
+
+    * version 1.0 RC 1 (Release Candidate 1)
+        * Complete rewrite: 
+          
+          Each type of output file has its own "handler" (c++ class).
+          This new modularity will make it easier to modify the code,
+          maintain it, add new supported languages, etc.
+        
+        * More tests.
+        
+        * A new section in the manual on how to implement a new handler
+          (or modify an existing one).
+
+

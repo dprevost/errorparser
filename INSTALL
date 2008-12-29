@@ -4,9 +4,11 @@ Installation Instructions
 Some notes specific to Error Parser:
 
  * The software package libxml2 (http://xmlsoft.org/) is required to build
-   and run Error Parser. See the "Downloads" link of xmlsoft for both 
-   binaries and source code if libxml2 is not already installed on your 
-   system.
+   Error Parser. See the "Downloads" link of xmlsoft for both binaries and 
+   source code if libxml2 is not already installed on your system.
+   
+   To avoid problems, libxml2 is linked statically - you do not need libxml2
+   to run the program.
    
  * To build and install from source, the "standard" method should be
    used:
@@ -14,7 +16,7 @@ Some notes specific to Error Parser:
     * make 
     * make install (from an account with the required privileges, of course).
 
- * On Windows, use the project workspace (parser\parser.dsw). There are no
+ * On Windows, use the project workspace (parser\parser.slw). There are no
    automated mechanism (yet) to install the software (if you have Inno Setup,
    you can use it to build an installation package).
 
