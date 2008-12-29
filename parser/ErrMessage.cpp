@@ -34,7 +34,7 @@ ErrMessage::ErrMessage( string & filename,
      allowEscapes ( allowEscapes ),
      allowQuotes  ( allowQuotes )
 {
-   out_stream.open( filename.c_str(), fstream::out );
+   outStream.open( filename.c_str(), fstream::out );
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
@@ -42,20 +42,20 @@ ErrMessage::ErrMessage( string & filename,
 void ErrMessage::addTopCode()
 {
    // Need to include a system header file to get the definition of NULL.
-   out_stream << "#include <stdlib.h> /* Needed for NULL. */" << endl << endl;
+   outStream << "#include <stdlib.h> /* Needed for NULL. */" << endl << endl;
 
    // This define is use if the output is part of the library and if
    // the Win32 decorations (import/export) are needed.
-   out_stream << "#define BULDING_ERROR_MESSAGE" << endl;
-   out_stream << "#include \"" << headerName << "\"" << endl << endl;
+   outStream << "#define BULDING_ERROR_MESSAGE" << endl;
+   outStream << "#include \"" << headerName << "\"" << endl << endl;
    
    // The definition of the basic struct for holding error information
-   out_stream << "struct " << varPrefix << "_MsgStruct" << endl;
-   out_stream << "{" << endl;
-   out_stream << "    int  errorNumber;" << endl;
-   out_stream << "    const char * message;" << endl;
-   out_stream << "};" << endl << endl;
-   out_stream << "typedef struct " << varPrefix << "_MsgStruct " << 
+   outStream << "struct " << varPrefix << "_MsgStruct" << endl;
+   outStream << "{" << endl;
+   outStream << "    int  errorNumber;" << endl;
+   outStream << "    const char * message;" << endl;
+   outStream << "};" << endl << endl;
+   outStream << "typedef struct " << varPrefix << "_MsgStruct " << 
       varPrefix << "_MsgStruct;" << endl << endl;
 }
 
@@ -68,10 +68,10 @@ void ErrMessage::addError( const std::string & errNumber,
    xmlNode * node;
    string errMessage, tmp;
    
-   out_stream << "/* " << prefix << "_" << errName << " */" << endl;
-   out_stream << varPrefix << "_MsgStruct " << varPrefix << "_Msg" <<
+   outStream << "/* " << prefix << "_" << errName << " */" << endl;
+   outStream << varPrefix << "_MsgStruct " << varPrefix << "_Msg" <<
       errorCount << " = {" << endl;
-   out_stream << "    " << errNumber << ", " << endl;
+   outStream << "    " << errNumber << ", ";
    
    node = messageNode->children;
    
@@ -88,11 +88,13 @@ void ErrMessage::addError( const std::string & errNumber,
          exit(1);
       }
       escapeUnescapedQuotes( errMessage, tmp );
-      out_stream << "\"" << tmp << "\" };" << endl <<endl;
+      outStream << "\"" << tmp << "\" };" << endl <<endl;
    }
    else {
-      out_stream << "\"" << errMessage << "\" };" << endl << endl;
+      outStream << "\"" << errMessage << "\" };" << endl << endl;
    }
+
+   errorCount++;
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
@@ -101,36 +103,36 @@ void ErrMessage::addBottomCode()
 {
    int i;
    
-   out_stream << barrier << endl << endl;
+   outStream << barrier << endl << endl;
    
    // Define an array of pointers to the previous structs.
-   out_stream << "/* Array of pointers to previous structs */" << endl;
-   out_stream << varPrefix << "_MsgStruct * " << varPrefix << 
+   outStream << "/* Array of pointers to previous structs */" << endl;
+   outStream << varPrefix << "_MsgStruct * " << varPrefix << 
       "_MsgArray[" << errorCount << "] = {" << endl;
 
    for ( i = 0; i < errorCount-1; ++i ) {
-      out_stream << "    &" << varPrefix << "_Msg" << i << endl;
+      outStream << "    &" << varPrefix << "_Msg" << i << endl;
    }
-   out_stream << "    &" << varPrefix << "_Msg" << errorCount-1 << endl;
-   out_stream << "};" << endl << endl;
+   outStream << "    &" << varPrefix << "_Msg" << errorCount-1 << endl;
+   outStream << "};" << endl << endl;
 
-   out_stream << barrier << endl << endl;
+   outStream << barrier << endl << endl;
 
    // Write the function to access the error messages
-   out_stream << "const char * " << varPrefix << "_ErrorMessage( int errnum )" << endl;
-   out_stream << "{" << endl;
-   out_stream << "    int i;" << endl << endl;
+   outStream << "const char * " << varPrefix << "_ErrorMessage( int errnum )" << endl;
+   outStream << "{" << endl;
+   outStream << "    int i;" << endl << endl;
 
-   out_stream << "    for ( i = 0; i < " << errorCount << "; ++i ) {" << endl;
-   out_stream << "        if ( errnum == " << varPrefix << "_MsgArray[i]->errorNumber ) {" << endl;
-   out_stream << "            return " << varPrefix << "_MsgArray[i]->message;" << endl;
-   out_stream << "        }" << endl;
-   out_stream << "    }" << endl << endl;
+   outStream << "    for ( i = 0; i < " << errorCount << "; ++i ) {" << endl;
+   outStream << "        if ( errnum == " << varPrefix << "_MsgArray[i]->errorNumber ) {" << endl;
+   outStream << "            return " << varPrefix << "_MsgArray[i]->message;" << endl;
+   outStream << "        }" << endl;
+   outStream << "    }" << endl << endl;
 
-   out_stream << "    return NULL;" << endl;
-   out_stream << "}" << endl << endl;
+   outStream << "    return NULL;" << endl;
+   outStream << "}" << endl << endl;
 
-   out_stream << barrier << endl << endl;
+   outStream << barrier << endl << endl;
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--

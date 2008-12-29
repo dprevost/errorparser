@@ -84,7 +84,7 @@ protected:
    
    AbstractHandler() {}
    
-   std::fstream out_stream;
+   std::fstream outStream;
 
    std::string barrier;
 };

@@ -59,7 +59,6 @@ void doTopOfFile( string                    & xmlFileName,
    formattedTime = localtime( &t );
    strftime( timeBuf, 30, "%a %b %e %H:%M:%S %Y", formattedTime );
 #endif
-
    for ( it = handlers.begin(); it < handlers.end(); it++ ) {
       (*it)->addTop( xmlFileName, timeBuf, version );
    }
@@ -162,7 +161,7 @@ int main( int argc, char * argv[] )
 
    context = xmlNewParserCtxt();
    if ( context == NULL ) {
-      fprintf(stderr, "Error allocating the parser context\n");
+      cerr << "Error allocating the parser context" << endl;
       return 1;
    }
 
@@ -183,7 +182,7 @@ int main( int argc, char * argv[] )
    
    root = xmlDocGetRootElement( document );
 
-   navigate( language, xmlFileName, root, handlers );
+   navigate( xmlFileName, language, root, handlers );
 
    xmlFreeDoc( document );
 

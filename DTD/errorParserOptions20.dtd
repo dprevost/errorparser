@@ -52,10 +52,10 @@
 -->
 
 <!ELEMENT options      (general_options,
-                        header_files?,
-                        errmsg_file?,
+                        header_file?,
+                        errmsg_files?,
                         csharp?,
-                        ex_python?,
+                        ext_python?,
                         pure_python?)>
 
 <!ELEMENT general_options   (prefix_error_no_namespace,selected_lang?)>

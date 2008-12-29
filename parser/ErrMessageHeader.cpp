@@ -32,7 +32,7 @@ ErrMessageHeader::ErrMessageHeader( string & dirname,
    
    buildPath( dirname, filename, name );
    
-   out_stream.open( name.c_str(), fstream::out );
+   outStream.open( name.c_str(), fstream::out );
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
@@ -41,32 +41,34 @@ void ErrMessageHeader::addBottomCode()
 {
    if ( exportFunctions ) {
       /* Windows export/import decoration. */
-      out_stream << "#if defined(WIN32)" << endl;
-      out_stream << "#  if defined(BULDING_ERROR_MESSAGE)" << endl;
-      out_stream << "#    define ERROR_MESSAGE_EXPORT __declspec ( dllexport )" << endl;
-      out_stream << "#  else" << endl;
-      out_stream << "#    define ERROR_MESSAGE_EXPORT __declspec ( dllimport )" << endl;
-      out_stream << "#  endif" << endl;
-      out_stream << "#else" << endl;
-      out_stream << "#  define ERROR_MESSAGE_EXPORT" << endl;
-      out_stream << "#endif" << endl << endl;
-      out_stream << barrier << endl << endl;
+      outStream << "#if defined(WIN32)" << endl;
+      outStream << "#  if defined(BULDING_ERROR_MESSAGE)" << endl;
+      outStream << "#    define ERROR_MESSAGE_EXPORT __declspec ( dllexport )" << endl;
+      outStream << "#  else" << endl;
+      outStream << "#    define ERROR_MESSAGE_EXPORT __declspec ( dllimport )" << endl;
+      outStream << "#  endif" << endl;
+      outStream << "#else" << endl;
+      outStream << "#  define ERROR_MESSAGE_EXPORT" << endl;
+      outStream << "#endif" << endl << endl;
+      outStream << barrier << endl << endl;
    }
    
-   out_stream << "/*" << endl;
-   out_stream << " * Use this function to access the error messages (defined in the xml" << endl;
-   out_stream << " * input file)." << endl;
-   out_stream << " * " << endl;
-   out_stream << " * Parameters:" << endl;
-   out_stream << " *   - errnum    The error number" << endl;
-   out_stream << " *" << endl;
-   out_stream << " * Return values:" << endl;
-   out_stream << " *   - the error message if errnum is valid (exists)" << endl;
-   out_stream << " *   - NULL otherwise" << endl;
-   out_stream << " */" << endl;
+   outStream << "/*" << endl;
+   outStream << " * Use this function to access the error messages (defined in the xml" << endl;
+   outStream << " * input file)." << endl;
+   outStream << " * " << endl;
+   outStream << " * Parameters:" << endl;
+   outStream << " *   - errnum    The error number" << endl;
+   outStream << " *" << endl;
+   outStream << " * Return values:" << endl;
+   outStream << " *   - the error message if errnum is valid (exists)" << endl;
+   outStream << " *   - NULL otherwise" << endl;
+   outStream << " */" << endl;
 
-   if ( exportFunctions ) out_stream << "ERROR_MESSAGE_EXPORT" << endl;
-   out_stream << "const char * " << varPrefix << "_ErrorMessage( int errnum );" << endl << endl;
+   if ( exportFunctions ) outStream << "ERROR_MESSAGE_EXPORT" << endl;
+   outStream << "const char * " << varPrefix << "_ErrorMessage( int errnum );" << endl << endl;
+
+   outStream << barrier << endl << endl;
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--

@@ -25,7 +25,7 @@ CSharp::CSharp( string & filename, string & cs_namespace, string & cs_enum )
      my_enum     ( cs_enum ),
      indent      ( "" )
 {
-   out_stream.open( filename.c_str(), fstream::out );
+   outStream.open( filename.c_str(), fstream::out );
    
    if ( my_namespace.length() > 0 ) indent = "    ";
    
@@ -36,14 +36,14 @@ CSharp::CSharp( string & filename, string & cs_namespace, string & cs_enum )
 
 void CSharp::addTopCode()
 {
-   out_stream << "using System;" << endl << endl;
+   outStream << "using System;" << endl << endl;
 
    if ( my_namespace.length() > 0 ) {
-      out_stream << "namespace " << my_namespace << endl << "{" << endl;
+      outStream << "namespace " << my_namespace << endl << "{" << endl;
    }
    
-   out_stream << indent << "public enum " << my_enum << endl;
-   out_stream << indent << "{" << endl;
+   outStream << indent << "public enum " << my_enum << endl;
+   outStream << indent << "{" << endl;
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
@@ -70,26 +70,26 @@ void CSharp::addError( const string & errNumber,
          
          if ( firstpara ) firstpara = false;
          else {
-            out_stream << indent << "    //" << endl;
+            outStream << indent << "    //" << endl;
          }
          if ( my_namespace.length() == 0 ) {
-            prettify( out_stream, tmp, "    // ", ERRP_LINE_LENGTH );
+            prettify( outStream, tmp, "    // ", ERRP_LINE_LENGTH );
          }
          else {
-            prettify( out_stream, tmp, "        // ", ERRP_LINE_LENGTH );
+            prettify( outStream, tmp, "        // ", ERRP_LINE_LENGTH );
          }
       }
       node = node->next;
    }
 
-   out_stream << indent << "    " << errName << " = " << errNumber;
+   outStream << indent << "    " << errName << " = " << errNumber;
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 void CSharp::addErrorTrailer()
 {
-   out_stream << "," << endl << endl;
+   outStream << "," << endl << endl;
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
@@ -97,13 +97,13 @@ void CSharp::addErrorTrailer()
 void CSharp::addBottomCode()
 {
    // Added at the end of the last error
-   out_stream << endl;
+   outStream << endl;
    
-   out_stream << indent << "}" << endl;
+   outStream << indent << "}" << endl;
    if ( my_namespace.length() > 0 ) {
-      out_stream << "}" << endl;
+      outStream << "}" << endl;
    }
-   out_stream << endl << barrier << endl << endl;
+   outStream << endl << barrier << endl << endl;
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--

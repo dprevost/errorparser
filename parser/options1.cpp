@@ -420,7 +420,7 @@ bool AddErrMessageHandlers( vector<AbstractHandler *> & handlers,
       cerr << "Error: missing <errmsg_c_fullname> in options file" << endl;
       return false;
    }
-   prop = xmlGetProp( node, BAD_CAST "build_dll" );
+   prop = xmlGetProp( valueNode, BAD_CAST "build_dll" );
    if ( prop == NULL ) {
       cerr << "Error: missing \"build_dll\" in options file" << endl;
       return false;
@@ -440,7 +440,7 @@ bool AddErrMessageHandlers( vector<AbstractHandler *> & handlers,
       cerr << "Error: missing <errmsg_msg> in options file" << endl;
       return false;
    }
-   prop = xmlGetProp( node, BAD_CAST "allow_escapes" );
+   prop = xmlGetProp( valueNode, BAD_CAST "allow_escapes" );
    if ( prop == NULL ) {
       cerr << "Error: missing \"allow_escapes\" in options file" << endl;
       return false;
@@ -448,7 +448,7 @@ bool AddErrMessageHandlers( vector<AbstractHandler *> & handlers,
    if ( xmlStrcmp( prop, BAD_CAST "yes") == 0 ) allowEscapes = true;
    xmlFree(prop);
    
-   prop = xmlGetProp( node, BAD_CAST "allow_quotes" );
+   prop = xmlGetProp( valueNode, BAD_CAST "allow_quotes" );
    if ( prop == NULL ) {
       cerr << "Error: missing \"allow_quotes\" in options file" << endl;
       return false;
@@ -456,7 +456,7 @@ bool AddErrMessageHandlers( vector<AbstractHandler *> & handlers,
    if ( xmlStrcmp( prop, BAD_CAST "yes") == 0 ) allowQuotes = true;
    xmlFree(prop);
 
-   prop = xmlGetProp( node, BAD_CAST "percent" );
+   prop = xmlGetProp( valueNode, BAD_CAST "percent" );
    if ( prop == NULL ) {
       cerr << "Error: missing \"percent\" in options file" << endl;
       return false;

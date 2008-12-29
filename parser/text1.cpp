@@ -27,10 +27,10 @@ using namespace std;
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
-void buildPath( string & filename, string & dir, string & outname )
+void buildPath( string & dir, string & filename, string & outname )
 {
    size_t len = dir.length();
-
+ 
    if ( len == 0 ) {
       outname = filename;
    }

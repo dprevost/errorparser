@@ -27,38 +27,37 @@ HeaderHandler::HeaderHandler( std::string  & header )
    for ( i = 0; i < header.length(); ++i ) {
       if ( isalnum(header[i]) ) {
          if ( isalpha(header[i]) ) {
-            guard[i] += toupper(header[i]);
+            guard += toupper(header[i]);
          }
-         else guard[i] += header[i];
+         else guard += header[i];
       }
       else {
-         guard[i] += '_';
+         guard += '_';
       }
    }
-
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 void HeaderHandler::startHeaderGuard()
 {
-   out_stream << "#ifndef " << guard << endl;
-   out_stream << "#define " << guard << endl << endl;
-   out_stream << "#ifdef __cplusplus" << endl;
-   out_stream << "extern \"C\" {" <<endl;
-   out_stream << "#endif" << endl << endl;
-   out_stream << barrier << endl << endl;
+   outStream << "#ifndef " << guard << endl;
+   outStream << "#define " << guard << endl << endl;
+   outStream << "#ifdef __cplusplus" << endl;
+   outStream << "extern \"C\" {" <<endl;
+   outStream << "#endif" << endl << endl;
+   outStream << barrier << endl << endl;
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 void HeaderHandler::stopHeaderGuard()
 {
-   out_stream << barrier << endl << endl;
-   out_stream << "#ifdef __cplusplus" << endl;
-   out_stream << "}" << endl;
-   out_stream << "#endif" << endl << endl;
-   out_stream << "#endif /* " << guard << " */" << endl << endl;
+   outStream << "#ifdef __cplusplus" << endl;
+   outStream << "}" << endl;
+   outStream << "#endif" << endl << endl;
+   outStream << "#endif /* " << guard << " */" << endl << endl;
+   outStream << barrier << endl << endl;
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--

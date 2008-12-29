@@ -35,7 +35,7 @@ ErrorHeader::ErrorHeader( string & dir,
    
    buildPath( dir, header, name );
    
-   out_stream.open( name.c_str(), fstream::out );
+   outStream.open( name.c_str(), fstream::out );
 
    if ( enumName.length() > 0 ) usingEnum = true;
 }
@@ -49,8 +49,8 @@ void ErrorHeader::addTopCode()
     * present, we use "#define" instead.
     */
    if ( usingEnum ) {
-      out_stream << "enum " << enumName << endl;
-      out_stream << "{" << endl;
+      outStream << "enum " << enumName << endl;
+      outStream << "{" << endl;
    }
 
 }
@@ -62,12 +62,12 @@ void ErrorHeader::addGroupName( std::string name )
    // We call prettify since we have no control over the length
    // of that field in the xml input file.
    if ( usingEnum ) {
-      out_stream << "    /*" << endl;
-      prettify( out_stream, name, "     * ", ERRP_LINE_LENGTH );
+      outStream << "    /*" << endl;
+      prettify( outStream, name, "     * ", ERRP_LINE_LENGTH );
    }
    else {
-      out_stream << "/*" << endl;
-      prettify( out_stream, name, " * ", ERRP_LINE_LENGTH );
+      outStream << "/*" << endl;
+      prettify( outStream, name, " * ", ERRP_LINE_LENGTH );
    }
 }
    
@@ -76,12 +76,12 @@ void ErrorHeader::addGroupName( std::string name )
 void ErrorHeader::addGroupDesc( std::string description )
 {
    if ( usingEnum ) {
-      out_stream << "     *" << endl;
-      prettify( out_stream, description, "     * ", ERRP_LINE_LENGTH );
+      outStream << "     *" << endl;
+      prettify( outStream, description, "     * ", ERRP_LINE_LENGTH );
    }
    else {
-      out_stream << " *" << endl;
-      prettify( out_stream, description, " * ", ERRP_LINE_LENGTH );
+      outStream << " *" << endl;
+      prettify( outStream, description, " * ", ERRP_LINE_LENGTH );
    }
 }
 
@@ -90,10 +90,10 @@ void ErrorHeader::addGroupDesc( std::string description )
 void ErrorHeader::endGroupDesc()
 {
    if ( usingEnum ) {
-      out_stream << "     */" << endl << endl;
+      outStream << "     */" << endl << endl;
    }
    else {
-      out_stream << " */" << endl << endl;
+      outStream << " */" << endl << endl;
    }
 }
 
@@ -115,10 +115,10 @@ void ErrorHeader::addError( const std::string & errNumber,
    node = node->next;
 
    if ( usingEnum ) {
-      out_stream << "    /**" << endl;
+      outStream << "    /**" << endl;
    }
    else {
-      out_stream << "/**" << endl;
+      outStream << "/**" << endl;
    }
 
    while ( node != NULL ) {
@@ -129,30 +129,30 @@ void ErrorHeader::addError( const std::string & errNumber,
          if ( firstpara ) firstpara = 0;
          else {
             if ( usingEnum ) {
-               out_stream << "     *" << endl;
+               outStream << "     *" << endl;
             }
             else {
-               out_stream << " *" << endl;
+               outStream << " *" << endl;
             }
          }
 
          if ( usingEnum ) {
-            prettify( out_stream, tmp, "     * ", ERRP_LINE_LENGTH );
+            prettify( outStream, tmp, "     * ", ERRP_LINE_LENGTH );
          }
          else {
-            prettify( out_stream, tmp, " * ", ERRP_LINE_LENGTH );
+            prettify( outStream, tmp, " * ", ERRP_LINE_LENGTH );
          }
       }
       node = node->next;
    }
 
    if ( usingEnum ) {
-      out_stream << "     */" << endl;
-      out_stream << "    " << prefix << "_" << errName << " = " << errNumber;
+      outStream << "     */" << endl;
+      outStream << "    " << prefix << "_" << errName << " = " << errNumber;
    }
    else {
-      out_stream << " */" << endl;
-      out_stream << "#define " << prefix << "_" << errName << " " << errNumber;
+      outStream << " */" << endl;
+      outStream << "#define " << prefix << "_" << errName << " " << errNumber;
    }
 }
 
@@ -161,9 +161,9 @@ void ErrorHeader::addError( const std::string & errNumber,
 void ErrorHeader::addErrorTrailer()
 {
    if ( usingEnum ) {
-      out_stream << ",";
+      outStream << ",";
    }
-   out_stream << endl << endl;
+   outStream << endl << endl;
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
@@ -171,8 +171,14 @@ void ErrorHeader::addErrorTrailer()
 void ErrorHeader::addBottomCode()
 {
    if ( usingEnum ) {
-      out_stream << "};" << endl << endl;
-      out_stream << "typedef enum " << enumName << " " << enumName << ";" << endl << endl;
+      outStream << endl;
+      outStream << "};" << endl << endl;
+      outStream << "typedef enum " << enumName << " " << enumName << ";" << endl << endl;
+      outStream << barrier << endl << endl;
+   }
+   else {
+      outStream << endl << endl;
+      outStream << barrier << endl << endl;
    }
 }
 

@@ -50,8 +50,8 @@ extern const char * g_functionName;
 
 /* Prototypes of text.cpp functions */
 
-void buildPath( std::string & filename, 
-                std::string & dir, 
+void buildPath( std::string & dirname, 
+                std::string & filename, 
                 std::string & name );
 
 void prettify( std::fstream      & outStream,
