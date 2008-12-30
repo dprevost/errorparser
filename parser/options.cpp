@@ -396,7 +396,7 @@ bool AddErrMessageHandlers( vector<AbstractHandler *> & handlers,
    ErrMessageHeader * pH;
    ErrMessage * pC;
    
-   value = GetOptionalValue( node, "errmsg_dir" );
+   value = GetOptionalValue( node, "errmsg_dirname" );
    if ( value != NULL ) {
       stripText( value, dirname );
    }

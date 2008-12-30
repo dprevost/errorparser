@@ -58,19 +58,26 @@
                         ext_python?,
                         pure_python?)>
 
-<!ELEMENT general_options   (prefix_error_no_namespace,selected_lang?)>
+<!ELEMENT general_options   (prefix_error_no_namespace,
+                             selected_lang?)>
 <!-- prefix_error_no_namespace is the prefix to use in generated files that
      do not have namespaces - to avoid clashes with other libraries. -->
 <!ELEMENT prefix_error_no_namespace (#PCDATA)>
 <!ELEMENT selected_lang      EMPTY>
 
-<!ELEMENT header_file        (header_enum?,header_dir?,header_name)>
+<!ELEMENT header_file        (header_enum?,
+                              header_dirname?,
+                              header_name)>
 <!ELEMENT header_enum        (#PCDATA)>
 <!ELEMENT header_dirname     (#PCDATA)>
 <!ELEMENT header_name        (#PCDATA)>
 
-<!ELEMENT errmsg_files       (errmsg_dir?,errmsg_header_name,errmsg_c_fullname,
-                              errmsg_options,errmsg_prefix_var,errmsg_msg)>
+<!ELEMENT errmsg_files       (errmsg_dirname?,
+                              errmsg_header_name,
+                              errmsg_c_fullname,
+                              errmsg_options,
+                              errmsg_prefix_var,
+                              errmsg_msg)>
 <!ELEMENT errmsg_dirname     (#PCDATA)>
 <!ELEMENT errmsg_header_name (#PCDATA)>
 <!ELEMENT errmsg_c_fullname  (#PCDATA)>
@@ -78,12 +85,15 @@
 <!ELEMENT errmsg_prefix_var  (#PCDATA)>
 <!ELEMENT errmsg_msg         EMPTY>
 
-<!ELEMENT csharp             (cs_filename, cs_enum_name, cs_namespace?)>
+<!ELEMENT csharp             (cs_filename,
+                              cs_enum_name,
+                              cs_namespace?)>
 <!ELEMENT cs_filename        (#PCDATA)>
 <!ELEMENT cs_enum_name       (#PCDATA)>
 <!ELEMENT cs_namespace       (#PCDATA)>
 
-<!ELEMENT ext_python         (ext_py_dirname?,ext_py_filename)>
+<!ELEMENT ext_python         (ext_py_dirname?,
+                              ext_py_filename)>
 <!ELEMENT ext_py_dirname     (#PCDATA)>
 <!ELEMENT ext_py_filename    (#PCDATA)>
 
