@@ -20,23 +20,7 @@
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-#ifdef HAVE_CONFIG_H
-#  include "config.h"
-#endif
-#if defined WIN32
-#  define _CRT_SECURE_NO_DEPRECATE
-#  include "config-win32.h"
-   /* 
-    * The pragma is to hide a warning in Microsoft include files
-    * with VC++ 6. Don't know about other versions yet.
-    */
-#  pragma warning(disable:4115)
-#  include <windows.h>
-#  pragma warning(default:4115)
-#  include <winbase.h>
-#  include <io.h>
-#  include <process.h> 
-#endif
+#include "parser.h"
 
 #include <fstream>
 #include <libxml/parser.h>

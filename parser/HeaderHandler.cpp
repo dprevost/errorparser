@@ -14,6 +14,7 @@
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 #include "HeaderHandler.h"
+#include <string>
 
 using namespace std;
 

@@ -72,7 +72,6 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="libxml2_a.lib zlib.lib iconv_a.lib ws2_32.lib"
 				OutputFile="Release\errorParser.exe"
-				Version="0.40"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="c:\Program Files\libxml2\lib"
@@ -140,7 +139,7 @@
 				AdditionalIncludeDirectories="c:\Program Files\libxml2\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;LIBXML_STATIC"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="2"
+				RuntimeLibrary="3"
 				PrecompiledHeaderFile=".\Debug/parser.pch"
 				AssemblerListingLocation=".\Debug/"
 				ObjectFile=".\Debug/"
@@ -164,7 +163,6 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="libxml2_a.lib zlib.lib iconv_a.lib ws2_32.lib"
 				OutputFile="Debug/errorParser.exe"
-				Version="0.40"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="c:\Program Files\libxml2\lib"
@@ -209,15 +207,39 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
-				RelativePath="..\group.c"
+				RelativePath="..\CfamilyHandler.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\CSharp.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\ErrMessage.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\ErrMessageHeader.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\ErrorHeader.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\ExtPython.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\group.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -225,21 +247,25 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
 					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\message.c"
+				RelativePath="..\HeaderHandler.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\options.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -247,21 +273,21 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
 					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\options.c"
+				RelativePath="..\parser.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -269,43 +295,25 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
 					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\parser.c"
+				RelativePath="..\PurePython.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\text.c"
+				RelativePath="..\text.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -313,8 +321,8 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
 					/>
 				</FileConfiguration>
 			</File>
@@ -324,11 +332,51 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
+				RelativePath="..\AbstractHandler.h"
+				>
+			</File>
+			<File
+				RelativePath="..\CfamilyHandler.h"
+				>
+			</File>
+			<File
 				RelativePath="..\config-win32.h"
 				>
 			</File>
 			<File
+				RelativePath="..\CSharp.h"
+				>
+			</File>
+			<File
+				RelativePath="..\ErrMessage.h"
+				>
+			</File>
+			<File
+				RelativePath="..\ErrMessageHeader.h"
+				>
+			</File>
+			<File
+				RelativePath="..\ErrorHeader.h"
+				>
+			</File>
+			<File
+				RelativePath="..\ExtPython.h"
+				>
+			</File>
+			<File
+				RelativePath="..\HeaderHandler.h"
+				>
+			</File>
+			<File
 				RelativePath="..\parser.h"
+				>
+			</File>
+			<File
+				RelativePath="..\PurePython.h"
+				>
+			</File>
+			<File
+				RelativePath="..\resource.h"
 				>
 			</File>
 		</Filter>

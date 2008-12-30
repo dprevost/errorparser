@@ -18,8 +18,8 @@
 #ifndef EXT_PYTHON_H
 #define EXT_PYTHON_H
 
-#include <string>
 #include "HeaderHandler.h"
+#include <string>
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 

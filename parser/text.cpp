@@ -21,6 +21,10 @@
 
 using namespace std;
 
+#if!defined(PATH_MAX)
+#  define PATH_MAX _MAX_PATH
+#endif
+
 /*
  * This module contains all the text manipulation routine.
  */

@@ -18,8 +18,8 @@
 #ifndef ERROR_HANDLER_H
 #define ERROR_HANDLER_H
 
-#include <string>
 #include "HeaderHandler.h"
+#include <string>
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 

@@ -13,10 +13,10 @@
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
 
+#include "parser.h"
+
 #include <vector>
 #include <iostream>
-
-#include "parser.h"
 #include "AbstractHandler.h"
 
 using namespace std;
@@ -38,7 +38,7 @@ void doTopOfFile( string                    & xmlFileName,
                   vector<AbstractHandler *> & handlers ) 
 {
    char timeBuf[30];
-#if defined (WIN32)
+#if defined (WIN32qqq)
    char tmpTime[9];
 #else
    time_t t;
@@ -49,7 +49,7 @@ void doTopOfFile( string                    & xmlFileName,
    
    memset( timeBuf, '\0', 30 );
 
-#if defined (WIN32)
+#if defined (WIN32qqq)
    _strdate( timeBuf );
    _strtime( tmpTime );
    strcat( timeBuf, " " );
