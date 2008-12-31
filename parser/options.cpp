@@ -466,7 +466,7 @@ bool AddErrMessageHandlers( vector<AbstractHandler *> & handlers,
 
    pH = new ErrMessageHeader( dirname, headername, varPrefix, buildDll );
    pC = new ErrMessage( cname, headername, prefix, varPrefix, 
-      allowEscapes, allowQuotes );
+      allowEscapes, allowQuotes, percent );
    
    handlers.push_back(pH);
    handlers.push_back(pC);

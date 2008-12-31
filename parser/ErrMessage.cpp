@@ -26,13 +26,15 @@ ErrMessage::ErrMessage( string & filename,
                         string & prefix,
                         string & varPrefix,
                         bool     allowEscapes,
-                        bool     allowQuotes )
-   : errorCount ( 0 ),
-     headerName ( header ),
-     prefix     ( prefix ),
-     varPrefix  ( varPrefix ),
-     allowEscapes ( allowEscapes ),
-     allowQuotes  ( allowQuotes )
+                        bool     allowQuotes,
+                        string & percent )
+   : errorCount  ( 0 ),
+     headerName  ( header ),
+     prefix      ( prefix ),
+     varPrefix   ( varPrefix ),
+     allowEscapes( allowEscapes ),
+     allowQuotes ( allowQuotes ),
+     percent     ( percent )
 {
    outStream.open( filename.c_str(), fstream::out );
 }
@@ -77,8 +79,10 @@ void ErrMessage::addError( const std::string & errNumber,
    
    while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
 
-   stripText( node->children->content, errMessage );
-
+   stripText( node->children->content, tmp );
+   stripPercent( tmp, errMessage );
+   tmp.clear();
+   
    /* Check for escape sequences */
    hasEscapeSequence( errMessage );
 
@@ -93,7 +97,7 @@ void ErrMessage::addError( const std::string & errNumber,
    else {
       outStream << "\"" << errMessage << "\" };" << endl << endl;
    }
-
+   
    errorCount++;
 }
 
@@ -203,6 +207,23 @@ void ErrMessage::escapeUnescapedQuotes( const string & inStr, string & outStr )
          outStr += '\\';
       }
       outStr += inStr[i];
+   }
+}
+
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+
+void ErrMessage::stripPercent( const std::string & inStr, 
+                               std::string       & outStr )
+{
+   size_t i;
+
+   outStr.clear();
+   
+   for ( i = 0; i < inStr.length(); i++ ) {
+      if ( inStr[i] == '%' ) {
+         outStr += percent;
+      }
+      else outStr += inStr[i];
    }
 }
 

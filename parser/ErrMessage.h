@@ -42,8 +42,9 @@ public:
                std::string & header,
                std::string & prefix,
                std::string & varPrefix,
-               bool allowEscapes,
-               bool allowQuotes );
+               bool          allowEscapes,
+               bool          allowQuotes,
+               std::string & percent );
    
    void startHeaderGuard() {}
    
@@ -73,13 +74,17 @@ private:
    std::string varPrefix;
    bool allowEscapes;
    bool allowQuotes;
-
+   std::string percent;
+   
    void hasEscapeSequence( std::string & str );
 
    bool hasUnescapedQuotes( std::string & str );
 
    void escapeUnescapedQuotes( const std::string & inStr, 
                                std::string       & outStr );
+   
+   void stripPercent( const std::string & inStr, 
+                      std::string       & outStr );
 
 };
 

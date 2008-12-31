@@ -44,7 +44,7 @@
       <errname> OK </errname>
       <message_group>
         <message xml:lang="en">
-          <errormsg>No error...</errormsg>
+          <errormsg>No error (adding a dummy % to test this feature)</errormsg>
           <errordoc>No error...</errordoc>
         </message>
       </message_group>
@@ -925,7 +925,16 @@
         </message>
       </message_group>
     </error>
-
+  </errgroup>
+  
+  <errgroup>
+    <errgroup_ident>
+      <errgroup_name> XML Errors </errgroup_name>
+      <errgroup_desc>
+        A group of XML related errors (XML can be used to define data
+        containers).
+      </errgroup_desc>
+    </errgroup_ident>
     <error>
       <errnumber> 201 </errnumber>
       <errname> XML_READ_ERROR</errname>

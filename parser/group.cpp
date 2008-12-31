@@ -210,30 +210,6 @@ void addGroup( string      & language,
          (*it)->addErrorTrailer();
       }
    }
-   
-#if 0
-   if ( lastGroup ) {
-      if ( commonArgs->writingEnum ) {
-         fprintf( commonArgs->fpHeader, "\n" );
-         if (commonArgs->using_cs) fprintf( commonArgs->fpCS, "\n" );
-      }
-      else {
-         fprintf( commonArgs->fpHeader, "\n\n" );
-         if (commonArgs->using_cs) fprintf( commonArgs->fpCS, "\n\n" );
-      }
-   }
-   else {
-      if ( commonArgs->writingEnum ) {
-         fprintf( commonArgs->fpHeader, ",\n\n" );
-         if (commonArgs->using_cs) fprintf( commonArgs->fpCS, ",\n\n" );
-      }
-      else {
-         fprintf( commonArgs->fpHeader, "\n\n" );
-         if (commonArgs->using_cs) fprintf( commonArgs->fpCS, "\n\n" );
-      }
-   }      
-#endif
-//   commonArgs->groupCount++;
 }
 
 /* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
