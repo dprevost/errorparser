@@ -514,7 +514,7 @@ bool AddCSharpHandler( vector<AbstractHandler *> & handlers,
 bool AddExtPython( vector<AbstractHandler *> & handlers,
                    xmlNode                   * node )
 {
-   string dirname, filename;
+   string dirname, filename, functionName;
    xmlChar * value;
    ExtPython * p;
 
@@ -530,7 +530,12 @@ bool AddExtPython( vector<AbstractHandler *> & handlers,
    }
    stripText( value, filename );
 
-   p = new ExtPython( dirname, filename );
+   value = GetOptionalValue( node, "ext_py_function" );
+   if ( value != NULL ) {
+      stripText( value, functionName );
+   }
+
+   p = new ExtPython( dirname, filename, functionName );
    
    handlers.push_back(p);
 
@@ -542,7 +547,7 @@ bool AddExtPython( vector<AbstractHandler *> & handlers,
 bool AddPurePythonHandler( vector<AbstractHandler *> & handlers,
                            xmlNode                   * node )
 {
-   string filename;
+   string filename, functionName;
    xmlChar * value;
    PurePython * p;
    
@@ -553,7 +558,12 @@ bool AddPurePythonHandler( vector<AbstractHandler *> & handlers,
    }
    stripText( value, filename );
 
-   p = new PurePython( filename );
+   value = GetOptionalValue( node, "pure_py_function" );
+   if ( value != NULL ) {
+      stripText( value, functionName );
+   }
+
+   p = new PurePython( filename, functionName );
    
    handlers.push_back(p);
 

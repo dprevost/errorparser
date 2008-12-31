@@ -93,12 +93,16 @@
 <!ELEMENT cs_namespace       (#PCDATA)>
 
 <!ELEMENT ext_python         (ext_py_dirname?,
-                              ext_py_filename)>
+                              ext_py_filename,
+                              ext_py_function?)>
 <!ELEMENT ext_py_dirname     (#PCDATA)>
 <!ELEMENT ext_py_filename    (#PCDATA)>
+<!ELEMENT ext_py_function    (#PCDATA)>
 
-<!ELEMENT pure_python        (pure_py_filename)>
+<!ELEMENT pure_python        (pure_py_filename,
+                              pure_py_function?)>
 <!ELEMENT pure_py_filename   (#PCDATA)>
+<!ELEMENT pure_py_function   (#PCDATA)>
 
 <!ATTLIST options version CDATA #REQUIRED>
 <!ATTLIST errmsg_options build_dll (yes|no) "no">

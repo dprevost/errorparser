@@ -30,13 +30,13 @@
     <selected_lang xml:lang="en"/>
   </general_options>
 
-  <pure_python>
-    <pure_py_filename>
-      junk/pure_python.py
-    </pure_py_filename>
-    <pure_py_function>
-      my_err_funct
-    </pure_py_function>
-  </pure_python>
+  <ext_python>
+    <ext_py_dirname>
+      junk
+    </ext_py_dirname>
+    <ext_py_filename>
+      ext_py_no_func.h
+    </ext_py_filename>
+  </ext_python>
 
 </options>

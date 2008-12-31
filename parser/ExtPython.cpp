@@ -21,9 +21,11 @@ using namespace std;
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-ExtPython::ExtPython( std::string & dirname,
-                      std::string & header )
-   : HeaderHandler( header )
+ExtPython::ExtPython( string & dirname,
+                      string & header,
+                      string & function )
+   : HeaderHandler( header ),
+     functionName ( function )
 {
    string name;
    
@@ -38,7 +40,12 @@ void ExtPython::addTopCode()
 {
    outStream << "#include \"Python.h\"" << endl << endl;
 
-   outStream << "PyObject * AddErrors(void)" << endl << "{" << endl;
+   if ( functionName.length() == 0 ) {
+      outStream << "PyObject * AddErrors(void)" << endl << "{" << endl;
+   }
+   else {
+      outStream << "PyObject * " << functionName << "(void)" << endl << "{" << endl;
+   }
    outStream << "    PyObject * errors = NULL, * errorNames = NULL, * value = NULL, * key = NULL;" << endl;
    outStream << "    int errcode;" << endl << endl;
    outStream << "    errors = PyDict_New();" << endl;
@@ -56,6 +63,34 @@ void ExtPython::addError( const std::string & errNumber,
                           const std::string & errName,
                           xmlNode           * messageNode )
 {
+   xmlNode * node;
+   bool firstpara = true;
+   string tmp;
+   
+   node = messageNode->children;
+
+   while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
+   
+   // jump over the error message - we only want the docu itself
+   node = node->next;
+   
+   outStream << "    /*" << endl;
+
+   while ( node != NULL ) {
+      if ( node->type == XML_ELEMENT_NODE ) {
+         /* This can only be a paragraph of the documentation */
+         stripText( node->children->content, tmp );
+         
+         if ( firstpara ) firstpara = false;
+         else outStream << "     *" << endl;
+
+         prettify( outStream, tmp, "     * ", ERRP_LINE_LENGTH );
+      }
+      node = node->next;
+   }
+
+   outStream << "     */" << endl;
+
    outStream << "    value = PyInt_FromLong(" << errNumber << ");" << endl;
    outStream << "    if ( value == NULL ) {" << endl;
    outStream << "        PyDict_Clear(errors);" << endl;

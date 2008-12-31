@@ -30,13 +30,19 @@
     <selected_lang xml:lang="en"/>
   </general_options>
 
-  <pure_python>
-    <pure_py_filename>
-      junk/pure_python.py
-    </pure_py_filename>
-    <pure_py_function>
-      my_err_funct
-    </pure_py_function>
-  </pure_python>
+  <errmsg_files>
+    <errmsg_header_name>
+      junk/errmsg_no_dir.h
+    </errmsg_header_name>
+    <errmsg_c_fullname>
+      junk/errmsg_no_dir.c
+    </errmsg_c_fullname>
+    <errmsg_options build_dll="no"/>
+    <errmsg_prefix_var>
+      testmsg
+    </errmsg_prefix_var>
+    <errmsg_msg percent="this_is_a_percent_substitute" 
+                allow_escapes="no" allow_quotes="yes"/>
+  </errmsg_files>
 
 </options>

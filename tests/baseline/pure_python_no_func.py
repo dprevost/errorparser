@@ -19,7 +19,7 @@
 
 # --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-def my_err_funct():
+def add_errors():
 
     errors = dict()
     error_names = dict()

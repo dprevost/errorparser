@@ -104,7 +104,7 @@ void ErrorHeader::addError( const std::string & errNumber,
                             xmlNode           * messageNode )
 {
    xmlNode * node;
-   int firstpara = 1;
+   bool firstpara = true;
    string tmp;
 
    node = messageNode->children;
@@ -126,7 +126,7 @@ void ErrorHeader::addError( const std::string & errNumber,
          /* This can only be a paragraph of the documentation */
          stripText( node->children->content, tmp );
          
-         if ( firstpara ) firstpara = 0;
+         if ( firstpara ) firstpara = false;
          else {
             if ( usingEnum ) {
                outStream << "     *" << endl;

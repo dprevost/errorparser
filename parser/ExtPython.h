@@ -31,7 +31,8 @@ class ExtPython: public HeaderHandler{
    
 public:
    ExtPython( std::string & dir,
-              std::string & header );
+              std::string & header,
+              std::string & function );
    
    void addTopCode();
    
@@ -48,7 +49,10 @@ public:
    void addErrorTrailer() {}
    
    void addBottomCode();
+
+private:
    
+   std::string functionName;
 };
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--

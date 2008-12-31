@@ -20,8 +20,9 @@ using namespace std;
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-PurePython::PurePython( std::string & filename )
-   : AbstractHandler()
+PurePython::PurePython( std::string & filename, std::string & functionName )
+   : AbstractHandler(),
+     functionName   (functionName)
 {
    outStream.open( filename.c_str(), fstream::out );
    
@@ -87,7 +88,12 @@ void PurePython::addEndTop()
 
 void PurePython::addTopCode()
 {
-   outStream << "def add_errors():" << endl << endl;
+   if ( functionName.length() == 0 ) {
+      outStream << "def add_errors():" << endl << endl;
+   }
+   else {
+      outStream << "def " << functionName << "():" << endl << endl;
+   }
    outStream << "    errors = dict()" << endl;
    outStream << "    error_names = dict()" << endl << endl;
 }

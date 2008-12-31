@@ -32,11 +32,8 @@
 
   <pure_python>
     <pure_py_filename>
-      junk/pure_python.py
+      junk/pure_python_no_func.py
     </pure_py_filename>
-    <pure_py_function>
-      my_err_funct
-    </pure_py_function>
   </pure_python>
 
 </options>

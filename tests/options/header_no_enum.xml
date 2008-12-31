@@ -30,13 +30,13 @@
     <selected_lang xml:lang="en"/>
   </general_options>
 
-  <pure_python>
-    <pure_py_filename>
-      junk/pure_python.py
-    </pure_py_filename>
-    <pure_py_function>
-      my_err_funct
-    </pure_py_function>
-  </pure_python>
-
+  <header_file>
+    <header_dirname>
+      junk
+    </header_dirname>
+    <header_name>
+      header_no_enum.h
+    </header_name>
+  </header_file>
+  
 </options>

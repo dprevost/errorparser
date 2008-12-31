@@ -34,7 +34,7 @@ class PurePython: public AbstractHandler {
    
 public:
 
-   PurePython( std::string & filename );
+   PurePython( std::string & filename, std::string & functionName );
 
 //   ~PurePython() {}
    
@@ -67,7 +67,11 @@ public:
    
    // Dummy function
    void stopHeaderGuard() {}
-   
+
+private:
+
+   std::string functionName;
+
 };
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--

@@ -30,13 +30,12 @@
     <selected_lang xml:lang="en"/>
   </general_options>
 
-  <pure_python>
-    <pure_py_filename>
-      junk/pure_python.py
-    </pure_py_filename>
-    <pure_py_function>
-      my_err_funct
-    </pure_py_function>
-  </pure_python>
-
+  <csharp>
+    <cs_filename>
+      junk/csharp_nons.cs
+    </cs_filename>
+    <cs_enum_name>
+      cs_enum
+    </cs_enum_name>
+  </csharp>
 </options>

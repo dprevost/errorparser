@@ -107,6 +107,10 @@ run_more_test()
    test_name=$1
    test_file=$2
    
+   if [ $# = 3 ] ; then
+      test_file2=$3
+   fi
+   
    if [ $verbose = 1 ] ; then
       $parser --options $test_dir/options/$test_name.xml $test_dir/xml/generic.xml
    else
@@ -122,12 +126,22 @@ run_more_test()
       echo "FAIL (diff): $test_name "
       return 1
    fi
-
+   if [ $# = 3 ] ; then
+      diff -b -I 'Date: ' -I 'using the input file' junk/$test_file2 $test_dir/baseline/$test_file2
+      if [ "$?" != 0 ] ; then
+         echo "FAIL (diff): $test_name "
+         return 1
+      fi
+   fi
+   
    if [ $verbose = 1 ] ; then
       echo "PASS: $test_name "
    fi
 
    rm junk/$test_file
+   if [ $# = 3 ] ; then
+      rm junk/$test_file2
+   fi
 }
 
 # --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
@@ -160,6 +174,7 @@ mkdir junk
 good_tests="french multi_copyright no_copyright no_groupident \
 no_version one_error two_english"
 
+echo "Running tests for the xml error file itself"
 for tests in $good_tests; do
    run_test_xml $tests
    if [ "$?" != 0 ] ; then
@@ -167,12 +182,57 @@ for tests in $good_tests; do
    fi
 done
 
-run_more_test pure_python pure_python.py
+echo "Running tests for each possible output file (with its options)"
+
+run_more_test csharp csharp.cs
+if [ "$?" != 0 ] ; then
+   exit 1
+fi
+run_more_test csharp_nons csharp_nons.cs
 if [ "$?" != 0 ] ; then
    exit 1
 fi
 
-run_more_test csharp csharp.cs
+run_more_test errmsg errmsg.h errmsg.c
+if [ "$?" != 0 ] ; then
+   exit 1
+fi
+run_more_test errmsg_no_dir errmsg_no_dir.h errmsg_no_dir.c
+if [ "$?" != 0 ] ; then
+   exit 1
+fi
+
+run_more_test ext_py ext_py.h
+if [ "$?" != 0 ] ; then
+   exit 1
+fi
+run_more_test ext_py_no_dir ext_py_no_dir.h
+if [ "$?" != 0 ] ; then
+   exit 1
+fi
+run_more_test ext_py_no_func ext_py_no_func.h
+if [ "$?" != 0 ] ; then
+   exit 1
+fi
+
+run_more_test header header.h
+if [ "$?" != 0 ] ; then
+   exit 1
+fi
+run_more_test header_no_dir header_no_dir.h
+if [ "$?" != 0 ] ; then
+   exit 1
+fi
+run_more_test header_no_enum header_no_enum.h
+if [ "$?" != 0 ] ; then
+   exit 1
+fi
+
+run_more_test pure_python pure_python.py
+if [ "$?" != 0 ] ; then
+   exit 1
+fi
+run_more_test pure_python_no_func pure_python_no_func.py
 if [ "$?" != 0 ] ; then
    exit 1
 fi
