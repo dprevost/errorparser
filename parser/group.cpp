@@ -205,6 +205,12 @@ void addGroup( string      & language,
       }
       node = node->next; 
    }
+   if ( ! lastGroup ) {
+      for ( it = handlers.begin(); it < handlers.end(); it++ ) {
+         (*it)->addErrorTrailer();
+      }
+   }
+   
 #if 0
    if ( lastGroup ) {
       if ( commonArgs->writingEnum ) {

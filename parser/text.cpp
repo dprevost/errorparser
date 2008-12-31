@@ -39,6 +39,7 @@ void buildPath( string & dir, string & filename, string & outname )
       outname = filename;
    }
    else {
+      outname = dir;
 #if defined(WIN32)
       if ( dir[len-1] != '\\' && dir[len-1] != '/' ) outname += "\\";
 #else

@@ -111,7 +111,7 @@ void ErrMessage::addBottomCode()
       "_MsgArray[" << errorCount << "] = {" << endl;
 
    for ( i = 0; i < errorCount-1; ++i ) {
-      outStream << "    &" << varPrefix << "_Msg" << i << endl;
+      outStream << "    &" << varPrefix << "_Msg" << i << "," << endl;
    }
    outStream << "    &" << varPrefix << "_Msg" << errorCount-1 << endl;
    outStream << "};" << endl << endl;

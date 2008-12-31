@@ -68,17 +68,17 @@ run_test_xml()
       return 1
    fi
 
-   diff -I ' * Date: ' -I 'using the input file' junk/errors.h $test_dir/baseline/$test_name/errors.h
+   diff -b -I ' * Date: ' -I 'using the input file' junk/errors.h $test_dir/baseline/$test_name/errors.h
    if [ "$?" != 0 ] ; then
       echo "FAIL (diff): $test_name "
       return 1
    fi
-   diff -I ' * Date: ' -I 'using the input file' junk/getError.c $test_dir/baseline/$test_name/getError.c
+   diff -b -I ' * Date: ' -I 'using the input file' junk/getError.c $test_dir/baseline/$test_name/getError.c
    if [ "$?" != 0 ] ; then
       echo "FAIL (diff): $test_name "
       return 1
    fi
-   diff -I ' * Date: ' -I 'using the input file' junk/getError.h $test_dir/baseline/$test_name/getError.h
+   diff -b -I ' * Date: ' -I 'using the input file' junk/getError.h $test_dir/baseline/$test_name/getError.h
    if [ "$?" != 0 ] ; then
       echo "FAIL (diff): $test_name "
       return 1
@@ -91,6 +91,43 @@ run_test_xml()
    rm junk/errors.h 
    rm junk/getError.c
    rm junk/getError.h
+}
+
+# --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+# 
+# This function takes multiple parameters:
+#  1 - the name of the test and option file (same name for both xml file 
+#      minus the .xml extension)
+#  2 - the name of the file to "diff" with
+#
+# --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+
+run_more_test()
+{
+   test_name=$1
+   test_file=$2
+   
+   if [ $verbose = 1 ] ; then
+      $parser --options $test_dir/options/$test_name.xml $test_dir/xml/generic.xml
+   else
+      $parser --options $test_dir/options/$test_name.xml $test_dir/xml/generic.xml >/dev/null 2>&1
+   fi
+   if [ "$?" != 0 ] ; then
+      echo "FAIL (errorParser): $test_name "
+      return 1
+   fi
+
+   diff -b -I 'Date: ' -I 'using the input file' junk/$test_file $test_dir/baseline/$test_file
+   if [ "$?" != 0 ] ; then
+      echo "FAIL (diff): $test_name "
+      return 1
+   fi
+
+   if [ $verbose = 1 ] ; then
+      echo "PASS: $test_name "
+   fi
+
+   rm junk/$test_file
 }
 
 # --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
@@ -129,6 +166,16 @@ for tests in $good_tests; do
       exit 1
    fi
 done
+
+run_more_test pure_python pure_python.py
+if [ "$?" != 0 ] ; then
+   exit 1
+fi
+
+run_more_test csharp csharp.cs
+if [ "$?" != 0 ] ; then
+   exit 1
+fi
 
 exit 0
 

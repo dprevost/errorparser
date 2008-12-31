@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE options SYSTEM 
+             "http://photonsoftware.org/xml/ep/errorParserOptions20.dtd">
+<!-- 
+   This xml file provides the options to the errorParser program.
+   
+   Why a file? The number of options was getting too large. Using a file
+   makes it easier to manage all these options and it will also make 
+   easier to add new options in the future (as needed). 
+   [Since changing options is usually something that will be done rarely
+   once you are satisfy with the results, storing the options in a file 
+   makes it easier to reuse the same options, evidently]
+   
+   Why xml? Easier to program (libxml2 does the parsing) and easy to
+   provide default values for some.
+   
+-->
+
+<options version="2.0">
+  <general_options>
+    <!-- Prefix to be used for the error codes (enum or #define). -->
+    <prefix_error_no_namespace> MY_PROG </prefix_error_no_namespace>
+
+    <!-- The language that will be selected for the error messages and 
+         documentation. 
+         If absent, the first <message> tag will be used.
+       
+         For each error, if there are no <message> for the selected language
+         the first <message> tag will be used. -->
+    <selected_lang xml:lang="en"/>
+  </general_options>
+
+  <csharp>
+    <cs_filename>
+      junk/csharp.cs
+    </cs_filename>
+    <cs_enum_name>
+      cs_enum
+    </cs_enum_name>
+    <cs_namespace>
+      wrapper
+    </cs_namespace>
+  </csharp>
+</options>

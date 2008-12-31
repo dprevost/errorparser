@@ -59,7 +59,7 @@
     <errmsg_header_name> getError.h </errmsg_header_name>
     <!-- The file name for the .c file for the code to retrieve the error 
          messages. -->
-    <errmsg_c_fullname> getError.c </errmsg_c_fullname>
+    <errmsg_c_fullname> junk/getError.c </errmsg_c_fullname>
     <!-- We want the Win32 export decoration -->
     <errmsg_options build_dll="yes" />
     <!-- Prefix to be used for all variables in the code to retrieve the 
