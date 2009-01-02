@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Daniel Prevost <dprevost@users.sourceforge.net>
+ * Copyright (C) 2008-2009 Daniel Prevost <dprevost@users.sourceforge.net>
  *
  * This file may be distributed and/or modified under the terms of the
  * MIT License as described by the Open Source Initiative
@@ -46,32 +46,24 @@ void PurePython::addTop( std::string & xmlFilename,
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-void PurePython::addCopyright( xmlNode * node )
+void PurePython::addCopyright( Copyright & copy )
 {
-   string years, authors;
+   string & years   = copy.GetYears();
+   string & authors = copy.GetAuthors();
    string tmp, prefix = "# ";
-   
-   node = node->children;
-   
-   /* Go to the first element */
-   while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
-   stripText( node->children->content, years );
-   
-   /* Go to the next element */
-   do { node = node->next; } while ( node->type != XML_ELEMENT_NODE );
-   stripText( node->children->content, authors );
+   xmlChar * paragraph;
    
    outStream << "# Copyright (C) " << years << " " << authors << endl;
    
-   node = node->next;
-   while ( node != NULL ) {
-      if ( node->type == XML_ELEMENT_NODE ) {
+   paragraph = copy.GetCopyParagraph();
+   while ( paragraph != NULL ) {
+         
          outStream << "#" << endl;
 
-         stripText( node->children->content, tmp );
+         stripText( paragraph, tmp );
          prettify( outStream, tmp, prefix, ERRP_LINE_LENGTH );
-      }
-      node = node->next;
+         
+      paragraph = copy.GetCopyParagraph();
    }
 
    outStream << endl;
@@ -100,33 +92,25 @@ void PurePython::addTopCode()
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-void PurePython::addError( const std::string & errNumber,
-                           const std::string & errName,
-                           xmlNode           * messageNode )
+void PurePython::addError( ErrorXML & error )
 {
-   xmlNode * node;
    bool firstpara = true;
    string tmp;
+   string & errNumber = error.GetErrNumber();
+   string & errName   = error.GetErrName();
+   xmlChar * paragraph;
    
-   node = messageNode->children;
-   
-   while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
-   
-   // jump over the error message - we only want the docu itself
-   node = node->next;
-   
-   while ( node != NULL ) {
-      if ( node->type == XML_ELEMENT_NODE ) {
-         /* This can only be a paragraph of the documentation */
-         stripText( node->children->content, tmp );
+   paragraph = error.GetDocuParagraph();
+   while ( paragraph != NULL ) {
+      stripText( paragraph, tmp );
          
-         if ( firstpara ) firstpara = false;
-         else {
-            outStream << "    #" << endl;
-         }
-         prettify( outStream, tmp, "    # ", ERRP_LINE_LENGTH );
+      if ( firstpara ) firstpara = false;
+      else {
+         outStream << "    #" << endl;
       }
-      node = node->next;
+      prettify( outStream, tmp, "    # ", ERRP_LINE_LENGTH );
+      
+      paragraph = error.GetDocuParagraph();
    }
 
    outStream << "    errors['" << errName << "'] = " << errNumber << endl;

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Daniel Prevost <dprevost@users.sourceforge.net>
+ * Copyright (C) 2008-2009 Daniel Prevost <dprevost@users.sourceforge.net>
  *
  * This file may be distributed and/or modified under the terms of the
  * MIT License as described by the Open Source Initiative
@@ -11,7 +11,7 @@
  * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 #include <string>
 #include <iostream>
@@ -29,7 +29,7 @@ using namespace std;
  * This module contains all the text manipulation routine.
  */
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 void buildPath( string & dir, string & filename, string & outname )
 {
@@ -54,7 +54,7 @@ void buildPath( string & dir, string & filename, string & outname )
    }
 }
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 /*
  * This function check that the UTF-8 string is indeed ascii (needed when
@@ -71,7 +71,7 @@ bool isAsciiStr( const char * str, size_t len )
    return true;
 }
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 bool doPrettify( const string & inStr, 
                  size_t       & where,
@@ -107,7 +107,7 @@ bool doPrettify( const string & inStr,
    return true;
 }
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 void prettify( fstream      & outStream,
                const string & inStr, 
@@ -124,7 +124,7 @@ void prettify( fstream      & outStream,
 
 }
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 xmlChar * replaceChar( xmlChar * inStr, xmlChar old_c, xmlChar * new_c )
 {
@@ -155,7 +155,7 @@ xmlChar * replaceChar( xmlChar * inStr, xmlChar old_c, xmlChar * new_c )
    return outStr;
 }
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 /*
  * This function strips unwanted characters from a UTF-8 string.
@@ -208,5 +208,5 @@ void stripText( xmlChar * inStr, string & outStr )
    }
 }
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 

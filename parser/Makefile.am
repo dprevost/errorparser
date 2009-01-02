@@ -1,6 +1,6 @@
 #############################################################################
 #                                                                           #
-# Copyright (C) 2008 Daniel Prevost <dprevost@users.sourceforge.net>        #
+# Copyright (C) 2008-2009 Daniel Prevost <dprevost@users.sourceforge.net>   #
 #                                                                           #
 # This file may be distributed and/or modified under the terms of the       #
 # MIT License as described by the Open Source Initiative                    #
@@ -51,6 +51,8 @@ errorParser_SOURCES =        \
         AbstractHandler.h    \
         CfamilyHandler.cpp   \
         CfamilyHandler.h     \
+        Copyright.cpp        \
+        Copyright.h          \
         CSharp.cpp           \
         CSharp.h             \
         ErrMessage.cpp       \
@@ -59,6 +61,8 @@ errorParser_SOURCES =        \
         ErrMessageHeader.h   \
         ErrorHeader.cpp      \
         ErrorHeader.h        \
+        ErrorXML.cpp         \
+        ErrorXML.h           \
         ExtPython.cpp        \
         ExtPython.h          \
         HeaderHandler.cpp    \

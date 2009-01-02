@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Daniel Prevost <dprevost@users.sourceforge.net>
+ * Copyright (C) 2008-2009 Daniel Prevost <dprevost@users.sourceforge.net>
  *
  * This file may be distributed and/or modified under the terms of the
  * MIT License as described by the Open Source Initiative
@@ -48,38 +48,30 @@ void CSharp::addTopCode()
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-void CSharp::addError( const string & errNumber, 
-                       const string & errName, 
-                       xmlNode      * messageNode )
+void CSharp::addError( ErrorXML & error )
 {
-   xmlNode * node;
    bool firstpara = true;
    string tmp;
+   string & errNumber = error.GetErrNumber();
+   string & errName   = error.GetErrName();
+   xmlChar * paragraph;
    
-   node = messageNode->children;
-   
-   while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
-   
-   // jump over the error message - we only want the docu itself
-   node = node->next;
-   
-   while ( node != NULL ) {
-      if ( node->type == XML_ELEMENT_NODE ) {
-         /* This can only be a paragraph of the documentation */
-         stripText( node->children->content, tmp );
+   paragraph = error.GetDocuParagraph();
+   while ( paragraph != NULL ) {
+      stripText( paragraph, tmp );
          
-         if ( firstpara ) firstpara = false;
-         else {
-            outStream << indent << "    //" << endl;
-         }
-         if ( my_namespace.length() == 0 ) {
-            prettify( outStream, tmp, "    // ", ERRP_LINE_LENGTH );
-         }
-         else {
-            prettify( outStream, tmp, "        // ", ERRP_LINE_LENGTH );
-         }
+      if ( firstpara ) firstpara = false;
+      else {
+         outStream << indent << "    //" << endl;
       }
-      node = node->next;
+      if ( my_namespace.length() == 0 ) {
+         prettify( outStream, tmp, "    // ", ERRP_LINE_LENGTH );
+      }
+      else {
+         prettify( outStream, tmp, "        // ", ERRP_LINE_LENGTH );
+      }
+
+      paragraph = error.GetDocuParagraph();
    }
 
    outStream << indent << "    " << errName << " = " << errNumber;

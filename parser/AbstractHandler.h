@@ -1,7 +1,7 @@
 /* -*- c++ -*- */
 /* :mode=c++:  - For jedit, previous line for emacs */
 /*
- * Copyright (C) 2008 Daniel Prevost <dprevost@users.sourceforge.net>
+ * Copyright (C) 2008-2009 Daniel Prevost <dprevost@users.sourceforge.net>
  *
  * This file may be distributed and/or modified under the terms of the
  * MIT License as described by the Open Source Initiative
@@ -27,6 +27,9 @@
 #include <libxml/tree.h>
 #include <libxml/xmlstring.h>
 
+#include "ErrorXML.h"
+#include "Copyright.h"
+
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 class AbstractHandler {
@@ -38,7 +41,7 @@ public:
                         char        * timeBuf,
                         xmlChar     * version ) = 0;
    
-   virtual void addCopyright( xmlNode * node ) = 0;
+   virtual void addCopyright( Copyright & copy ) = 0;
    
    virtual void addEndTop() = 0;
    
@@ -52,9 +55,7 @@ public:
 
    virtual void endGroupDesc() = 0;
    
-   virtual void addError( const std::string & errNumber, 
-                          const std::string & errName, 
-                          xmlNode           * messageNode ) = 0;
+   virtual void addError( ErrorXML & error ) = 0;
    
    // The trailer is added to all errors which are not the first or last of
    // a group of errors. 

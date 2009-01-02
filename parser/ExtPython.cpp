@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Daniel Prevost <dprevost@users.sourceforge.net>
+ * Copyright (C) 2008-2009 Daniel Prevost <dprevost@users.sourceforge.net>
  *
  * This file may be distributed and/or modified under the terms of the
  * MIT License as described by the Open Source Initiative
@@ -59,34 +59,26 @@ void ExtPython::addTopCode()
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-void ExtPython::addError( const std::string & errNumber,
-                          const std::string & errName,
-                          xmlNode           * messageNode )
+void ExtPython::addError( ErrorXML & error )
 {
-   xmlNode * node;
    bool firstpara = true;
    string tmp;
-   
-   node = messageNode->children;
-
-   while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
-   
-   // jump over the error message - we only want the docu itself
-   node = node->next;
+   string & errNumber = error.GetErrNumber();
+   string & errName   = error.GetErrName();
+   xmlChar * paragraph;
    
    outStream << "    /*" << endl;
 
-   while ( node != NULL ) {
-      if ( node->type == XML_ELEMENT_NODE ) {
-         /* This can only be a paragraph of the documentation */
-         stripText( node->children->content, tmp );
+   paragraph = error.GetDocuParagraph();
+   while ( paragraph != NULL ) {
+      stripText( paragraph, tmp );
          
-         if ( firstpara ) firstpara = false;
-         else outStream << "     *" << endl;
+      if ( firstpara ) firstpara = false;
+      else outStream << "     *" << endl;
 
-         prettify( outStream, tmp, "     * ", ERRP_LINE_LENGTH );
-      }
-      node = node->next;
+      prettify( outStream, tmp, "     * ", ERRP_LINE_LENGTH );
+      
+      paragraph = error.GetDocuParagraph();
    }
 
    outStream << "     */" << endl;

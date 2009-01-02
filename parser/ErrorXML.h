@@ -15,43 +15,57 @@
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-#ifndef CFAMILY_HANDLER_H
-#define CFAMILY_HANDLER_H
+#ifndef ERROR_XML_H
+#define ERROR_XML_H
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-#include "AbstractHandler.h"
+#include "parser.h"
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 /** 
- * This class is abstract. It extend the abstract class abstractHandler for
- * files witten in the C family of languages (C, C#, etc.).
+ * This class encapsulates the exact syntax used in the XML error file.
  *
- * It adds two common functions for all these files, addTop and addCopyright.
- */ 
-class CfamilyHandler: public AbstractHandler {
+ * This way, the rest of the code is protected against changes to
+ * the DTD (if a change is needed).
+ */
+
+class ErrorXML {
    
 public:
+   
+   ErrorXML( std::string & language,
+             xmlNode     * errorNode );
+   
+   std::string & GetErrNumber() {
+      return errorNumber;
+   }
 
-   virtual ~CfamilyHandler() {}
+   std::string & GetErrName() {
+      return errorName;
+   }
    
-   virtual void addTop( std::string & xmlFilename,
-                        char        * timeBuf,
-                        xmlChar     * version );
-   
-   virtual void addCopyright( Copyright & copy );
+   xmlChar * GetErrMessage();
 
-   virtual void addEndTop();
+   xmlChar * GetDocuParagraph();
    
-protected:
+private:
    
-   CfamilyHandler();
+   std::string errorNumber;
 
+   std::string errorName;
+
+   xmlNode * messageNode;
+
+   xmlNode * iterator;
+   
+   void GetMessageNode( std::string & language,
+                        xmlNode     * message_group );
 };
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-#endif // CFAMILY_HANDLER_H
+#endif // ERROR_XML_H
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--

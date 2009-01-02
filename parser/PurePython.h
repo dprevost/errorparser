@@ -1,7 +1,7 @@
 /* -*- c++ -*- */
 /* :mode=c++:  - For jedit, previous line for emacs */
 /*
- * Copyright (C) 2008 Daniel Prevost <dprevost@users.sourceforge.net>
+ * Copyright (C) 2008-2009 Daniel Prevost <dprevost@users.sourceforge.net>
  *
  * This file may be distributed and/or modified under the terms of the
  * MIT License as described by the Open Source Initiative
@@ -42,7 +42,7 @@ public:
                 char        * timeBuf,
                 xmlChar     * version );
    
-   void addCopyright( xmlNode * node );
+   void addCopyright( Copyright & copy );
    
    void addEndTop();
 
@@ -57,10 +57,8 @@ public:
 
    void endGroupDesc() {}
 
-   void addError( const std::string & errNumber,
-                  const std::string & errName,
-                  xmlNode           * messageNode );
-   
+   void addError( ErrorXML & error );
+
    void addErrorTrailer() {}
    
    void addBottomCode();

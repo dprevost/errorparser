@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Daniel Prevost <dprevost@users.sourceforge.net>
+ * Copyright (C) 2008-2009 Daniel Prevost <dprevost@users.sourceforge.net>
  *
  * This file may be distributed and/or modified under the terms of the
  * MIT License as described by the Open Source Initiative
@@ -11,7 +11,7 @@
  * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 #ifndef ERRP_PARSER_H
 #define ERRP_PARSER_H
@@ -22,16 +22,7 @@
 #if defined(WIN32)
 #  define _CRT_SECURE_NO_DEPRECATE
 #  include "config-win32.h"
-   /* 
-    * The pragma is to hide a warning in Microsoft include files
-    * with VC++ 6. Don't know about other versions yet.
-    */
-//#  pragma warning(disable:4115)
 #  include <windows.h>
-//#  pragma warning(default:4115)
-//#  include <winbase.h>
-//#  include <io.h>
-//#  include <process.h> 
 #endif
 
 #include <time.h>
@@ -42,13 +33,13 @@
 #include <libxml/tree.h>
 #include <libxml/xmlstring.h>
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 #define ERRP_LINE_LENGTH 72
 
 extern const char * g_functionName;
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 /* Prototypes of text.cpp functions */
 
@@ -67,6 +58,9 @@ bool isAsciiStr( const char * str, size_t len );
 
 xmlChar * replaceChar( xmlChar * inStr, xmlChar old_c, xmlChar * new_c );
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-#endif /* ERRP_PARSER_H */
+#endif // ERRP_PARSER_H
+
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Daniel Prevost <dprevost@users.sourceforge.net>
+ * Copyright (C) 2008-2009 Daniel Prevost <dprevost@users.sourceforge.net>
  *
  * This file may be distributed and/or modified under the terms of the
  * MIT License as described by the Open Source Initiative
@@ -11,7 +11,7 @@
  * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 #include <vector>
 
@@ -20,84 +20,7 @@
 
 using namespace std;
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
-
-xmlNode * getMessageNode( string  & language,
-                          xmlNode * message_group )
-{
-   xmlNode * node = NULL, * firstNode, * chosenNode = NULL;
-   xmlChar * prop;
-   
-   node = message_group->children;
-
-   while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
-   firstNode = node;
-
-   if ( language.length() != 0 ) {
-      /* 
-       * This check on the first element is tedious but is needed in case
-       * someone uses the same "xml:lang="XX" for the first <message> and
-       * for a subsequent one. In such a case, the first one is the right one.
-       */
-      prop = xmlGetProp( node, BAD_CAST "lang" );
-      if ( prop != NULL ) {
-         if ( xmlStrcmp(prop, BAD_CAST language.c_str()) == 0 ) chosenNode = node;
-         xmlFree(prop);
-      }
-      
-      if ( chosenNode == NULL ) {
-         while ( node != NULL ) {
-            if ( node->type == XML_ELEMENT_NODE ) {
-               prop = xmlGetProp( node, BAD_CAST "lang" );
-               if ( prop != NULL ) {
-                  if ( xmlStrcmp(prop, BAD_CAST language.c_str()) == 0 ) {
-                     chosenNode = node;
-                     xmlFree(prop);
-                     break;
-                  }
-                  xmlFree(prop);
-               }
-            }
-            node = node->next; 
-         }
-      }
-   }
-   
-   if ( chosenNode == NULL ) chosenNode = firstNode;
-   
-   return chosenNode;
-}
-
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
-
-void addError( string                    & language,
-               xmlNode                   * error,
-               vector<AbstractHandler *> & handlers )
-{
-   xmlNode * node = NULL, * messageNode = NULL;
-   string errNumber, errName;
-   vector<AbstractHandler *>::iterator it;
-   
-   node = error->children;
-
-   /* Go to the first element (error number) */
-   while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
-   stripText( node->children->content, errNumber );
-
-   /* Second element (the error name) */
-   do { node = node->next; } while ( node->type != XML_ELEMENT_NODE );
-   stripText( node->children->content, errName );
-   
-   do { node = node->next; } while ( node->type != XML_ELEMENT_NODE );
-
-   messageNode = getMessageNode( language, node );
-   
-   for ( it = handlers.begin(); it < handlers.end(); it++ ) {
-      (*it)->addError( errNumber, errName, messageNode );
-   }
-}
-
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 void addGroupIdentifier( xmlNode                   * ident,
                          vector<AbstractHandler *> & handlers )
@@ -135,7 +58,7 @@ void addGroupIdentifier( xmlNode                   * ident,
    }
 }
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 void addGroup( string      & language,
                xmlNode     * group,
@@ -200,7 +123,10 @@ void addGroup( string      & language,
                (*it)->addErrorTrailer();
             }
          }
-         addError( language, node, handlers );
+         ErrorXML error( language, node );
+         for ( it = handlers.begin(); it < handlers.end(); it++ ) {
+             (*it)->addError( error );
+         }
          firstOfGroup = 0;
       }
       node = node->next; 
@@ -212,4 +138,5 @@ void addGroup( string      & language,
    }
 }
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+

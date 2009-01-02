@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Daniel Prevost <dprevost@users.sourceforge.net>
+ * Copyright (C) 2008-2009 Daniel Prevost <dprevost@users.sourceforge.net>
  *
  * This file may be distributed and/or modified under the terms of the
  * MIT License as described by the Open Source Initiative
@@ -11,7 +11,7 @@
  * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 #include "parser.h"
 
@@ -30,7 +30,7 @@ int handleOptions( vector<AbstractHandler *> & handlers,
                    int                         argc,
                    char                      * argv[] );
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 void doTopOfFile( string                    & xmlFileName,
                   xmlChar                   * version,
@@ -68,8 +68,9 @@ void doTopOfFile( string                    & xmlFileName,
       node = copyNode->children;
       while ( node != NULL ) {
          if ( node->type == XML_ELEMENT_NODE ) {
+            Copyright copy(node);
             for ( it = handlers.begin(); it < handlers.end(); it++ ) {
-                (*it)->addCopyright(node);
+                (*it)->addCopyright(copy);
             }
          }
          node = node->next;
@@ -77,7 +78,7 @@ void doTopOfFile( string                    & xmlFileName,
    }
 }
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 void navigate( string                    & xmlFileName,
                string                    & language,
@@ -134,7 +135,7 @@ void navigate( string                    & xmlFileName,
    }
 }
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 int main( int argc, char * argv[] )
 {
@@ -193,5 +194,5 @@ int main( int argc, char * argv[] )
    return 0;
 }
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 

@@ -15,43 +15,53 @@
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-#ifndef CFAMILY_HANDLER_H
-#define CFAMILY_HANDLER_H
+#ifndef COPYRIGHT_H
+#define COPYRIGHT_H
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-#include "AbstractHandler.h"
+#include "parser.h"
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 /** 
- * This class is abstract. It extend the abstract class abstractHandler for
- * files witten in the C family of languages (C, C#, etc.).
+ * This class encapsulates the exact syntax used in the XML error file
+ * for the copyright_group.
  *
- * It adds two common functions for all these files, addTop and addCopyright.
- */ 
-class CfamilyHandler: public AbstractHandler {
+ * This way, the rest of the code is protected against changes to
+ * the DTD (if a change is needed).
+ */
+
+class Copyright {
    
 public:
+   
+   Copyright( xmlNode * copyNode );
+   
+   std::string & GetAuthors() {
+      return authors;
+   }
 
-   virtual ~CfamilyHandler() {}
+   std::string & GetYears() {
+      return years;
+   }
    
-   virtual void addTop( std::string & xmlFilename,
-                        char        * timeBuf,
-                        xmlChar     * version );
+   xmlChar * GetCopyParagraph();
    
-   virtual void addCopyright( Copyright & copy );
+private:
+   
+   std::string authors;
 
-   virtual void addEndTop();
-   
-protected:
-   
-   CfamilyHandler();
+   std::string years;
 
+   xmlNode * textNode;
+
+   xmlNode * iterator;
+   
 };
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-#endif // CFAMILY_HANDLER_H
+#endif // COPYRIGHT_H
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--

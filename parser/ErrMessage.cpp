@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Daniel Prevost <dprevost@users.sourceforge.net>
+ * Copyright (C) 2008-2009 Daniel Prevost <dprevost@users.sourceforge.net>
  *
  * This file may be distributed and/or modified under the terms of the
  * MIT License as described by the Open Source Initiative
@@ -63,23 +63,20 @@ void ErrMessage::addTopCode()
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-void ErrMessage::addError( const std::string & errNumber,
-                           const std::string & errName,
-                           xmlNode           * messageNode )
+void ErrMessage::addError( ErrorXML & error )
 {
-   xmlNode * node;
    string errMessage, tmp;
+   string & errNumber = error.GetErrNumber();
+   string & errName   = error.GetErrName();
+   xmlChar * msg;
    
    outStream << "/* " << prefix << "_" << errName << " */" << endl;
    outStream << varPrefix << "_MsgStruct " << varPrefix << "_Msg" <<
       errorCount << " = {" << endl;
    outStream << "    " << errNumber << ", ";
    
-   node = messageNode->children;
-   
-   while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
-
-   stripText( node->children->content, tmp );
+   msg = error.GetErrMessage();
+   stripText( msg, tmp );
    stripPercent( tmp, errMessage );
    tmp.clear();
    

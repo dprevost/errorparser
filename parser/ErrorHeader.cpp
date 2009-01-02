@@ -1,7 +1,7 @@
 /* -*- c++ -*- */
 /* :mode=c++:  - For jedit, previous line for emacs */
 /*
- * Copyright (C) 2008 Daniel Prevost <dprevost@users.sourceforge.net>
+ * Copyright (C) 2008-2009 Daniel Prevost <dprevost@users.sourceforge.net>
  *
  * This file may be distributed and/or modified under the terms of the
  * MIT License as described by the Open Source Initiative
@@ -99,20 +99,13 @@ void ErrorHeader::endGroupDesc()
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-void ErrorHeader::addError( const std::string & errNumber,
-                            const std::string & errName,
-                            xmlNode           * messageNode )
+void ErrorHeader::addError( ErrorXML & error )
 {
-   xmlNode * node;
    bool firstpara = true;
    string tmp;
-
-   node = messageNode->children;
-   
-   while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
-   
-   // jump over the error message - we only want the docu itself
-   node = node->next;
+   string & errNumber = error.GetErrNumber();
+   string & errName   = error.GetErrName();
+   xmlChar * paragraph;
 
    if ( usingEnum ) {
       outStream << "    /**" << endl;
@@ -121,29 +114,28 @@ void ErrorHeader::addError( const std::string & errNumber,
       outStream << "/**" << endl;
    }
 
-   while ( node != NULL ) {
-      if ( node->type == XML_ELEMENT_NODE ) {
-         /* This can only be a paragraph of the documentation */
-         stripText( node->children->content, tmp );
+   paragraph = error.GetDocuParagraph();
+   while ( paragraph != NULL ) {
+      stripText( paragraph, tmp );
          
-         if ( firstpara ) firstpara = false;
-         else {
-            if ( usingEnum ) {
-               outStream << "     *" << endl;
-            }
-            else {
-               outStream << " *" << endl;
-            }
-         }
-
+      if ( firstpara ) firstpara = false;
+      else {
          if ( usingEnum ) {
-            prettify( outStream, tmp, "     * ", ERRP_LINE_LENGTH );
+            outStream << "     *" << endl;
          }
          else {
-            prettify( outStream, tmp, " * ", ERRP_LINE_LENGTH );
+            outStream << " *" << endl;
          }
       }
-      node = node->next;
+
+      if ( usingEnum ) {
+         prettify( outStream, tmp, "     * ", ERRP_LINE_LENGTH );
+      }
+      else {
+         prettify( outStream, tmp, " * ", ERRP_LINE_LENGTH );
+      }
+
+      paragraph = error.GetDocuParagraph();
    }
 
    if ( usingEnum ) {

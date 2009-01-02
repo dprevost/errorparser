@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Daniel Prevost <dprevost@users.sourceforge.net>
+ * Copyright (C) 2008-2009 Daniel Prevost <dprevost@users.sourceforge.net>
  *
  * This file may be distributed and/or modified under the terms of the
  * MIT License as described by the Open Source Initiative
@@ -11,7 +11,7 @@
  * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 #include <vector>
 #include <iostream>
@@ -48,7 +48,7 @@ bool AddExtPython( vector<AbstractHandler *> & handlers,
 bool AddPurePythonHandler( vector<AbstractHandler *> & handlers,
                            xmlNode                   * node );
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 void usage( char * progName ) 
 {
@@ -61,7 +61,7 @@ void usage( char * progName )
    cerr << "                 used to generate the code." << endl;
 }
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 xmlChar * GetMandatoryValue( xmlNode * & node, const char * tag )
 {
@@ -82,7 +82,7 @@ xmlChar * GetMandatoryValue( xmlNode * & node, const char * tag )
    return value;
 }
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 xmlChar * GetOptionalValue( xmlNode * & node, const char * tag )
 {
@@ -102,7 +102,7 @@ xmlChar * GetOptionalValue( xmlNode * & node, const char * tag )
    return value;
 }
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 xmlNode * IsMandatoryValuePresent( xmlNode * & node, const char * tag )
 {
@@ -123,7 +123,7 @@ xmlNode * IsMandatoryValuePresent( xmlNode * & node, const char * tag )
    return nodeValue;
 }
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 xmlNode * IsOptionalValuePresent( xmlNode * & node, const char * tag )
 {
@@ -143,7 +143,7 @@ xmlNode * IsOptionalValuePresent( xmlNode * & node, const char * tag )
    return nodeValue;
 }
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 int handleOptions( vector<AbstractHandler *> & handlers,
                    string                    & xmlFileName,
@@ -294,7 +294,7 @@ int handleOptions( vector<AbstractHandler *> & handlers,
    return 0;
 }
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 bool GetGeneralOptions( string  & prefix,
                         string  & language,
@@ -338,7 +338,7 @@ bool GetGeneralOptions( string  & prefix,
    return true;
 }
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 bool AddHeaderFileHandler( vector<AbstractHandler *> & handlers,
                            string                    & prefix,
@@ -383,7 +383,7 @@ bool AddHeaderFileHandler( vector<AbstractHandler *> & handlers,
    return true;
 }
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 bool AddErrMessageHandlers( vector<AbstractHandler *> & handlers,
                             string                    & prefix,
@@ -474,7 +474,7 @@ bool AddErrMessageHandlers( vector<AbstractHandler *> & handlers,
    return true;
 }
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 bool AddCSharpHandler( vector<AbstractHandler *> & handlers,
                        xmlNode                   * node )
@@ -509,7 +509,7 @@ bool AddCSharpHandler( vector<AbstractHandler *> & handlers,
    return true;
 }
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 bool AddExtPython( vector<AbstractHandler *> & handlers,
                    xmlNode                   * node )
@@ -542,7 +542,7 @@ bool AddExtPython( vector<AbstractHandler *> & handlers,
    return true;
 }
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 bool AddPurePythonHandler( vector<AbstractHandler *> & handlers,
                            xmlNode                   * node )
@@ -570,5 +570,5 @@ bool AddPurePythonHandler( vector<AbstractHandler *> & handlers,
    return true;
 }
 
-/* --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+-- */
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
