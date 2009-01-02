@@ -166,6 +166,7 @@
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="c:\Program Files\libxml2\lib"
+				IgnoreDefaultLibraryNames="msvcrt.lib"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\Debug/errorParser.pdb"
 				SubSystem="1"
@@ -211,6 +212,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\Copyright.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\CSharp.cpp"
 				>
 			</File>
@@ -227,30 +232,16 @@
 				>
 			</File>
 			<File
+				RelativePath="..\ErrorXML.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\ExtPython.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\group.cpp"
+				RelativePath="..\GroupIdent.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\HeaderHandler.cpp"
@@ -344,6 +335,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\Copyright.h"
+				>
+			</File>
+			<File
 				RelativePath="..\CSharp.h"
 				>
 			</File>
@@ -360,7 +355,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\ErrorXML.h"
+				>
+			</File>
+			<File
 				RelativePath="..\ExtPython.h"
+				>
+			</File>
+			<File
+				RelativePath="..\GroupIdent.h"
 				>
 			</File>
 			<File

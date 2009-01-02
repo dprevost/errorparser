@@ -92,7 +92,7 @@ BEGIN
             VALUE "OriginalFilename", "\0"
             VALUE "PrivateBuild", "\0"
             VALUE "ProductName", "Error Parser\0"
-            VALUE "ProductVersion", "1, 0, 0, 0\0"
+            VALUE "ProductVersion", "1.0 RC 1\0"
             VALUE "SpecialBuild", "\0"
         END
     END

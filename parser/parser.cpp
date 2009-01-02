@@ -124,7 +124,7 @@ void doTopOfFile( string                    & xmlFileName,
 #else
    t = time(NULL);
    formattedTime = localtime( &t );
-   strftime( timeBuf, 30, "%a %b %e %H:%M:%S %Y", formattedTime );
+   strftime( timeBuf, 30, "%a %b %d %H:%M:%S %Y", formattedTime );
 #endif
    for ( it = handlers.begin(); it < handlers.end(); it++ ) {
       (*it)->addTop( xmlFileName, timeBuf, version );

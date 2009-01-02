@@ -1,6 +1,6 @@
 ###########################################################################
 #
-# Copyright (C) 2008 Daniel Prevost <dprevost@users.sourceforge.net>
+# Copyright (C) 2008-2009 Daniel Prevost <dprevost@users.sourceforge.net>
 #  
 # This file is free software; as a special exception the author gives
 # unlimited permission to copy and/or distribute it, with or without 
@@ -32,22 +32,24 @@ CLEANFILES = *~ parser.plg errorParser.dep
 W32_SYS_LIBS=kernel32.lib ws2_32.lib
 
 LDD_FLAGS_RELEASE = $(W32_SYS_LIBS) $(LIBXML2_LIB) /nologo /subsystem:console /incremental:no  /MANIFEST        /machine:I386 /out:"$(OUTDIR_RELEASE)\errorParser.exe" /libpath:"..\Release" 
-LDD_FLAGS_DEBUG   = $(W32_SYS_LIBS) $(LIBXML2_LIB) /nologo /subsystem:console /incremental:no /MANIFEST /debug /machine:I386 /out:"$(OUTDIR_DEBUG)\errorParser.exe"   /libpath:"..\Debug" 
+LDD_FLAGS_DEBUG   = $(W32_SYS_LIBS) $(LIBXML2_LIB) /nologo /subsystem:console /incremental:no /MANIFEST /debug /machine:I386 /out:"$(OUTDIR_DEBUG)\errorParser.exe"   /libpath:"..\Debug" /NODEFAULTLIB:msvcrt.lib
 
-CFLAGS_RELEASE = /O2 /Ob1 /I $(LIBXML2_INCLUDE) /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "LIBXML_STATIC" /D "_MBCS" /GF /FD /EHsc       /MD /Gy /Fp".\$(OUTDIR_RELEASE)/parser.pch" /Fo".\$(OUTDIR_RELEASE)/" /Fd".\$(OUTDIR_RELEASE)/" /W3 /nologo /c     /TP /errorReport:prompt
-CFLAGS_DEBUG   = /Od      /I $(LIBXML2_INCLUDE) /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "LIBXML_STATIC" /D "_MBCS"     /FD /EHsc /RTC1 /MD     /Fp".\$(OUTDIR_DEBUG)/parser.pch"   /Fo".\$(OUTDIR_DEBUG)/"   /Fd".\$(OUTDIR_DEBUG)/"   /W3 /nologo /c /ZI /TP /errorReport:prompt
+CFLAGS_RELEASE = /O2 /Ob1 /I $(LIBXML2_INCLUDE) /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "LIBXML_STATIC" /D "_MBCS" /GF /FD /EHsc       /MD  /Gy /Fp".\$(OUTDIR_RELEASE)/parser.pch" /Fo".\$(OUTDIR_RELEASE)/" /Fd".\$(OUTDIR_RELEASE)/" /W3 /nologo /c /TP /errorReport:prompt
+CFLAGS_DEBUG   = /Od      /I $(LIBXML2_INCLUDE) /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "LIBXML_STATIC" /D "_MBCS"     /FD /EHsc /RTC1 /MDd     /Fp".\$(OUTDIR_DEBUG)/parser.pch"   /Fo".\$(OUTDIR_DEBUG)/"   /Fd".\$(OUTDIR_DEBUG)/"   /W3 /nologo /c /TP /errorReport:prompt
 
 OBJS_RELEASE=                               \
-	"$(INTDIR_RELEASE)\group.obj"            \
 	"$(INTDIR_RELEASE)\options.obj"          \
 	"$(INTDIR_RELEASE)\parser.obj"           \
 	"$(INTDIR_RELEASE)\text.obj"             \
 	"$(INTDIR_RELEASE)\CfamilyHandler.obj"   \
+   "$(INTDIR_RELEASE)\Copyright.obj"        \
 	"$(INTDIR_RELEASE)\CSharp.obj"           \
 	"$(INTDIR_RELEASE)\ErrMessage.obj"       \
 	"$(INTDIR_RELEASE)\ErrMessageHeader.obj" \
 	"$(INTDIR_RELEASE)\ErrorHeader.obj"      \
+   "$(INTDIR_RELEASE)\ErrorXML.obj"         \
 	"$(INTDIR_RELEASE)\ExtPython.obj"        \
+   "$(INTDIR_RELEASE)\GroupIdent.obj"       \
 	"$(INTDIR_RELEASE)\HeaderHandler.obj"    \
 	"$(INTDIR_RELEASE)\PurePython.obj"       \
 	"$(INTDIR_RELEASE)\parser.res"           
