@@ -10,18 +10,44 @@
 
     <author><firstname>Daniel</firstname><surname>Pr&eacute;vost</surname></author>
 
-    <copyright><year>2008</year><holder>Daniel 
+    <copyright><year>2008-2009</year><holder>Daniel 
     Pr&eacute;vost</holder></copyright>
-    <releaseinfo>This manual is for release 0.5.0 of Error Parser</releaseinfo>
+    <releaseinfo>This manual is for release 1.0 of Error Parser</releaseinfo>
   </bookinfo>
 
+  <chapter id="Introduction">
+
+    <title>Introduction</title>
+
+    <para>
+      Error Parser is a small tool for application developers. It simplifies 
+      the management of error codes, error messages and documentation for
+      both small and large projects.
+    </para>
+    <para>
+      This is accomplish by creating a master XML file containing all the
+      necessary information on the errors (value, error message and 
+      documentation). Error Parser uses this file to generate the 
+      appropriate output files for different programmation languages.
+    </para>
+    <para>
+      Control of the code generation is done by an option file (written in XML).
+      The format for both XML files is explained below.
+    </para>
+  </chapter>
+  
   <chapter id="New">
 
     <title>New in this release</title>
   
     <para> 
-      This release is not a major update but adds a few interesting 
-      enhancements to the product:
+      This release is a major update, the software was completely rewritten
+      to make it easier to both maintain it and to enhance it (for example,
+      by adding support for other programmation languages).
+    </para>
+    <para>
+      The good news: this update has very little impact to anyone using
+      the program.
       <itemizedlist>
         <listitem>
           <para>
