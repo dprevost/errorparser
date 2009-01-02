@@ -44,12 +44,8 @@ public:
    
    void addTopCode();
    
-   void addGroupName( std::string name ) {}
+   void addGroupIdent( GroupIdent & ident ) {}
    
-   void addGroupDesc( std::string description ) {}
-
-   void endGroupDesc() {}
-
    void addError( ErrorXML & error );
 
    void addErrorTrailer();

@@ -15,61 +15,47 @@
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-#ifndef PURE_PYTHON_H
-#define PURE_PYTHON_H
+#ifndef GROUP_IDENT_H
+#define GROUP_IDENT_H
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-#include "AbstractHandler.h"
+#include "parser.h"
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 /** 
- * This class implement code generation for pure Python.
+ * This class encapsulates the exact syntax used in the XML error file
+ * for the tag "errgroup_ident".
  *
- * It extend the abstract class abstractHandler by implementing all of
- * its virtual methods.
- */ 
-class PurePython: public AbstractHandler {
+ * This way, the rest of the code is protected against changes to
+ * the DTD (if changes are needed).
+ */
+
+class GroupIdent {
    
 public:
+   
+   GroupIdent( std::string & language, xmlNode * & identNode );
+   
+   std::string & GetName() {
+      return name;
+   }
 
-   PurePython( std::string & filename, std::string & functionName );
-
-//   ~PurePython() {}
+   xmlChar * GetDescParagraph();
    
-   void addTop( std::string & xmlFilename,
-                char        * timeBuf,
-                xmlChar     * version );
-   
-   void addCopyright( Copyright & copy );
-   
-   void addEndTop();
-
-   // Dummy function
-   void startHeaderGuard() {}
-   
-   void addTopCode();
-   
-   void addGroupIdent( GroupIdent & ident ) {}
-
-   void addError( ErrorXML & error );
-
-   void addErrorTrailer() {}
-   
-   void addBottomCode();
-   
-   // Dummy function
-   void stopHeaderGuard() {}
-
 private:
+   
+   std::string name;
 
-   std::string functionName;
+   xmlNode * textNode;
 
+   xmlNode * iterator;
+   
 };
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-#endif // PURE_PYTHON_H
+#endif // GROUP_IDENT_H
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--

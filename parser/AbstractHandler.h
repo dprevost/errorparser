@@ -29,6 +29,7 @@
 
 #include "ErrorXML.h"
 #include "Copyright.h"
+#include "GroupIdent.h"
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
@@ -49,11 +50,7 @@ public:
    
    virtual void addTopCode() = 0;
    
-   virtual void addGroupName( std::string name ) = 0;
-   
-   virtual void addGroupDesc( std::string description ) = 0;
-
-   virtual void endGroupDesc() = 0;
+   virtual void addGroupIdent( GroupIdent & ident ) = 0;
    
    virtual void addError( ErrorXML & error ) = 0;
    

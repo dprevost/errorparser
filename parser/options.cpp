@@ -50,19 +50,6 @@ bool AddPurePythonHandler( vector<AbstractHandler *> & handlers,
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-void usage( char * progName ) 
-{
-   cerr << "Usage:" << endl << endl;
-   cerr << progName << "-o|--options options_xml_file  input_xml_file" << endl;
-   cerr << "  or" << endl;
-   cerr << progName << " -h|-?|--help" << endl << endl;
-   cerr << "Options:" << endl << endl;
-   cerr << "  -o,--options   the name of the xml file defining the options that will be" << endl;
-   cerr << "                 used to generate the code." << endl;
-}
-
-// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
-
 xmlChar * GetMandatoryValue( xmlNode * & node, const char * tag )
 {
    xmlChar * value = NULL;
@@ -145,11 +132,10 @@ xmlNode * IsOptionalValuePresent( xmlNode * & node, const char * tag )
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-int handleOptions( vector<AbstractHandler *> & handlers,
-                   string                    & xmlFileName,
-                   string                    & language,
-                   int                         argc, 
-                   char                      * argv[] )
+bool handleOptions( vector<AbstractHandler *> & handlers,
+                    string & xmlFileName,
+                    string & xmlOptionName,
+                    string & language )
 {
    xmlParserCtxtPtr context = NULL;  /* The parser context */
    xmlNode * root = NULL, * node, * nodeValue;
@@ -160,42 +146,24 @@ int handleOptions( vector<AbstractHandler *> & handlers,
    string tmp;
    string prefix;
    
-   if ( argc == 2 ) {
-      if ( strcmp("--help",argv[1]) == 0 || strcmp("-h",argv[1]) == 0 ||
-           strcmp("-?",argv[1]) == 0 ) {
-         usage( argv[0] );
-         return 1;
-      }
-   }
-   if (argc != 4) {
-      usage( argv[0] );
-      return -1;
-   }
-   
-   if ( (strcmp("--options",argv[1]) != 0) && (strcmp("-o",argv[1]) != 0) ) {
-      usage( argv[0] );
-      return -1;
-   }
-   xmlFileName = argv[argc-1];
-
    context = xmlNewParserCtxt();
    if ( context == NULL ) {
       cerr << "Error allocating the parser context" << endl;
-      return -1;
+      return false;
    }
 
    /* We create the document and validate in one go */
    doc = xmlCtxtReadFile( context, 
-                          argv[2],
+                          xmlOptionName.c_str(),
                           NULL,
                           XML_PARSE_DTDVALID );
    if ( doc == NULL ) {
-      cerr << "Error while parsing the option file: " << argv[2] << endl;
-      return -1;
+      cerr << "Error while parsing the option file: " << xmlOptionName << endl;
+      return false;
    }
    if ( context->valid == 0 ) {
       cerr << "Error: document validation (for options) failed" << endl;
-      return -1;
+      return false;
    }
    
    root = xmlDocGetRootElement( doc );
@@ -203,7 +171,7 @@ int handleOptions( vector<AbstractHandler *> & handlers,
    prop = xmlGetProp( root, BAD_CAST "version" );
    if ( prop == NULL ) {
       cerr << "Error: missing \"version\" attribute to the root of the option XML" << endl;
-      return -1;
+      return false;
    }
    else {
       for ( i = 0, version = 0; i < xmlStrlen( prop ); i++ ) {
@@ -219,7 +187,7 @@ int handleOptions( vector<AbstractHandler *> & handlers,
    if ( version < 20 ) {
       cerr << "This version of Error Parser requires version 2.0 or greater" << endl;
       cerr << "of the option file" << endl;
-      return -1;
+      return false;
    }
    
    node = root->children;
@@ -230,10 +198,10 @@ int handleOptions( vector<AbstractHandler *> & handlers,
    nodeValue = IsMandatoryValuePresent( node, "general_options" );
    if ( nodeValue == NULL ) {
       cerr << "Error: missing <general_options> in options file" << endl;
-      return -1;
+      return false;
    }
    if ( ! GetGeneralOptions( prefix, language, nodeValue->children ) ) {
-      return -1;
+      return false;
    }
 
    //
@@ -242,7 +210,7 @@ int handleOptions( vector<AbstractHandler *> & handlers,
    nodeValue = IsOptionalValuePresent( node, "header_file" );
    if ( nodeValue != NULL ) {
       if ( ! AddHeaderFileHandler( handlers, prefix, nodeValue->children ) ) {
-         return -1;
+         return false;
       }
    }
    
@@ -252,7 +220,7 @@ int handleOptions( vector<AbstractHandler *> & handlers,
    nodeValue = IsOptionalValuePresent( node, "errmsg_files" );
    if ( nodeValue != NULL ) {
       if ( ! AddErrMessageHandlers( handlers, prefix, nodeValue->children ) ) {
-         return -1;
+         return false;
       }
    }
 
@@ -262,7 +230,7 @@ int handleOptions( vector<AbstractHandler *> & handlers,
    nodeValue = IsOptionalValuePresent( node, "csharp" );
    if ( nodeValue != NULL ) {
       if ( ! AddCSharpHandler( handlers, nodeValue->children ) ) {
-         return -1;
+         return false;
       }
    }
 
@@ -273,7 +241,7 @@ int handleOptions( vector<AbstractHandler *> & handlers,
    nodeValue = IsOptionalValuePresent( node, "ext_python" );
    if ( nodeValue != NULL ) {
       if ( ! AddExtPython( handlers, nodeValue->children ) ) {
-         return -1;
+         return false;
       }
    }
 
@@ -283,7 +251,7 @@ int handleOptions( vector<AbstractHandler *> & handlers,
    nodeValue = IsOptionalValuePresent( node, "pure_python" );
    if ( nodeValue != NULL ) {
       if ( ! AddPurePythonHandler( handlers, nodeValue->children ) ) {
-         return -1;
+         return false;
       }
    }
 
@@ -291,7 +259,7 @@ int handleOptions( vector<AbstractHandler *> & handlers,
    xmlFreeParserCtxt( context );
    xmlCleanupParser();
 
-   return 0;
+   return true;
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--

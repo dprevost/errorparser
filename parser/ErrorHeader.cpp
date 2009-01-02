@@ -57,38 +57,37 @@ void ErrorHeader::addTopCode()
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-void ErrorHeader::addGroupName( std::string name )
+void ErrorHeader::addGroupIdent( GroupIdent & ident )
 {
+   xmlChar * paragraph;
+   string tmp;
+   
    // We call prettify since we have no control over the length
    // of that field in the xml input file.
    if ( usingEnum ) {
       outStream << "    /*" << endl;
-      prettify( outStream, name, "     * ", ERRP_LINE_LENGTH );
+      prettify( outStream, ident.GetName(), "     * ", ERRP_LINE_LENGTH );
    }
    else {
       outStream << "/*" << endl;
-      prettify( outStream, name, " * ", ERRP_LINE_LENGTH );
+      prettify( outStream, ident.GetName(), " * ", ERRP_LINE_LENGTH );
    }
-}
-   
-// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-void ErrorHeader::addGroupDesc( std::string description )
-{
-   if ( usingEnum ) {
-      outStream << "     *" << endl;
-      prettify( outStream, description, "     * ", ERRP_LINE_LENGTH );
+   paragraph = ident.GetDescParagraph();
+   while ( paragraph != NULL ) {
+      stripText( paragraph, tmp );
+
+      if ( usingEnum ) {
+         outStream << "     *" << endl;
+         prettify( outStream, tmp, "     * ", ERRP_LINE_LENGTH );
+      }
+      else {
+         outStream << " *" << endl;
+         prettify( outStream, tmp, " * ", ERRP_LINE_LENGTH );
+      }
+      paragraph = ident.GetDescParagraph();
    }
-   else {
-      outStream << " *" << endl;
-      prettify( outStream, description, " * ", ERRP_LINE_LENGTH );
-   }
-}
 
-// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
-
-void ErrorHeader::endGroupDesc()
-{
    if ( usingEnum ) {
       outStream << "     */" << endl << endl;
    }

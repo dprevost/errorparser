@@ -24,11 +24,78 @@ using namespace std;
 void addGroup( string & language, xmlNode * group, bool last, 
                vector<AbstractHandler *> & handlers);
 
-int handleOptions( vector<AbstractHandler *> & handlers, 
-                   string                    & xmlFileName,
-                   string                    & language,
-                   int                         argc,
-                   char                      * argv[] );
+bool handleOptions( vector<AbstractHandler *> & handlers, 
+                    string                    & xmlFileName,
+                    string                    & xmlOptionName,
+                    string                    & language );
+
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+
+void usage( char * progName ) 
+{
+   cerr << "Usage:" << endl << endl;
+   cerr << progName << "-o|--options options_xml_file  input_xml_file" << endl;
+   cerr << "  or" << endl;
+   cerr << progName << " -h|-?|--help" << endl;
+   cerr << "  or" << endl;
+   cerr << progName << " -v|--version" << endl << endl;
+   cerr << "Options:" << endl << endl;
+   cerr << "  -o,--options   the name of the xml file defining the options that will be" << endl;
+   cerr << "                 used to generate the code." << endl;
+}
+
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+
+void addGroup( string      & language,
+               xmlNode     * group,
+               bool          lastGroup,
+               vector<AbstractHandler *> & handlers )
+{
+   xmlNode * node = NULL;
+   bool firstOfGroup = true;   
+   vector<AbstractHandler *>::iterator it;
+
+   node = group->children;
+
+   /* Go to the first element */
+   while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
+
+   /*
+    * The error-group identifier is optional. But if there, there could be
+    * multiple versions of it (each with a different xml:lang attribute).
+    */
+   if ( xmlStrcmp( node->name, BAD_CAST "errgroup_ident") == 0 ) {
+      
+      // node is passed by reference - it will be set to the next item to 
+      // process when this constructor ends.
+      GroupIdent ident( language, node );
+
+      for ( it = handlers.begin(); it < handlers.end(); it++ ) {
+         (*it)->addGroupIdent(ident);
+      }
+   }
+
+   while ( node != NULL ) {
+      if ( node->type == XML_ELEMENT_NODE ) {
+         if ( ! firstOfGroup ) {
+            for ( it = handlers.begin(); it < handlers.end(); it++ ) {
+               (*it)->addErrorTrailer();
+            }
+         }
+         ErrorXML error( language, node );
+         for ( it = handlers.begin(); it < handlers.end(); it++ ) {
+             (*it)->addError( error );
+         }
+         firstOfGroup = false;
+      }
+      node = node->next; 
+   }
+   if ( ! lastGroup ) {
+      for ( it = handlers.begin(); it < handlers.end(); it++ ) {
+         (*it)->addErrorTrailer();
+      }
+   }
+}
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
@@ -141,9 +208,9 @@ int main( int argc, char * argv[] )
 {
    xmlParserCtxtPtr context = NULL;  /* The parser context */
    xmlNode * root = NULL;            /* The root node */
-   int rc;
+   bool rc;
    vector<AbstractHandler *> handlers;
-   string xmlFileName;
+   string xmlFileName, xmlOptionName;
    string language;
    xmlDoc  * document = NULL;
    
@@ -154,11 +221,30 @@ int main( int argc, char * argv[] )
     */
    LIBXML_TEST_VERSION
 
-   rc = handleOptions( handlers, xmlFileName, language, argc, argv );
-   if ( rc != 0 ) {
-      if ( rc == 1 ) return 0; /* help */
+   if ( argc == 2 ) {
+      if ( strcmp("--help",argv[1]) == 0 || strcmp("-h",argv[1]) == 0 ||
+           strcmp("-?",argv[1]) == 0 ) {
+         usage( argv[0] );
+         return 0;
+      }
+      if ( strcmp("--version",argv[1]) == 0 || strcmp("-v",argv[1]) == 0 ) {
+         cerr << VERSION << endl;
+         return 0;
+      }
+   }
+   if ( argc != 4 ) {
+      usage( argv[0] );
       return 1;
    }
+   if ( strcmp("--options",argv[1]) != 0 && strcmp("-o",argv[1]) != 0 ) {
+      usage( argv[0] );
+      return 1;
+   }
+
+   xmlFileName = argv[3];
+   xmlOptionName = argv[2];
+   rc = handleOptions( handlers, xmlFileName, xmlOptionName, language );
+   if ( ! rc )  return 1;
 
    context = xmlNewParserCtxt();
    if ( context == NULL ) {

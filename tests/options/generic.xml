@@ -27,7 +27,7 @@
        
          For each error, if there are no <message> for the selected language
          the first <message> tag will be used. -->
-    <selected_lang xml:lang="en"/>
+    <selected_lang xml:lang="fr"/>
   </general_options>
 
   <header_file>

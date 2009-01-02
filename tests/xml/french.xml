@@ -84,6 +84,12 @@
         The following errors are network related.
       </errgroup_desc>
     </errgroup_ident>
+    <errgroup_ident xml:lang="fr">
+      <errgroup_name>Errors de réseau</errgroup_name>
+      <errgroup_desc>
+        Les erreurs qui suivent sont des erreurs associées au réseau.
+      </errgroup_desc>
+    </errgroup_ident>
     <error>
       <errnumber> 25 </errnumber>
       <errname> SOCKET_ERROR </errname>

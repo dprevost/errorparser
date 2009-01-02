@@ -43,7 +43,6 @@ EXTRA_DIST =                        \
         resource.h
 
 errorParser_SOURCES =        \
-        group.cpp            \
         options.cpp          \
         parser.cpp           \
         parser.h             \
@@ -65,6 +64,8 @@ errorParser_SOURCES =        \
         ErrorXML.h           \
         ExtPython.cpp        \
         ExtPython.h          \
+        GroupIdent.cpp       \
+        GroupIdent.h         \
         HeaderHandler.cpp    \
         HeaderHandler.h      \
         PurePython.cpp       \
