@@ -40,14 +40,18 @@ void ExtPython::addTopCode()
 {
    outStream << "#include \"Python.h\"" << endl << endl;
 
+   // Declare our function and the needed variables.
    if ( functionName.length() == 0 ) {
       outStream << "PyObject * AddErrors(void)" << endl << "{" << endl;
    }
    else {
       outStream << "PyObject * " << functionName << "(void)" << endl << "{" << endl;
    }
+
    outStream << "    PyObject * errors = NULL, * errorNames = NULL, * value = NULL, * key = NULL;" << endl;
    outStream << "    int errcode;" << endl << endl;
+
+   // And create our 2 python dict (associated arrays)
    outStream << "    errors = PyDict_New();" << endl;
    outStream << "    if ( errors == NULL ) return NULL;" << endl << endl;
    outStream << "    errorNames = PyDict_New();" << endl;
@@ -83,6 +87,9 @@ void ExtPython::addError( ErrorXML & error )
 
    outStream << "     */" << endl;
 
+   // The following generated code inserts values in the two dict. It is
+   // a bit convoluted because of error handling and the need to decrease
+   // the ref. counters properly.
    outStream << "    value = PyInt_FromLong(" << errNumber << ");" << endl;
    outStream << "    if ( value == NULL ) {" << endl;
    outStream << "        PyDict_Clear(errors);" << endl;

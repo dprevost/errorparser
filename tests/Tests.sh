@@ -2,12 +2,12 @@
 
 #############################################################################
 #                                                                           #
-# Copyright (C) 2008 Daniel Prevost <dprevost@users.sourceforge.net>        #
+# Copyright (C) 2008-2009 Daniel Prevost <dprevost@users.sourceforge.net>   #
 #                                                                           #
 # This file may be distributed and/or modified under the terms of the       #
 # MIT License as described by the Open Source Initiative                    #
 # (http://opensource.org/licenses/mit-license.php) and appearing in         #
-# the file COPYING included in the packaging of this software.               #
+# the file COPYING included in the packaging of this software.              #
 #                                                                           #
 # This program is distributed in the hope that it will be useful, but       #
 # WITHOUT ANY WARRANTY, to the extent permitted by law; without even the    #
@@ -141,28 +141,6 @@ run_more_test()
    rm junk/$test_file
    if [ $# = 3 ] ; then
       rm junk/$test_file2
-   fi
-}
-
-# --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
-# 
-# This function take a single parameter, the name of the test (which is
-# the name of the xml file minus the .xml extension).
-#
-# --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
-
-run_bad_test()
-{
-   test_name=$1
-
-   if [ $verbose = 1 ] ; then
-      $parser --options options/$test_name.xml $test_dir/xml/$test_name.xml
-   else
-      $parser --options options/$test_name.xml $test_dir/xml/$test_name.xml >/dev/null 2>&1
-   fi
-   if [ "$?" == 0 ] ; then
-      echo "Bad Test failed (errorParser): $test_name "
-      return 1
    fi
 }
 

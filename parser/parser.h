@@ -56,8 +56,6 @@ void stripText( xmlChar * inStr, std::string & outStr );
 
 bool isAsciiStr( const char * str, size_t len );
 
-xmlChar * replaceChar( xmlChar * inStr, xmlChar old_c, xmlChar * new_c );
-
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 #endif // ERRP_PARSER_H

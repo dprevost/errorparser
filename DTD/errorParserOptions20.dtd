@@ -1,7 +1,7 @@
 <!--
     Document Type Definition for the options of Error Parser.
     
-    Copyright (C) 2008 Daniel Prevost.
+    Copyright (C) 2008-2009 Daniel Prevost.
  
     This file may be distributed and/or modified under the terms of the
     MIT License as described by the Open Source Initiative
@@ -35,17 +35,12 @@
 -->
 
 <!-- 
-   This xml file provides the options to the errorParser program.
+   This DTD file provides the template for the xml option file used by
+   the errorParser program. It controls which output files get generated 
+   and can be used to modify the output code.
    
-   Why a file? The number of options was getting too large. Using a file
-   makes it easier to manage all these options and it will also make 
-   easier to add new options in the future (as needed). 
-   [Since changing options is usually something that will be done rarely
-   once you are satisfy with the results, storing the options in a file 
-   makes it easier to reuse the same options, evidently]
-   
-   Why xml? Easier to program (libxml2 does the parsing) and easy to
-   provide default values for some.
+   Please see the manual for an explanations on the different fields 
+   available and their meaning.
    
    Note: do not modify this DTD... without modifying the code to read 
    these options in the errorParser program.

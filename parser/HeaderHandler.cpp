@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Daniel Prevost <dprevost@users.sourceforge.net>
+ * Copyright (C) 2008-2009 Daniel Prevost <dprevost@users.sourceforge.net>
  *
  * This file may be distributed and/or modified under the terms of the
  * MIT License as described by the Open Source Initiative
@@ -15,6 +15,7 @@
 
 #include "HeaderHandler.h"
 #include <string>
+#include <iostream>
 
 using namespace std;
 
@@ -23,9 +24,28 @@ using namespace std;
 HeaderHandler::HeaderHandler( std::string  & header )
 {
    unsigned int i;
+
+   // The first character of a C identifier must be a letter or the
+   // underscore ('_'). The underscore is not recommended, however.
+   if ( isalpha(header[0]) ) {
+      guard = toupper(header[0]);
+   }
+   else {
+      guard = '_';
+      if ( isdigit(header[0]) ) {
+         cerr << "Warning: C identifiers cannot start with a digit (I've replaced it with '_')" << endl;
+      }
+      else if ( header[0] == '_' ) {
+         cerr << "Warning: Starting a C identifier with '_' might conflict with identifiers from the C runtime library" << endl;
+      }
+      else {
+         cerr << "Warning: invalid character for a C identifier (I've replaced it with '_')" << endl;
+      }
+   }
    
-   guard = "";
-   for ( i = 0; i < header.length(); ++i ) {
+   // Put all letters in uppercase and set non-alphanumeric values
+   // to the underscore ('_').
+   for ( i = 1; i < header.length(); ++i ) {
       if ( isalnum(header[i]) ) {
          if ( isalpha(header[i]) ) {
             guard += toupper(header[i]);
@@ -34,6 +54,9 @@ HeaderHandler::HeaderHandler( std::string  & header )
       }
       else {
          guard += '_';
+         if ( header[i] != '_' && header[i] != '\\' && header[i] != '/' ) {
+            cerr << "Warning: invalid character for a C identifier (I've replaced it with '_')" << endl;
+         }
       }
    }
 }

@@ -3,7 +3,7 @@
                    "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
 <refentry id='errorParser1'>
 <!--  
-  Copyright (C) 2008 Daniel Prevost <dprevost@users.sourceforge.net>
+  Copyright (C) 2008-2009 Daniel Prevost <dprevost@users.sourceforge.net>
 
   This file may be distributed and/or modified under the terms of the
   MIT License as described by the Open Source Initiative
@@ -19,7 +19,7 @@
   <manvolnum>1</manvolnum>
   <refmiscinfo class='source'>Error Parser</refmiscinfo>
   <refmiscinfo class='manual'>User Commands</refmiscinfo>
-  <refmiscinfo class='version'>0.5.0</refmiscinfo>
+  <refmiscinfo class='version'>1.0 RC1</refmiscinfo>
 </refmeta>
 <refnamediv id='name'>
   <refname>errorParser</refname>
@@ -29,6 +29,10 @@
 
 <refsect2 id='getting_help'><title>Getting (minimal) help:</title>
 <para><userinput>errorParser -h|--help|-?</userinput></para> 
+</refsect2>
+
+<refsect2 id='getting_version'><title>Getting the version identifier:</title>
+<para><userinput>errorParser -v|--version</userinput></para> 
 </refsect2>
 
 <refsect2 id='running_normally'><title>Running normally:</title>
@@ -45,9 +49,9 @@
     (doxygen). Error messages and documentation for multiple languages are 
     supported.
   </para>
-    The parser can also generate code for C#. See the documentation for 
-    more details.
   <para>
+    The parser can also generate code for C#, Python module extensions and Python. 
+    See the documentation for more details.
   </para>
 </refsect1>
 
@@ -80,7 +84,7 @@
 </refsect1>
 
 <refsect1 id='copyright'><title>COPYRIGHT</title>
-  <para>Copyright © 2008 Daniel Prévost.</para>
+  <para>Copyright © 2008-2009 Daniel Prévost.</para>
 </refsect1>
 </refentry>
 

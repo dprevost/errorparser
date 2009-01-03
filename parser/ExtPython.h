@@ -25,11 +25,14 @@
 
 /** 
  * This class extend the abstract class HeaderHandler - it generates
- * code for Python extension modules.
+ * code for Python extension modules (a header file that can be included
+ * in an extension module).
  */ 
-class ExtPython: public HeaderHandler{
+class ExtPython: public HeaderHandler {
    
 public:
+   
+   // If "function" is empty (""), the code uses AddErrors()
    ExtPython( std::string & dir,
               std::string & header,
               std::string & function );

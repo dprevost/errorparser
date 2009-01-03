@@ -1,6 +1,6 @@
 #############################################################################
 #                                                                           #
-# Copyright (C) 2008 Daniel Prevost <dprevost@users.sourceforge.net>        #
+# Copyright (C) 2008-2009 Daniel Prevost <dprevost@users.sourceforge.net>   #
 #                                                                           #
 # This file may be distributed and/or modified under the terms of the       #
 # MIT License as described by the Open Source Initiative                    #
@@ -49,9 +49,7 @@ install-data-local:
 	$(install_sh_DATA) $(top_srcdir)/examples/example_photon.xml     $(DESTDIR)$(datadir)/doc/errorParser/examples/example_photon.xml
 	$(install_sh_DATA) $(top_srcdir)/examples/simple_example.xml     $(DESTDIR)$(datadir)/doc/errorParser/examples/simple_example.xml
 	$(install_sh_DATA) $(top_srcdir)/DTD/errorParser12.dtd           $(DESTDIR)$(datadir)/xml/errorParser/errorParser12.dtd
-	$(install_sh_DATA) $(top_srcdir)/DTD/errorParserOptions10.dtd    $(DESTDIR)$(datadir)/xml/errorParser/errorParserOptions10.dtd
-	$(install_sh_DATA) $(top_srcdir)/DTD/errorParserOptions11.dtd    $(DESTDIR)$(datadir)/xml/errorParser/errorParserOptions11.dtd
-	$(install_sh_DATA) $(top_srcdir)/DTD/errorParserOptions12.dtd    $(DESTDIR)$(datadir)/xml/errorParser/errorParserOptions12.dtd
+	$(install_sh_DATA) $(top_srcdir)/DTD/errorParserOptions20.dtd    $(DESTDIR)$(datadir)/xml/errorParser/errorParserOptions20.dtd
 	$(install_sh_DATA) $(top_srcdir)/DTD/catalog.xml                 $(DESTDIR)$(datadir)/xml/errorParser/catalog.xml
 	$(install_sh_DATA) $(top_srcdir)/installation/install_catalog.sh $(DESTDIR)$(datadir)/xml/errorParser/install_catalog.sh
 
@@ -63,9 +61,7 @@ uninstall-local:
 	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/README
 	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/COPYING
 	-rm -f $(DESTDIR)$(datadir)/xml/errorParser/errorParser12.dtd
-	-rm -f $(DESTDIR)$(datadir)/xml/errorParser/errorParserOptions12.dtd
-	-rm -f $(DESTDIR)$(datadir)/xml/errorParser/errorParserOptions11.dtd
-	-rm -f $(DESTDIR)$(datadir)/xml/errorParser/errorParserOptions10.dtd
+	-rm -f $(DESTDIR)$(datadir)/xml/errorParser/errorParserOptions20.dtd
 	-rm -f $(DESTDIR)$(datadir)/xml/errorParser/catalog.xml
 	-rmdir $(DESTDIR)$(datadir)/xml/errorParser
 	-rmdir $(DESTDIR)$(datadir)/doc/errorParser/examples

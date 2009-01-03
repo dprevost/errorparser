@@ -32,8 +32,8 @@ GroupIdent::GroupIdent( string    & language,
    firstNode = node;
 
    // First task: identify which "errgroup_ident" matches the requested
-   // language (if any). The first "errgroup_ident" will be chosen if
-   // no language matches or if language is not used.
+   // language (if any). The first "errgroup_ident" (firstNode) will be 
+   // chosen if no language matches or if "language" is not used.
    if ( language.length() != 0 ) {
       prop = xmlGetProp( node, BAD_CAST "lang" );
       if ( prop != NULL ) {

@@ -21,7 +21,7 @@
 
 using namespace std;
 
-#if!defined(PATH_MAX)
+#if !defined(PATH_MAX)
 #  define PATH_MAX _MAX_PATH
 #endif
 
@@ -122,37 +122,6 @@ void prettify( fstream      & outStream,
    }
    outStream << line << endl;
 
-}
-
-// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
-
-xmlChar * replaceChar( xmlChar * inStr, xmlChar old_c, xmlChar * new_c )
-{
-   int i, j, k, count = 0;
-   xmlChar * outStr;
-   
-   for ( i = 0; i < xmlStrlen(inStr); i++ ) {
-      if ( inStr[i] == old_c ) count++;
-   }
-   outStr = (xmlChar *)calloc( xmlStrlen(inStr)+1+count*(xmlStrlen(new_c)-1), sizeof(xmlChar) );
-   if ( outStr == NULL ) {
-      fprintf(stderr, "Malloc error\n" );
-      exit(1);
-   }
-
-   for ( i = 0, j = 0; i < xmlStrlen(inStr); i++ ) {
-      if ( inStr[i] == old_c ) {
-         for ( k = 0; k < xmlStrlen(new_c); k++, j++ ) {
-            outStr[j] = new_c[k];
-         }
-      }
-      else {
-         outStr[j] = inStr[i];
-         j++;
-      }
-   }
-   
-   return outStr;
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--

@@ -36,12 +36,16 @@ class GroupIdent {
    
 public:
    
+   // identNode is passed by reference - it will be updated by this ctor
+   // to the proper place in the tree so that the caller can just reuse it
+   // to continue parsing the xml tree.
    GroupIdent( std::string & language, xmlNode * & identNode );
    
    std::string & GetName() {
       return name;
    }
 
+   // Returns NULL at the end
    xmlChar * GetDescParagraph();
    
 private:
