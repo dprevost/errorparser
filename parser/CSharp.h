@@ -40,6 +40,8 @@ public:
            std::string & cs_namespace,
            std::string & cs_enum );
    
+   ~CSharp() {}
+   
    void startHeaderGuard() {}
    
    void addTopCode();

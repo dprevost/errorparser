@@ -13,16 +13,20 @@
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-#include "parser.h"
+// Microsoft specific. Must be defined before including system header
+// files (this will avoid a warning if we ever use a C library function 
+// declared by Microsoft as deprecated.
+#define _CRT_SECURE_NO_DEPRECATE
 
-#include <vector>
+#include <string>
+#include <fstream>
 #include <iostream>
+#include <vector>
+
+#include "parser.h"
 #include "AbstractHandler.h"
 
 using namespace std;
-
-void addGroup( string & language, xmlNode * group, bool last, 
-               vector<AbstractHandler *> & handlers);
 
 bool handleOptions( vector<AbstractHandler *> & handlers, 
                     string                    & xmlFileName,
@@ -57,11 +61,11 @@ void addGroup( string      & language,
 
    node = group->children;
 
-   /* Go to the first element */
+   // Go to the first element
    while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
 
    /*
-    * The error-group identifier is optional. But if there, there could be
+    * The error-group identifier is optional. But if present, there might be
     * multiple versions of it (each with a different xml:lang attribute).
     */
    if ( xmlStrcmp( node->name, BAD_CAST "errgroup_ident") == 0 ) {
@@ -75,6 +79,17 @@ void addGroup( string      & language,
       }
    }
 
+   // addErrorTrailer is a simple hook to add commas or similar after
+   // each error (but not for the last error).
+   
+   // The logic in the code: it is called BEFORE addArror and adds a 
+   // trailer to the previous error (it is skipped if we are at the 
+   // first error of the group because this means that the previous error
+   // must have been the last of its group or that this is the first
+   // error we are processing).
+   // The reason behind this reverse logic: we don't know if the current
+   // error will be the last one or not and reading ahead to check this
+   // will have required more code.
    while ( node != NULL ) {
       if ( node->type == XML_ELEMENT_NODE ) {
          if ( ! firstOfGroup ) {
@@ -90,6 +105,9 @@ void addGroup( string      & language,
       }
       node = node->next; 
    }
+   
+   // For the last error of a group which is not the last group, we
+   // call addErrorTrailer after calling addError.
    if ( ! lastGroup ) {
       for ( it = handlers.begin(); it < handlers.end(); it++ ) {
          (*it)->addErrorTrailer();
@@ -105,33 +123,23 @@ void doTopOfFile( string                    & xmlFileName,
                   vector<AbstractHandler *> & handlers ) 
 {
    char timeBuf[30];
-#if defined (WIN32qqq)
-   char tmpTime[9];
-#else
    time_t t;
    struct tm * formattedTime;
-#endif
    xmlNode * node;
    vector<AbstractHandler *>::iterator it;
    
    memset( timeBuf, '\0', 30 );
 
-#if defined (WIN32qqq)
-   _strdate( timeBuf );
-   _strtime( tmpTime );
-   strcat( timeBuf, " " );
-   strcat( timeBuf, tmpTime );
-#else
    t = time(NULL);
    formattedTime = localtime( &t );
    strftime( timeBuf, 30, "%a %b %d %H:%M:%S %Y", formattedTime );
-#endif
+
    for ( it = handlers.begin(); it < handlers.end(); it++ ) {
       (*it)->addTop( xmlFileName, timeBuf, version );
    }
    
    if ( copyNode != NULL ) {
-      /* We extract the copyright element to be able to print them. */
+      // We extract the copyright element to be able to print them.
       node = copyNode->children;
       while ( node != NULL ) {
          if ( node->type == XML_ELEMENT_NODE ) {
@@ -142,6 +150,10 @@ void doTopOfFile( string                    & xmlFileName,
          }
          node = node->next;
       }
+   }
+   
+   for ( it = handlers.begin(); it < handlers.end(); it++ ) {
+      (*it)->addEndTop();
    }
 }
 
@@ -160,10 +172,10 @@ void navigate( string                    & xmlFileName,
    
    node = root->children;
    
-   /* Go to the first element */
+   // Go to the first element
    while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
 
-   /* Copyrigth information is optional */
+   // Copyrigth information is optional
    if ( xmlStrcmp( node->name, BAD_CAST "copyright_group") == 0 ) {
       doTopOfFile( xmlFileName, version, node, handlers );
       node = node->next;
@@ -175,18 +187,15 @@ void navigate( string                    & xmlFileName,
    if ( version != NULL ) xmlFree(version);
 
    for ( it = handlers.begin(); it < handlers.end(); it++ ) {
-      (*it)->addEndTop();
       (*it)->startHeaderGuard();
       (*it)->addTopCode();
    }
    
-   /*
-    * This one is a bit special - we have to know if it's the last group 
-    * or not (for enums, the last error of the last group is special - it's
-    * the only one not terminated by a comma).
-    *
-    * So addGroup() is always adding the group of the previous iteration!
-    */
+   // This one is a bit special - we have to know if it's the last group 
+   // or not (for enums, the last error of the last group is special - it's
+   // the only one not terminated by a comma).
+   //
+   // So addGroup() is always adding the group of the previous iteration!
    while ( node != NULL ) {
       if ( node->type == XML_ELEMENT_NODE ) {
          if ( group != NULL ) addGroup( language, group, false, handlers );
@@ -206,19 +215,18 @@ void navigate( string                    & xmlFileName,
 
 int main( int argc, char * argv[] )
 {
-   xmlParserCtxtPtr context = NULL;  /* The parser context */
-   xmlNode * root = NULL;            /* The root node */
+   xmlParserCtxtPtr context = NULL;  // The parser context
+   xmlNode * root = NULL;            // The root node
    bool rc;
    vector<AbstractHandler *> handlers;
    string xmlFileName, xmlOptionName;
    string language;
    xmlDoc  * document = NULL;
+   vector<AbstractHandler *>::iterator it;
    
-   /*
-    * this initialize the library and check potential ABI mismatches
-    * between the version it was compiled for and the actual shared
-    * library used.
-    */
+   // This macro initializes the libxml library and check potential ABI 
+   // mismatches between the version it was compiled for and the actual 
+   // shared library used.
    LIBXML_TEST_VERSION
 
    if ( argc == 2 ) {
@@ -252,7 +260,7 @@ int main( int argc, char * argv[] )
       return 1;
    }
 
-   /* We create the document and validate in one go */
+   // We create the document and validate in one go
    document = xmlCtxtReadFile( context, 
                                xmlFileName.c_str(), 
                                NULL,
@@ -276,6 +284,10 @@ int main( int argc, char * argv[] )
    xmlFreeParserCtxt( context );
 
    xmlCleanupParser();
+
+   for ( it = handlers.begin(); it < handlers.end(); it++ ) {
+      delete (*it);
+   }
 
    return 0;
 }

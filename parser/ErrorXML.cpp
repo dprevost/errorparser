@@ -13,7 +13,15 @@
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
+// Microsoft specific. Must be defined before including system header
+// files (this will avoid a warning if we ever use a C library function 
+// declared by Microsoft as deprecated.
+#define _CRT_SECURE_NO_DEPRECATE
+
+#include <string>
+#include <fstream>
 #include <iostream>
+
 #include "ErrorXML.h"
 
 using namespace std;
@@ -29,11 +37,11 @@ ErrorXML::ErrorXML( string  & language,
    
    node = errorNode->children;
 
-   /* Go to the first element (error number) */
+   // Go to the first element (error number)
    while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
    stripText( node->children->content, errorNumber );
 
-   /* Second element (the error name) */
+   // Second element (the error name)
    do { node = node->next; } while ( node->type != XML_ELEMENT_NODE );
    stripText( node->children->content, errorName );
    
@@ -101,11 +109,10 @@ void ErrorXML::GetMessageNode( string  & language,
    firstNode = node;
 
    if ( language.length() != 0 ) {
-      /* 
-       * This check on the first element is tedious but is needed in case
-       * someone uses the same "xml:lang="XX" for the first <message> and
-       * for a subsequent one. In such a case, the first one is the right one.
-       */
+      // This check on the first element is tedious but is needed in case
+      // someone uses the same "xml:lang="XX" for the first <message> and
+      // for a subsequent one. In such a case, the first one is the right 
+      // one.
       prop = xmlGetProp( node, BAD_CAST "lang" );
       if ( prop != NULL ) {
          if ( xmlStrcmp(prop, BAD_CAST language.c_str()) == 0 ) chosenNode = node;

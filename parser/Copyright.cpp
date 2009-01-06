@@ -13,7 +13,15 @@
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
+// Microsoft specific. Must be defined before including system header
+// files (this will avoid a warning if we ever use a C library function 
+// declared by Microsoft as deprecated.
+#define _CRT_SECURE_NO_DEPRECATE
+
+#include <string>
+#include <fstream>
 #include <iostream>
+
 #include "Copyright.h"
 
 using namespace std;

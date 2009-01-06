@@ -20,13 +20,11 @@
 #  include "config.h"
 #endif
 #if defined(WIN32)
-#  define _CRT_SECURE_NO_DEPRECATE
 #  include "config-win32.h"
 #  include <windows.h>
 #endif
 
 #include <time.h>
-
 #include <string>
 
 #include <libxml/parser.h>
@@ -37,11 +35,9 @@
 
 #define ERRP_LINE_LENGTH 72
 
-extern const char * g_functionName;
-
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-/* Prototypes of text.cpp functions */
+// Prototypes of text.cpp functions.
 
 void buildPath( std::string & dirname, 
                 std::string & filename, 

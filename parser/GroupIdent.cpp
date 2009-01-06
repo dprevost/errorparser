@@ -13,7 +13,15 @@
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
+// Microsoft specific. Must be defined before including system header
+// files (this will avoid a warning if we ever use a C library function 
+// declared by Microsoft as deprecated.
+#define _CRT_SECURE_NO_DEPRECATE
+
+#include <string>
+#include <fstream>
 #include <iostream>
+
 #include "GroupIdent.h"
 
 using namespace std;
@@ -76,7 +84,7 @@ GroupIdent::GroupIdent( string    & language,
 
    node = chosenNode->children;
 
-   /* Go to the first element, the name */
+   // Go to the first element, the name
    while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
 
    stripText( node->children->content, name );

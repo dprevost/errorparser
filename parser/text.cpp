@@ -56,10 +56,8 @@ void buildPath( string & dir, string & filename, string & outname )
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-/*
- * This function check that the UTF-8 string is indeed ascii (needed when
- * constructing variables, enums or #defines).
- */
+// This function check that the UTF-8 string is indeed ascii (needed when
+// constructing variables, enums or #defines).
 bool isAsciiStr( const char * str, size_t len )
 {
    size_t i;
@@ -140,40 +138,57 @@ void prettify( fstream      & outStream,
  */
 void stripText( xmlChar * inStr, string & outStr )
 {
-   size_t size, start, end, i, j;
-   
-   outStr.clear();
-   end = size = xmlStrlen(inStr);
-   start = 0;
-   
-   /* Replace all unwanted characters by spaces. */
-   for ( i = 0; i < size; ++i ) {
-      /* Carriage return... just in case */
-      if ( inStr[i] == 0x0D ) inStr[i] = 0x20;
-      /* New Line */
-      if ( inStr[i] == 0x0A ) inStr[i] = 0x20;
-      /* Tabs */
-      if ( inStr[i] == 0x09 ) inStr[i] = 0x20;
-   }
+   size_t size, start, end, i;
+   bool previousWasSpace = false;
 
-   /* Where does the string really start? */
+   outStr.clear();
+   size = xmlStrlen(inStr);
+   start = size;
+   end = 0;
+   
+   // Where does the string really start?
    for ( i = 0; i < size; ++i ) {
-      if ( inStr[i] != 0x20 ) break;
+      // Written for clarity. Letting the compiler optimize it...
+      
+      // Carriage return
+      if ( inStr[i] == 0x0D ) continue;
+      // New line
+      if ( inStr[i] == 0x0A ) continue;
+      // Tab and space
+      if ( isspace( inStr[i] ) ) continue;
+         
+      start = i;
+      break;
    }
-   start = i;
    
-   /* And where does it end? */
-   for ( i = size-1; i > start; --i ) {
-      if ( inStr[i] != 0x20 ) break;
+   // And where does it end?
+   for ( i = size-1; i >= start; --i ) {
+      // Written for clarity. Letting the compiler optimize it...
+      
+      // Carriage return
+      if ( inStr[i] == 0x0D ) continue;
+      // New line
+      if ( inStr[i] == 0x0A ) continue;
+      // Tab and space
+      if ( isspace( inStr[i] ) ) continue;
+
+      end = i;
+      break;
    }
-   end = i;
    
-   /* Multiple spaces - let's get rid of them */
-   outStr += inStr[start];
-   for ( i = start+1, j = 1; i <= end; ++i ) {
-      if ( inStr[i] == 0x20 && inStr[i-1] == 0x20 ) continue;
-      outStr += inStr[i];
-      j++;
+   // Process the string
+   for ( i = start; i <= end; ++i ) {
+      if ( inStr[i] == 0x0D || inStr[i] == 0x0A || isspace(inStr[i]) ) {
+         if ( previousWasSpace ) continue;
+         else {
+            outStr += ' ';
+            previousWasSpace = true;
+         }
+      }
+      else {
+         outStr += inStr[i];
+         previousWasSpace = false;
+      }
    }
 }
 

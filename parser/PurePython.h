@@ -28,7 +28,7 @@
  * This class implement code generation for pure Python.
  *
  * It extend the abstract class abstractHandler by implementing all of
- * its virtual methods.
+ * its pure virtual methods.
  */ 
 class PurePython: public AbstractHandler {
    
@@ -36,7 +36,7 @@ public:
 
    PurePython( std::string & filename, std::string & functionName );
 
-//   ~PurePython() {}
+   ~PurePython() {}
    
    void addTop( std::string & xmlFilename,
                 char        * timeBuf,

@@ -15,6 +15,15 @@
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
+// Microsoft specific. Must be defined before including system header
+// files (this will avoid a warning if we ever use a C library function 
+// declared by Microsoft as deprecated.
+#define _CRT_SECURE_NO_DEPRECATE
+
+#include <string>
+#include <fstream>
+#include <iostream>
+
 #include "ErrorHeader.h"
 #include "parser.h"
 
@@ -44,10 +53,8 @@ ErrorHeader::ErrorHeader( string & dir,
 
 void ErrorHeader::addTopCode()
 {
-   /* 
-    * enum information is only present if the target is an enum. If not
-    * present, we use "#define" instead.
-    */
+   // enum information is only present if the target is an enum. If not
+   // present, we use "#define" instead.
    if ( usingEnum ) {
       outStream << "enum " << enumName << endl;
       outStream << "{" << endl;

@@ -54,7 +54,7 @@ HeaderHandler::HeaderHandler( std::string  & header )
       }
       else {
          guard += '_';
-         if ( header[i] != '_' && header[i] != '\\' && header[i] != '/' ) {
+         if ( header[i] != '_' && header[i] != '\\' && header[i] != '/' && header[i] != '.' ) {
             cerr << "Warning: invalid character for a C identifier (I've replaced it with '_')" << endl;
          }
       }

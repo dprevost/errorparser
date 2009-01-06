@@ -13,8 +13,15 @@
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-#include <vector>
+// Microsoft specific. Must be defined before including system header
+// files (this will avoid a warning if we ever use a C library function 
+// declared by Microsoft as deprecated.
+#define _CRT_SECURE_NO_DEPRECATE
+
+#include <string>
+#include <fstream>
 #include <iostream>
+#include <vector>
 
 #include "parser.h"
 #include "AbstractHandler.h"
@@ -137,7 +144,7 @@ bool handleOptions( vector<AbstractHandler *> & handlers,
                     string & xmlOptionName,
                     string & language )
 {
-   xmlParserCtxtPtr context = NULL;  /* The parser context */
+   xmlParserCtxtPtr context = NULL;
    xmlNode * root = NULL, * node, * nodeValue;
    xmlDoc  * doc;
    int i;
@@ -152,7 +159,7 @@ bool handleOptions( vector<AbstractHandler *> & handlers,
       return false;
    }
 
-   /* We create the document and validate in one go */
+   // We create the document and validate in one go.
    doc = xmlCtxtReadFile( context, 
                           xmlOptionName.c_str(),
                           NULL,
@@ -317,23 +324,21 @@ bool AddHeaderFileHandler( vector<AbstractHandler *> & handlers,
    xmlChar * value;
    ErrorHeader * p;
    
-   /* 
-    * enum information is only present if the target is an enum. If not
-    * present, we use "#define" instead.
-    */
+   // enum information is option. It is present if the target is an enum. 
+   // If not present, we use "#define" instead.
    value = GetOptionalValue( node, "header_enum" );
    if ( value != NULL ) {
       usingEnums = true;
       stripText( value, enumname );
    }
 
-   /* The directory of the output header file for the error codes. */
+   // The directory of the output header file for the error codes.
    value = GetOptionalValue( node, "header_dirname" );
    if ( value != NULL ) {
       stripText( value, dirname );
    }
    
-   /* The name of the output header file for the error codes. */
+   // The name of the output header file for the error codes.
    value = GetMandatoryValue( node, "header_name" );
    if ( value != NULL ) {
       stripText( value, filename );
