@@ -71,7 +71,7 @@ void ErrMessage::addTopCode()
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-void ErrMessage::addError( ErrorXML & error )
+void ErrMessage::addError( ErrorXML & error, bool lastError )
 {
    string errMessage, tmp;
    string & errNumber = error.GetErrNumber();

@@ -57,7 +57,7 @@ void CSharp::addTopCode()
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-void CSharp::addError( ErrorXML & error )
+void CSharp::addError( ErrorXML & error, bool lastError )
 {
    bool firstpara = true;
    string tmp;
@@ -84,13 +84,7 @@ void CSharp::addError( ErrorXML & error )
    }
 
    outStream << indent << "    " << errName << " = " << errNumber;
-}
-
-// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
-
-void CSharp::addErrorTrailer()
-{
-   outStream << "," << endl << endl;
+   if (! lastError) outStream << "," << endl << endl;
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--

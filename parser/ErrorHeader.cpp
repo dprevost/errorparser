@@ -105,7 +105,7 @@ void ErrorHeader::addGroupIdent( GroupIdent & ident )
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-void ErrorHeader::addError( ErrorXML & error )
+void ErrorHeader::addError( ErrorXML & error, bool lastError )
 {
    bool firstpara = true;
    string tmp;
@@ -152,16 +152,13 @@ void ErrorHeader::addError( ErrorXML & error )
       outStream << " */" << endl;
       outStream << "#define " << prefix << "_" << errName << " " << errNumber;
    }
-}
-
-// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
-
-void ErrorHeader::addErrorTrailer()
-{
-   if ( usingEnum ) {
-      outStream << ",";
+   
+   if ( ! lastError ) {
+      if ( usingEnum ) {
+         outStream << ",";
+      }
+      outStream << endl << endl;
    }
-   outStream << endl << endl;
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--

@@ -55,8 +55,7 @@ void addGroup( string      & language,
                bool          lastGroup,
                vector<AbstractHandler *> & handlers )
 {
-   xmlNode * node = NULL;
-   bool firstOfGroup = true;   
+   xmlNode * node = NULL, * errorNode = NULL;
    vector<AbstractHandler *>::iterator it;
 
    node = group->children;
@@ -79,38 +78,29 @@ void addGroup( string      & language,
       }
    }
 
-   // addErrorTrailer is a simple hook to add commas or similar after
-   // each error (but not for the last error).
-   
-   // The logic in the code: it is called BEFORE addArror and adds a 
-   // trailer to the previous error (it is skipped if we are at the 
-   // first error of the group because this means that the previous error
-   // must have been the last of its group or that this is the first
-   // error we are processing).
-   // The reason behind this reverse logic: we don't know if the current
-   // error will be the last one or not and reading ahead to check this
-   // will have required more code.
+   // This one is a bit special - we have to know if it's the last error
+   // or not (for enums, the last error of the last group is special - it's
+   // the only one not terminated by a comma).
+   //
+   // So addError() is always adding the error of the previous iteration!
    while ( node != NULL ) {
       if ( node->type == XML_ELEMENT_NODE ) {
-         if ( ! firstOfGroup ) {
+         if ( errorNode != NULL ) {
+            ErrorXML error( language, errorNode );
             for ( it = handlers.begin(); it < handlers.end(); it++ ) {
-               (*it)->addErrorTrailer();
+               (*it)->addError( error, false );
             }
          }
-         ErrorXML error( language, node );
-         for ( it = handlers.begin(); it < handlers.end(); it++ ) {
-             (*it)->addError( error );
-         }
-         firstOfGroup = false;
+         errorNode = node;
       }
       node = node->next; 
    }
-   
-   // For the last error of a group which is not the last group, we
-   // call addErrorTrailer after calling addError.
-   if ( ! lastGroup ) {
+   // The last one of this group. If it is the last group, then it is the
+   // the last error, evidently
+   {
+      ErrorXML error( language, errorNode );
       for ( it = handlers.begin(); it < handlers.end(); it++ ) {
-         (*it)->addErrorTrailer();
+         (*it)->addError( error, lastGroup );
       }
    }
 }

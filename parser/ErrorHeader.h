@@ -39,10 +39,8 @@ public:
    
    void addGroupIdent( GroupIdent & ident );
 
-   void addError( ErrorXML & error );
+   void addError( ErrorXML & error, bool lastError );
 
-   void addErrorTrailer();
-   
    void addBottomCode();
 
 private:

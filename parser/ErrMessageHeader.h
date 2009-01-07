@@ -46,9 +46,7 @@ public:
    
    void addGroupIdent( GroupIdent & ident ) {}
 
-   void addError( ErrorXML & error ) {}
-
-   void addErrorTrailer() {}
+   void addError( ErrorXML & error, bool lastError ) {}
    
    void addBottomCode();
    

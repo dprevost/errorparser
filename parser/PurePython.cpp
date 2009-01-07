@@ -101,7 +101,7 @@ void PurePython::addTopCode()
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-void PurePython::addError( ErrorXML & error )
+void PurePython::addError( ErrorXML & error, bool lastError )
 {
    bool firstpara = true;
    string tmp;

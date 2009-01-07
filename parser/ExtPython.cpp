@@ -71,7 +71,7 @@ void ExtPython::addTopCode()
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-void ExtPython::addError( ErrorXML & error )
+void ExtPython::addError( ErrorXML & error, bool lastError )
 {
    bool firstpara = true;
    string tmp;
