@@ -16,13 +16,12 @@
 #ifndef ERRP_PARSER_H
 #define ERRP_PARSER_H
 
-//#ifdef HAVE_CONFIG_H
+#ifdef HAVE_CONFIG_H
 #  include "config.h"
-//#endif
-//#if defined(WIN32)
-//#  include "config-win32.h"
-//#  include <windows.h>
-//#endif
+#endif
+#if defined(WIN32)
+#  include "config-win32.h"
+#endif
 
 #include <time.h>
 #include <string>
