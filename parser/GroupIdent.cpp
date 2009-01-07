@@ -99,7 +99,7 @@ GroupIdent::GroupIdent( string    & language,
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-xmlChar * GroupIdent::GetDescParagraph()
+const char * GroupIdent::GetDescParagraph()
 {
    xmlNode * node;
 
@@ -113,7 +113,7 @@ xmlChar * GroupIdent::GetDescParagraph()
    while ( node != NULL ) {
       if ( node->type == XML_ELEMENT_NODE ) {
          iterator = node;
-         return node->children->content;
+         return (const char *)node->children->content;
       }
       node = node->next;
    }

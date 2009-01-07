@@ -66,18 +66,18 @@ void ErrorHeader::addTopCode()
 
 void ErrorHeader::addGroupIdent( GroupIdent & ident )
 {
-   xmlChar * paragraph;
+   const char * paragraph;
    string tmp;
    
-   // We call prettify since we have no control over the length
+   // We call formatText since we have no control over the length
    // of that field in the xml input file.
    if ( usingEnum ) {
       outStream << "    /*" << endl;
-      prettify( outStream, ident.GetName(), "     * ", ERRP_LINE_LENGTH );
+      formatText( outStream, ident.GetName(), "     * ", ERRP_LINE_LENGTH );
    }
    else {
       outStream << "/*" << endl;
-      prettify( outStream, ident.GetName(), " * ", ERRP_LINE_LENGTH );
+      formatText( outStream, ident.GetName(), " * ", ERRP_LINE_LENGTH );
    }
 
    paragraph = ident.GetDescParagraph();
@@ -86,11 +86,11 @@ void ErrorHeader::addGroupIdent( GroupIdent & ident )
 
       if ( usingEnum ) {
          outStream << "     *" << endl;
-         prettify( outStream, tmp, "     * ", ERRP_LINE_LENGTH );
+         formatText( outStream, tmp, "     * ", ERRP_LINE_LENGTH );
       }
       else {
          outStream << " *" << endl;
-         prettify( outStream, tmp, " * ", ERRP_LINE_LENGTH );
+         formatText( outStream, tmp, " * ", ERRP_LINE_LENGTH );
       }
       paragraph = ident.GetDescParagraph();
    }
@@ -111,8 +111,10 @@ void ErrorHeader::addError( ErrorXML & error, bool lastError )
    string tmp;
    string & errNumber = error.GetErrNumber();
    string & errName   = error.GetErrName();
-   xmlChar * paragraph;
+   const char * paragraph;
 
+   // We start by writing the documentation in a format understood by
+   // doxygen.
    if ( usingEnum ) {
       outStream << "    /**" << endl;
    }
@@ -135,10 +137,10 @@ void ErrorHeader::addError( ErrorXML & error, bool lastError )
       }
 
       if ( usingEnum ) {
-         prettify( outStream, tmp, "     * ", ERRP_LINE_LENGTH );
+         formatText( outStream, tmp, "     * ", ERRP_LINE_LENGTH );
       }
       else {
-         prettify( outStream, tmp, " * ", ERRP_LINE_LENGTH );
+         formatText( outStream, tmp, " * ", ERRP_LINE_LENGTH );
       }
 
       paragraph = error.GetDocuParagraph();
@@ -146,10 +148,16 @@ void ErrorHeader::addError( ErrorXML & error, bool lastError )
 
    if ( usingEnum ) {
       outStream << "     */" << endl;
-      outStream << "    " << prefix << "_" << errName << " = " << errNumber;
    }
    else {
       outStream << " */" << endl;
+   }
+
+   // We write the errcodes (name and value)
+   if ( usingEnum ) {
+      outStream << "    " << prefix << "_" << errName << " = " << errNumber;
+   }
+   else {
       outStream << "#define " << prefix << "_" << errName << " " << errNumber;
    }
    

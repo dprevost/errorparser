@@ -26,7 +26,9 @@ HeaderHandler::HeaderHandler( std::string  & header )
    unsigned int i;
 
    // The first character of a C identifier must be a letter or the
-   // underscore ('_'). The underscore is not recommended, however.
+   // underscore ('_'). The underscore is not recommended, however as 
+   // some identifiers are reserved (fo example, identifiers starting with 
+   // two underscores are reserved for compilers, etc.)
    if ( isalpha(header[0]) ) {
       guard = toupper(header[0]);
    }
@@ -36,7 +38,7 @@ HeaderHandler::HeaderHandler( std::string  & header )
          cerr << "Warning: C identifiers cannot start with a digit (I've replaced it with '_')" << endl;
       }
       else if ( header[0] == '_' ) {
-         cerr << "Warning: Starting a C identifier with '_' might conflict with identifiers from the C runtime library" << endl;
+         cerr << "Warning: Starting a C identifier with '_' might conflict with identifiers defined by the compiler, etc." << endl;
       }
       else {
          cerr << "Warning: invalid character for a C identifier (I've replaced it with '_')" << endl;

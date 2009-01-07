@@ -73,7 +73,6 @@ AC_SUBST(ERR_PARSER_LIBS)
 
 AC_HEADER_STDC 
 
-AC_CHECK_HEADERS(ctype.h)
 AC_CHECK_HEADERS(time.h)
 
 ##############################

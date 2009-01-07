@@ -41,11 +41,17 @@ public:
                      std::string & filename,
                      std::string & prefix,
                      bool          exportFunc );
-   
+
+   // Do-nothing destructor
+   ~ErrMessageHeader() {}
+
+   // Do-nothing function
    void addTopCode() {}
    
+   // Do-nothing function
    void addGroupIdent( GroupIdent & ident ) {}
 
+   // Do-nothing function
    void addError( ErrorXML & error, bool lastError ) {}
    
    void addBottomCode();

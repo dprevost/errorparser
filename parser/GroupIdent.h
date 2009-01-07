@@ -20,6 +20,10 @@
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
+#include <libxml/parser.h>
+#include <libxml/tree.h>
+#include <libxml/xmlstring.h>
+
 #include "parser.h"
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
@@ -46,7 +50,7 @@ public:
    }
 
    // Returns NULL at the end
-   xmlChar * GetDescParagraph();
+   const char * GetDescParagraph();
    
 private:
    

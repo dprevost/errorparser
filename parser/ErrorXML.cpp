@@ -52,7 +52,7 @@ ErrorXML::ErrorXML( string  & language,
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-xmlChar * ErrorXML::GetDocuParagraph()
+const char * ErrorXML::GetDocuParagraph()
 {
    xmlNode * node;
 
@@ -71,12 +71,12 @@ xmlChar * ErrorXML::GetDocuParagraph()
    while ( node != NULL ) {
       if ( node->type == XML_ELEMENT_NODE ) {
          iterator = node;
-         return node->children->content;
+         return (const char *)node->children->content;
       }
       node = node->next;
    }
 
-   // we processed the last paragraph
+   // we're done. Reset the iterator.
    iterator = NULL;
    
    return NULL;
@@ -84,15 +84,15 @@ xmlChar * ErrorXML::GetDocuParagraph()
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-xmlChar * ErrorXML::GetErrMessage()
+const char * ErrorXML::GetErrMessage()
 {
    xmlNode * node;
    node = messageNode->children;
    
-   // The error message is the first subtag of the "
+   // The error message is the first subtag of the messageNode
    while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
 
-   return node->children->content;
+   return (const char *)node->children->content;
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--

@@ -46,16 +46,19 @@ public:
                bool          allowQuotes,
                std::string & percent );
    
+   // Do-nothing destructor
    void startHeaderGuard() {}
    
    void addTopCode();
    
+   // Do-nothing function
    void addGroupIdent( GroupIdent & ident ) {}
 
    void addError( ErrorXML & error, bool lastError );
    
    void addBottomCode();
    
+   // Do-nothing function
    void stopHeaderGuard() {}
    
 private:
@@ -67,6 +70,9 @@ private:
    bool allowEscapes;
    bool allowQuotes;
    std::string percent;
+   
+   // These 4 methods could be put in text.cpp eventually if they are
+   // needed/used by another handler.
    
    void hasEscapeSequence( std::string & str );
 

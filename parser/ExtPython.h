@@ -37,8 +37,12 @@ public:
               std::string & header,
               std::string & function );
    
+   // Do-nothing destructor
+   ~ExtPython() {}
+
    void addTopCode();
    
+   // Do-nothing function
    void addGroupIdent( GroupIdent & ident ) {}
 
    void addError( ErrorXML & error, bool lastError );

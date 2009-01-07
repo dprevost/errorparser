@@ -36,11 +36,11 @@ Copyright::Copyright( xmlNode * errorNode )
    
    node = errorNode->children;
 
-   /* Go to the first element (years) */
+   // Go to the first element (years)
    while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
    stripText( node->children->content, years );
 
-   /* Second element (authors) */
+   // Second element (authors)
    do { node = node->next; } while ( node->type != XML_ELEMENT_NODE );
    stripText( node->children->content, authors );
    
@@ -51,13 +51,13 @@ Copyright::Copyright( xmlNode * errorNode )
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-xmlChar * Copyright::GetCopyParagraph()
+const char * Copyright::GetCopyParagraph()
 {
    xmlNode * node;
 
    if ( iterator == NULL ) {
       iterator = textNode;
-      return iterator->children->content;
+      return (const char *)iterator->children->content;
    }
    
    node = iterator->next;
@@ -65,12 +65,12 @@ xmlChar * Copyright::GetCopyParagraph()
    while ( node != NULL ) {
       if ( node->type == XML_ELEMENT_NODE ) {
          iterator = node;
-         return node->children->content;
+         return (const char *)node->children->content;
       }
       node = node->next;
    }
 
-   // we processed the last paragraph
+   // we reset the iterator after the last paragraph (node == NULL)
    iterator = NULL;
    
    return NULL;

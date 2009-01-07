@@ -40,24 +40,31 @@ public:
            std::string & cs_namespace,
            std::string & cs_enum );
    
+   // Do-nothing destructor
    ~CSharp() {}
    
+   // Do-nothing function
    void startHeaderGuard() {}
    
    void addTopCode();
    
+   // Do-nothing function
    void addGroupIdent( GroupIdent & ident ) {}
    
    void addError( ErrorXML & error, bool lastError );
 
    void addBottomCode();
 
+   // Do-nothing function
    void stopHeaderGuard() {}
    
 private:
    
    std::string my_namespace;
    std::string my_enum;
+   
+   // If we use a namespace, we define indent to be 4 spaces, otherwise
+   // it's an empty string. To make the generated code prettier.
    std::string indent;
 };
 

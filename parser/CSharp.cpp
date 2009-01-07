@@ -63,7 +63,7 @@ void CSharp::addError( ErrorXML & error, bool lastError )
    string tmp;
    string & errNumber = error.GetErrNumber();
    string & errName   = error.GetErrName();
-   xmlChar * paragraph;
+   const char * paragraph;
    
    paragraph = error.GetDocuParagraph();
    while ( paragraph != NULL ) {
@@ -74,10 +74,10 @@ void CSharp::addError( ErrorXML & error, bool lastError )
          outStream << indent << "    //" << endl;
       }
       if ( my_namespace.length() == 0 ) {
-         prettify( outStream, tmp, "    // ", ERRP_LINE_LENGTH );
+         formatText( outStream, tmp, "    // ", ERRP_LINE_LENGTH );
       }
       else {
-         prettify( outStream, tmp, "        // ", ERRP_LINE_LENGTH );
+         formatText( outStream, tmp, "        // ", ERRP_LINE_LENGTH );
       }
 
       paragraph = error.GetDocuParagraph();

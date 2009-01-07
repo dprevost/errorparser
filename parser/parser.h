@@ -16,13 +16,13 @@
 #ifndef ERRP_PARSER_H
 #define ERRP_PARSER_H
 
-#ifdef HAVE_CONFIG_H
+//#ifdef HAVE_CONFIG_H
 #  include "config.h"
-#endif
-#if defined(WIN32)
-#  include "config-win32.h"
-#  include <windows.h>
-#endif
+//#endif
+//#if defined(WIN32)
+//#  include "config-win32.h"
+//#  include <windows.h>
+//#endif
 
 #include <time.h>
 #include <string>
@@ -31,8 +31,20 @@
 #include <libxml/tree.h>
 #include <libxml/xmlstring.h>
 
+// char can be unsigned on some systems. If this occurs, the two stripText()
+// will have the same signature -> compiler error.
+#include <limits.h>
+#if CHAR_MIN == 0
+#  define CHAR_UNSIGNED 1
+#endif
+
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
+// You could override this macro for a specic output handler by calling 
+// formatText() with a different value. If you do so, your handler should
+// be inherited directly from AbstractHandler and not one of its derived
+// classes since the derived classes will likely use ERRP_LINE_LENGTH
+// when calling formatText().
 #define ERRP_LINE_LENGTH 72
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
@@ -43,12 +55,20 @@ void buildPath( std::string & dirname,
                 std::string & filename, 
                 std::string & name );
 
-void prettify( std::fstream      & outStream,
-               const std::string & inStr, 
-               const std::string & prefix, 
-               size_t              lineLength );
+void formatText( std::fstream      & outStream,
+                 const std::string & inStr, 
+                 const std::string & prefix, 
+                 size_t              lineLength );
 
-void stripText( xmlChar * inStr, std::string & outStr );
+void stripText( const char * inStr, std::string & outStr );
+
+#if ! defined(CHAR_UNSIGNED)
+inline 
+void stripText( xmlChar * inStr, std::string & outStr )
+{
+   return stripText( (const char *)inStr, outStr );
+}
+#endif
 
 bool isAsciiStr( const char * str, size_t len );
 

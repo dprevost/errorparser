@@ -23,23 +23,14 @@
 #pragma warning(disable:4514) /* unreferenced inline function has been removed */
 #pragma warning(disable:4710) /* inline function was not inlined */
 
-/* #define _WIN32_WINNT 0x0500 */
-
-/* Define to 1 if you have the <ctype.h> header file. */
-#define HAVE_CTYPE_H 1
-
-/* Define to 1 if you have the declaration of `strerror_r', and to 0 if you
-   don't. */
-/* #define HAVE_DECL_STRERROR_R 1 */
+/* Define to 1 if you have the `ctime' function. */
+#define HAVE_CTIME 1
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
 /* #define HAVE_DLFCN_H 1 */
 
 /* Define to 1 if you have the <inttypes.h> header file. */
 /* #define HAVE_INTTYPES_H 1 */
-
-/* Define to 1 if you have the `memcpy' function. */
-#define HAVE_MEMCPY 1
 
 /* Define to 1 if you have the <memory.h> header file. */
 #define HAVE_MEMORY_H 1
@@ -50,14 +41,8 @@
 /* Define to 1 if you have the <stdlib.h> header file. */
 #define HAVE_STDLIB_H 1
 
-/* Define to 1 if you have the `strcpy' function. */
-#define HAVE_STRCPY 1
-
-/* Define to 1 if you have the `strerror_r' function. */
-#define HAVE_STRERROR_R 1
-
 /* Define to 1 if you have the <strings.h> header file. */
-/* #define HAVE_STRINGS_H 1 */
+#define HAVE_STRINGS_H 1
 
 /* Define to 1 if you have the <string.h> header file. */
 #define HAVE_STRING_H 1
@@ -67,6 +52,9 @@
 
 /* Define to 1 if you have the <sys/types.h> header file. */
 #define HAVE_SYS_TYPES_H 1
+
+/* Define to 1 if you have the <time.h> header file. */
+#define HAVE_TIME_H 1
 
 /* Define to 1 if you have the <unistd.h> header file. */
 /* #define HAVE_UNISTD_H 1 */

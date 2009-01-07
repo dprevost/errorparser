@@ -49,7 +49,7 @@ ErrMessageHeader::ErrMessageHeader( string & dirname,
 void ErrMessageHeader::addBottomCode()
 {
    if ( exportFunctions ) {
-      /* Windows export/import decoration. */
+      // Windows export/import decoration.
       outStream << "#if defined(WIN32)" << endl;
       outStream << "#  if defined(BULDING_ERROR_MESSAGE)" << endl;
       outStream << "#    define ERROR_MESSAGE_EXPORT __declspec ( dllexport )" << endl;
@@ -81,3 +81,4 @@ void ErrMessageHeader::addBottomCode()
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+

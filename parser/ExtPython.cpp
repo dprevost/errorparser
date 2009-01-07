@@ -77,7 +77,7 @@ void ExtPython::addError( ErrorXML & error, bool lastError )
    string tmp;
    string & errNumber = error.GetErrNumber();
    string & errName   = error.GetErrName();
-   xmlChar * paragraph;
+   const char * paragraph;
    
    outStream << "    /*" << endl;
 
@@ -88,7 +88,7 @@ void ExtPython::addError( ErrorXML & error, bool lastError )
       if ( firstpara ) firstpara = false;
       else outStream << "     *" << endl;
 
-      prettify( outStream, tmp, "     * ", ERRP_LINE_LENGTH );
+      formatText( outStream, tmp, "     * ", ERRP_LINE_LENGTH );
       
       paragraph = error.GetDocuParagraph();
    }
@@ -97,7 +97,7 @@ void ExtPython::addError( ErrorXML & error, bool lastError )
 
    // The following generated code inserts values in the two dict. It is
    // a bit convoluted because of error handling and the need to decrease
-   // the ref. counters properly.
+   // the ref. counters properly (when something goes wrong).
    outStream << "    value = PyInt_FromLong(" << errNumber << ");" << endl;
    outStream << "    if ( value == NULL ) {" << endl;
    outStream << "        PyDict_Clear(errors);" << endl;
@@ -141,6 +141,7 @@ void ExtPython::addError( ErrorXML & error, bool lastError )
 
 void ExtPython::addBottomCode()
 {
+   // Return our two dict as a tuple to the calling function.
    outStream << "    return Py_BuildValue(\"OO\", errors, errorNames);" << endl;
    outStream << "}" << endl << endl;
    outStream << barrier << endl << endl;

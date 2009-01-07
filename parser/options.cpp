@@ -23,6 +23,10 @@
 #include <iostream>
 #include <vector>
 
+#include <libxml/parser.h>
+#include <libxml/tree.h>
+#include <libxml/xmlstring.h>
+
 #include "parser.h"
 #include "AbstractHandler.h"
 #include "ErrorHeader.h"
@@ -56,6 +60,11 @@ bool AddPurePythonHandler( vector<AbstractHandler *> & handlers,
                            xmlNode                   * node );
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+
+//
+// Warning: in the next few helper functions, the xmlNode pointer, node, is 
+// passed by reference (and therefore updated in the calling function).
+//
 
 xmlChar * GetMandatoryValue( xmlNode * & node, const char * tag )
 {
@@ -149,7 +158,7 @@ bool handleOptions( vector<AbstractHandler *> & handlers,
    xmlDoc  * doc;
    int i;
    xmlChar * prop;
-   int version;
+   int version = 0;
    string tmp;
    string prefix;
    
@@ -181,10 +190,58 @@ bool handleOptions( vector<AbstractHandler *> & handlers,
       return false;
    }
    else {
-      for ( i = 0, version = 0; i < xmlStrlen( prop ); i++ ) {
-         if ( prop[i] >= '0' && prop[i] <= '9' ) {
+      /*
+       * Acceptable format: 2, 2., 2.0, 2.00, 2.000 (etc.)
+       * We also accept the comma as the digital separator.
+       *
+       * But... our versions will never have more than one digit after
+       * the decimal separator (so we drop additional digits).
+       */
+      int separator = xmlStrlen( prop );
+      for ( i = 0; i < xmlStrlen( prop ); i++ ) {
+         if ( prop[i] == '.' || prop[i] == ',' ) {
+            separator = i;
+            break;
+         }
+      }
+      
+      if ( separator < xmlStrlen( prop ) ) {
+         for ( i = 0; i < separator; i++ ) {
+            if ( prop[i] >= '0' && prop[i] <= '9' ) {
+               version *= 10;
+               version += prop[i] - '0';
+            }
+            else {
+               cerr << "Error: invalid format for the \"version\" attribute to the root of the option XML" << endl;
+               return false;
+            }
+         }
+         if ( separator == xmlStrlen( prop ) - 1 ) {
+            // Special case where the separator is the last character
             version *= 10;
-            version += prop[i] - '0';
+         }
+         else {
+            i = separator + 1;
+            if ( prop[i] >= '0' && prop[i] <= '9' ) {
+               version *= 10;
+               version += prop[i] - '0';
+            }
+            else {
+               cerr << "Error: invalid format for the \"version\" attribute to the root of the option XML" << endl;
+               return false;
+            }
+         }            
+      }
+      else {
+         for ( i = 0; i < xmlStrlen( prop ); i++ ) {
+            if ( prop[i] >= '0' && prop[i] <= '9' ) {
+               version *= 10;
+               version += prop[i] - '0';
+            }
+            else {
+               cerr << "Error: invalid format for the \"version\" attribute to the root of the option XML" << endl;
+               return false;
+            }
          }
       }
    }
@@ -298,7 +355,7 @@ bool GetGeneralOptions( string  & prefix,
       return false;
    }
 
-   // Optional - selec a language for error messages/documentation.
+   // Optional - select a language for error messages/documentation.
    nodeValue = IsOptionalValuePresent( node, "selected_lang" );
    if ( nodeValue != NULL ) {
       prop = xmlGetProp( nodeValue, BAD_CAST "lang" );
@@ -324,8 +381,8 @@ bool AddHeaderFileHandler( vector<AbstractHandler *> & handlers,
    xmlChar * value;
    ErrorHeader * p;
    
-   // enum information is option. It is present if the target is an enum. 
-   // If not present, we use "#define" instead.
+   // enum information is optional - it must be present if the target is an 
+   // enum. If not present, we use "#define" instead.
    value = GetOptionalValue( node, "header_enum" );
    if ( value != NULL ) {
       usingEnums = true;

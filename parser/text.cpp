@@ -17,6 +17,7 @@
 #include <iostream>
 #include <fstream>
 #include <cassert>
+
 #include "parser.h"
 
 using namespace std;
@@ -25,9 +26,7 @@ using namespace std;
 #  define PATH_MAX _MAX_PATH
 #endif
 
-/*
- * This module contains all the text manipulation routine.
- */
+// This module contains utilities used by other objects of this program.
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
@@ -56,7 +55,7 @@ void buildPath( string & dir, string & filename, string & outname )
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-// This function check that the UTF-8 string is indeed ascii (needed when
+// This function check that the input string is indeed ascii (needed when
 // constructing variables, enums or #defines).
 bool isAsciiStr( const char * str, size_t len )
 {
@@ -71,11 +70,12 @@ bool isAsciiStr( const char * str, size_t len )
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-bool doPrettify( const string & inStr, 
-                 size_t       & where,
-                 const string & prefix,
-                 string       & outStr,
-                 size_t         lineLength )
+// Function internal to this module
+bool doFormat( const string & inStr, 
+               size_t       & where,
+               const string & prefix,
+               string       & outStr,
+               size_t         lineLength )
 {
    size_t size, i, lastWhite = 0;
    
@@ -97,7 +97,12 @@ bool doPrettify( const string & inStr,
       }
    }
    
-   assert( lastWhite );
+   if ( lastWhite == 0 ) {
+      // Technically possible (if prefix is quite large, for example)
+      // but not really expected...
+      lastWhite = size-1+where;
+   }
+   
    outStr.append( &inStr[where], lastWhite-where+1 );
 
    where = lastWhite+1;
@@ -107,15 +112,23 @@ bool doPrettify( const string & inStr,
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-void prettify( fstream      & outStream,
-               const string & inStr, 
-               const string & prefix, 
-               size_t         lineLength )
+// Format text will format the input string into lines with a maximum
+// length of lineLength - each line will start with "prefix" (the length
+// of prefix is counted in the length of a line).
+// 
+// Special note 1: this function will attempt to break lines on natural
+//                 borders (space between words). 
+// Special note 2: the input string should not contain formatting information
+//                 (like \n). Use stripText() to sanitize it as needed.
+void formatText( fstream      & outStream,
+                 const string & inStr, 
+                 const string & prefix, 
+                 size_t         lineLength )
 {
    size_t where = 0;
    string line;
    
-   while ( doPrettify(inStr, where, prefix, line, lineLength) ) {
+   while ( doFormat(inStr, where, prefix, line, lineLength) ) {
       outStream << line << endl;
    }
    outStream << line << endl;
@@ -133,16 +146,17 @@ void prettify( fstream      & outStream,
       Nothing.
     </notice>
  * will be saved as: "\n      Nothing.\n    " which is obviously not what
- * we want. We strip to a one-line string (removing all whitespace at the 
- * beginning and end and stripping all duplicate white spaces in the middle.
+ * we want. We strip to a one-line string (removing all whitespace and 
+ * newlines at the beginning and end and stripping all duplicate white spaces 
+ * in the middle).
  */
-void stripText( xmlChar * inStr, string & outStr )
+void stripText( const char * inStr, string & outStr )
 {
    size_t size, start, end, i;
    bool previousWasSpace = false;
 
    outStr.clear();
-   size = xmlStrlen(inStr);
+   size = strlen(inStr);
    start = size;
    end = 0;
    

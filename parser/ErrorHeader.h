@@ -35,6 +35,9 @@ public:
                 std::string & enumName,
                 std::string & prefix );
    
+   // Do-nothing destructor
+   ~ErrorHeader() {}
+   
    void addTopCode();
    
    void addGroupIdent( GroupIdent & ident );

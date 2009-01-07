@@ -30,26 +30,27 @@
  *
  * Concretely, it adds the two functions needed to write the header guard.
  */ 
-class HeaderHandler: public CfamilyHandler{
+class HeaderHandler: public CfamilyHandler {
    
 public:
 
+   // Do-nothing destructor
    virtual ~HeaderHandler() {}
    
-   /// Additionally, this function adds the extern "C" statement (for C++)":
-   ///    #ifdef __cplusplus
-   ///    extern "C" {
-   ///    #endif
+   // Additionally, this function adds the extern "C" statement (for C++)":
+   //    #ifdef __cplusplus
+   //    extern "C" {
+   //    #endif
    virtual void startHeaderGuard();
    
-   /// Additionally, this function closes the extern "C" statement (for C++)
+   // Additionally, this function closes the extern "C" statement (for C++)
    virtual void stopHeaderGuard();
    
 protected:
    
-   /// The guard is constructed from the headerName.
-   /// Invalid characters in headerName will generate warnings (the invalid
-   /// characters themselves will be replaced with underscores.
+   // The guard is constructed from the headerName.
+   // Invalid characters in headerName will generate warnings (the invalid
+   // characters themselves will be replaced with underscores.
    HeaderHandler( std::string & headerName );
    
    std::string guard;

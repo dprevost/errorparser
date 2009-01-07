@@ -23,6 +23,10 @@
 #include <iostream>
 #include <vector>
 
+#include <libxml/parser.h>
+#include <libxml/tree.h>
+#include <libxml/xmlstring.h>
+
 #include "parser.h"
 #include "AbstractHandler.h"
 
@@ -69,8 +73,8 @@ void addGroup( string      & language,
     */
    if ( xmlStrcmp( node->name, BAD_CAST "errgroup_ident") == 0 ) {
       
-      // node is passed by reference - it will be set to the next item to 
-      // process when this constructor ends.
+      // node is passed by reference - it will be set correctly (to the 
+      // next item to process in the xml tree) when this constructor ends.
       GroupIdent ident( language, node );
 
       for ( it = handlers.begin(); it < handlers.end(); it++ ) {
@@ -125,7 +129,7 @@ void doTopOfFile( string                    & xmlFileName,
    strftime( timeBuf, 30, "%a %b %d %H:%M:%S %Y", formattedTime );
 
    for ( it = handlers.begin(); it < handlers.end(); it++ ) {
-      (*it)->addTop( xmlFileName, timeBuf, version );
+      (*it)->addTop( xmlFileName, timeBuf, (const char *)version );
    }
    
    if ( copyNode != NULL ) {
@@ -171,6 +175,9 @@ void navigate( string                    & xmlFileName,
       node = node->next;
    }
    else {
+      // Do NOT advance the node (node = node->next). The node was not
+      // the copyright group so it is the next element and we must
+      // process it later on.
       doTopOfFile( xmlFileName, version, NULL, handlers );
    }
 
@@ -205,8 +212,8 @@ void navigate( string                    & xmlFileName,
 
 int main( int argc, char * argv[] )
 {
-   xmlParserCtxtPtr context = NULL;  // The parser context
-   xmlNode * root = NULL;            // The root node
+   xmlParserCtxtPtr context = NULL;
+   xmlNode * root = NULL;
    bool rc;
    vector<AbstractHandler *> handlers;
    string xmlFileName, xmlOptionName;

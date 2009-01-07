@@ -20,15 +20,20 @@
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
+#include <libxml/parser.h>
+#include <libxml/tree.h>
+#include <libxml/xmlstring.h>
+
 #include "parser.h"
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 /** 
- * This class encapsulates the exact syntax used in the XML error file.
+ * This class encapsulates the exact syntax used in the XML error file
+ * for describing errors.
  *
  * This way, the rest of the code is protected against changes to
- * the DTD (if a change is needed).
+ * the DTD (if changes are needed, eventually).
  */
 
 class ErrorXML {
@@ -46,9 +51,9 @@ public:
       return errorName;
    }
    
-   xmlChar * GetErrMessage();
+   const char * GetErrMessage();
 
-   xmlChar * GetDocuParagraph();
+   const char * GetDocuParagraph();
    
 private:
    
@@ -60,6 +65,8 @@ private:
 
    xmlNode * iterator;
    
+   // Choice of the messages depends on the selected language in the
+   // option file.
    void GetMessageNode( std::string & language,
                         xmlNode     * message_group );
 };

@@ -36,28 +36,30 @@ public:
 
    PurePython( std::string & filename, std::string & functionName );
 
+   // Do-nothing destructor
    ~PurePython() {}
    
    void addTop( std::string & xmlFilename,
-                char        * timeBuf,
-                xmlChar     * version );
+                const char  * timeBuf,
+                const char  * version );
    
    void addCopyright( Copyright & copy );
    
    void addEndTop();
 
-   // Dummy function
+   // Do-nothing function
    void startHeaderGuard() {}
    
    void addTopCode();
    
+   // Do-nothing function
    void addGroupIdent( GroupIdent & ident ) {}
 
    void addError( ErrorXML & error, bool lastError );
 
    void addBottomCode();
    
-   // Dummy function
+   // Do-nothing function
    void stopHeaderGuard() {}
 
 private:

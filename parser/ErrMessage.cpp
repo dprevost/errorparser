@@ -55,7 +55,8 @@ void ErrMessage::addTopCode()
    outStream << "#include <stdlib.h> /* Needed for NULL. */" << endl << endl;
 
    // This define is use if the output is part of the library and if
-   // the Win32 decorations (import/export) are needed.
+   // the Win32 decorations (import/export) are needed. Otherwise
+   // it is useless but we write it anyway (cost nothing).
    outStream << "#define BULDING_ERROR_MESSAGE" << endl;
    outStream << "#include \"" << headerName << "\"" << endl << endl;
    
@@ -76,9 +77,12 @@ void ErrMessage::addError( ErrorXML & error, bool lastError )
    string errMessage, tmp;
    string & errNumber = error.GetErrNumber();
    string & errName   = error.GetErrName();
-   xmlChar * msg;
+   const char * msg;
    
+   // Maybe we should write the documentation instead of just the
+   // error name?
    outStream << "/* " << prefix << "_" << errName << " */" << endl;
+
    outStream << varPrefix << "_MsgStruct " << varPrefix << "_Msg" <<
       errorCount << " = {" << endl;
    outStream << "    " << errNumber << ", ";
@@ -172,7 +176,8 @@ void ErrMessage::hasEscapeSequence( string & str )
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-// This function checks the content of the UTF-8 string for quotes ('"').
+// This function checks the content of the string for single and double
+// quotes (" and '). These two needs to be escaped (but not `).
 bool ErrMessage::hasUnescapedQuotes( string & str )
 {
    size_t i;
@@ -190,8 +195,8 @@ bool ErrMessage::hasUnescapedQuotes( string & str )
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-// This function escape all characters that needs to be escaped from 
-// the input UTF-8 string.
+// This function escape all quotes that need to be escaped from 
+// the input string.
 
 void ErrMessage::escapeUnescapedQuotes( const string & inStr, string & outStr )
 {
