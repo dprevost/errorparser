@@ -60,22 +60,22 @@
 /* #define HAVE_UNISTD_H 1 */
 
 /* Name of package */
-#define PACKAGE "errorParser"
+#define PACKAGE "@PACKAGE@"
 
 /* Define to the address where bug reports for this package should be sent. */
-#define PACKAGE_BUGREPORT "Daniel Prevost <dprevost@users.sourceforge.net>"
+#define PACKAGE_BUGREPORT "@PACKAGE_BUGREPORT@"
 
 /* Define to the full name of this package. */
-#define PACKAGE_NAME "Error Parser"
+#define PACKAGE_NAME "@PACKAGE_NAME@"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "Error Parser 1.0_RC1"
+#define PACKAGE_STRING "@PACKAGE_STRING@"
 
 /* Define to the one symbol short name of this package. */
-#define PACKAGE_TARNAME "errorParser"
+#define PACKAGE_TARNAME "@PACKAGE_TARNAME@"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "1.0_RC1"
+#define PACKAGE_VERSION "@PACKAGE_VERSION@"
 
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
@@ -84,7 +84,7 @@
 /* #undef STRERROR_R_CHAR_P */
 
 /* Version number of package */
-#define VERSION "1.0_RC1"
+#define VERSION "@VERSION@"
 
 /* Define to 1 if on AIX 3.
    System headers sometimes define this.

@@ -115,6 +115,7 @@ AC_CONFIG_FILES([
    Makefile
    doc/Makefile
    installation/errorParser.spec
+   parser/config-win32.h
    parser/Makefile
    tests/Makefile
 ])
