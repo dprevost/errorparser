@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE options SYSTEM 
-             "/usr/local/share/xml/errorParser/errorParserOptions12.dtd">
+             "/usr/local/share/xml/errorParser/errorParserOptions20.dtd">
 
 <!-- 
    This xml file provides the options to the errorParser program.
@@ -17,69 +17,83 @@
    
 -->
 
-<options version="1.2">
-  <!-- The name of the enum. If absent, #define will be generated instead. -->
-  <enumname> psoErrors</enumname>
-  <!-- Name of the output dir for the error header file. If absent, the 
-       current directory will be used.
-       
-       Alternatively, you can put the directory directly in the header_name 
-       element. But if you do, the "GUARD" will use that directory name. -->
-  <header_name_dir> include/photon </header_name_dir>
-  <!-- The file name for the .h file which will hold the errors. -->
-  <header_name> psoErrors.h </header_name>
-  <!-- Name of the output dir for the code to retrieve the error messages. 
-       If absent, the current directory will be used.
+<options version="2.0">
+  <!-- The general options section is mandatory -->
+  <general_options>
+    <!-- Prefix to be used for the error codes (enum or #define). -->
+    <prefix_error_no_namespace>
+      PSO
+    </prefix_error_no_namespace>
+    <selected_lang xml:lang="en"/>
+  </general_options>
 
-       Alternatively, you can put the directory directly in the 2 
-       "errmsg_*_name" elements. If you do, the "GUARD" will use that 
-       directory name and the .c file will include the header using the 
-       full name (errmsg_header_name) -->
-   <errmsg_dir> engine </errmsg_dir>
-  <!-- The file name for the .h file for the code to retrieve the error 
+  <!-- The main C/C++ header file -->
+  <header_file>
+    <!-- The name of the enum. If absent, #define will be generated instead. -->
+    <header_enum> psoErrors </header_enum>
+    <!-- Name of the output dir for the error header file. If absent, the 
+         current directory will be used.
+       
+         Alternatively, you can put the directory directly in the header_name 
+         element. But if you do, the "GUARD" will use that directory name. -->
+    <header_dirname> include/photon </header_dirname>
+    <!-- The file name for the .h file which will hold the errors. -->
+    <header_name> psoErrors.h </header_name>
+  </header_file>
+
+  <!-- The error message code options -->  
+  <errmsg_files>
+    <!-- Name of the output dir for the code to retrieve the error messages. 
+         If absent, the current directory will be used.
+
+         Alternatively, you can put the directory directly in the 2 
+         "errmsg_*_name" elements. If you do, the "GUARD" will use that 
+         directory name and the .c file will include the header using the 
+         full name (errmsg_header_name) -->
+    <errmsg_dirname> engine </errmsg_dirname>
+    <!-- The file name for the .h file for the code to retrieve the error 
+         messages. -->
+    <errmsg_header_name> psoErrorHandler.h </errmsg_header_name>
+    <!-- The file name for the .c file for the code to retrieve the error 
        messages. -->
-  <errmsg_header_name> psoErrorHandler.h </errmsg_header_name>
-  <!-- The file name for the .c file for the code to retrieve the error 
-       messages. -->
-  <errmsg_c_name> psoErrorHandler.c </errmsg_c_name>
-  <!-- Options for the error messages. We are building a shared library
-       and we want to export the function so...
-       This field is optional - new in version 1.2 -->
-  <errmsg_options build_dll="yes" />
-  <!-- Prefix to be used for the error codes (enum or #define). -->
-  <prefix_error> PSO </prefix_error>
-  <!-- Prefix to be used for all variables in the code to retrieve the 
-       error messages -->
-  <prefix_variable> pson </prefix_variable>
-  <!-- How to handle the error message. The problem: the generated C strings
-       will be use, eventually, by standard C/C++ libraries and some 
-       sequence of characters could have some bad side effects, possibly
-       including security issues.
-       The defaults:
-         - escape sequences are not permitted (a more fine grain approach
-           could be written if the need arise).
-         - quotes (' and ") are allowed (and will be escaped as needed) 
-         - The % symbol. No default. I recommend the textual "percent" 
-           (% is the most problematic one, IMHO. %d %p, etc are interpreted
-           differently by libc (printf()) and the iostream library (cout) -->         
-  <err_msg percent="percent" />
-  <selected_lang xml:lang="en"/>
-  <!-- Optional section for creating an enum for C# (new in v 1.1) -->
+    <errmsg_c_fullname> engine/psoErrorHandler.c </errmsg_c_fullname>
+    <!-- Options for the error messages. We are building a shared library
+         and we want to export the function so...
+         This field is optional - new in version 1.2 -->
+    <errmsg_options build_dll="yes" />
+    <!-- Prefix to be used for all variables in the code to retrieve the 
+         error messages -->
+    <errmsg_prefix_var> pson </errmsg_prefix_var>
+    <!-- How to handle the error message. The problem: the generated C strings
+         will be use, eventually, by standard C/C++ libraries and some 
+         sequence of characters could have some bad side effects, possibly
+         including security issues.
+         The defaults:
+           - escape sequences are not permitted (a more fine grain approach
+             could be written if the need arise).
+           - quotes (' and ") are allowed (and will be escaped as needed) 
+           - The % symbol. No default. I recommend the textual "percent" 
+             (% is the most problematic one, IMHO. %d %p, etc are interpreted
+             differently by libc (printf()) and the iostream library (cout) -->         
+    <errmsg_msg percent="percent" />
+  </errmsg_files>
+  
+  <!-- Optional section for creating an enum for C# -->
   <csharp>
     <!-- Full or relative path to the generated C# code -->
     <cs_filename> CS/Errors.cs </cs_filename>
-    <cs_enum> Errors </cs_enum>
+    <cs_enum_name> Errors </cs_enum_name>
     <!-- The namespace is optional -->
     <cs_namespace> Photon </cs_namespace>
   </csharp>
-  <!-- Optional section for Python (new in v. 1.2) -->
-  <python>
-    <!-- Options. We are building an extended (C) module -->
-    <py_options extended="yes" />
+
+  <!-- Optional section for Python -->
+  <ext_python>
     <!-- Directory for the python output file -->
-    <py_dirname> ../Python/src </py_dirname>
+    <ext_py_dirname> ../Python/src </ext_py_dirname>
     <!-- Name of the output file -->
-    <py_filename> errors.h </py_filename>
-  </python>
+    <ext_py_filename> errors.h </ext_py_filename>
+  </ext_python>
+
 </options>
 

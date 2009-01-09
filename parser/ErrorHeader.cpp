@@ -34,10 +34,10 @@ using namespace std;
 ErrorHeader::ErrorHeader( string & dir,
                           string & header,
                           string & ename,
-                          string & prefix )
+                          string & inPrefix )
    : HeaderHandler( header ),
      enumName     ( ename ),
-     prefix       ( prefix ),
+     prefix       ( inPrefix ),
      usingEnum    ( false )
 {
    string name;
@@ -47,6 +47,8 @@ ErrorHeader::ErrorHeader( string & dir,
    outStream.open( name.c_str(), fstream::out );
 
    if ( enumName.length() > 0 ) usingEnum = true;
+   
+   if ( prefix.length() > 0 ) prefix += '_';
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
@@ -155,10 +157,10 @@ void ErrorHeader::addError( ErrorXML & error, bool lastError )
 
    // We write the errcodes (name and value)
    if ( usingEnum ) {
-      outStream << "    " << prefix << "_" << errName << " = " << errNumber;
+      outStream << "    " << prefix << errName << " = " << errNumber;
    }
    else {
-      outStream << "#define " << prefix << "_" << errName << " " << errNumber;
+      outStream << "#define " << prefix << errName << " " << errNumber;
    }
    
    if ( ! lastError ) {

@@ -31,20 +31,22 @@ using namespace std;
 
 ErrMessage::ErrMessage( string & filename,
                         string & header,
-                        string & prefix,
+                        string & inPrefix,
                         string & varPrefix,
                         bool     allowEscapes,
                         bool     allowQuotes,
                         string & percent )
    : errorCount  ( 0 ),
      headerName  ( header ),
-     prefix      ( prefix ),
+     prefix      ( inPrefix ),
      varPrefix   ( varPrefix ),
      allowEscapes( allowEscapes ),
      allowQuotes ( allowQuotes ),
      percent     ( percent )
 {
    outStream.open( filename.c_str(), fstream::out );
+
+   if ( prefix.length() > 0 ) prefix += '_';
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
@@ -81,7 +83,7 @@ void ErrMessage::addError( ErrorXML & error, bool lastError )
    
    // Maybe we should write the documentation instead of just the
    // error name?
-   outStream << "/* " << prefix << "_" << errName << " */" << endl;
+   outStream << "/* " << prefix << errName << " */" << endl;
 
    outStream << varPrefix << "_MsgStruct " << varPrefix << "_Msg" <<
       errorCount << " = {" << endl;
