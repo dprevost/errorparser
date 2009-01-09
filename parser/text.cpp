@@ -18,6 +18,8 @@
 #include <fstream>
 #include <cassert>
 
+#include <string.h> // strlen
+
 #include "parser.h"
 
 using namespace std;

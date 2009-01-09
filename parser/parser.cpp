@@ -27,6 +27,8 @@
 #include <libxml/tree.h>
 #include <libxml/xmlstring.h>
 
+#include <string.h> // memcmp
+
 #include "parser.h"
 #include "AbstractHandler.h"
 
