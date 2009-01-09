@@ -26,9 +26,7 @@ EXTRA_DIST =                             \
         COPYING                          \
         README                           \
         DTD/errorParser12.dtd            \
-        DTD/errorParserOptions10.dtd     \
-        DTD/errorParserOptions11.dtd     \
-        DTD/errorParserOptions12.dtd     \
+        DTD/errorParserOptions20.dtd     \
         DTD/catalog.xml                  \
         examples/example_options.xml     \
         examples/example_photon.xml      \
