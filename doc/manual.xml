@@ -41,12 +41,12 @@
     <title>New in this release</title>
   
     <para> 
-      This release is a major update, the software was completely rewritten
-      to make it easier to both maintain it and to enhance it (for example,
-      by adding support for other programmation languages).
+      This release is a major update, the software was partially rewritten
+      and completely reorganized (refactored) to make it easier to both 
+      maintain it and to enhance it.
     </para>
     <para>
-      The good news: this update has very little impact to anyone using
+      The good news: this update has very little impact on anyone using
       the program, with one exception: you must update your option file
       to the new format.
     </para>
@@ -57,7 +57,7 @@
     </para>
     <para>
       Additionally, this new version resolved multiple small bugs and closed
-      a few memory leaks.
+      all known memory leaks.
     </para>
 
   </chapter>
@@ -390,7 +390,7 @@
         To run the tests, from a command shell run cscript 
         RunTests.vbs (in the tests directory). You will also need 
         <ulink url="http://gnuwin32.sourceforge.net/packages/diffutils.htm">
-        Gnu diff</ulink> for Windows.
+        Gnu diff</ulink> for Windows (a copy of it is in the tests directory).
       </para>
       <para>
         You can also build the software and run the tests from the command 
@@ -813,7 +813,7 @@
 
             <listitem>
               <para>
-                &lt;prefix_error&gt;
+                &lt;prefix_error_no_namespace&gt;
                 <indexterm><primary>prefix_error_no_namespace</primary></indexterm>
               </para>
               <para>
@@ -1058,6 +1058,11 @@
                     fine grain approach could be written if the need 
                     arise).
                   </para>
+                  <para>
+                    Note: if you want to allow quotes in your messages, do 
+                    <emphasis> NOT </emphasis> escaped them if allow_escapes
+                    is set to no (they will be escaped by Error Parser).
+                  </para>
                 </listitem>
                 <listitem>
                   <para>
@@ -1070,7 +1075,8 @@
                   <para>
                     An enumeration with two values, yes and no. The 
                     default is yes, quotes (&apos; and &quot;) are allowed 
-                    (and will be escaped as needed).
+                    (and will be escaped as needed, even if allow_escapes
+                    is set to no).
                   </para>
                 </listitem>
                 <listitem>
@@ -1151,9 +1157,9 @@
           </para>
           <para>
             The code generates a C function to create 2 dict (associated arrays)
-            objects. The first dict uses the error symbolic name as the key
-            and the error number as the value. The second dict is reverse
-            (error number as the key, symbolic name as values. 
+            objects. The key for the first dict is the error symbolic name,
+            the value is the error number. The key for the second dict is 
+            the error number, the value is the symbolic name.
           </para>
           <para>
             Example of use in Python (taken from the tests of Photon):
@@ -1173,7 +1179,7 @@
             Photon extension module (pso: photonsoftware.org). See the section
             <quote><link linkend='example_python_extended_module' 
               endterm="example_python_extended_module.title"/></quote>
-            for a more in depth view.
+            for some tips on how to use the generated file in your C code.
           </para>
 
           <itemizedlist>
@@ -1232,9 +1238,9 @@
           </para>
           <para>
             The code generates a Python function to create 2 dict (associated arrays)
-            objects. The first dict uses the error symbolic name as the key
-            and the error number as the value. The second dict is reverse
-            (error number as the key, symbolic name as values. 
+            objects. The key for the first dict is the error symbolic name,
+            the value is the error number. The key for the second dict is 
+            the error number, the value is the symbolic name.
           </para>
 
           <itemizedlist>
