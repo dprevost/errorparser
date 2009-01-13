@@ -25,13 +25,13 @@
       both small and large projects.
     </para>
     <para>
-      This is accomplish by creating a master XML file containing all the
+      This is accomplished by creating a master XML file containing all the
       necessary information on the errors (value, error message and 
       documentation). Error Parser uses this file to generate the 
-      appropriate output files for different programmation languages.
+      appropriate output files for different programming languages.
     </para>
     <para>
-      Control of the code generation is done by an option file (written in XML).
+      Control of the code generation is done by an option file written in XML.
       The format for both XML files is explained below.
     </para>
   </chapter>
@@ -41,23 +41,23 @@
     <title>New in this release</title>
   
     <para> 
-      This release is a major update, the software was partially rewritten
+      This release is a major update; the software was partially rewritten
       and completely reorganized (refactored) to make it easier to both 
-      maintain it and to enhance it.
+      maintain it and enhance it.
     </para>
     <para>
-      The good news: this update has very little impact on anyone using
-      the program, with one exception: you must update your option file
-      to the new format.
+      This update has very little impact on anyone using the program, 
+      with <emphasis role="bold"> one exception</emphasis>: 
+      you must update your option file to the new format.
     </para>
     <para>
-      The new format of the option file (version 2.0) adopt the modular 
+      The new format of the option file (version 2.0) adopts the modular 
       approach used in the redesign of the code - it is divided in sections,
-      one section for each type of output file.
+      with one section for each type of output file.
     </para>
     <para>
-      Additionally, this new version resolved multiple small bugs and closed
-      all known memory leaks.
+      Additionally, this new version resolves multiple small bugs and 
+      memory leaks.
     </para>
 
   </chapter>
@@ -67,10 +67,10 @@
     <title>Installation</title>
 
     <para>
-      The installation procedure of the software itself is 
+      The installation procedure of the program itself is 
       relatively simple if you use the pre-packaged version of the 
       software (RPM, Inno setup, etc.) or if you build the software from 
-      scratch and use make install.
+      scratch and use <command>make install</command>.
     </para>
     <para>
       This section will look into some potential installation issues in some details.
@@ -83,11 +83,12 @@
       <para>
         The two DTD (Document Type Definition) for Error Parser can 
         be installed in the global xml catalog (usually 
-        /etc/xml/catalog). Is this needed? Depends on your exact situation.
+        /etc/xml/catalog). 
+        Whether this is needed depends on your exact situation. 
       </para>
       <para>
-        A DTD can be identified using a PUBLIC clause (in the xml file), for 
-        example:
+        A DTD can be identified using a PUBLIC clause at the start of an the 
+        xml file). For example:
       </para>
       <para>
         <programlisting>&lt;!DOCTYPE errorlist PUBLIC 
@@ -96,16 +97,18 @@
         </programlisting>
       </para>
       <para>
-        In this case the DTD will be downloaded from the Error Parser web site.
+        In this case the DTD will be downloaded from the Photon web site.
       </para>
-      <para>You can also use SYSTEM instead:</para>
+      <para>
+        Alternatively, the DTD can be identified with a SYSTEM clause:
+      </para>
         <programlisting>&lt;!DOCTYPE errorlist SYSTEM
    &quot;/usr/local/share/xml/errorParser/errorParser12.dtd&quot;&gt;
         </programlisting>
       <para>
         Using SYSTEM is perfectly correct in most cases. The main advantage
-        of the PUBLIC clause is to make sure that multiple developers uses
-        the same DTD (if you modify it).
+        of the PUBLIC clause is to make sure that multiple developers use
+        the same DTD and not a locally modified version of it.
       </para>
 
       <para>
@@ -113,17 +116,12 @@
         the DTD on every invocation of Error Parser, adding the Error Parser
         catalog to your main catalog is the way to go. The program xmlcatalog,
         included in the libxml2 package, will simplify this task.
-        Furthermore a bash script is provided by Error Parser (possibly 
-        installed in /usr/local/share/xml/errorParser/install_catalog.sh 
-        if Error Parser is installed in /usr/local). You&apos;ll need to 
+        Furthermore a bash script is provided by Error Parser.
+        This script is installed in /usr/local/share/xml/errorParser/install_catalog.sh 
+        if Error Parser is installed in /usr/local. You&apos;ll need to 
         edit this script to tailor it for your installation.</para>
       <para>
         Recommendation: use the SYSTEM clause.
-        There is likely no real needs to use the xml catalog (the exception
-        to this: if you decide to modify Error Parser itself, using both
-        SYSTEM and PUBLIC might be handy to distinguish between the production
-        and the development version, although using version identifiers might
-        be a better solution).
       </para>
 
     </sect1>
@@ -135,8 +133,8 @@
       <para>
         The previous section already discussed the use of PUBLIC or 
         SYSTEM clause for identifying a DTD. The biggest difference 
-        between Microsoft Windows and for example Linux, is the absence 
-        of a centralized way of managing xml DTD and Schemas - each 
+        between Microsoft Windows and Linux, for example, is the absence 
+        of a centralized method to manage xml DTD and Schemas - each 
         software manages its XML on its own. It makes even more sense to 
         use SYSTEM here.
       </para>
@@ -155,26 +153,6 @@
 
     </sect1>
 
-    <sect1 id="libxml2_windows">
-
-      <title>libxml2 on Windows</title>
-
-      <para>
-        You can find binaries for the complete libxml2 package and 
-        other associated packages (libxslt, iconv, etc.) 
-        <ulink url="http://www.zlatkovic.com/libxml.en.html">
-        here</ulink>. You will need the full package if you build Error 
-        Parser from scratch.
-      </para>
-      <para>
-        In previous releases, the Error Parser installer gave 
-        you the option of installing the run-time environment needed to 
-        run errorParser.exe. This is no longer needed - libxml is now
-        included in Error Parser (linked statically).
-      </para>
-
-    </sect1>
-
   </chapter>
 
   <chapter id="building">
@@ -188,6 +166,14 @@
       <ulink url="http://xmlsoft.org/downloads.html">
       xmlsoft.org</ulink>.
     </para>
+    
+    <para>
+      You can find binaries for libxml2 (built for Microsoft Windows)
+      at this 
+        <ulink url="http://www.zlatkovic.com/libxml.en.html">
+        location</ulink>. 
+      </para>
+
     <para>
       To build the documentation, additional software is required as explained
       in the following sections.
@@ -203,15 +189,15 @@
       </para>
       <programlisting>svn export https://errorparser.svn.sourceforge.net/svnroot/errorparser/trunk my_local_dir</programlisting>
       <para>
-        Of course, this is a generic command, you can omit the 
-        sub-directory <varname>trunk</varname> to retrieve everything 
-        (furthermore, if <varname>my_local_dir</varname> is left empty, 
-        the current directory will be used).
+        This is a generic command. You can omit the 
+        sub-directory <varname>trunk</varname> to retrieve everything; 
+        furthermore, if <varname>my_local_dir</varname> is left empty, 
+        the current directory will be used.
       </para>
       <warning>
         <para>
-          The code in the repository is not always stable, be 
-          careful (hint: unstable commits will usually have the string
+          Be careful as the code in the repository is not always stable 
+          (hint: unstable commits will usually have the string
           &quot;work in progress&quot; included in the commit message).
         </para>
       </warning>
@@ -238,18 +224,18 @@
       </para>
       <warning>
         <para>
-          git was developed for Linux and will likely runs without problems on 
+          git was developed for Linux and will likely run without problems on 
           most Unix systems. On Microsoft Windows however, things might be 
-          different. There are two ports for Windows but I haven't try them 
-          (yet).
+          different. 
+          There are two ports for Windows but have not been tried as of yet.
         </para>
       </warning>
       <para>
         The next step is to run the shell script autogen.sh (in the 
         trunk directory). This will generate everything you need (the 
         makefiles, the configure script). The script will also run 
-        configure for you but you might want to rerun it again if you 
-        want to change its default options.
+        <command>configure</command> for you but you might want to run 
+        it again if you wish to change its default options.
       </para>
       <para>
         The remaining instructions are identical to the 
@@ -277,17 +263,22 @@
               <itemizedlist>
                 <listitem>
                   <para>
-                    --prefix=PREFIX To change the default 
+                    --prefix=PREFIX
+                  </para>
+                  <para>
+                    To change the default 
                     installation directory (default is /usr/local). 
                     Example: --prefix=/usr.
                   </para>
                 </listitem>
                 <listitem>
                   <para>
-                    --mandir=DIR   To change the default 
+                    --mandir=DIR 
+                  </para>
+                  <para>
+                    To change the default 
                     installation for man documentation (default is 
-                    [PREFIX/man]). Example --mandir=/usr/share/man (or 
-                    /usr/local/share/man).
+                    [PREFIX/man]). Example --mandir=/usr/localshare/man. 
                   </para>
                 </listitem>
               </itemizedlist>
@@ -312,32 +303,35 @@
 
       <para>
         The documentation is provided as part of the source package. If you
-        are only installing and using this software as is, you can skip this
-        section. However, if you decide to modify the documentation (for 
-        example if you modify the parser itself and must update the 
-        documentation to reflect this), please continue reading.
+        are only installing and using this software as is, without modifying it,
+        you can skip this section.
       </para>
       <para>
         The documentation is written in DocBook xml. The source for the current
-        document is doc/manual.xml. There is also parser/errorParser.xml used
-        to generate the man page. You can use a proper xml
-        editor to edit these two files but this might be overkill - a simple
-        text editor which understands xml syntax is likely good enough (I use
-        jedit with the XML plugin).
+        document is doc/manual.xml. The file parser/errorParser.xml is used
+        to generate the man page. 
       </para>
       <para>
         To create or refresh the man page, you will need to 
-        install the DocBook DTD itself and the docbook2x package (for the 
-        program docbook2x-man which can also be installed as db2x_docbook2man
-        for example on Fedora 9). 
-        If present, autoconf (./configure) will detect them and make will 
+        install the DocBook DTD itself and the docbook2x package.
+        
+        <warning> 
+          <para>
+            The program docbook2x-man is named db2x_docbook2man on some
+            systems, for example on Fedora 9.
+          </para>
+        </warning>
+        
+        If docbook2x-man is present on the system, <command>autoconf</command> 
+        (./configure) will detect it and <command>make</command> will 
         refresh the documentation if the source file was modified.
       </para>
       <para>
         The html and pdf documentation are updated in similar ways. To update
-        the pdf manual, db2pdf must be present on your system. In both cases, 
+        the pdf manual, <command>db2pdf</command> must be present on your 
+        system. For both html and pdf, 
         you will need a program to transform the xml. The makefile is currently
-        written to use xsltproc.
+        written to use <command>xsltproc</command>.
       </para>
       <para>
         Note: the Microsoft specific chm file (used for Microsoft help files)
@@ -356,13 +350,15 @@
         one possible choice. The repository is:
       </para>
       <programlisting>https://errorparser.svn.sourceforge.net/svnroot/errorparser/trunk</programlisting>
+
       <warning>
         <para>
-          The code in the repository is not always stable, be 
-          careful (hint: unstable commits will usually have the string
+          Be careful as the code in the repository is not always stable 
+          (hint: unstable commits will usually have the string
           &quot;work in progress&quot; included in the commit message).
         </para>
       </warning>
+
       <para>
         The remaining instructions are similar to the instructions 
         for building the software from a zip file.
@@ -375,35 +371,83 @@
       <title>Building on Windows from a zip file</title>
 
       <para>
-        Very simple, to build the software, just use the solution 
+        To build the software, simply use the solution 
         file parser\parser.snl (VC++ v8, known as VS 2005). 
-        It might also work with the newer VS 2008 (untested yet).
+        Tests with the newer VS 2008 have yet to be conducted.
+      </para>
+      
+      <para>
+        In addition, you will need to tell Visual Studio the location of the 
+        header files and libraries of the libxml2 package. Select the Options 
+        window under the Tools menu to add these 2 locations to the default 
+        lists used by VS 2005 (exact location: Projects and Solutions\VC++ Directories).
       </para>
       <para>
-        One additional note: you will need to add the directory for 
-        the header files for libxml2 to the list of include directories in 
-        Visual Studio. You will also need to add a directory for the 
-        library files (.lib). For VS 2005, you can set this in Options 
-        (in the Tools menu).
-      </para>
-      <para>
-        To run the tests, from a command shell run cscript 
-        RunTests.vbs (in the tests directory). You will also need 
+        To run the tests, from a command shell run <command>cscript 
+        RunTests.vbs </command>(in the tests directory). 
+        You will need the program
         <ulink url="http://gnuwin32.sourceforge.net/packages/diffutils.htm">
-        Gnu diff</ulink> for Windows (a copy of it is in the tests directory).
+        Gnu diff</ulink> for Windows. A copy of it is in the tests directory.
       </para>
       <para>
         You can also build the software and run the tests from the command 
-        line. From the root directory, simply type &quot;nmake -f Makefile.win32&quot; 
-        to build the program and &quot;nmake -f Makefile.win32 check&quot; to run the
-        tests (other targets: clean, checkdebug (to run the tests with the 
-        debug version of Error Parser) and docs (to build the documentation)).
-        You might need to modify parser/Makefile.win32 if you install libxml2
-        in a non-standard directory (the hardcoded path for libxml2 is
-        &quot;C:\Program Files\libxml2&quot;).
+        line by using nmake, the Microsoft version of make:
+        <programlisting>nmake -f Makefile.win32 <parameter>target</parameter>
+        </programlisting>
+
+        The different targets available in Makefile.win32:
+        
+        <itemizedlist>
+          <listitem>
+            <para>
+              all (the default target)
+            </para>
+            <para>
+              Builds Error Parser.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              check
+            </para>
+            <para>
+              Runs the test suite.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              checkdebug
+            </para>
+            <para>
+              Runs the test suite using the debug version of Error Parser.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              docs
+            </para>
+            <para>
+              Builds the documentation.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              clean
+            </para>
+            <para>
+              Removes the executable, the object files and all intermediate
+              files.
+            </para>
+          </listitem>
+        </itemizedlist>
       </para>
       <para>
-        To build the installation package itself, you will need 
+        You might need to modify parser/Makefile.win32 if you install libxml2
+        in a non-standard directory; the hardcoded path for libxml2 is
+        &quot;C:\Program Files\libxml2&quot;.
+      </para>
+      <para>
+        To build the installation package itself, you will need the program
         <ulink url="http://www.jrsoftware.org/isinfo.php">Inno 
         Setup</ulink>. The Inno Setup file is located in 
         installation\errorParser.iss.
@@ -417,31 +461,24 @@
 
       <para>
         The documentation is provided as part of the source package. If you
-        are only installing and using this software as is, you can skip this
-        section. However, if you decide to modify the documentation (for 
-        example if you modify the parser itself and must update the 
-        documentation to reflect this), please continue reading.
+        are only installing and using this software as is, 
+        without modifying it, you can skip this section. 
       </para>
       <para>
         The documentation is written in DocBook xml. The source for the current
-        document is doc/manual.xml. There is also parser/errorParser.xml used
-        to generate the man page. You can use a proper xml
-        editor to edit these two files but this might be overkill - a simple
-        text editor which understands xml syntax is likely good enough (I use
-        jedit with the XML plugin).
+        document is doc\manual.xml. The file parser/errorParser.xml is used
+        to generate the man page. 
       </para>
       <para>
         As mentioned earlier, the documentation can be updated using
         &quot;nmake -f Makefile.win32 docs&quot;. This will update the Microsoft
         help-file (chm) version of this manual and the html version. The PDF
-        version and the man page require a Unix/Linux environment
-        (if you use cygwin or MinGW, it might work).
+        version and the man page require a Unix/Linux environment.
       </para>
       <para>
         To create the documentation, you will need the DocBook DTD itself,
         xsltproc and the Microsoft HTML Help Compiler (hhc.exe) which you can get
-        from the HTML Help Workshop from Microsoft (and possibly other similar 
-        authoring tools).
+        from the HTML Help Workshop from Microsoft.
       </para>
     </sect1>
 
@@ -471,9 +508,25 @@
       </para>
       
       <para>
-        The program can also be called with a single option: -h, -? or --help
-        gives you the list of options and -v or --version tells you which
-        version you are using.
+        The program can also be called with a single option:
+        <itemizedlist>
+          <listitem>
+            <para>
+              -h, -? or --help
+            </para>
+            <para>
+              will give you the list of options and the syntax of the program.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              -v or --version
+            </para>
+            <para>
+              will tell you which version you are using (new in version 1.0).
+            </para>
+          </listitem>
+        </itemizedlist>
       </para>
       
     </sect1>
@@ -511,9 +564,10 @@
           <para>
             This tag starts the document itself (the root element). 
             The version attribute is a string of your choosing and is there 
-            to help you synchronize your work (to make sure that the output
-            files match the version of your software, for example). This 
-            attribute is optional.
+            to help you synchronize your work. 
+            You can use it to make sure that the output
+            files match the version of your software, for example. 
+            This attribute is optional.
           </para>
         </listitem>
         <listitem>
@@ -523,16 +577,11 @@
           </para>
           <para>
             This is an optional tag. You use it if you want to 
-            generate copyright information in the output files. This tag 
-            has only one sub-tag, &lt;copyright&gt;, which can be 
+            generate copyright information and the terms of the license
+            in the output files. 
+            This tag has only one sub-tag, &lt;copyright&gt;, which can be 
             repeated multiple times (if you have multiple authors with 
             possibly different licenses).
-          </para>
-          <para>
-            Note: from an xml point of view, this tag is unneeded - 
-            the &lt;copyright&gt; tag could be used directly without this 
-            &quot;dummy&quot; container. However, the code of errorParser 
-            is simplify because of it, so...
           </para>
         </listitem>
         <listitem>
@@ -566,14 +615,14 @@
             </listitem>
             <listitem>
               <para>
-                &lt;notice&gt;
-                <indexterm><primary>notice</primary></indexterm>
+                &lt;license_para&gt;
+                <indexterm><primary>license_para</primary></indexterm>
               </para>
               <para>
-                The text of the license. More exactly, a paragraph 
-                of the license. Use multiple &lt;notice&gt; if your 
+                This tag contains a single paragraph of the terms of your license. 
+                Use multiple &lt;license_para&gt; if your 
                 license has multiple paragraphs. You must have at least 
-                one &lt;notice&gt; for each &lt;copyright&gt;.
+                one &lt;license_para&gt; for each &lt;copyright&gt;.
               </para>
             </listitem>
           </itemizedlist>
@@ -585,12 +634,12 @@
           </para>
           <para>
             &lt;errgroup&gt; is used to organize your errors in 
-            groups, if you so desired (for example, a group of i/o 
-            errors, a group of network errors, etc). You can have 
-            multiple &lt;errgroup&gt;, you must have at least one.
+            groups, if you so desire. For example, you could split your
+            errors in a group of i/o errors, a group of network errors, etc. 
+            You can have multiple &lt;errgroup&gt; but you must have at least one.
           </para>
           <para>
-            If you don&apos;t want to use this feature, only use a 
+            If you don&apos;t want to use this feature, use a 
             single group and do not include the &lt;errgroup_ident&gt; 
             sub-tag.
           </para>
@@ -610,9 +659,9 @@
             You can have multiple &lt;errgroup_ident&gt; - one for 
             each language supported by your application. This is done 
             with an optional attribute, xml:lang. If the xml:lang 
-            attribute is missing the default attribute will be used 
-            (currently &apos;en&apos; but you can modify the shipped DTD 
-            to use a different default tailored for your needs).
+            attribute is missing, the default attribute will be used.
+            The default attribute is &apos;en&apos;. You can modify it
+            by editing the shipped DTD.
           </para>
           <para>
             Note: the parser will use the first 
@@ -637,9 +686,8 @@
               </para>
               <para>
                 Description of this group of errors. You must have 
-                at least one &lt;errgroup_desc&gt; but you can have 
-                multiple ones, as needed. Each will be mapped to a 
-                paragraph.
+                at least one &lt;errgroup_desc&gt; or more as needed.
+                Each will be mapped to a paragraph.
               </para>
             </listitem>
           </itemizedlist>
@@ -693,13 +741,6 @@
                 are supported (you must have at least one), one for each 
                 supported language.
               </para>
-              <para>
-                Note: from an xml point of view, this tag is 
-                unneeded - the &lt;message&gt; tag could be used directly 
-                without this &quot;dummy&quot; container. However, the 
-                code of errorParser is simplify because of it, 
-                so...
-              </para>
             </listitem>
             <listitem>
               <para>
@@ -710,9 +751,9 @@
                 Container for both the error message and the 
                 documentation for this error. This tag has an optional 
                 attribute, xml:lang. If the xml:lang attribute is missing 
-                the default attribute will be used (currently 
-                &apos;en&apos; but you can modify the shipped DTD to use 
-                a different default tailored for your needs).
+                the default attribute will be used.
+                The default attribute is &apos;en&apos;. You can modify it
+                by editing the shipped DTD.
               </para>
               <para>
                 You must have at least one &lt;message&gt;, 
@@ -732,16 +773,17 @@
                     <indexterm><primary>errormsg</primary></indexterm>
                   </para>
                   <para>
-                    The text of the error message that will be 
-                    retrieved by the function 
+                    This tag identifies the text of the error message that 
+                    will be retrieved by the function 
                     <emphasis>yourprefix_ErrorMessage()</emphasis>.
                   </para>
                   <para>
                     Note: the inclusion of some characters 
                     (&apos;%&apos; for example) or chain of characters 
                     (escape sequences) might be problematic. You can 
-                    control how to handle these occurrences by setting 
-                    the appropriate options in the option file.
+                    control how Error Parser will handle these 
+                    occurrences by setting the appropriate options in the 
+                    option file.
                   </para>
                 </listitem>
                 <listitem>
@@ -752,7 +794,7 @@
                   <para>
                     Each &lt;errordoc&gt; is a paragraph of the 
                     documentation. Therefore, you can have multiple 
-                    &lt;errordoc&gt;. You must have at least one.
+                    &lt;errordoc&gt; but you must have at least one.
                   </para>
                 </listitem>
               </itemizedlist>
@@ -769,21 +811,11 @@
       <title>The xml option file </title>
 
       <para>
-        The number of potential options to the program errorParser 
-        was getting quite large and it made more sense to put all these 
-        options in a configuration file (written in xml). These options 
-        are described below.
+        This section documents version 2.0 of the DTD. This new release of
+        the parser will not understand previous versions of the DTD.
+        Current option files must be upgraded.
       </para>
-      <para>
-        This section document version 2.0 of the DTD. This new release of
-        the parser will not understand previous versions of the DTD - you
-        must upgrade it.
-      </para>
-      <para>
-        The main changes to the DTD: every basic option is part of a group
-        of options. There is one group for general options (mandatory) and
-        optional groups for each of the output format.
-      </para>
+
       <itemizedlist>
 
         <listitem>
@@ -793,7 +825,7 @@
           </para>
           <para>
             This tag starts the document itself (the root element). The 
-            attribute "version" (the version of the DTD) is required - it 
+            attribute "version" (the version of the DTD) is required; it 
             will be used by the parser to support multiple versions 
             of the DTD, as needed.
           </para>
@@ -806,7 +838,7 @@
           </para>
           <para>
             Options with a global impact or that will influence the
-            processing of more than one output files.
+            processing of more than one output file.
           </para>
 
           <itemizedlist>
@@ -844,7 +876,7 @@
               </para>
               <para>
                 For each error, if there are no &lt;message&gt; for the selected 
-                language the first &lt;message&gt; tag will be used.
+                language, the first &lt;message&gt; tag will be used.
               </para>
               <para>
                 The chosen language is specified using the xml:lang attribute. 
@@ -890,14 +922,19 @@
               <para>
                 Optional. The name of the directory where the error 
                 header file is to be created. If absent, the current 
-                directory will be used.
+                directory or the directory specified by &lt;header_name&gt; 
+                will be used.
               </para>
               <para>
                 Alternatively, you can put the directory name (or part 
                 of the directory name) directly in the &lt;header_name&gt; 
-                tag. But if you do, the &quot;guard&quot; will include that 
-                directory name (guard: the small chunk of preprocessor code use 
-                to avoid including the same header file twice).
+                tag. But if you do, the &quot;guard&quot;<footnote>
+                <para>
+                  guard: a small chunk of preprocessor code used 
+                to avoid including the same header file twice.
+                </para></footnote>
+                will include that 
+                directory name.
               </para>
               <para>
                 Example: the output file name is 
@@ -954,10 +991,10 @@
                 <indexterm><primary>errmsg_dirname</primary></indexterm>
               </para>
               <para>
-                Optional. The name of the directory where the header 
-                file (for the code to retrieve the 
-                error messages) will be created. If absent, the current 
-                directory will be used as the starting point.
+                Optional. The name of the directory where the header file 
+                will be created. If absent, the current directory or the 
+                directory specified by &lt;errmsg_header_name&gt; will be 
+                used.
               </para>
               <para>
                 See the item &lt;header_dirname&gt; for a discussion on names 
@@ -1035,11 +1072,11 @@
               </para>
 
               <para>
-                The problem: the generated C strings will be use, 
+                The problem: the generated C strings will be used, 
                 eventually, by standard C/C++ libraries and some sequence of 
-                characters could have some bad side effects (possibly some 
-                security issues?). The most problematic issue is likely the 
-                % symbol - it is interpreted differently by libc (printf()) 
+                characters could have negative side effects. 
+                The most problematic character is likely the % symbol - it 
+                is interpreted differently by libc (printf()) 
                 and the iostream library (cout).
               </para>
               <para>The attributes:</para>
@@ -1054,13 +1091,11 @@
                   </para>
                   <para>
                     An enumeration with two values, yes and no. The 
-                    default is no, escape sequences are not permitted (a more 
-                    fine grain approach could be written if the need 
-                    arise).
+                    default is no; escape sequences are not permitted.
                   </para>
                   <para>
                     Note: if you want to allow quotes in your messages, do 
-                    <emphasis> NOT </emphasis> escaped them if allow_escapes
+                    <emphasis> NOT </emphasis> escape them if allow_escapes
                     is set to no (they will be escaped by Error Parser).
                   </para>
                 </listitem>
@@ -1074,9 +1109,8 @@
                   </para>
                   <para>
                     An enumeration with two values, yes and no. The 
-                    default is yes, quotes (&apos; and &quot;) are allowed 
-                    (and will be escaped as needed, even if allow_escapes
-                    is set to no).
+                    default is yes; quotes (&apos; and &quot;) are allowed 
+                    and will be escaped as needed.
                   </para>
                 </listitem>
                 <listitem>
@@ -1087,7 +1121,7 @@
                   <para>
                     The text that will be used to replace the % symbol. 
                     This attribute is mandatory and has no default value.
-                    I recommend the textual &quot;percent&quot;.
+                    The textual &quot;percent&quot; is recommended.
                   </para>
                 </listitem>
               </itemizedlist>
@@ -1157,9 +1191,9 @@
           </para>
           <para>
             The code generates a C function to create 2 dict (associated arrays)
-            objects. The key for the first dict is the error symbolic name,
+            objects. The key for the first dict is the error symbolic name and
             the value is the error number. The key for the second dict is 
-            the error number, the value is the symbolic name.
+            the error number and the value is the symbolic name.
           </para>
           <para>
             Example of use in Python (taken from the tests of Photon):
@@ -1175,7 +1209,8 @@
             </programlisting>
           </para>
           <para>
-            Evidently, pso.errs and pso.errnames are the two dict used by the
+            In this example, pso.errs and pso.errnames are the two dict 
+            used by the
             Photon extension module (pso: photonsoftware.org). See the section
             <quote><link linkend='example_python_extended_module' 
               endterm="example_python_extended_module.title"/></quote>
@@ -1191,7 +1226,8 @@
               </para>
               <para>
                 Optional. The name of the directory where the code should be
-                generated. If absent, the current directory will be used.
+                generated. If absent, the current directory or the 
+                directory specified by &lt;ext_py_filename&gt; will be used.
               </para>
               <para>
                 See the item &lt;header_dirname&gt; for 
@@ -1238,9 +1274,9 @@
           </para>
           <para>
             The code generates a Python function to create 2 dict (associated arrays)
-            objects. The key for the first dict is the error symbolic name,
+            objects. The key for the first dict is the error symbolic name and
             the value is the error number. The key for the second dict is 
-            the error number, the value is the symbolic name.
+            the error number and the value is the symbolic name.
           </para>
 
           <itemizedlist>
@@ -1275,43 +1311,54 @@
 
     <sect1 id="quasar">
   
-      <title>Example: Quasar, the connection/recovery server of Photon</title>
+      <title>Example: the Photon software</title>
 
       <para>
-        This is work in progress for the next iteration of the PSO project
-        (photonsoftware.org). 
-        As a matter of fact, while working on this, I've discovered that adding
-        new error codes this way was no more complex than adding error codes 
-        to an header file (once you understand the basics).
+        Photon is a framework: it includes a library with interfaces in C,
+        C++, C# and Python and a few standalone executables. Error Parser
+        is used for the library and generates output files for all the
+        different interfaces. It is also used for the Photon server,
+        Quasar, but in a more limited fashion.
       </para>
-    
+      <para>
+        Photon uses the GNU toolchain on Linux/Unix. As such, this example
+        might not be very useful if you use a different approach 
+        (Visual Studio only, Eclipse, etc.). 
+      </para>
+      <para>
+        It should be noted that the Error Parser program is not needed
+        to build Photon. The output files generated by Error Parser are
+        included in the source code distribution. However, Error Parser 
+        is required for developers and maintainers of the framework.
+      </para>
+
       <sect2 id="configure.ac">
 
         <title>configure.ac</title>
     
         <para>
-          The autoconf program is used to determine if Error Parser is installed
-          on the system. If it is absent, the Makefile will not attempt to
-          regenerate the error files even if the xml error file itself is
-          modified).
+          The autoconf program is used by the photon framework to determine
+          multiple aspects of the current system: the operating system,
+          the hardware, the availability of some C functions, of some 
+          programs, etc. Error Parser is one of these programs.
         </para>
-        <programlisting>
+        <para>
+          To tell autoconf to look for Error Parser, the following lines must 
+          be added to the file configure.ac:
+          <programlisting>
 # Tell our makefiles that we can use errorParser to regenerate the error
 # handling code, as needed.
 AC_CHECK_PROG([ERRORPARSER_IS_PRESENT], [errorParser], [yes], [no])
 AM_CONDITIONAL([COND_USE_ERRORPARSER], [test "$ERRORPARSER_IS_PRESENT" = yes])
-        </programlisting>
-        <para>
-          Explanation: to download and build Photon without modifying it, Error
-          Parser is not required (the tar file contains the default files
-          generated by Error Parser). This is the default behaviour.
+          </programlisting>
         </para>
         <para>
-          I do expect that maintainers or anyone else planning to modify the 
-          code of Photon (specially the xml error file), will install all the 
-          tools required including Error Parser.
+          If Error Parser is not present on the system, the automake 
+          conditional COND_USE_ERRORPARSER will be false and the Makefile
+          will not attempt to regenerate the error output files even if the 
+          xml error file itself is modified.
         </para>
-    
+
       </sect2>
 
       <sect2 id="makefile_am">
@@ -1319,9 +1366,9 @@ AM_CONDITIONAL([COND_USE_ERRORPARSER], [test "$ERRORPARSER_IS_PRESENT" = yes])
         <title>Makefile.am</title>
 
         <para>
-          Including the parser in a Makefile is relatively simple. Here are code
-          snippets from the Makefile.am of Quasar (the syntax for
-          ordinary makefiles should be similar).
+          Including the parser in a Makefile is relatively simple. Here is 
+          a code snippet from the Makefile.am of Quasar; the syntax for
+          ordinary makefiles should be similar.
         </para>
        
         <programlisting># The main target, quasar
@@ -1972,7 +2019,7 @@ quasar_SOURCES =             \
     </sect1>
     <sect1 id="example_python_extended_module">
 
-      <title id='example_python_extended_module.title'>Example: python extended module</title>
+      <title id='example_python_extended_module.title'>Example: Python extended module</title>
 
       <para>
         Adding the generated header file to a C module is very simple. All
