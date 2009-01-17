@@ -1,78 +1,76 @@
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Error Parser Manual</title><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="book" lang="en"><div class="titlepage"><div><div><h1 class="title"><a name="id2425050"></a>Error Parser Manual</h1></div><div><div class="author"><h3 class="author"><span class="firstname">Daniel</span> <span class="surname">Prévost</span></h3></div></div><div><p class="releaseinfo">This manual is for release 1.0 of Error Parser</p></div><div><p class="copyright">Copyright © 2008-2009 Daniel 
-    Prévost</p></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="chapter"><a href="#Introduction">1. Introduction</a></span></dt><dt><span class="chapter"><a href="#New">2. New in this release</a></span></dt><dt><span class="chapter"><a href="#Installation">3. Installation</a></span></dt><dd><dl><dt><span class="sect1"><a href="#catalog_linux">1. The xml catalog on Linux/Unix</a></span></dt><dt><span class="sect1"><a href="#catalog_windows">2. The xml catalog on Windows</a></span></dt><dt><span class="sect1"><a href="#libxml2_windows">3. libxml2 on Windows</a></span></dt></dl></dd><dt><span class="chapter"><a href="#building">4. Building the Software</a></span></dt><dd><dl><dt><span class="sect1"><a href="#build_linux_repo">1. Building on Linux/Unix from the repository</a></span></dt><dt><span class="sect1"><a href="#build_linux_tar">2. Building on Linux/Unix from the tar file</a></span></dt><dt><span class="sect1"><a href="#build_doc_linux">3. Building the documentation on Linux/Unix</a></span></dt><dt><span class="sect1"><a href="#build_windows_repo">4. Building on Windows from the repository</a></span></dt><dt><span class="sect1"><a href="#build_windows_zip">5. Building on Windows from a zip file</a></span></dt><dt><span class="sect1"><a href="#build_doc_windows">6. Building the documentation on Windows</a></span></dt></dl></dd><dt><span class="chapter"><a href="#user_guide">5. User Guide</a></span></dt><dd><dl><dt><span class="sect1"><a href="#intro">1. Introduction</a></span></dt><dt><span class="sect1"><a href="#xml_file">2. The xml error file</a></span></dt><dt><span class="sect1"><a href="#option_file">3. The xml option file </a></span></dt><dt><span class="sect1"><a href="#quasar">4. Example: Quasar, the connection/recovery server of Photon</a></span></dt><dd><dl><dt><span class="sect2"><a href="#configure.ac">4.1. configure.ac</a></span></dt><dt><span class="sect2"><a href="#makefile_am">4.2. Makefile.am</a></span></dt><dt><span class="sect2"><a href="#quasaroptions">4.3. quasarOptions.xml</a></span></dt><dt><span class="sect2"><a href="#quasarerrors">4.4. quasarErrors.xml</a></span></dt></dl></dd><dt><span class="sect1"><a href="#example_python_extended_module">5. Example: python extended module</a></span></dt></dl></dd></dl></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="Introduction"></a>Chapter 1. Introduction</h2></div></div></div><p>
+    Prévost</p></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="chapter"><a href="#Introduction">1. Introduction</a></span></dt><dt><span class="chapter"><a href="#New">2. New in this release</a></span></dt><dt><span class="chapter"><a href="#Installation">3. Installation</a></span></dt><dd><dl><dt><span class="sect1"><a href="#catalog_linux">1. The xml catalog on Linux/Unix</a></span></dt><dt><span class="sect1"><a href="#catalog_windows">2. The xml catalog on Windows</a></span></dt></dl></dd><dt><span class="chapter"><a href="#building">4. Building the Software</a></span></dt><dd><dl><dt><span class="sect1"><a href="#build_linux_repo">1. Building on Linux/Unix from the repository</a></span></dt><dt><span class="sect1"><a href="#build_linux_tar">2. Building on Linux/Unix from the tar file</a></span></dt><dt><span class="sect1"><a href="#build_doc_linux">3. Building the documentation on Linux/Unix</a></span></dt><dt><span class="sect1"><a href="#build_windows_repo">4. Building on Windows from the repository</a></span></dt><dt><span class="sect1"><a href="#build_windows_zip">5. Building on Windows from a zip file</a></span></dt><dt><span class="sect1"><a href="#build_doc_windows">6. Building the documentation on Windows</a></span></dt></dl></dd><dt><span class="chapter"><a href="#user_guide">5. User Guide</a></span></dt><dd><dl><dt><span class="sect1"><a href="#intro">1. Introduction</a></span></dt><dt><span class="sect1"><a href="#xml_file">2. The xml error file</a></span></dt><dt><span class="sect1"><a href="#option_file">3. The xml option file </a></span></dt><dt><span class="sect1"><a href="#quasar">4. Example: the Photon software</a></span></dt><dd><dl><dt><span class="sect2"><a href="#configure.ac">4.1. configure.ac</a></span></dt><dt><span class="sect2"><a href="#makefile_am">4.2. Makefile.am</a></span></dt><dt><span class="sect2"><a href="#option_files_examples">4.3.  Option files</a></span></dt><dt><span class="sect2"><a href="#quasarerrors">4.4. The Error File</a></span></dt><dt><span class="sect2"><a href="#example_python_extended_module">4.5. Python extension module</a></span></dt></dl></dd></dl></dd></dl></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="Introduction"></a>Chapter 1. Introduction</h2></div></div></div><p>
       Error Parser is a small tool for application developers. It simplifies 
       the management of error codes, error messages and documentation for
       both small and large projects.
     </p><p>
-      This is accomplish by creating a master XML file containing all the
+      This is accomplished by creating a master XML file containing all the
       necessary information on the errors (value, error message and 
       documentation). Error Parser uses this file to generate the 
-      appropriate output files for different programmation languages.
+      appropriate output files for different programming languages.
     </p><p>
-      Control of the code generation is done by an option file (written in XML).
+      Control of the code generation is done by an option file written in XML.
       The format for both XML files is explained below.
     </p></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="New"></a>Chapter 2. New in this release</h2></div></div></div><p> 
-      This release is a major update, the software was partially rewritten
+      This release is a major update; the software was partially rewritten
       and completely reorganized (refactored) to make it easier to both 
-      maintain it and to enhance it.
+      maintain it and enhance it.
     </p><p>
-      The good news: this update has very little impact on anyone using
-      the program, with one exception: you must update your option file
-      to the new format.
+      This update has very little impact on anyone using the program, 
+      with <span class="bold"><strong> one exception</strong></span>: 
+      you must update your option file to the new format.
     </p><p>
-      The new format of the option file (version 2.0) adopt the modular 
+      The new format of the option file (version 2.0) adopts the modular 
       approach used in the redesign of the code - it is divided in sections,
-      one section for each type of output file.
+      with one section for each type of output file.
     </p><p>
-      Additionally, this new version resolved multiple small bugs and closed
-      all known memory leaks.
-    </p></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="Installation"></a>Chapter 3. Installation</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#catalog_linux">1. The xml catalog on Linux/Unix</a></span></dt><dt><span class="sect1"><a href="#catalog_windows">2. The xml catalog on Windows</a></span></dt><dt><span class="sect1"><a href="#libxml2_windows">3. libxml2 on Windows</a></span></dt></dl></div><p>
-      The installation procedure of the software itself is 
+      Additionally, this new version resolves multiple small bugs and 
+      memory leaks.
+    </p></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="Installation"></a>Chapter 3. Installation</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#catalog_linux">1. The xml catalog on Linux/Unix</a></span></dt><dt><span class="sect1"><a href="#catalog_windows">2. The xml catalog on Windows</a></span></dt></dl></div><p>
+      The installation procedure of the program itself is 
       relatively simple if you use the pre-packaged version of the 
       software (RPM, Inno setup, etc.) or if you build the software from 
-      scratch and use make install.
+      scratch and use <span class="command"><strong>make install</strong></span>.
     </p><p>
       This section will look into some potential installation issues in some details.
     </p><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="catalog_linux"></a>1. The xml catalog on Linux/Unix</h2></div></div></div><p>
         The two DTD (Document Type Definition) for Error Parser can 
         be installed in the global xml catalog (usually 
-        /etc/xml/catalog). Is this needed? Depends on your exact situation.
+        /etc/xml/catalog). 
+        Whether this is needed depends on your exact situation. 
       </p><p>
-        A DTD can be identified using a PUBLIC clause (in the xml file), for 
-        example:
+        A DTD can be identified using a PUBLIC clause at the start of an the 
+        xml file). For example:
       </p><p>
         </p><pre class="programlisting">&lt;!DOCTYPE errorlist PUBLIC 
-   "-//Error Parser project//DTD Error Parser XML V1.2//EN"
-    "http://photonsoftware.org/xml/ep/errorParser12.dtd"&gt;
+   "-//Error Parser project//DTD Error Parser XML V1.3//EN"
+    "http://photonsoftware.org/xml/ep/errorParser13.dtd"&gt;
         </pre><p>
       </p><p>
-        In this case the DTD will be downloaded from the Error Parser web site.
-      </p><p>You can also use SYSTEM instead:</p><pre class="programlisting">&lt;!DOCTYPE errorlist SYSTEM
-   "/usr/local/share/xml/errorParser/errorParser12.dtd"&gt;
+        In this case the DTD will be downloaded from the Photon web site.
+      </p><p>
+        Alternatively, the DTD can be identified with a SYSTEM clause:
+      </p><pre class="programlisting">&lt;!DOCTYPE errorlist SYSTEM
+   "/usr/local/share/xml/errorParser/errorParser13.dtd"&gt;
         </pre><p>
         Using SYSTEM is perfectly correct in most cases. The main advantage
-        of the PUBLIC clause is to make sure that multiple developers uses
-        the same DTD (if you modify it).
+        of the PUBLIC clause is to make sure that multiple developers use
+        the same DTD and not a locally modified version of it.
       </p><p>
         If you decide to use the PUBLIC clause and do not want to download
         the DTD on every invocation of Error Parser, adding the Error Parser
         catalog to your main catalog is the way to go. The program xmlcatalog,
         included in the libxml2 package, will simplify this task.
-        Furthermore a bash script is provided by Error Parser (possibly 
-        installed in /usr/local/share/xml/errorParser/install_catalog.sh 
-        if Error Parser is installed in /usr/local). You'll need to 
+        Furthermore a bash script is provided by Error Parser.
+        This script is installed in /usr/local/share/xml/errorParser/install_catalog.sh 
+        if Error Parser is installed in /usr/local. You'll need to 
         edit this script to tailor it for your installation.</p><p>
         Recommendation: use the SYSTEM clause.
-        There is likely no real needs to use the xml catalog (the exception
-        to this: if you decide to modify Error Parser itself, using both
-        SYSTEM and PUBLIC might be handy to distinguish between the production
-        and the development version, although using version identifiers might
-        be a better solution).
       </p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="catalog_windows"></a>2. The xml catalog on Windows</h2></div></div></div><p>
         The previous section already discussed the use of PUBLIC or 
         SYSTEM clause for identifying a DTD. The biggest difference 
-        between Microsoft Windows and for example Linux, is the absence 
-        of a centralized way of managing xml DTD and Schemas - each 
+        between Microsoft Windows and Linux, for example, is the absence 
+        of a centralized method to manage xml DTD and Schemas - each 
         software manages its XML on its own. It makes even more sense to 
         use SYSTEM here.
       </p><p>
@@ -85,17 +83,6 @@
         can use the script DTD\install_catalog.vbs. In both cases you 
         will need to edit the files to tailor them to your 
         installation.
-      </p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="libxml2_windows"></a>3. libxml2 on Windows</h2></div></div></div><p>
-        You can find binaries for the complete libxml2 package and 
-        other associated packages (libxslt, iconv, etc.) 
-        <a class="ulink" href="http://www.zlatkovic.com/libxml.en.html" target="_top">
-        here</a>. You will need the full package if you build Error 
-        Parser from scratch.
-      </p><p>
-        In previous releases, the Error Parser installer gave 
-        you the option of installing the run-time environment needed to 
-        run errorParser.exe. This is no longer needed - libxml is now
-        included in Error Parser (linked statically).
       </p></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="building"></a>Chapter 4. Building the Software</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#build_linux_repo">1. Building on Linux/Unix from the repository</a></span></dt><dt><span class="sect1"><a href="#build_linux_tar">2. Building on Linux/Unix from the tar file</a></span></dt><dt><span class="sect1"><a href="#build_doc_linux">3. Building the documentation on Linux/Unix</a></span></dt><dt><span class="sect1"><a href="#build_windows_repo">4. Building on Windows from the repository</a></span></dt><dt><span class="sect1"><a href="#build_windows_zip">5. Building on Windows from a zip file</a></span></dt><dt><span class="sect1"><a href="#build_doc_windows">6. Building the documentation on Windows</a></span></dt></dl></div><p>
       The only prerequisite software needed to build and run Error 
       Parser is the library libxml2 (the Gnome project xml parser). If it 
@@ -103,19 +90,24 @@
       <a class="ulink" href="http://xmlsoft.org/downloads.html" target="_top">
       xmlsoft.org</a>.
     </p><p>
+      You can find binaries for libxml2 (built for Microsoft Windows)
+      at this 
+        <a class="ulink" href="http://www.zlatkovic.com/libxml.en.html" target="_top">
+        location</a>. 
+      </p><p>
       To build the documentation, additional software is required as explained
       in the following sections.
     </p><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="build_linux_repo"></a>1. Building on Linux/Unix from the repository</h2></div></div></div><p>
         To retrieve the latest version of Error Parser, use the following 
         command:
       </p><pre class="programlisting">svn export https://errorparser.svn.sourceforge.net/svnroot/errorparser/trunk my_local_dir</pre><p>
-        Of course, this is a generic command, you can omit the 
-        sub-directory <code class="varname">trunk</code> to retrieve everything 
-        (furthermore, if <code class="varname">my_local_dir</code> is left empty, 
-        the current directory will be used).
+        This is a generic command. You can omit the 
+        sub-directory <code class="varname">trunk</code> to retrieve everything; 
+        furthermore, if <code class="varname">my_local_dir</code> is left empty, 
+        the current directory will be used.
       </p><div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Warning"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="images/warning.png"></td><th align="left">Warning</th></tr><tr><td align="left" valign="top"><p>
-          The code in the repository is not always stable, be 
-          careful (hint: unstable commits will usually have the string
+          Be careful as the code in the repository is not always stable 
+          (hint: unstable commits will usually have the string
           "work in progress" included in the commit message).
         </p></td></tr></table></div><p>
         The Error Parser software can also be downloaded by using git 
@@ -134,16 +126,16 @@
       </p><p>
         git-clone git@gitorious.org:errorparser/mainline.git my_repo
       </p><div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Warning"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="images/warning.png"></td><th align="left">Warning</th></tr><tr><td align="left" valign="top"><p>
-          git was developed for Linux and will likely runs without problems on 
+          git was developed for Linux and will likely run without problems on 
           most Unix systems. On Microsoft Windows however, things might be 
-          different. There are two ports for Windows but I haven't try them 
-          (yet).
+          different. 
+          There are two ports for Windows but have not been tried as of yet.
         </p></td></tr></table></div><p>
         The next step is to run the shell script autogen.sh (in the 
         trunk directory). This will generate everything you need (the 
         makefiles, the configure script). The script will also run 
-        configure for you but you might want to rerun it again if you 
-        want to change its default options.
+        <span class="command"><strong>configure</strong></span> for you but you might want to run 
+        it again if you wish to change its default options.
       </p><p>
         The remaining instructions are identical to the 
         instructions for building the software from a tar file.
@@ -156,41 +148,45 @@
               needs (you can use ./configure --help to see all the 
               options):
               </p><div class="itemizedlist"><ul type="circle"><li><p>
-                    --prefix=PREFIX To change the default 
+                    --prefix=PREFIX
+                  </p><p>
+                    To change the default 
                     installation directory (default is /usr/local). 
                     Example: --prefix=/usr.
                   </p></li><li><p>
-                    --mandir=DIR   To change the default 
+                    --mandir=DIR 
+                  </p><p>
+                    To change the default 
                     installation for man documentation (default is 
-                    [PREFIX/man]). Example --mandir=/usr/share/man (or 
-                    /usr/local/share/man).
+                    [PREFIX/man]). Example --mandir=/usr/localshare/man. 
                   </p></li></ul></div><p>
             </p></li><li><p>make</p></li><li><p>make check (to run the test suite - optional)</p></li><li><p>make install</p></li></ul></div><p>
       </p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="build_doc_linux"></a>3. Building the documentation on Linux/Unix</h2></div></div></div><p>
         The documentation is provided as part of the source package. If you
-        are only installing and using this software as is, you can skip this
-        section. However, if you decide to modify the documentation (for 
-        example if you modify the parser itself and must update the 
-        documentation to reflect this), please continue reading.
+        are only installing and using this software as is, without modifying it,
+        you can skip this section.
       </p><p>
         The documentation is written in DocBook xml. The source for the current
-        document is doc/manual.xml. There is also parser/errorParser.xml used
-        to generate the man page. You can use a proper xml
-        editor to edit these two files but this might be overkill - a simple
-        text editor which understands xml syntax is likely good enough (I use
-        jedit with the XML plugin).
+        document is doc/manual.xml. The file parser/errorParser.xml is used
+        to generate the man page. 
       </p><p>
         To create or refresh the man page, you will need to 
-        install the DocBook DTD itself and the docbook2x package (for the 
-        program docbook2x-man which can also be installed as db2x_docbook2man
-        for example on Fedora 9). 
-        If present, autoconf (./configure) will detect them and make will 
+        install the DocBook DTD itself and the docbook2x package.
+        
+        </p><div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Warning"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="images/warning.png"></td><th align="left">Warning</th></tr><tr><td align="left" valign="top"><p>
+            The program docbook2x-man is named db2x_docbook2man on some
+            systems, for example on Fedora 9.
+          </p></td></tr></table></div><p>
+        
+        If docbook2x-man is present on the system, <span class="command"><strong>autoconf</strong></span> 
+        (./configure) will detect it and <span class="command"><strong>make</strong></span> will 
         refresh the documentation if the source file was modified.
       </p><p>
         The html and pdf documentation are updated in similar ways. To update
-        the pdf manual, db2pdf must be present on your system. In both cases, 
+        the pdf manual, <span class="command"><strong>db2pdf</strong></span> must be present on your 
+        system. For both html and pdf, 
         you will need a program to transform the xml. The makefile is currently
-        written to use xsltproc.
+        written to use <span class="command"><strong>xsltproc</strong></span>.
       </p><p>
         Note: the Microsoft specific chm file (used for Microsoft help files)
         can only be updated on Windows.
@@ -200,66 +196,84 @@
         <a class="ulink" href="http://tortoisesvn.tigris.org/" target="_top">Tortoise</a> is 
         one possible choice. The repository is:
       </p><pre class="programlisting">https://errorparser.svn.sourceforge.net/svnroot/errorparser/trunk</pre><div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Warning"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="images/warning.png"></td><th align="left">Warning</th></tr><tr><td align="left" valign="top"><p>
-          The code in the repository is not always stable, be 
-          careful (hint: unstable commits will usually have the string
+          Be careful as the code in the repository is not always stable 
+          (hint: unstable commits will usually have the string
           "work in progress" included in the commit message).
         </p></td></tr></table></div><p>
         The remaining instructions are similar to the instructions 
         for building the software from a zip file.
       </p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="build_windows_zip"></a>5. Building on Windows from a zip file</h2></div></div></div><p>
-        Very simple, to build the software, just use the solution 
+        To build the software, simply use the solution 
         file parser\parser.snl (VC++ v8, known as VS 2005). 
-        It might also work with the newer VS 2008 (untested yet).
+        Tests with the newer VS 2008 have yet to be conducted.
       </p><p>
-        One additional note: you will need to add the directory for 
-        the header files for libxml2 to the list of include directories in 
-        Visual Studio. You will also need to add a directory for the 
-        library files (.lib). For VS 2005, you can set this in Options 
-        (in the Tools menu).
+        In addition, you will need to tell Visual Studio the location of the 
+        header files and libraries of the libxml2 package. Select the Options 
+        window under the Tools menu to add these 2 locations to the default 
+        lists used by VS 2005 (exact location: Projects and Solutions\VC++ Directories).
       </p><p>
-        To run the tests, from a command shell run cscript 
-        RunTests.vbs (in the tests directory). You will also need 
+        To run the tests, from a command shell run <span class="command"><strong>cscript 
+        RunTests.vbs </strong></span>(in the tests directory). 
+        You will need the program
         <a class="ulink" href="http://gnuwin32.sourceforge.net/packages/diffutils.htm" target="_top">
-        Gnu diff</a> for Windows (a copy of it is in the tests directory).
+        Gnu diff</a> for Windows. A copy of it is in the tests directory.
       </p><p>
         You can also build the software and run the tests from the command 
-        line. From the root directory, simply type "nmake -f Makefile.win32" 
-        to build the program and "nmake -f Makefile.win32 check" to run the
-        tests (other targets: clean, checkdebug (to run the tests with the 
-        debug version of Error Parser) and docs (to build the documentation)).
-        You might need to modify parser/Makefile.win32 if you install libxml2
-        in a non-standard directory (the hardcoded path for libxml2 is
-        "C:\Program Files\libxml2").
+        line by using nmake, the Microsoft version of make:
+        </p><pre class="programlisting">nmake -f Makefile.win32 <em class="parameter"><code>target</code></em>
+        </pre><p>
+
+        The different targets available in Makefile.win32:
+        
+        </p><div class="itemizedlist"><ul type="disc"><li><p>
+              all (the default target)
+            </p><p>
+              Builds Error Parser.
+            </p></li><li><p>
+              check
+            </p><p>
+              Runs the test suite.
+            </p></li><li><p>
+              checkdebug
+            </p><p>
+              Runs the test suite using the debug version of Error Parser.
+            </p></li><li><p>
+              docs
+            </p><p>
+              Builds the documentation.
+            </p></li><li><p>
+              clean
+            </p><p>
+              Removes the executable, the object files and all intermediate
+              files.
+            </p></li></ul></div><p>
       </p><p>
-        To build the installation package itself, you will need 
+        You might need to modify parser/Makefile.win32 if you install libxml2
+        in a non-standard directory; the hardcoded path for libxml2 is
+        "C:\Program Files\libxml2".
+      </p><p>
+        To build the installation package itself, you will need the program
         <a class="ulink" href="http://www.jrsoftware.org/isinfo.php" target="_top">Inno 
         Setup</a>. The Inno Setup file is located in 
         installation\errorParser.iss.
       </p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="build_doc_windows"></a>6. Building the documentation on Windows</h2></div></div></div><p>
         The documentation is provided as part of the source package. If you
-        are only installing and using this software as is, you can skip this
-        section. However, if you decide to modify the documentation (for 
-        example if you modify the parser itself and must update the 
-        documentation to reflect this), please continue reading.
+        are only installing and using this software as is, 
+        without modifying it, you can skip this section. 
       </p><p>
         The documentation is written in DocBook xml. The source for the current
-        document is doc/manual.xml. There is also parser/errorParser.xml used
-        to generate the man page. You can use a proper xml
-        editor to edit these two files but this might be overkill - a simple
-        text editor which understands xml syntax is likely good enough (I use
-        jedit with the XML plugin).
+        document is doc\manual.xml. The file parser/errorParser.xml is used
+        to generate the man page. 
       </p><p>
         As mentioned earlier, the documentation can be updated using
         "nmake -f Makefile.win32 docs". This will update the Microsoft
         help-file (chm) version of this manual and the html version. The PDF
-        version and the man page require a Unix/Linux environment
-        (if you use cygwin or MinGW, it might work).
+        version and the man page require a Unix/Linux environment.
       </p><p>
         To create the documentation, you will need the DocBook DTD itself,
         xsltproc and the Microsoft HTML Help Compiler (hhc.exe) which you can get
-        from the HTML Help Workshop from Microsoft (and possibly other similar 
-        authoring tools).
-      </p></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="user_guide"></a>Chapter 5. User Guide</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#intro">1. Introduction</a></span></dt><dt><span class="sect1"><a href="#xml_file">2. The xml error file</a></span></dt><dt><span class="sect1"><a href="#option_file">3. The xml option file </a></span></dt><dt><span class="sect1"><a href="#quasar">4. Example: Quasar, the connection/recovery server of Photon</a></span></dt><dd><dl><dt><span class="sect2"><a href="#configure.ac">4.1. configure.ac</a></span></dt><dt><span class="sect2"><a href="#makefile_am">4.2. Makefile.am</a></span></dt><dt><span class="sect2"><a href="#quasaroptions">4.3. quasarOptions.xml</a></span></dt><dt><span class="sect2"><a href="#quasarerrors">4.4. quasarErrors.xml</a></span></dt></dl></dd><dt><span class="sect1"><a href="#example_python_extended_module">5. Example: python extended module</a></span></dt></dl></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="intro"></a>1. Introduction</h2></div></div></div><p>
+        from the HTML Help Workshop from Microsoft.
+      </p></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="user_guide"></a>Chapter 5. User Guide</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#intro">1. Introduction</a></span></dt><dt><span class="sect1"><a href="#xml_file">2. The xml error file</a></span></dt><dt><span class="sect1"><a href="#option_file">3. The xml option file </a></span></dt><dt><span class="sect1"><a href="#quasar">4. Example: the Photon software</a></span></dt><dd><dl><dt><span class="sect2"><a href="#configure.ac">4.1. configure.ac</a></span></dt><dt><span class="sect2"><a href="#makefile_am">4.2. Makefile.am</a></span></dt><dt><span class="sect2"><a href="#option_files_examples">4.3.  Option files</a></span></dt><dt><span class="sect2"><a href="#quasarerrors">4.4. The Error File</a></span></dt><dt><span class="sect2"><a href="#example_python_extended_module">4.5. Python extension module</a></span></dt></dl></dd></dl></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="intro"></a>1. Introduction</h2></div></div></div><p>
         The program errorParser is very easy to use. From the 
         command line just enter:
       </p><pre class="programlisting">errorParser -o <code class="varname">option_file</code> <code class="varname">error_file</code></pre><p>
@@ -270,10 +284,19 @@
         themselves. There are examples of these files in the distribution
         directory and their syntax is explained below.
       </p><p>
-        The program can also be called with a single option: -h, -? or --help
-        gives you the list of options and -v or --version tells you which
-        version you are using.
-      </p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="xml_file"></a>2. The xml error file</h2></div></div></div><p>
+        The program can also be called with a single option:
+        </p><div class="itemizedlist"><ul type="disc"><li><p>
+              -h, -? or --help
+            </p><p>
+              will give you the list of options and the syntax of the program.
+            </p></li><li><p>
+              -v or --version
+            </p><p>
+              will tell you which version you are using (new in version 1.0).
+            </p></li></ul></div><p>
+      </p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="xml_file"></a>2. The xml error file</h2></div></div></div><p> 
+        This section documents version 1.3 of the DTD. 
+      </p><p>
         The xml file starts with the usual xml header (version of 
         xml, encoding of the file, the location of the DTD, etc.). If 
         you're not familiar with xml and want more information on 
@@ -292,67 +315,64 @@
         sub-tag.
       </p><div class="itemizedlist"><ul type="disc"><li><p>
             &lt;errorlist version="0.3"&gt; 
-            <a class="indexterm" name="id2477271"></a>
+            <a class="indexterm" name="id2477379"></a>
           </p><p>
             This tag starts the document itself (the root element). 
             The version attribute is a string of your choosing and is there 
-            to help you synchronize your work (to make sure that the output
-            files match the version of your software, for example). This 
-            attribute is optional.
+            to help you synchronize your work. 
+            You can use it to make sure that the output
+            files match the version of your software, for example. 
+            This attribute is optional.
           </p></li><li><p>
             &lt;copyright_group&gt; 
-            <a class="indexterm" name="id2477294"></a>
+            <a class="indexterm" name="id2477403"></a>
           </p><p>
             This is an optional tag. You use it if you want to 
-            generate copyright information in the output files. This tag 
-            has only one sub-tag, &lt;copyright&gt;, which can be 
+            generate copyright information and the terms of the license
+            in the output files. 
+            This tag has only one sub-tag, &lt;copyright&gt;, which can be 
             repeated multiple times (if you have multiple authors with 
             possibly different licenses).
-          </p><p>
-            Note: from an xml point of view, this tag is unneeded - 
-            the &lt;copyright&gt; tag could be used directly without this 
-            "dummy" container. However, the code of errorParser 
-            is simplify because of it, so...
           </p></li><li><p>
             &lt;copyright&gt; 
-            <a class="indexterm" name="id2477331"></a>
+            <a class="indexterm" name="id2477428"></a>
           </p><p>
             Allows you to enter copyright information in the output 
             files. It has multiple sub-tags. As mentioned previously, 
             multiple &lt;copyright&gt; tags are allowed.
           </p><div class="itemizedlist"><ul type="circle"><li><p>
                 &lt;years&gt;
-                <a class="indexterm" name="id2477356"></a>
+                <a class="indexterm" name="id2477453"></a>
               </p><p>
                 The interval of years for the current copyright notice.
               </p></li><li><p>
                 &lt;authors&gt;
-                <a class="indexterm" name="id2477376"></a>
+                <a class="indexterm" name="id2526650"></a>
               </p><p>
                 The name(s) of the owner(s) of the copyright.
               </p></li><li><p>
-                &lt;notice&gt;
-                <a class="indexterm" name="id2477396"></a>
+                &lt;license_para&gt;
+                <a class="indexterm" name="id2526670"></a>
               </p><p>
-                The text of the license. More exactly, a paragraph 
-                of the license. Use multiple &lt;notice&gt; if your 
+                This tag contains a single paragraph of the terms of your license. 
+                Use multiple &lt;license_para&gt; if your 
                 license has multiple paragraphs. You must have at least 
-                one &lt;notice&gt; for each &lt;copyright&gt;.
+                one &lt;license_para&gt; for each &lt;copyright&gt;.
               </p></li></ul></div></li><li><p>
             &lt;errgroup&gt;
-            <a class="indexterm" name="id2477424"></a>
+            <a class="indexterm" name="id2526697"></a>
           </p><p>
             &lt;errgroup&gt; is used to organize your errors in 
-            groups, if you so desired (for example, a group of i/o 
-            errors, a group of network errors, etc). You can have 
-            multiple &lt;errgroup&gt;, you must have at least one.
+            groups, if you so desire. For example, you could split your
+            errors in a group of i/o errors, a group of network errors, etc. 
+            You can have multiple &lt;errgroup&gt; but you must have at least one.
           </p><p>
-            If you don't want to use this feature, only use a 
+            If you don't want to use this feature, use a 
             single group and do not include the &lt;errgroup_ident&gt; 
             sub-tag.
           </p></li><li><p>
             &lt;errgroup_ident&gt;
-            <a class="indexterm" name="id2477457"></a>
+            <a class="indexterm" name="id2526731"></a>
           </p><p>
             This sub-tag of &lt;errgroup&gt; is optional. The 
             sub-tags associated with this tag are used to generate 
@@ -362,9 +382,9 @@
             You can have multiple &lt;errgroup_ident&gt; - one for 
             each language supported by your application. This is done 
             with an optional attribute, xml:lang. If the xml:lang 
-            attribute is missing the default attribute will be used 
-            (currently 'en' but you can modify the shipped DTD 
-            to use a different default tailored for your needs).
+            attribute is missing, the default attribute will be used.
+            The default attribute is 'en'. You can modify it
+            by editing the shipped DTD.
           </p><p>
             Note: the parser will use the first 
             &lt;errgroup_ident&gt; matching the language selected in the 
@@ -372,30 +392,29 @@
             &lt;errgroup_ident&gt; is used.
           </p><div class="itemizedlist"><ul type="circle"><li><p>
                 &lt;errgroup_name&gt;
-                <a class="indexterm" name="id2526688"></a>
+                <a class="indexterm" name="id2526786"></a>
               </p><p>
                 A name for this group of errors. For example, Network errors.
               </p></li><li><p>
                 &lt;errgroup_desc&gt;
-                <a class="indexterm" name="id2526708"></a>
+                <a class="indexterm" name="id2526805"></a>
               </p><p>
                 Description of this group of errors. You must have 
-                at least one &lt;errgroup_desc&gt; but you can have 
-                multiple ones, as needed. Each will be mapped to a 
-                paragraph.
+                at least one &lt;errgroup_desc&gt; or more as needed.
+                Each will be mapped to a paragraph.
               </p></li></ul></div></li><li><p>
             &lt;error&gt;
-            <a class="indexterm" name="id2526739"></a>
+            <a class="indexterm" name="id2526828"></a>
           </p><p>
             This tag is also a sub-tag of &lt;errgroup&gt;. You 
             need at least one &lt;error&gt; for each &lt;errgroup&gt; but 
             you can have as many as needed.
           </p><div class="itemizedlist"><ul type="circle"><li><p>
                 &lt;errnumber&gt;
-                <a class="indexterm" name="id2526762"></a>
+                <a class="indexterm" name="id2526852"></a>
               </p><p>The numerical value of the error code.</p></li><li><p>
                 &lt;errname&gt;
-                <a class="indexterm" name="id2526781"></a>
+                <a class="indexterm" name="id2526870"></a>
               </p><p>
                 The generic name of the error. This name is going 
                 to be used to generate either an enum entry or a #define 
@@ -409,29 +428,23 @@
                 file.
               </p></li><li><p>
                 &lt;message_group&gt;
-                <a class="indexterm" name="id2526813"></a>
+                <a class="indexterm" name="id2526903"></a>
               </p><p>
                 This tag is used to group the error messages and 
                 the documentation for the error - which are encapsulated 
                 in the &lt;message&gt; tag. Multiple &lt;message&gt; tags 
                 are supported (you must have at least one), one for each 
                 supported language.
-              </p><p>
-                Note: from an xml point of view, this tag is 
-                unneeded - the &lt;message&gt; tag could be used directly 
-                without this "dummy" container. However, the 
-                code of errorParser is simplify because of it, 
-                so...
               </p></li><li><p>
                 &lt;message&gt;
-                <a class="indexterm" name="id2526850"></a>
+                <a class="indexterm" name="id2526926"></a>
               </p><p>
                 Container for both the error message and the 
                 documentation for this error. This tag has an optional 
                 attribute, xml:lang. If the xml:lang attribute is missing 
-                the default attribute will be used (currently 
-                'en' but you can modify the shipped DTD to use 
-                a different default tailored for your needs).
+                the default attribute will be used.
+                The default attribute is 'en'. You can modify it
+                by editing the shipped DTD.
               </p><p>
                 You must have at least one &lt;message&gt;, 
                 multiple ones are supported (one per language used in 
@@ -443,54 +456,46 @@
                 is used.
               </p><div class="itemizedlist"><ul type="square"><li><p>
                     &lt;errormsg&gt;
-                    <a class="indexterm" name="id2526902"></a>
+                    <a class="indexterm" name="id2526978"></a>
                   </p><p>
-                    The text of the error message that will be 
-                    retrieved by the function 
+                    This tag identifies the text of the error message that 
+                    will be retrieved by the function 
                     <span class="emphasis"><em>yourprefix_ErrorMessage()</em></span>.
                   </p><p>
                     Note: the inclusion of some characters 
                     ('%' for example) or chain of characters 
                     (escape sequences) might be problematic. You can 
-                    control how to handle these occurrences by setting 
-                    the appropriate options in the option file.
+                    control how Error Parser will handle these 
+                    occurrences by setting the appropriate options in the 
+                    option file.
                   </p></li><li><p>
                     &lt;errordoc&gt;
-                    <a class="indexterm" name="id2526946"></a>
+                    <a class="indexterm" name="id2527024"></a>
                   </p><p>
                     Each &lt;errordoc&gt; is a paragraph of the 
                     documentation. Therefore, you can have multiple 
-                    &lt;errordoc&gt;. You must have at least one.
+                    &lt;errordoc&gt; but you must have at least one.
                   </p></li></ul></div></li></ul></div></li></ul></div><p></p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="option_file"></a>3. The xml option file </h2></div></div></div><p>
-        The number of potential options to the program errorParser 
-        was getting quite large and it made more sense to put all these 
-        options in a configuration file (written in xml). These options 
-        are described below.
-      </p><p>
-        This section document version 2.0 of the DTD. This new release of
-        the parser will not understand previous versions of the DTD - you
-        must upgrade it.
-      </p><p>
-        The main changes to the DTD: every basic option is part of a group
-        of options. There is one group for general options (mandatory) and
-        optional groups for each of the output format.
+        This section documents version 2.0 of the DTD. This new release of
+        the parser will not understand previous versions of the DTD.
+        Current option files must be upgraded.
       </p><div class="itemizedlist"><ul type="disc"><li><p>
             &lt;options version="2.0"&gt;
-            <a class="indexterm" name="id2527008"></a>
+            <a class="indexterm" name="id2527072"></a>
           </p><p>
             This tag starts the document itself (the root element). The 
-            attribute "version" (the version of the DTD) is required - it 
+            attribute "version" (the version of the DTD) is required; it 
             will be used by the parser to support multiple versions 
             of the DTD, as needed.
           </p></li><li><p>
             &lt;general_options&gt;
-            <a class="indexterm" name="id2527030"></a>
+            <a class="indexterm" name="id2527093"></a>
           </p><p>
             Options with a global impact or that will influence the
-            processing of more than one output files.
+            processing of more than one output file.
           </p><div class="itemizedlist"><ul type="circle"><li><p>
                 &lt;prefix_error_no_namespace&gt;
-                <a class="indexterm" name="id2527051"></a>
+                <a class="indexterm" name="id2527115"></a>
               </p><p>
                 The prefix to be used for the error codes (enum or 
                 #define). For example, if your error is OBJECT_IS_DELETED 
@@ -504,14 +509,14 @@
                 namespace, for example C).
               </p></li><li><p>
                 &lt;selected_lang&gt;
-                <a class="indexterm" name="id2527084"></a>
+                <a class="indexterm" name="id2527148"></a>
               </p><p>
                 Optional parameter to select the language that will be used for
                 the documentation and error messages. If absent, the first 
                 &lt;message&gt; tag will be used.
               </p><p>
                 For each error, if there are no &lt;message&gt; for the selected 
-                language the first &lt;message&gt; tag will be used.
+                language, the first &lt;message&gt; tag will be used.
               </p><p>
                 The chosen language is specified using the xml:lang attribute. 
                 For example:
@@ -519,28 +524,29 @@
                 </p><pre class="programlisting">&lt;selected_lang xml:lang="en"/&gt;</pre><p>
               </p></li></ul></div></li><li><p>
             &lt;header_file&gt;
-            <a class="indexterm" name="id2527136"></a>
+            <a class="indexterm" name="id2527199"></a>
           </p><p>
             Optional. Options for the main header file.
           </p><div class="itemizedlist"><ul type="circle"><li><p>
                 &lt;header_enum&gt;
-                <a class="indexterm" name="id2527156"></a>
+                <a class="indexterm" name="id2527219"></a>
               </p><p>
                 Optional. The name of the enum. If absent, #define will 
                 be generated instead.
               </p></li><li><p>
                 &lt;header_dirname&gt;
-                <a class="indexterm" name="id2527176"></a>
+                <a class="indexterm" name="id2527239"></a>
               </p><p>
                 Optional. The name of the directory where the error 
                 header file is to be created. If absent, the current 
-                directory will be used.
+                directory or the directory specified by &lt;header_name&gt; 
+                will be used.
               </p><p>
                 Alternatively, you can put the directory name (or part 
                 of the directory name) directly in the &lt;header_name&gt; 
-                tag. But if you do, the "guard" will include that 
-                directory name (guard: the small chunk of preprocessor code use 
-                to avoid including the same header file twice).
+                tag. But if you do, the "guard"<sup>[<a name="id2527263" href="#ftn.id2527263" class="footnote">1</a>]</sup>
+                will include that 
+                directory name.
               </p><p>
                 Example: the output file name is 
                 <span class="emphasis"><em>my_dir/my_sub_dir/my_sub_project/errors.h</em></span> 
@@ -558,30 +564,30 @@
                 </pre><p>
               </p></li><li><p>
                 &lt;header_name&gt;
-                <a class="indexterm" name="id2527254"></a>
+                <a class="indexterm" name="id2527320"></a>
               </p><p>
                 The name of the header file for errors. See the 
                 item &lt;header_dirname&gt; for a discussion on names of files,
                 directories and the generated header guard.
               </p></li></ul></div></li><li><p>
             &lt;errmsg_files&gt;
-            <a class="indexterm" name="id2527285"></a>
+            <a class="indexterm" name="id2527353"></a>
           </p><p>
             Optional. Options for the error-message files (.c and .h).
           </p><div class="itemizedlist"><ul type="circle"><li><p>
                 &lt;errmsg_dirname&gt;
-                <a class="indexterm" name="id2527306"></a>
+                <a class="indexterm" name="id2527373"></a>
               </p><p>
-                Optional. The name of the directory where the header 
-                file (for the code to retrieve the 
-                error messages) will be created. If absent, the current 
-                directory will be used as the starting point.
+                Optional. The name of the directory where the header file 
+                will be created. If absent, the current directory or the 
+                directory specified by &lt;errmsg_header_name&gt; will be 
+                used.
               </p><p>
                 See the item &lt;header_dirname&gt; for a discussion on names 
                 of files, directories and the generated header guard.
               </p></li><li><p>
                 &lt;errmsg_header_name&gt;
-                <a class="indexterm" name="id2527338"></a>
+                <a class="indexterm" name="id2527407"></a>
               </p><p>
                 The name of the header file for the code to retrieve 
                 the error messages. 
@@ -589,13 +595,13 @@
                 of files, directories and the generated header guard.
               </p></li><li><p>
                 &lt;errmsg_c_fullname&gt;
-                <a class="indexterm" name="id2527360"></a></p><p>
+                <a class="indexterm" name="id2527429"></a></p><p>
                 The full name of the "C" file for the code to 
                 retrieve the error messages (note: the path can be relative
                 to the current working directory).
              </p></li><li><p>
                 &lt;errmsg_options&gt;
-                <a class="indexterm" name="id2527385"></a></p><a class="indexterm" name="id2527392"></a><p>
+                <a class="indexterm" name="id2527454"></a></p><a class="indexterm" name="id2527461"></a><p>
                 Optional. This tag has no content and a single attribute, 
                 build_dll.
                 The attribute is an enumeration with two values, yes and no. 
@@ -609,79 +615,76 @@
                 Visual Studio will warn you about this.
               </p></li><li><p>
                 &lt;errmsg_prefix_var&gt;
-                <a class="indexterm" name="id2527423"></a>
+                <a class="indexterm" name="id2527492"></a>
               </p><p>
                 The prefix to be used for all variables in the code to 
                 retrieve the error messages.
               </p></li><li><p>
                 &lt;errmsg_msg&gt;
-                <a class="indexterm" name="id2527444"></a>
+                <a class="indexterm" name="id2527513"></a>
               </p><p>
                 This tag has no content but its attributes are 
                 important - they define the allowed characteristics (and the 
                 transformations, if needed) of the error messages defined in 
                 the xml error file (&lt;errormsg&gt;).
               </p><p>
-                The problem: the generated C strings will be use, 
+                The problem: the generated C strings will be used, 
                 eventually, by standard C/C++ libraries and some sequence of 
-                characters could have some bad side effects (possibly some 
-                security issues?). The most problematic issue is likely the 
-                % symbol - it is interpreted differently by libc (printf()) 
+                characters could have negative side effects. 
+                The most problematic character is likely the % symbol - it 
+                is interpreted differently by libc (printf()) 
                 and the iostream library (cout).
               </p><p>The attributes:</p><div class="itemizedlist"><ul type="square"><li><p>
                     allow_escapes
-                    <a class="indexterm" name="id2527484"></a>
+                    <a class="indexterm" name="id2527560"></a>
                   </p><p>
                     An enumeration with two values, yes and no. The 
-                    default is no, escape sequences are not permitted (a more 
-                    fine grain approach could be written if the need 
-                    arise).
+                    default is no; escape sequences are not permitted.
                   </p><p>
                     Note: if you want to allow quotes in your messages, do 
-                    <span class="emphasis"><em> NOT </em></span> escaped them if allow_escapes
+                    <span class="emphasis"><em> NOT </em></span> escape them if allow_escapes
                     is set to no (they will be escaped by Error Parser).
                   </p></li><li><p>
                     allow_quotes 
-                    <a class="indexterm" name="id2527521"></a>
+                    <a class="indexterm" name="id2527595"></a>
                   </p><p>
                     An enumeration with two values, yes and no. The 
-                    default is yes, quotes (' and ") are allowed 
-                    (and will be escaped as needed, even if allow_escapes
-                    is set to no).
+                    default is yes; quotes (' and ") are allowed 
+                    and will be escaped as needed.
                   </p></li><li><p>
                     percent
-                    <a class="indexterm" name="id2527556"></a>
+                    <a class="indexterm" name="id2527621"></a>
                   </p><p>
                     The text that will be used to replace the % symbol. 
                     This attribute is mandatory and has no default value.
-                    I recommend the textual "percent".
+                    The textual "percent" is recommended.
                   </p></li></ul></div></li></ul></div></li><li><p>
             &lt;csharp&gt;
-            <a class="indexterm" name="id2527587"></a>
-            <a class="indexterm" name="id2527594"></a>
+            <a class="indexterm" name="id2527652"></a>
+            <a class="indexterm" name="id2527658"></a>
           </p><p>
             Optional. If present, code for C# will be generated (in the
             form of an enum). Additional sub-tags, described below, are used 
             to provide the required parameters.
           </p><div class="itemizedlist"><ul type="circle"><li><p>
                 &lt;cs_filename&gt;
-                <a class="indexterm" name="id2527616"></a>
+                <a class="indexterm" name="id2527681"></a>
               </p><p>
                 Full or relative path to the generated C# code.
               </p></li><li><p>
                 &lt;cs_enum_name&gt;
-                <a class="indexterm" name="id2527636"></a>
+                <a class="indexterm" name="id2527700"></a>
               </p><p>
                 The name of the C# enum.
               </p></li><li><p>
                 &lt;cs_namespace&gt;
-                <a class="indexterm" name="id2527654"></a>
+                <a class="indexterm" name="id2527719"></a>
               </p><p>
                 Optional. The name of the C# namespace. If absent, the code
                 is generated without a namespace.
               </p></li></ul></div></li><li><p>
             &lt;ext_py&gt;
-            <a class="indexterm" name="id2527677"></a>
+            <a class="indexterm" name="id2527741"></a>
           </p><p>
             Optional. If present, a C header file, to be used by a Python 
             extension module, will be generated. 
@@ -689,9 +692,9 @@
             to provide the required parameters.
           </p><p>
             The code generates a C function to create 2 dict (associated arrays)
-            objects. The key for the first dict is the error symbolic name,
+            objects. The key for the first dict is the error symbolic name and
             the value is the error number. The key for the second dict is 
-            the error number, the value is the symbolic name.
+            the error number and the value is the symbolic name.
           </p><p>
             Example of use in Python (taken from the tests of Photon):
           </p><p>
@@ -704,84 +707,96 @@
             raise
             </pre><p>
           </p><p>
-            Evidently, pso.errs and pso.errnames are the two dict used by the
+            In this example, pso.errs and pso.errnames are the two dict 
+            used by the
             Photon extension module (pso: photonsoftware.org). See the section
-            &#8220;<span class="quote"><a class="link" href="#example_python_extended_module" title="5. Example: python extended module">Example: python extended module</a></span>&#8221;
+            &#8220;<span class="quote"><a class="link" href="#example_python_extended_module" title="4.5. Python extension module">Python extension module</a></span>&#8221;
             for some tips on how to use the generated file in your C code.
           </p><div class="itemizedlist"><ul type="circle"><li><p>
                 &lt;ext_py_dirname&gt;
-                <a class="indexterm" name="id2527846"></a>
+                <a class="indexterm" name="id2527912"></a>
               </p><p>
                 Optional. The name of the directory where the code should be
-                generated. If absent, the current directory will be used.
+                generated. If absent, the current directory or the 
+                directory specified by &lt;ext_py_filename&gt; will be used.
               </p><p>
                 See the item &lt;header_dirname&gt; for 
                 a discussion on names of files, directories and the 
                 generated header guard.
               </p></li><li><p>
                 &lt;ext_py_filename&gt;
-                <a class="indexterm" name="id2527877"></a>
+                <a class="indexterm" name="id2527946"></a>
               </p><p>
                 The name of the header file.
                 See the item &lt;header_dirname&gt; for a discussion on names 
                 of files, directories and the generated header guard.
               </p></li><li><p>
                 &lt;ext_py_function&gt;
-                <a class="indexterm" name="id2527903"></a>
+                <a class="indexterm" name="id2527973"></a>
               </p><p>
                 Optional. The name of the generated function. If absent, the
                 code will use AddErrors().
               </p></li></ul></div></li><li><p>
             &lt;pure_python&gt;
-            <a class="indexterm" name="id2527925"></a>
+            <a class="indexterm" name="id2527995"></a>
           </p><p>
             Optional. If present, a Python file will be generated. 
             Additional sub-tags, described below, are used 
             to provide the required parameters.
           </p><p>
             The code generates a Python function to create 2 dict (associated arrays)
-            objects. The key for the first dict is the error symbolic name,
+            objects. The key for the first dict is the error symbolic name and
             the value is the error number. The key for the second dict is 
-            the error number, the value is the symbolic name.
+            the error number and the value is the symbolic name.
           </p><div class="itemizedlist"><ul type="circle"><li><p>
                 &lt;pure_py_filename&gt;
-                <a class="indexterm" name="id2527956"></a>
+                <a class="indexterm" name="id2528026"></a>
               </p><p>
                 The name of the Python generated file.
               </p></li><li><p>
                 &lt;pure_py_function&gt;
-                <a class="indexterm" name="id2527975"></a>
+                <a class="indexterm" name="id2528045"></a>
               </p><p>
                 Optional. The name of the generated function. If absent, the
                 code will use add_errors().
-              </p></li></ul></div></li></ul></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="quasar"></a>4. Example: Quasar, the connection/recovery server of Photon</h2></div></div></div><p>
-        This is work in progress for the next iteration of the PSO project
-        (photonsoftware.org). 
-        As a matter of fact, while working on this, I've discovered that adding
-        new error codes this way was no more complex than adding error codes 
-        to an header file (once you understand the basics).
+              </p></li></ul></div></li></ul></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="quasar"></a>4. Example: the Photon software</h2></div></div></div><p>
+        Photon is a framework: it includes a library with interfaces in C,
+        C++, C# and Python and a few standalone executables. Error Parser
+        is used for the library and generates output files for all the
+        different interfaces. It is also used for the Photon server,
+        Quasar, but in a more limited fashion.
+      </p><p>
+        Photon uses the GNU toolchain on Linux/Unix. As such, this example
+        might not be very useful if you use a different approach 
+        (Visual Studio only, Eclipse, etc.). 
+      </p><p>
+        It should be noted that the Error Parser program is not needed
+        to build Photon. The output files generated by Error Parser are
+        included in the source code distribution. However, Error Parser 
+        is required for developers and maintainers of the framework.
       </p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="configure.ac"></a>4.1. configure.ac</h3></div></div></div><p>
-          The autoconf program is used to determine if Error Parser is installed
-          on the system. If it is absent, the Makefile will not attempt to
-          regenerate the error files even if the xml error file itself is
-          modified).
-        </p><pre class="programlisting">
+          The autoconf program is used by the photon framework to determine
+          multiple aspects of the current system: the operating system,
+          the hardware, the availability of some C functions, of some 
+          programs, etc. Error Parser is one of these programs.
+        </p><p>
+          To tell autoconf to look for Error Parser, the following lines must 
+          be added to the file configure.ac:
+          </p><pre class="programlisting">
 # Tell our makefiles that we can use errorParser to regenerate the error
 # handling code, as needed.
 AC_CHECK_PROG([ERRORPARSER_IS_PRESENT], [errorParser], [yes], [no])
 AM_CONDITIONAL([COND_USE_ERRORPARSER], [test "$ERRORPARSER_IS_PRESENT" = yes])
-        </pre><p>
-          Explanation: to download and build Photon without modifying it, Error
-          Parser is not required (the tar file contains the default files
-          generated by Error Parser). This is the default behaviour.
+          </pre><p>
         </p><p>
-          I do expect that maintainers or anyone else planning to modify the 
-          code of Photon (specially the xml error file), will install all the 
-          tools required including Error Parser.
+          If Error Parser is not present on the system, the automake 
+          conditional COND_USE_ERRORPARSER will be false and the Makefile
+          will not attempt to regenerate the error output files even if the 
+          xml error file itself is modified.
         </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="makefile_am"></a>4.2. Makefile.am</h3></div></div></div><p>
-          Including the parser in a Makefile is relatively simple. Here are code
-          snippets from the Makefile.am of Quasar (the syntax for
-          ordinary makefiles should be similar).
+          Including the rules for the parser in a Makefile is relatively simple. 
+          Here is a code snippet from the Makefile.am of Quasar; the syntax for
+          ordinary makefiles should be similar.
         </p><pre class="programlisting"># The main target, quasar
 bin_PROGRAMS = quasar
 
@@ -805,7 +820,79 @@ quasar_SOURCES =             \
         $(OUTPUT_FILES) \
         Acceptor.cpp    \
         ...
-        </pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="quasaroptions"></a>4.3. quasarOptions.xml</h3></div></div></div><pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+        </pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="option_files_examples"></a>4.3.  Option files</h3></div></div></div><p>
+          Two examples are shown here. The file option.xml is used for the
+          library of Photon. It uses most of the features of Error Parser,
+          including the generation of code for C# and Python extension module.
+          In contrast, quasarOptions.xml is based on a smaller subset of
+          available features.
+        </p><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="options_xml"></a>4.3.1. options.xml</h4></div></div></div><pre class="programlisting">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE options PUBLIC
+    "-//Error Parser project//DTD Error Parser Options XML V2.0//EN"
+    "http://photonsoftware.org/xml/ep/errorParserOptions20.dtd"&gt;
+
+&lt;!-- 
+   This xml file provides the options needed by errorParser.
+   It must be used in conjonction with photon.xml.
+   
+   Generated output: 
+     - header file photon/psoErrors.h.
+     - the code to retrieve the error messages
+     - a C# enum
+     - a header file for the pso extension module (python).
+--&gt;
+
+&lt;options version="2.0"&gt;
+
+  &lt;general_options&gt;
+    &lt;!-- Prefix to be used for the error codes. --&gt;
+    &lt;prefix_error_no_namespace&gt; PSO &lt;/prefix_error_no_namespace&gt;
+    &lt;selected_lang xml:lang="en" /&gt;
+  &lt;/general_options&gt;
+  
+  &lt;header_file&gt;
+    &lt;!-- The name of the enum. --&gt;
+    &lt;header_enum&gt; psoErrors &lt;/header_enum&gt;
+    &lt;!-- Name of the output dir for the error header file. --&gt;
+    &lt;header_dirname&gt; ../include/photon &lt;/header_dirname&gt;
+    &lt;!-- The file name for the .h file which will hold the errors. --&gt;
+    &lt;header_name&gt; psoErrors.h &lt;/header_name&gt;
+  &lt;/header_file&gt;
+  
+  &lt;errmsg_files&gt;
+    &lt;!-- Name of the output dir for the code to retrieve the error messages. --&gt;
+    &lt;errmsg_dirname&gt; ../Nucleus &lt;/errmsg_dirname&gt;
+    &lt;!-- The file name for the .h file for the code to retrieve the error 
+         messages. --&gt;
+    &lt;errmsg_header_name&gt; psoErrorHandler.h &lt;/errmsg_header_name&gt;
+    &lt;!-- The file name for the .c file for the code to retrieve the error 
+         messages. --&gt;
+    &lt;errmsg_c_fullname&gt; ../Nucleus/psoErrorHandler.c &lt;/errmsg_c_fullname&gt;
+    &lt;errmsg_options build_dll="yes"/&gt;
+    &lt;!-- Prefix to be used for all variables in the code to retrieve the 
+         error messages --&gt;
+    &lt;errmsg_prefix_var&gt; pson &lt;/errmsg_prefix_var&gt;
+    &lt;errmsg_msg percent="percent"/&gt;
+  &lt;/errmsg_files&gt;
+
+  &lt;!-- Optional section for creating an enum for C# --&gt;
+  &lt;csharp&gt;
+    &lt;!-- Full or relative path to the generated C# code --&gt;
+    &lt;cs_filename&gt; ../CS/PhotonLib/Errors.cs &lt;/cs_filename&gt;
+    &lt;cs_enum_name&gt; PhotonErrors &lt;/cs_enum_name&gt;
+    &lt;!-- The namespace is optional --&gt;
+    &lt;cs_namespace&gt; Photon &lt;/cs_namespace&gt;
+  &lt;/csharp&gt;
+
+  &lt;!-- Optional section for Python (extension module) --&gt;
+  &lt;ext_python&gt;
+    &lt;ext_py_dirname&gt; ../Python/src &lt;/ext_py_dirname&gt;
+    &lt;ext_py_filename&gt; errors.h &lt;/ext_py_filename&gt;
+  &lt;/ext_python&gt;
+  
+&lt;/options&gt;
+          </pre></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="quasaroptions"></a>4.3.2. quasarOptions.xml</h4></div></div></div><pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPE options SYSTEM 
              "/usr/local/share/xml/errorParser/errorParserOptions20.dtd"&gt;
 
@@ -822,24 +909,14 @@ quasar_SOURCES =             \
 
   &lt;!-- Section for the main header file. --&gt;
   &lt;header_file&gt;  
-    &lt;!-- The name of the enum. If absent, #define will be generated instead. --&gt;
+    &lt;!-- The name of the enum. --&gt;
     &lt;header_enum&gt; psoqErrors&lt;/header_enum&gt;
-    &lt;!-- Name of the output dir for the error header file. If absent, the 
-         current directory will be used.
-       
-         Alternatively, you can put the directory directly in the header_name 
-         element. But if you do, the "GUARD" will use that directory name. --&gt;
-    &lt;!-- &lt;header_dirname&gt; not used... &lt;/header_dirname&gt; --&gt;
     &lt;!-- The file name for the .h file which will hold the errors. --&gt;
     &lt;header_name&gt; quasarErrors.h &lt;/header_name&gt;
   &lt;/header_file&gt;
 
   &lt;!-- Section for the error message files. --&gt;
   &lt;errmsg_files&gt;
-    &lt;!-- Name of the output dir for the code to retrieve the error messages. 
-         If absent, the current directory will be used. --&gt;
-    &lt;!-- &lt;errmsg_dirname&gt; not used ... &lt;/errmsg_dirname&gt; --&gt;
-  
     &lt;!-- The file name for the .h file for the code to retrieve the error 
          messages. --&gt;
     &lt;errmsg_header_name&gt; quasarErrorHandler.h &lt;/errmsg_header_name&gt;
@@ -851,59 +928,24 @@ quasar_SOURCES =             \
     &lt;!-- Prefix to be used for all variables in the code to retrieve the 
         error messages --&gt;
     &lt;errmsg_prefix_var&gt; psoq &lt;/errmsg_prefix_var&gt;
-    &lt;!-- How to handle the error message. The problem: the generated C strings
-         will be use, eventually, by standard C/C++ libraries and some 
-         sequence of characters could have some bad side effects, possibly
-         including security issues.
-         The defaults:
-           - escape sequences are not permitted (a more fine grain approach
-             could be written if the need arise).
-           - quotes (' and ") are allowed (and will be escaped as needed) 
-           - The % symbol. No default. I recommend the textual "percent" 
-             (% is the most problematic one, IMHO. %d %p, etc are interpreted
-             differently by libc (printf()) and the iostream library (cout) --&gt;         
     &lt;errmsg_msg percent="percent" /&gt;
   &lt;errmsg_files&gt;
-
-  &lt;!-- Optional section for creating an enum for C#
-       Commented out - included for completeness --&gt;
-  &lt;!-- &lt;csharp&gt; --&gt;
-    &lt;!-- Full or relative path to the generated C# code --&gt;
-    &lt;!-- &lt;cs_filename&gt; CS/Errors.cs &lt;/cs_filename&gt; --&gt;
-    &lt;!-- &lt;cs_enum_name&gt; Errors &lt;/cs_enum&gt; --&gt;
-    &lt;!-- The namespace is optional --&gt;
-    &lt;!-- &lt;cs_namespace&gt; Photon &lt;/cs_namespace&gt; --&gt;
-  &lt;!-- &lt;/csharp&gt;   --&gt;
-
-  &lt;!-- Optional section for Python extension module
-       Commented out - included for completeness --&gt;
-  &lt;!-- &lt;ext_py&gt; --&gt;
-    &lt;!-- &lt;ext_py_dirname&gt; ../Python &lt;/ext_py_dirname&gt; --&gt;
-    &lt;!-- &lt;ext_py_filename&gt; errors.h &lt;/ext_py_filename&gt; --&gt;
-    &lt;!-- The function name is optional --&gt;
-    &lt;!-- &lt;ext_py_function&gt; MyAddErrors &lt;/ext_py_function&gt; --&gt;
-  &lt;!-- &lt;/ext_py&gt;   --&gt;
-
-  &lt;!-- Optional section for Python
-       Commented out - included for completeness --&gt;
-  &lt;!-- &lt;pure_python&gt; --&gt;
-    &lt;!-- &lt;pure_py_filename&gt; errors.py &lt;/pure_py_filename&gt; --&gt;
-    &lt;!-- The function name is optional --&gt;
-    &lt;!-- &lt;pure_py_function&gt; my_add_errors &lt;/pure_py_function&gt; --&gt;
-  &lt;!-- &lt;/pure_python&gt;   --&gt;
   
 &lt;/options&gt;
-        </pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="quasarerrors"></a>4.4. quasarErrors.xml</h3></div></div></div><pre class="programlisting">
+          </pre></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="quasarerrors"></a>4.4. The Error File</h3></div></div></div><p>
+          This is a short version of the error file used by Quasar, the Photon
+          server:
+        </p><pre class="programlisting">
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;!DOCTYPE errorlist PUBLIC "-//Error Parser project//DTD Error Parser XML V1.2//EN"
-             "http://photonsoftware.org/xml/ep/errorParser12.dtd"&gt; 
+&lt;!DOCTYPE errorlist PUBLIC "-//Error Parser project//DTD Error Parser XML V1.3//EN"
+             "http://photonsoftware.org/xml/ep/errorParser13.dtd"&gt; 
 &lt;!-- 
     This file contains the error codes specific to the server of
     Photon, quasar.
     
     You can replace the DOCTYPE with this, if you prefer:
 &lt;!DOCTYPE errorlist SYSTEM 
-             "/usr/local/share/xml/errorParser/DTD/errorParser12.dtd"&gt;
+             "/usr/local/share/xml/errorParser/DTD/errorParser13.dtd"&gt;
     
 --&gt;
 
@@ -915,22 +957,22 @@ quasar_SOURCES =             \
     &lt;copyright&gt;
       &lt;years&gt;2006-2008&lt;/years&gt;
       &lt;authors&gt;Daniel Prevost&lt;/authors&gt;
-      &lt;!-- Each &lt;notice&gt; is mapped to a paragraph (easier to read) --&gt;
-      &lt;notice&gt;
+      &lt;!-- Each &lt;license_para&gt; is mapped to a paragraph (easier to read) --&gt;
+      &lt;license_para&gt;
         This file is part of the Photon framework (photonsoftware.org).
-      &lt;/notice&gt;
+      &lt;/license_para&gt;
       &lt;!-- The GPL license is of course for Photon, not for Error Parser... --&gt;
-      &lt;notice&gt;
+      &lt;license_para&gt;
         This file may be distributed and/or modified under the terms of the
         GNU General Public License version 2 as published by the Free Software
         Foundation and appearing in the file COPYING included in the
         packaging of this library.
-      &lt;/notice&gt;
-      &lt;notice&gt;
+      &lt;/license_para&gt;
+      &lt;license_para&gt;
         This library is distributed in the hope that it will be useful,
         but WITHOUT ANY WARRANTY; without even the implied warranty of
         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
-      &lt;/notice&gt;
+      &lt;/license_para&gt;
     &lt;/copyright&gt;
   &lt;/copyright_group&gt;
   &lt;errgroup&gt;
@@ -960,475 +1002,38 @@ quasar_SOURCES =             \
       &lt;/message_group&gt;
     &lt;/error&gt;
 
-    &lt;error&gt;
-      &lt;errnumber&gt; 2 &lt;/errnumber&gt;
-      &lt;errname&gt; CFG_BCK_LOCATION_TOO_LONG&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Backup path is too long.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The path of the backup path is longer 
-            than PATH_MAX (the maximum length of a filename/pathname).
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 3 &lt;/errnumber&gt;
-      &lt;errname&gt; NO_VERIFICATION_POSSIBLE&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Cannot verify the shared memory.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The shared memory does not exist and therefore cannot be verified.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 4 &lt;/errnumber&gt;
-      &lt;errname&gt; MKDIR_FAILURE&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Cannot create the directory for the shared memory.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            Cannot create the directory that will be used for the shared memory
-            and associated files.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 5 &lt;/errnumber&gt;
-      &lt;errname&gt;FILE_NOT_ACCESSIBLE&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Cannot access the backstore file for the shared memory.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            Cannot access the backstore file for the shared memory. You might want
-            to verify the permissions and ownership of the file and/or of the
-            parent directory.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 6 &lt;/errnumber&gt;
-      &lt;errname&gt;COPY_BCK_FAILURE&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;
-            Error while creating a copy of the backstore file for the shared memory.
-          &lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            Error while creating a copy of the backstore file for the shared memory
-            (a backup copy is created before the shared memory is verify for 
-            inconsistencies).
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 7 &lt;/errnumber&gt;
-      &lt;errname&gt;CREATE_BACKSTORE_FAILURE&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;
-            Error creating the backstore file for the shared memory.
-          &lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            Error creating the backstore file for the shared memory. Possible reasons:
-            not enough disk space, invalid file permissions, etc.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 8 &lt;/errnumber&gt;
-      &lt;errname&gt;OPEN_BACKSTORE_FAILURE&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;
-            Error opening the backstore file for the shared memory.
-          &lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            Error opening the backstore file for the shared memory.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 9 &lt;/errnumber&gt;
-      &lt;errname&gt; INCOMPATIBLE_VERSIONS &lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;
-            Memory-file version mismatch.
-          &lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The version of the existing memory-file on disk does not match the
-            version supported by the Photon server.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 10 &lt;/errnumber&gt;
-      &lt;errname&gt; BACKSTORE_FILE_MISSING &lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;
-            The shared-memory backstore file is missing.
-          &lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The shared-memory backstore file is missing. The existence of this file 
-            was already verified previously - if it is missing, something 
-            really weird is going on.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-   
-    &lt;error&gt;
-      &lt;errnumber&gt; 11 &lt;/errnumber&gt;
-      &lt;errname&gt; ERROR_OPENING_MEMORY &lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;
-            Generic i/o error when attempting to open the shared memory.
-          &lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            Generic i/o error when attempting to open the shared memory.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-  &lt;/errgroup&gt;
-
-  &lt;errgroup&gt;
-    &lt;errgroup_ident xml:lang="en"&gt;
-      &lt;errgroup_name&gt;XML config errors&lt;/errgroup_name&gt;
-      &lt;errgroup_desc&gt;
-        This group of errors described potential errors with the code to read
-        and parse the XML configuration file.
-      &lt;/errgroup_desc&gt;
-    &lt;/errgroup_ident&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 100 &lt;/errnumber&gt;
-      &lt;errname&gt; XML_CONFIG_NOT_OPEN&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Error opening the XML config file.&lt;/errormsg&gt;
-          &lt;errordoc&gt;Error opening the XML configuration file.&lt;/errordoc&gt;
-          &lt;errordoc&gt;
-            Most likely reason: the file does not exist but it might also be
-            a problem with access permissions (on the file itself or one
-            of its parent directories.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 101 &lt;/errnumber&gt;
-      &lt;errname&gt; XML_READ_ERROR&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Error reading the XML config file.&lt;/errormsg&gt;
-          &lt;errordoc&gt;Error reading the XML configuration file.&lt;/errordoc&gt;
-          &lt;errordoc&gt;
-            No validation is done at this point. Therefore the error is likely
-            something like a missing end-tag or some other non-conformance to 
-            the XML's syntax rules. 
-          &lt;/errordoc&gt;
-          &lt;errordoc&gt;
-            A simple Google search for "well-formed xml" returns many web sites 
-            that describe the syntax rules for XML. You can also use the 
-            program xmllint (included in the distribution of libxm2) to
-            pinpoint the issue.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 102 &lt;/errnumber&gt;
-      &lt;errname&gt; XML_NO_ROOT&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;No root element in the XML document.&lt;/errormsg&gt;
-          &lt;errordoc&gt;No root element in the XML document.&lt;/errordoc&gt;
-          &lt;errordoc&gt;
-            This error is very unlikely - without a root element, the document
-            cannot be parsed into a tree and you'll get the error 
-            XML_READ_ERROR instead.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 103 &lt;/errnumber&gt;
-      &lt;errname&gt; XML_INVALID_ROOT&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;The root element is not the expected root.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The root element is not the expected root, &lt;quasar_config&gt;.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 104 &lt;/errnumber&gt;
-      &lt;errname&gt; XML_NO_SCHEMA_LOCATION&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;The attribute xsi:schemaLocation was not found.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The root element must have an attribute named schemaLocation (in 
-            the namespace "http://www.w3.org/2001/XMLSchema-instance") to
-            point to the schema use for the server configuration file.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 105 &lt;/errnumber&gt;
-      &lt;errname&gt; XML_MALFORMED_SCHEMA_LOCATION&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;The attribute xsi:schemaLocation is not well formed.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The attribute schemaLocation of the root element 
-            should contain both the namespace and the location of the 
-            schema file, separated by a space. You'll get this error if
-            the white space is not found.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 106 &lt;/errnumber&gt;
-      &lt;errname&gt; XML_PARSER_CONTEXT_FAILED&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;The creation of a new schema parser context failed.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The creation of a new schema parser context failed. There might
-            be multiple reasons for this, for example, a memory-allocation
-            failure in libxml2. However, the most likely reason is that the
-            schema file is not at the location indicated by the attribute 
-            schemaLocation of the root element of the configuration file.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 107 &lt;/errnumber&gt;
-      &lt;errname&gt; XML_PARSE_SCHEMA_FAILED&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Failure when parsing the XML schema for config.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The parse operation of the schema failed. Most likely, there
-            is an error in the schema for the configuration. To debug this
-            you can use xmllint (part of the libxml2 package).
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 108 &lt;/errnumber&gt;
-      &lt;errname&gt; XML_VALID_CONTEXT_FAILED&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;The creation of a new XML Schemas validation context failed.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The creation of a new schema validation context failed. There might
-            be multiple reasons for this, for example, a memory-allocation
-            failure in libxml2.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 109 &lt;/errnumber&gt;
-      &lt;errname&gt; XML_VALIDATION_FAILED&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Document validation for the configuration file failed.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            Document validation for the configuration file failed. To debug this
-            problem you can use xmllint (part of the libxml2 package).
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 110 &lt;/errnumber&gt;
-      &lt;errname&gt; CFG_PSO_LOCATION_TOO_LONG&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Config: mem_location is too long.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The path associated with the tag &lt;mem_location&gt; is longer 
-            than PATH_MAX (the maximum length of a filename/pathname).
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 111 &lt;/errnumber&gt;
-      &lt;errname&gt; CFG_PSO_LOCATION_IS_MISSING&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Config: mem_location is missing.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The tag &lt;mem_location&gt; is missing. This would normally
-            be caught when the configuration is validated using the schema 
-            unless of course there is a bug in the code or the schema
-            itself was modified.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 112 &lt;/errnumber&gt;
-      &lt;errname&gt; CFG_MEM_SIZE_IS_MISSING&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Config: mem_size is missing.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The tag &lt;mem_size&gt; is missing. This would normally
-            be caught when the configuration is validated using the schema 
-            unless of course there is a bug in the code or the schema
-            itself was modified.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 113 &lt;/errnumber&gt;
-      &lt;errname&gt; CFG_SIZE_IS_MISSING&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Config: mem_size:size is missing.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The attribute "size" of the tag &lt;mem_size&gt; is missing. 
-            This would normally be caught when the configuration is 
-            validated using the schema unless of course there is a bug 
-            in the code or the schema itself was modified.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 114 &lt;/errnumber&gt;
-      &lt;errname&gt; CFG_UNITS_IS_MISSING&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Config: mem_size:units is missing.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The attribute "units" of the tag &lt;mem_size&gt; is missing. 
-            This would normally be caught when the configuration is 
-            validated using the schema unless of course there is a bug 
-            in the code or the schema itself was modified.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 115 &lt;/errnumber&gt;
-      &lt;errname&gt; CFG_WATCHDOG_ADDRESS_IS_MISSING&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Config: quasar_address is missing.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The tag &lt;quasar_address&gt; is missing. This would normally
-            be caught when the configuration is validated using the schema 
-            unless of course there is a bug in the code or the schema
-            itself was modified.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 116 &lt;/errnumber&gt;
-      &lt;errname&gt; CFG_FILE_ACCESS_IS_MISSING&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Config: file_access is missing.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The tag &lt;file_access&gt; is missing. This would normally
-            be caught when the configuration is validated using the schema 
-            unless of course there is a bug in the code or the schema
-            itself was modified.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 117 &lt;/errnumber&gt;
-      &lt;errname&gt; CFG_ACCESS_IS_MISSING&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Config: file_access:access is missing.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The attribute "access" of the tag &lt;file_access&gt; is missing. 
-            This would normally be caught when the configuration is 
-            validated using the schema unless of course there is a bug 
-            in the code or the schema itself was modified.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
+    [the remaining errors were left out for brevity]
   &lt;/errgroup&gt;
 
 &lt;/errorlist&gt;
-        </pre></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="example_python_extended_module"></a>5. Example: python extended module</h2></div></div></div><p>
-        Adding the generated header file to a C module is very simple. All
-        you have to do is to create the two dict objects using the provided 
-        function (AddErrors() or the name you chose in the option file) in 
-        the init function of your module (inityourmodule()).
-      </p><p>
-        Here's a code snippet (you'll have to modify it, evidently): 
-      </p><pre class="programlisting">
+        </pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="example_python_extended_module"></a>4.5. Python extension module</h3></div></div></div><p>
+          Adding the generated code to an extension module is easy. 
+          It requires two steps:
+          
+          </p><div class="itemizedlist"><ul type="disc"><li><p>
+                The fist step is the creation of the the two dict objects.
+                using the function in the generated header file. 
+                This should be done in the function used to initialize your 
+                module or in a function called by the init() function.
+              </p></li><li><p>
+                The second step is to add these two new objects to your 
+                module using PyModule_AddObject().
+              </p></li></ul></div><p>
+        </p><p>
+          Here's a code snippet taken for the pso module; you will have to 
+          modify it to suit your needs: 
+        </p><pre class="programlisting">
 # include "errors.h" /* Error Parser generated header file */
 
 PyMODINIT_FUNC
-inityourmodule(void) 
+initpso(void) 
 {
    PyObject * m = NULL, * tup = NULL, * errs = NULL, * errNames = NULL;
-
-   m = Py_InitModule3( "yourmodule", 
-                       yourmodule_methods,
-                       "Example module.");
+   int rc;
+   
+   m = Py_InitModule3( "pso", 
+                       pso_methods,
+                       "Photon module.");
    if (m == NULL) return;
 
    /* 
@@ -1442,7 +1047,7 @@ inityourmodule(void)
    if ( ! PyArg_ParseTuple(tup, "OO", &amp;errs, &amp;errNames) ) return;
    
    /* 
-    * errs allows you to do yourmodule.errs['INVALID_NAME'] in Python to 
+    * errs allows you to do your_module.errs['INVALID_NAME'] in Python to 
     * test for specific errcode without having to hardcode the error number.
     *
     * [example: I use it in tests to make sure that functions in my
@@ -1451,13 +1056,19 @@ inityourmodule(void)
     * Note: You can choose which ever names you want for the 2 dict instead
     *       of the names "errs" and "err_names".
     */
-   PyModule_AddObject( m, "errs", errs );
+   rc = PyModule_AddObject( m, "errs", errs );
+   if ( rc != 0 ) return;
    /*
     * err_names allows you to retrieve the symbolic name of an error
-    * from a returned error number (a_module.err_names[err_number]).
+    * from a returned error number (your_module.err_names[err_number]).
     * In some cases, it could be useful (possibly to generate a message
     * in your exception handler?).
     */
-   PyModule_AddObject( m, "err_names", errNames );
+   rc = PyModule_AddObject( m, "err_names", errNames );
+   if ( rc != 0 ) return;
    
-   ...</pre></div></div></div></body></html>
+   ...  
+        </pre></div></div><div class="footnotes"><br><hr width="100" align="left"><div class="footnote"><p><sup>[<a name="ftn.id2527263" href="#id2527263" class="para">1</a>] </sup>
+                  guard: a small chunk of preprocessor code used 
+                to avoid including the same header file twice.
+                </p></div></div></div></div></body></html>
