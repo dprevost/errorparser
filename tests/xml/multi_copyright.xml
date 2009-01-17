@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE errorlist PUBLIC "-//Error Parser project//DTD Error Parser XML V1.2//EN"
-             "http://photonsoftware.org/xml/ep/errorParser12.dtd"> 
+<!DOCTYPE errorlist PUBLIC "-//Error Parser project//DTD Error Parser XML V1.3//EN"
+             "http://photonsoftware.org/xml/ep/errorParser13.dtd"> 
 
 <!-- A single group and erreur -->
 
@@ -13,57 +13,57 @@
       <authors>
         D. Prevost
       </authors>
-      <!-- Each <notice> is a paragraph (to make the text easier to read) -->
-      <notice>
+      <!-- Each <license_para> is a paragraph (to make the text easier to read) -->
+      <license_para>
         This file is both a test and an example.
-      </notice>
-      <notice>
+      </license_para>
+      <license_para>
         This file may be distributed and/or modified under the terms of the
         MIT License as described by the Open Source Initiative
         (http://opensource.org/licenses/mit-license.php) and appearing in
         the file COPYING included in the packaging of this software.
-      </notice>
-      <notice>
+      </license_para>
+      <license_para>
         This program is distributed in the hope that it will be useful, but
         WITHOUT ANY WARRANTY, to the extent permitted by law; without even the
         implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-      </notice>
+      </license_para>
     </copyright>
     <copyright>
       <years>2007</years>
       <authors>
         D. Prevost #2
       </authors>
-      <!-- Each <notice> is a paragraph (to make the text easier to read) -->
-      <notice>
+      <!-- Each <license_para> is a paragraph (to make the text easier to read) -->
+      <license_para>
         This file may be distributed and/or modified under the terms of the
         MIT License as described by the Open Source Initiative
         (http://opensource.org/licenses/mit-license.php) and appearing in
         the file COPYING included in the packaging of this software.
-      </notice>
-      <notice>
+      </license_para>
+      <license_para>
         This program is distributed in the hope that it will be useful, but
         WITHOUT ANY WARRANTY, to the extent permitted by law; without even the
         implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-      </notice>
+      </license_para>
     </copyright>
     <copyright>
       <years>2006</years>
       <authors>
         D. Prevost #3
       </authors>
-      <!-- Each <notice> is a paragraph (to make the text easier to read) -->
-      <notice>
+      <!-- Each <license_para> is a paragraph (to make the text easier to read) -->
+      <license_para>
         This file may be distributed and/or modified under the terms of the
         MIT License as described by the Open Source Initiative
         (http://opensource.org/licenses/mit-license.php) and appearing in
         the file COPYING included in the packaging of this software.
-      </notice>
-      <notice>
+      </license_para>
+      <license_para>
         This program is distributed in the hope that it will be useful, but
         WITHOUT ANY WARRANTY, to the extent permitted by law; without even the
         implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-      </notice>
+      </license_para>
     </copyright>
   </copyright_group>
   <errgroup>

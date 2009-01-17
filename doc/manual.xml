@@ -92,8 +92,8 @@
       </para>
       <para>
         <programlisting>&lt;!DOCTYPE errorlist PUBLIC 
-   &quot;-//Error Parser project//DTD Error Parser XML V1.2//EN&quot;
-    &quot;http://photonsoftware.org/xml/ep/errorParser12.dtd&quot;&gt;
+   &quot;-//Error Parser project//DTD Error Parser XML V1.3//EN&quot;
+    &quot;http://photonsoftware.org/xml/ep/errorParser13.dtd&quot;&gt;
         </programlisting>
       </para>
       <para>
@@ -103,7 +103,7 @@
         Alternatively, the DTD can be identified with a SYSTEM clause:
       </para>
         <programlisting>&lt;!DOCTYPE errorlist SYSTEM
-   &quot;/usr/local/share/xml/errorParser/errorParser12.dtd&quot;&gt;
+   &quot;/usr/local/share/xml/errorParser/errorParser13.dtd&quot;&gt;
         </programlisting>
       <para>
         Using SYSTEM is perfectly correct in most cases. The main advantage
@@ -535,6 +535,9 @@
 
       <title>The xml error file</title>
 
+      <para> 
+        This section documents version 1.3 of the DTD. 
+      </para>
       <para>
         The xml file starts with the usual xml header (version of 
         xml, encoding of the file, the location of the DTD, etc.). If 
@@ -1366,8 +1369,8 @@ AM_CONDITIONAL([COND_USE_ERRORPARSER], [test "$ERRORPARSER_IS_PRESENT" = yes])
         <title>Makefile.am</title>
 
         <para>
-          Including the parser in a Makefile is relatively simple. Here is 
-          a code snippet from the Makefile.am of Quasar; the syntax for
+          Including the rules for the parser in a Makefile is relatively simple. 
+          Here is a code snippet from the Makefile.am of Quasar; the syntax for
           ordinary makefiles should be similar.
         </para>
        
@@ -1397,9 +1400,95 @@ quasar_SOURCES =             \
         </programlisting>
       </sect2>
 
-      <sect2 id="quasaroptions">
+      <sect2 id="option_files_examples">
+      
+        <title> Option files</title>
 
-        <title>quasarOptions.xml</title>
+        <para>
+          Two examples are shown here. The file option.xml is used for the
+          library of Photon. It uses most of the features of Error Parser,
+          including the generation of code for C# and Python extension module.
+          In contrast, quasarOptions.xml is based on a smaller subset of
+          available features.
+        </para>
+        
+        <sect3 id="options_xml">
+        
+          <title>options.xml</title>
+        
+          <programlisting>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE options PUBLIC
+    "-//Error Parser project//DTD Error Parser Options XML V2.0//EN"
+    "http://photonsoftware.org/xml/ep/errorParserOptions20.dtd"&gt;
+
+&lt;!-- 
+   This xml file provides the options needed by errorParser.
+   It must be used in conjonction with photon.xml.
+   
+   Generated output: 
+     - header file photon/psoErrors.h.
+     - the code to retrieve the error messages
+     - a C# enum
+     - a header file for the pso extension module (python).
+--&gt;
+
+&lt;options version="2.0"&gt;
+
+  &lt;general_options&gt;
+    &lt;!-- Prefix to be used for the error codes. --&gt;
+    &lt;prefix_error_no_namespace&gt; PSO &lt;/prefix_error_no_namespace&gt;
+    &lt;selected_lang xml:lang="en" /&gt;
+  &lt;/general_options&gt;
+  
+  &lt;header_file&gt;
+    &lt;!-- The name of the enum. --&gt;
+    &lt;header_enum&gt; psoErrors &lt;/header_enum&gt;
+    &lt;!-- Name of the output dir for the error header file. --&gt;
+    &lt;header_dirname&gt; ../include/photon &lt;/header_dirname&gt;
+    &lt;!-- The file name for the .h file which will hold the errors. --&gt;
+    &lt;header_name&gt; psoErrors.h &lt;/header_name&gt;
+  &lt;/header_file&gt;
+  
+  &lt;errmsg_files&gt;
+    &lt;!-- Name of the output dir for the code to retrieve the error messages. --&gt;
+    &lt;errmsg_dirname&gt; ../Nucleus &lt;/errmsg_dirname&gt;
+    &lt;!-- The file name for the .h file for the code to retrieve the error 
+         messages. --&gt;
+    &lt;errmsg_header_name&gt; psoErrorHandler.h &lt;/errmsg_header_name&gt;
+    &lt;!-- The file name for the .c file for the code to retrieve the error 
+         messages. --&gt;
+    &lt;errmsg_c_fullname&gt; ../Nucleus/psoErrorHandler.c &lt;/errmsg_c_fullname&gt;
+    &lt;errmsg_options build_dll="yes"/&gt;
+    &lt;!-- Prefix to be used for all variables in the code to retrieve the 
+         error messages --&gt;
+    &lt;errmsg_prefix_var&gt; pson &lt;/errmsg_prefix_var&gt;
+    &lt;errmsg_msg percent="percent"/&gt;
+  &lt;/errmsg_files&gt;
+
+  &lt;!-- Optional section for creating an enum for C# --&gt;
+  &lt;csharp&gt;
+    &lt;!-- Full or relative path to the generated C# code --&gt;
+    &lt;cs_filename&gt; ../CS/PhotonLib/Errors.cs &lt;/cs_filename&gt;
+    &lt;cs_enum_name&gt; PhotonErrors &lt;/cs_enum_name&gt;
+    &lt;!-- The namespace is optional --&gt;
+    &lt;cs_namespace&gt; Photon &lt;/cs_namespace&gt;
+  &lt;/csharp&gt;
+
+  &lt;!-- Optional section for Python (extension module) --&gt;
+  &lt;ext_python&gt;
+    &lt;ext_py_dirname&gt; ../Python/src &lt;/ext_py_dirname&gt;
+    &lt;ext_py_filename&gt; errors.h &lt;/ext_py_filename&gt;
+  &lt;/ext_python&gt;
+  
+&lt;/options&gt;
+          </programlisting>
+          
+        </sect3>
+        
+        <sect3 id="quasaroptions">
+
+          <title>quasarOptions.xml</title>
 
           <programlisting>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPE options SYSTEM 
@@ -1418,24 +1507,14 @@ quasar_SOURCES =             \
 
   &lt;!-- Section for the main header file. --&gt;
   &lt;header_file&gt;  
-    &lt;!-- The name of the enum. If absent, #define will be generated instead. --&gt;
+    &lt;!-- The name of the enum. --&gt;
     &lt;header_enum&gt; psoqErrors&lt;/header_enum&gt;
-    &lt;!-- Name of the output dir for the error header file. If absent, the 
-         current directory will be used.
-       
-         Alternatively, you can put the directory directly in the header_name 
-         element. But if you do, the "GUARD" will use that directory name. --&gt;
-    &lt;!-- &lt;header_dirname&gt; not used... &lt;/header_dirname&gt; --&gt;
     &lt;!-- The file name for the .h file which will hold the errors. --&gt;
     &lt;header_name&gt; quasarErrors.h &lt;/header_name&gt;
   &lt;/header_file&gt;
 
   &lt;!-- Section for the error message files. --&gt;
   &lt;errmsg_files&gt;
-    &lt;!-- Name of the output dir for the code to retrieve the error messages. 
-         If absent, the current directory will be used. --&gt;
-    &lt;!-- &lt;errmsg_dirname&gt; not used ... &lt;/errmsg_dirname&gt; --&gt;
-  
     &lt;!-- The file name for the .h file for the code to retrieve the error 
          messages. --&gt;
     &lt;errmsg_header_name&gt; quasarErrorHandler.h &lt;/errmsg_header_name&gt;
@@ -1447,66 +1526,34 @@ quasar_SOURCES =             \
     &lt;!-- Prefix to be used for all variables in the code to retrieve the 
         error messages --&gt;
     &lt;errmsg_prefix_var&gt; psoq &lt;/errmsg_prefix_var&gt;
-    &lt;!-- How to handle the error message. The problem: the generated C strings
-         will be use, eventually, by standard C/C++ libraries and some 
-         sequence of characters could have some bad side effects, possibly
-         including security issues.
-         The defaults:
-           - escape sequences are not permitted (a more fine grain approach
-             could be written if the need arise).
-           - quotes (' and ") are allowed (and will be escaped as needed) 
-           - The % symbol. No default. I recommend the textual "percent" 
-             (% is the most problematic one, IMHO. %d %p, etc are interpreted
-             differently by libc (printf()) and the iostream library (cout) --&gt;         
     &lt;errmsg_msg percent="percent" /&gt;
   &lt;errmsg_files&gt;
-
-  &lt;!-- Optional section for creating an enum for C#
-       Commented out - included for completeness --&gt;
-  &lt;!-- &lt;csharp&gt; --&gt;
-    &lt;!-- Full or relative path to the generated C# code --&gt;
-    &lt;!-- &lt;cs_filename&gt; CS/Errors.cs &lt;/cs_filename&gt; --&gt;
-    &lt;!-- &lt;cs_enum_name&gt; Errors &lt;/cs_enum&gt; --&gt;
-    &lt;!-- The namespace is optional --&gt;
-    &lt;!-- &lt;cs_namespace&gt; Photon &lt;/cs_namespace&gt; --&gt;
-  &lt;!-- &lt;/csharp&gt;   --&gt;
-
-  &lt;!-- Optional section for Python extension module
-       Commented out - included for completeness --&gt;
-  &lt;!-- &lt;ext_py&gt; --&gt;
-    &lt;!-- &lt;ext_py_dirname&gt; ../Python &lt;/ext_py_dirname&gt; --&gt;
-    &lt;!-- &lt;ext_py_filename&gt; errors.h &lt;/ext_py_filename&gt; --&gt;
-    &lt;!-- The function name is optional --&gt;
-    &lt;!-- &lt;ext_py_function&gt; MyAddErrors &lt;/ext_py_function&gt; --&gt;
-  &lt;!-- &lt;/ext_py&gt;   --&gt;
-
-  &lt;!-- Optional section for Python
-       Commented out - included for completeness --&gt;
-  &lt;!-- &lt;pure_python&gt; --&gt;
-    &lt;!-- &lt;pure_py_filename&gt; errors.py &lt;/pure_py_filename&gt; --&gt;
-    &lt;!-- The function name is optional --&gt;
-    &lt;!-- &lt;pure_py_function&gt; my_add_errors &lt;/pure_py_function&gt; --&gt;
-  &lt;!-- &lt;/pure_python&gt;   --&gt;
   
 &lt;/options&gt;
-        </programlisting>
+          </programlisting>
+        </sect3>
       </sect2>
 
       <sect2 id="quasarerrors">
 
-        <title>quasarErrors.xml</title>
+        <title>The Error File</title>
     
-          <programlisting>
+        <para>
+          This is a short version of the error file used by Quasar, the Photon
+          server:
+        </para>
+        
+        <programlisting>
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;!DOCTYPE errorlist PUBLIC "-//Error Parser project//DTD Error Parser XML V1.2//EN"
-             "http://photonsoftware.org/xml/ep/errorParser12.dtd"&gt; 
+&lt;!DOCTYPE errorlist PUBLIC "-//Error Parser project//DTD Error Parser XML V1.3//EN"
+             "http://photonsoftware.org/xml/ep/errorParser13.dtd"&gt; 
 &lt;!-- 
     This file contains the error codes specific to the server of
     Photon, quasar.
     
     You can replace the DOCTYPE with this, if you prefer:
 &lt;!DOCTYPE errorlist SYSTEM 
-             "/usr/local/share/xml/errorParser/DTD/errorParser12.dtd"&gt;
+             "/usr/local/share/xml/errorParser/DTD/errorParser13.dtd"&gt;
     
 --&gt;
 
@@ -1518,22 +1565,22 @@ quasar_SOURCES =             \
     &lt;copyright&gt;
       &lt;years&gt;2006-2008&lt;/years&gt;
       &lt;authors&gt;Daniel Prevost&lt;/authors&gt;
-      &lt;!-- Each &lt;notice&gt; is mapped to a paragraph (easier to read) --&gt;
-      &lt;notice&gt;
+      &lt;!-- Each &lt;license_para&gt; is mapped to a paragraph (easier to read) --&gt;
+      &lt;license_para&gt;
         This file is part of the Photon framework (photonsoftware.org).
-      &lt;/notice&gt;
+      &lt;/license_para&gt;
       &lt;!-- The GPL license is of course for Photon, not for Error Parser... --&gt;
-      &lt;notice&gt;
+      &lt;license_para&gt;
         This file may be distributed and/or modified under the terms of the
         GNU General Public License version 2 as published by the Free Software
         Foundation and appearing in the file COPYING included in the
         packaging of this library.
-      &lt;/notice&gt;
-      &lt;notice&gt;
+      &lt;/license_para&gt;
+      &lt;license_para&gt;
         This library is distributed in the hope that it will be useful,
         but WITHOUT ANY WARRANTY; without even the implied warranty of
         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
-      &lt;/notice&gt;
+      &lt;/license_para&gt;
     &lt;/copyright&gt;
   &lt;/copyright_group&gt;
   &lt;errgroup&gt;
@@ -1563,484 +1610,53 @@ quasar_SOURCES =             \
       &lt;/message_group&gt;
     &lt;/error&gt;
 
-    &lt;error&gt;
-      &lt;errnumber&gt; 2 &lt;/errnumber&gt;
-      &lt;errname&gt; CFG_BCK_LOCATION_TOO_LONG&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Backup path is too long.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The path of the backup path is longer 
-            than PATH_MAX (the maximum length of a filename/pathname).
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 3 &lt;/errnumber&gt;
-      &lt;errname&gt; NO_VERIFICATION_POSSIBLE&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Cannot verify the shared memory.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The shared memory does not exist and therefore cannot be verified.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 4 &lt;/errnumber&gt;
-      &lt;errname&gt; MKDIR_FAILURE&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Cannot create the directory for the shared memory.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            Cannot create the directory that will be used for the shared memory
-            and associated files.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 5 &lt;/errnumber&gt;
-      &lt;errname&gt;FILE_NOT_ACCESSIBLE&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Cannot access the backstore file for the shared memory.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            Cannot access the backstore file for the shared memory. You might want
-            to verify the permissions and ownership of the file and/or of the
-            parent directory.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 6 &lt;/errnumber&gt;
-      &lt;errname&gt;COPY_BCK_FAILURE&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;
-            Error while creating a copy of the backstore file for the shared memory.
-          &lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            Error while creating a copy of the backstore file for the shared memory
-            (a backup copy is created before the shared memory is verify for 
-            inconsistencies).
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 7 &lt;/errnumber&gt;
-      &lt;errname&gt;CREATE_BACKSTORE_FAILURE&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;
-            Error creating the backstore file for the shared memory.
-          &lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            Error creating the backstore file for the shared memory. Possible reasons:
-            not enough disk space, invalid file permissions, etc.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 8 &lt;/errnumber&gt;
-      &lt;errname&gt;OPEN_BACKSTORE_FAILURE&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;
-            Error opening the backstore file for the shared memory.
-          &lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            Error opening the backstore file for the shared memory.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 9 &lt;/errnumber&gt;
-      &lt;errname&gt; INCOMPATIBLE_VERSIONS &lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;
-            Memory-file version mismatch.
-          &lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The version of the existing memory-file on disk does not match the
-            version supported by the Photon server.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 10 &lt;/errnumber&gt;
-      &lt;errname&gt; BACKSTORE_FILE_MISSING &lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;
-            The shared-memory backstore file is missing.
-          &lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The shared-memory backstore file is missing. The existence of this file 
-            was already verified previously - if it is missing, something 
-            really weird is going on.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-   
-    &lt;error&gt;
-      &lt;errnumber&gt; 11 &lt;/errnumber&gt;
-      &lt;errname&gt; ERROR_OPENING_MEMORY &lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;
-            Generic i/o error when attempting to open the shared memory.
-          &lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            Generic i/o error when attempting to open the shared memory.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-  &lt;/errgroup&gt;
-
-  &lt;errgroup&gt;
-    &lt;errgroup_ident xml:lang="en"&gt;
-      &lt;errgroup_name&gt;XML config errors&lt;/errgroup_name&gt;
-      &lt;errgroup_desc&gt;
-        This group of errors described potential errors with the code to read
-        and parse the XML configuration file.
-      &lt;/errgroup_desc&gt;
-    &lt;/errgroup_ident&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 100 &lt;/errnumber&gt;
-      &lt;errname&gt; XML_CONFIG_NOT_OPEN&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Error opening the XML config file.&lt;/errormsg&gt;
-          &lt;errordoc&gt;Error opening the XML configuration file.&lt;/errordoc&gt;
-          &lt;errordoc&gt;
-            Most likely reason: the file does not exist but it might also be
-            a problem with access permissions (on the file itself or one
-            of its parent directories.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 101 &lt;/errnumber&gt;
-      &lt;errname&gt; XML_READ_ERROR&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Error reading the XML config file.&lt;/errormsg&gt;
-          &lt;errordoc&gt;Error reading the XML configuration file.&lt;/errordoc&gt;
-          &lt;errordoc&gt;
-            No validation is done at this point. Therefore the error is likely
-            something like a missing end-tag or some other non-conformance to 
-            the XML's syntax rules. 
-          &lt;/errordoc&gt;
-          &lt;errordoc&gt;
-            A simple Google search for "well-formed xml" returns many web sites 
-            that describe the syntax rules for XML. You can also use the 
-            program xmllint (included in the distribution of libxm2) to
-            pinpoint the issue.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 102 &lt;/errnumber&gt;
-      &lt;errname&gt; XML_NO_ROOT&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;No root element in the XML document.&lt;/errormsg&gt;
-          &lt;errordoc&gt;No root element in the XML document.&lt;/errordoc&gt;
-          &lt;errordoc&gt;
-            This error is very unlikely - without a root element, the document
-            cannot be parsed into a tree and you'll get the error 
-            XML_READ_ERROR instead.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 103 &lt;/errnumber&gt;
-      &lt;errname&gt; XML_INVALID_ROOT&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;The root element is not the expected root.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The root element is not the expected root, &lt;quasar_config&gt;.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 104 &lt;/errnumber&gt;
-      &lt;errname&gt; XML_NO_SCHEMA_LOCATION&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;The attribute xsi:schemaLocation was not found.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The root element must have an attribute named schemaLocation (in 
-            the namespace "http://www.w3.org/2001/XMLSchema-instance") to
-            point to the schema use for the server configuration file.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 105 &lt;/errnumber&gt;
-      &lt;errname&gt; XML_MALFORMED_SCHEMA_LOCATION&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;The attribute xsi:schemaLocation is not well formed.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The attribute schemaLocation of the root element 
-            should contain both the namespace and the location of the 
-            schema file, separated by a space. You'll get this error if
-            the white space is not found.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 106 &lt;/errnumber&gt;
-      &lt;errname&gt; XML_PARSER_CONTEXT_FAILED&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;The creation of a new schema parser context failed.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The creation of a new schema parser context failed. There might
-            be multiple reasons for this, for example, a memory-allocation
-            failure in libxml2. However, the most likely reason is that the
-            schema file is not at the location indicated by the attribute 
-            schemaLocation of the root element of the configuration file.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 107 &lt;/errnumber&gt;
-      &lt;errname&gt; XML_PARSE_SCHEMA_FAILED&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Failure when parsing the XML schema for config.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The parse operation of the schema failed. Most likely, there
-            is an error in the schema for the configuration. To debug this
-            you can use xmllint (part of the libxml2 package).
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 108 &lt;/errnumber&gt;
-      &lt;errname&gt; XML_VALID_CONTEXT_FAILED&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;The creation of a new XML Schemas validation context failed.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The creation of a new schema validation context failed. There might
-            be multiple reasons for this, for example, a memory-allocation
-            failure in libxml2.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 109 &lt;/errnumber&gt;
-      &lt;errname&gt; XML_VALIDATION_FAILED&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Document validation for the configuration file failed.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            Document validation for the configuration file failed. To debug this
-            problem you can use xmllint (part of the libxml2 package).
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 110 &lt;/errnumber&gt;
-      &lt;errname&gt; CFG_PSO_LOCATION_TOO_LONG&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Config: mem_location is too long.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The path associated with the tag &lt;mem_location&gt; is longer 
-            than PATH_MAX (the maximum length of a filename/pathname).
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 111 &lt;/errnumber&gt;
-      &lt;errname&gt; CFG_PSO_LOCATION_IS_MISSING&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Config: mem_location is missing.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The tag &lt;mem_location&gt; is missing. This would normally
-            be caught when the configuration is validated using the schema 
-            unless of course there is a bug in the code or the schema
-            itself was modified.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 112 &lt;/errnumber&gt;
-      &lt;errname&gt; CFG_MEM_SIZE_IS_MISSING&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Config: mem_size is missing.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The tag &lt;mem_size&gt; is missing. This would normally
-            be caught when the configuration is validated using the schema 
-            unless of course there is a bug in the code or the schema
-            itself was modified.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 113 &lt;/errnumber&gt;
-      &lt;errname&gt; CFG_SIZE_IS_MISSING&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Config: mem_size:size is missing.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The attribute "size" of the tag &lt;mem_size&gt; is missing. 
-            This would normally be caught when the configuration is 
-            validated using the schema unless of course there is a bug 
-            in the code or the schema itself was modified.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 114 &lt;/errnumber&gt;
-      &lt;errname&gt; CFG_UNITS_IS_MISSING&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Config: mem_size:units is missing.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The attribute "units" of the tag &lt;mem_size&gt; is missing. 
-            This would normally be caught when the configuration is 
-            validated using the schema unless of course there is a bug 
-            in the code or the schema itself was modified.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 115 &lt;/errnumber&gt;
-      &lt;errname&gt; CFG_WATCHDOG_ADDRESS_IS_MISSING&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Config: quasar_address is missing.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The tag &lt;quasar_address&gt; is missing. This would normally
-            be caught when the configuration is validated using the schema 
-            unless of course there is a bug in the code or the schema
-            itself was modified.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 116 &lt;/errnumber&gt;
-      &lt;errname&gt; CFG_FILE_ACCESS_IS_MISSING&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Config: file_access is missing.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The tag &lt;file_access&gt; is missing. This would normally
-            be caught when the configuration is validated using the schema 
-            unless of course there is a bug in the code or the schema
-            itself was modified.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
-    &lt;error&gt;
-      &lt;errnumber&gt; 117 &lt;/errnumber&gt;
-      &lt;errname&gt; CFG_ACCESS_IS_MISSING&lt;/errname&gt;
-      &lt;message_group&gt;
-        &lt;message xml:lang="en"&gt;
-          &lt;errormsg&gt;Config: file_access:access is missing.&lt;/errormsg&gt;
-          &lt;errordoc&gt;
-            The attribute "access" of the tag &lt;file_access&gt; is missing. 
-            This would normally be caught when the configuration is 
-            validated using the schema unless of course there is a bug 
-            in the code or the schema itself was modified.
-          &lt;/errordoc&gt;
-        &lt;/message&gt;
-      &lt;/message_group&gt;
-    &lt;/error&gt;
-
+    [the remaining errors were left out for brevity]
   &lt;/errgroup&gt;
 
 &lt;/errorlist&gt;
         </programlisting>
       </sect2>
-    </sect1>
-    <sect1 id="example_python_extended_module">
 
-      <title id='example_python_extended_module.title'>Example: Python extended module</title>
+      <sect2 id="example_python_extended_module">
 
-      <para>
-        Adding the generated header file to a C module is very simple. All
-        you have to do is to create the two dict objects using the provided 
-        function (AddErrors() or the name you chose in the option file) in 
-        the init function of your module (inityourmodule()).
-      </para>
-      <para>
-        Here's a code snippet (you'll have to modify it, evidently): 
-      </para>
-      <programlisting>
+        <title id='example_python_extended_module.title'>Python extended module</title>
+
+        <para>
+          Adding the generated code to an extension module is very simple. 
+          It requires two steps:
+          
+          <itemizedlist>
+            <listitem>
+              <para>
+                First, create the the two dict objects using the function 
+                in the generated header file. 
+                This should be done in the function used to initialize your 
+                module or in a function called by the init() function.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                Add these two objects to your module using PyModule_AddObject.
+              </para>
+            </listitem>
+          </itemizedlist>
+        </para>
+        <para>
+          Here's a code snippet taken for the pso module; you will have to 
+          modify it to suit your needs: 
+        </para>
+        <programlisting>
 # include "errors.h" /* Error Parser generated header file */
 
 PyMODINIT_FUNC
-inityourmodule(void) 
+initpso(void) 
 {
    PyObject * m = NULL, * tup = NULL, * errs = NULL, * errNames = NULL;
-
-   m = Py_InitModule3( "yourmodule", 
-                       yourmodule_methods,
-                       "Example module.");
+   int rc;
+   
+   m = Py_InitModule3( "pso", 
+                       pso_methods,
+                       "Photon module.");
    if (m == NULL) return;
 
    /* 
@@ -2054,7 +1670,7 @@ inityourmodule(void)
    if ( ! PyArg_ParseTuple(tup, "OO", &amp;errs, &amp;errNames) ) return;
    
    /* 
-    * errs allows you to do yourmodule.errs['INVALID_NAME'] in Python to 
+    * errs allows you to do your_module.errs['INVALID_NAME'] in Python to 
     * test for specific errcode without having to hardcode the error number.
     *
     * [example: I use it in tests to make sure that functions in my
@@ -2063,17 +1679,20 @@ inityourmodule(void)
     * Note: You can choose which ever names you want for the 2 dict instead
     *       of the names "errs" and "err_names".
     */
-   PyModule_AddObject( m, "errs", errs );
+   rc = PyModule_AddObject( m, "errs", errs );
+   if ( rc != 0 ) return;
    /*
     * err_names allows you to retrieve the symbolic name of an error
-    * from a returned error number (a_module.err_names[err_number]).
+    * from a returned error number (your_module.err_names[err_number]).
     * In some cases, it could be useful (possibly to generate a message
     * in your exception handler?).
     */
-   PyModule_AddObject( m, "err_names", errNames );
+   rc = PyModule_AddObject( m, "err_names", errNames );
+   if ( rc != 0 ) return;
    
-   ...</programlisting>
-      
+   ...  
+        </programlisting>
+      </sect2>
     </sect1>
   </chapter>
 </book>

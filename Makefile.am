@@ -25,6 +25,7 @@ EXTRA_DIST =                             \
         Config/mkinstalldirs             \
         COPYING                          \
         README                           \
+        DTD/errorParser13.dtd            \
         DTD/errorParser12.dtd            \
         DTD/errorParserOptions20.dtd     \
         DTD/catalog.xml                  \
@@ -46,6 +47,7 @@ install-data-local:
 	$(install_sh_DATA) $(top_srcdir)/examples/example_options.xml    $(DESTDIR)$(datadir)/doc/errorParser/examples/example_options.xml
 	$(install_sh_DATA) $(top_srcdir)/examples/example_photon.xml     $(DESTDIR)$(datadir)/doc/errorParser/examples/example_photon.xml
 	$(install_sh_DATA) $(top_srcdir)/examples/simple_example.xml     $(DESTDIR)$(datadir)/doc/errorParser/examples/simple_example.xml
+	$(install_sh_DATA) $(top_srcdir)/DTD/errorParser13.dtd           $(DESTDIR)$(datadir)/xml/errorParser/errorParser13.dtd
 	$(install_sh_DATA) $(top_srcdir)/DTD/errorParser12.dtd           $(DESTDIR)$(datadir)/xml/errorParser/errorParser12.dtd
 	$(install_sh_DATA) $(top_srcdir)/DTD/errorParserOptions20.dtd    $(DESTDIR)$(datadir)/xml/errorParser/errorParserOptions20.dtd
 	$(install_sh_DATA) $(top_srcdir)/DTD/catalog.xml                 $(DESTDIR)$(datadir)/xml/errorParser/catalog.xml
@@ -58,6 +60,7 @@ uninstall-local:
 	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/examples/simple_example.xml
 	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/README
 	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/COPYING
+	-rm -f $(DESTDIR)$(datadir)/xml/errorParser/errorParser13.dtd
 	-rm -f $(DESTDIR)$(datadir)/xml/errorParser/errorParser12.dtd
 	-rm -f $(DESTDIR)$(datadir)/xml/errorParser/errorParserOptions20.dtd
 	-rm -f $(DESTDIR)$(datadir)/xml/errorParser/catalog.xml

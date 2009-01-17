@@ -48,7 +48,7 @@
     * version 0.5.0
         * Added support for Python
 
-2009-01-??  Daniel Prevost  <dprevost@users.sourceforge.net>
+2009-01-17  Daniel Prevost  <dprevost@users.sourceforge.net>
 
     * version 1.0 RC 1 (Release Candidate 1)
         * Complete rewrite: 
@@ -59,7 +59,5 @@
         
         * More tests.
         
-        * A new section in the manual on how to implement a new handler
-          (or modify an existing one).
 
 

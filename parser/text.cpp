@@ -144,9 +144,9 @@ void formatText( fstream      & outStream,
  * From what I understand, the specs of XML parsing guarantee that everything
  * between the open and close tags is kept (the parser cannot know what
  * is needed and what can be safely removed). So the text in this construct
-    <notice>
+    <license_para>
       Nothing.
-    </notice>
+    </license_para>
  * will be saved as: "\n      Nothing.\n    " which is obviously not what
  * we want. We strip to a one-line string (removing all whitespace and 
  * newlines at the beginning and end and stripping all duplicate white spaces 
