@@ -1619,24 +1619,25 @@ quasar_SOURCES =             \
 
       <sect2 id="example_python_extended_module">
 
-        <title id='example_python_extended_module.title'>Python extended module</title>
+        <title id='example_python_extended_module.title'>Python extension module</title>
 
         <para>
-          Adding the generated code to an extension module is very simple. 
+          Adding the generated code to an extension module is easy. 
           It requires two steps:
           
           <itemizedlist>
             <listitem>
               <para>
-                First, create the the two dict objects using the function 
-                in the generated header file. 
+                The fist step is the creation of the the two dict objects.
+                using the function in the generated header file. 
                 This should be done in the function used to initialize your 
                 module or in a function called by the init() function.
               </para>
             </listitem>
             <listitem>
               <para>
-                Add these two objects to your module using PyModule_AddObject.
+                The second step is to add these two new objects to your 
+                module using PyModule_AddObject().
               </para>
             </listitem>
           </itemizedlist>
