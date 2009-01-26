@@ -5,8 +5,8 @@
 
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
   <!-- version 1.3 -->
-  <public publicId="-//Error Parser project//DTD Error Parser XML V1.3//EN"         uri="errorParser12.dtd"/>
-  <system systemId="http://photonsoftware.org/xml/ep/errorParser13.dtd"             uri="errorParser12.dtd"/>
+  <public publicId="-//Error Parser project//DTD Error Parser XML V1.3//EN"         uri="errorParser13.dtd"/>
+  <system systemId="http://photonsoftware.org/xml/ep/errorParser13.dtd"             uri="errorParser13.dtd"/>
   <!-- version 1.2 -->
   <public publicId="-//Error Parser project//DTD Error Parser XML V1.2//EN"         uri="errorParser12.dtd"/>
   <system systemId="http://photonsoftware.org/xml/ep/errorParser12.dtd"             uri="errorParser12.dtd"/>
