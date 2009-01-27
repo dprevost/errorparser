@@ -16,8 +16,8 @@
 	<Configurations>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory=".\Release"
-			IntermediateDirectory=".\Release"
+			OutputDirectory=".\Release2005"
+			IntermediateDirectory=".\Release2005"
 			ConfigurationType="1"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
 			UseOfMFC="0"
@@ -50,10 +50,6 @@
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
-				PrecompiledHeaderFile=".\Release/parser.pch"
-				AssemblerListingLocation=".\Release/"
-				ObjectFile=".\Release/"
-				ProgramDataBaseFileName=".\Release/"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
 			/>
@@ -71,11 +67,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="libxml2_a.lib zlib.lib iconv_a.lib ws2_32.lib"
-				OutputFile="Release\errorParser.exe"
+				OutputFile="Release2005\errorParser.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="c:\Program Files\libxml2\lib"
-				ProgramDatabaseFile=".\Release/errorParser.pdb"
 				SubSystem="1"
 				TargetMachine="1"
 			/>
@@ -91,7 +86,6 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile=".\Release/parser.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -108,8 +102,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory=".\Debug"
-			IntermediateDirectory=".\Debug"
+			OutputDirectory=".\Debug2005"
+			IntermediateDirectory=".\Debug2005"
 			ConfigurationType="1"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
 			UseOfMFC="0"
@@ -140,10 +134,6 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;LIBXML_STATIC"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				PrecompiledHeaderFile=".\Debug/parser.pch"
-				AssemblerListingLocation=".\Debug/"
-				ObjectFile=".\Debug/"
-				ProgramDataBaseFileName=".\Debug/"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="4"
@@ -162,13 +152,12 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="libxml2_a.lib zlib.lib iconv_a.lib ws2_32.lib"
-				OutputFile="Debug/errorParser.exe"
+				OutputFile="Debug2005/errorParser.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="c:\Program Files\libxml2\lib"
 				IgnoreDefaultLibraryNames="msvcrt.lib"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile=".\Debug/errorParser.pdb"
 				SubSystem="1"
 				TargetMachine="1"
 			/>
@@ -184,7 +173,6 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile=".\Debug/parser.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
