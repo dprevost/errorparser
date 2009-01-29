@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="9.00"
 	Name="parser"
 	ProjectGUID="{F3388FDB-46DF-4FA0-AD65-2BBF0C1EA73B}"
 	RootNamespace="parser"
+	TargetFrameworkVersion="131072"
 	>
 	<Platforms>
 		<Platform
@@ -16,8 +17,8 @@
 	<Configurations>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory=".\Release2005"
-			IntermediateDirectory=".\Release2005"
+			OutputDirectory=".\Release2008"
+			IntermediateDirectory=".\Release2008"
 			ConfigurationType="1"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
 			UseOfMFC="0"
@@ -67,11 +68,13 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="libxml2_a.lib zlib.lib iconv_a.lib ws2_32.lib"
-				OutputFile="Release2005\errorParser.exe"
+				OutputFile="Release2008\errorParser.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="c:\Program Files\libxml2\lib"
 				SubSystem="1"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -94,16 +97,13 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory=".\Debug2005"
-			IntermediateDirectory=".\Debug2005"
+			OutputDirectory=".\Debug2008"
+			IntermediateDirectory=".\Debug2008"
 			ConfigurationType="1"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
 			UseOfMFC="0"
@@ -152,13 +152,15 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="libxml2_a.lib zlib.lib iconv_a.lib ws2_32.lib"
-				OutputFile="Debug2005/errorParser.exe"
+				OutputFile="Debug2008/errorParser.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="c:\Program Files\libxml2\lib"
 				IgnoreDefaultLibraryNames="msvcrt.lib"
 				GenerateDebugInformation="true"
 				SubSystem="1"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -179,9 +181,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
