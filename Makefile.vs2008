@@ -18,20 +18,20 @@
 #
 
 all: 
-	cd parser && nmake -f Makefile.vs2005.win32 && cd ..
+	cd parser && nmake -f Makefile.vs2008 && cd ..
    
 check:
-	cd parser && nmake -f Makefile.vs2005.win32 check && cd ..
-	cd tests  && nmake -f Makefile.vs2005.win32 check && cd ..
+	cd parser && nmake -f Makefile.vs2008 check && cd ..
+	cd tests  && nmake -f Makefile.vs2008 check && cd ..
 
 checkdebug: 
-	cd parser && nmake -f Makefile.vs2005.win32 checkdebug && cd ..
-	cd tests  && nmake -f Makefile.vs2005.win32 checkdebug && cd ..
+	cd parser && nmake -f Makefile.vs2008 checkdebug && cd ..
+	cd tests  && nmake -f Makefile.vs2008 checkdebug && cd ..
 
 clean: 
-	cd doc    && nmake -f Makefile.win32        clean && cd ..
-	cd parser && nmake -f Makefile.vs2005.win32 clean && cd ..
-	cd tests  && nmake -f Makefile.vs2005.win32 clean && cd ..
+	cd doc    && nmake -f Makefile.win32  clean && cd ..
+	cd parser && nmake -f Makefile.vs2008 clean && cd ..
+	cd tests  && nmake -f Makefile.vs2008 clean && cd ..
 
 docs: 
 	cd doc    && nmake -f Makefile.win32 doc && cd ..
