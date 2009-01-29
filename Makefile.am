@@ -17,12 +17,6 @@ CLEANFILES = *~
 
 EXTRA_DIST =                             \
         configure                        \
-        Config/config.guess              \
-        Config/config.sub                \
-        Config/install-sh                \
-        Config/ltmain.sh                 \
-        Config/missing                   \
-        Config/mkinstalldirs             \
         COPYING                          \
         README                           \
         DTD/errorParser13.dtd            \

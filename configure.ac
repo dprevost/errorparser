@@ -1,6 +1,6 @@
 #############################################################################
 #                                                                           #
-# Copyright (C) 2008 Daniel Prevost <dprevost@users.sourceforge.net>        #
+# Copyright (C) 2008-2009 Daniel Prevost <dprevost@users.sourceforge.net>   #
 #                                                                           #
 # This file may be distributed and/or modified under the terms of the       #
 # MIT License as described by the Open Source Initiative                    #
@@ -14,7 +14,7 @@
 #############################################################################
 
 AC_INIT([Error Parser],
-        [1.0_RC1],
+        [1.0_RC2],
         [Daniel Prevost <dprevost@users.sourceforge.net>],
         [errorParser])
 

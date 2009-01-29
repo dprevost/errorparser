@@ -2,7 +2,7 @@
 #
 #############################################################################
 #                                                                           #
-# Copyright (C) 2008 Daniel Prevost <dprevost@users.sourceforge.net>        #
+# Copyright (C) 2008-2009 Daniel Prevost <dprevost@users.sourceforge.net>        #
 #                                                                           #
 # This file may be distributed and/or modified under the terms of the       #
 # MIT License as described by the Open Source Initiative                    #
@@ -31,14 +31,6 @@ rm -f autom4te.cache/output*
 rm -f autom4te.cache/requests*
 rm -f autom4te.cache/traces*
 
-chmod 755 Config/config.guess
-chmod 755 Config/config.sub
-chmod 755 Config/depcomp
-chmod 755 Config/install-sh
-chmod 755 Config/ltmain.sh
-chmod 755 Config/missing
-chmod 755 Config/mkinstalldirs
-
 echo "-----------------------------------------------"
 echo "End of cleanup phase - warning messages are not"
 echo "expected from now on and should be examined... "
@@ -46,14 +38,16 @@ echo "-----------------------------------------------"
 
 ##########################################################################
 
+echo "- libtoolize -f"
+libtoolize -f
 echo "- aclocal"
 aclocal
 echo "- autoconf"
 autoconf
 echo "- autoheader"
 autoheader
-echo "- automake"
-automake
+echo "- automake -a"
+automake -a
 echo "- ./configure"
 ./configure
 exit

@@ -31,16 +31,18 @@ errorParser.1: errorParser.xml
 	db2x_docbook2man --encoding=iso-8859-1 errorParser.xml
 endif
 
-EXTRA_DIST =                        \
-        config-win32.h              \
-        errorParser.1               \
-        errorParser.xml             \
-        icon2.ico                   \
-        Makefile.win32              \
-        parser.rc                   \
-        parser.sln                  \
-        Project_Files/parser.vcproj \
-        resource.h
+EXTRA_DIST =                               \
+        config-win32.h                     \
+        errorParser.1                      \
+        errorParser.xml                    \
+        icon2.ico                          \
+        Makefile.win32                     \
+        parser.rc                          \
+        parser.vs2005.sln                  \
+        parser.vs2008.sln                  \
+        Project_Files/parser.vs2005.vcproj \
+        Project_Files/parser.vs2008.vcproj \
+        resource.h                         
 
 errorParser_SOURCES =        \
         options.cpp          \
