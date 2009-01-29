@@ -1,0 +1,117 @@
+###########################################################################
+#
+# Copyright (C) 2008-2009 Daniel Prevost <dprevost@users.sourceforge.net>
+#  
+# This file may be distributed and/or modified under the terms of the
+# MIT License as described by the Open Source Initiative
+# (http://opensource.org/licenses/mit-license.php) and appearing in
+# the file COPYING included in the packaging of this software.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY, to the extent permitted by law; without even the
+# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+#
+###########################################################################
+#
+# Defines the main macros.
+#
+###########################################################################
+
+LIBXML2_INCLUDE = "C:\Program Files\libxml2\include"
+LIBXML2_LIB     = /LIBPATH:"c:\Program Files\libxml2\lib" libxml2_a.lib zlib.lib iconv_a.lib ws2_32.lib
+
+LINK32=link.exe
+RSC=rc.exe
+
+OUTDIR_RELEASE = .\Project_Files\Release2008
+INTDIR_RELEASE = .\Project_Files\Release2008
+OUTDIR_DEBUG   = .\Project_Files\Debug2008
+INTDIR_DEBUG   = .\Project_Files\Debug2008
+
+CLEANFILES = *~ parser.plg errorParser.dep
+
+W32_SYS_LIBS=kernel32.lib ws2_32.lib
+
+LDD_FLAGS_RELEASE = $(W32_SYS_LIBS) $(LIBXML2_LIB) /nologo /subsystem:console /incremental:no  /MANIFEST        /machine:I386 /out:"$(OUTDIR_RELEASE)\errorParser.exe" /libpath:"..\Release2008" 
+LDD_FLAGS_DEBUG   = $(W32_SYS_LIBS) $(LIBXML2_LIB) /nologo /subsystem:console /incremental:no /MANIFEST /debug /machine:I386 /out:"$(OUTDIR_DEBUG)\errorParser.exe"   /libpath:"..\Debug2008" /NODEFAULTLIB:msvcrt.lib
+
+CFLAGS_RELEASE = /O2 /Ob1 /I $(LIBXML2_INCLUDE) /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "LIBXML_STATIC" /D "_MBCS" /GF /FD /EHsc       /MD  /Gy /Fp".\$(OUTDIR_RELEASE)/parser.pch" /Fo".\$(OUTDIR_RELEASE)/" /Fd".\$(OUTDIR_RELEASE)/" /W3 /nologo /c /TP /errorReport:prompt
+CFLAGS_DEBUG   = /Od      /I $(LIBXML2_INCLUDE) /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "LIBXML_STATIC" /D "_MBCS"     /FD /EHsc /RTC1 /MDd     /Fp".\$(OUTDIR_DEBUG)/parser.pch"   /Fo".\$(OUTDIR_DEBUG)/"   /Fd".\$(OUTDIR_DEBUG)/"   /W3 /nologo /c /TP /errorReport:prompt
+
+OBJS_RELEASE=                               \
+	"$(INTDIR_RELEASE)\options.obj"          \
+	"$(INTDIR_RELEASE)\parser.obj"           \
+	"$(INTDIR_RELEASE)\text.obj"             \
+	"$(INTDIR_RELEASE)\CfamilyHandler.obj"   \
+   "$(INTDIR_RELEASE)\Copyright.obj"        \
+	"$(INTDIR_RELEASE)\CSharp.obj"           \
+	"$(INTDIR_RELEASE)\ErrMessage.obj"       \
+	"$(INTDIR_RELEASE)\ErrMessageHeader.obj" \
+	"$(INTDIR_RELEASE)\ErrorHeader.obj"      \
+   "$(INTDIR_RELEASE)\ErrorXML.obj"         \
+	"$(INTDIR_RELEASE)\ExtPython.obj"        \
+   "$(INTDIR_RELEASE)\GroupIdent.obj"       \
+	"$(INTDIR_RELEASE)\HeaderHandler.obj"    \
+	"$(INTDIR_RELEASE)\PurePython.obj"       \
+	"$(INTDIR_RELEASE)\parser.res"           
+
+OBJS_DEBUG = $(OBJS_RELEASE:\Release2008\=\Debug2008\)
+
+###########################################################################
+#
+# Defines the rules.
+#
+###########################################################################
+
+.cpp{$(INTDIR_RELEASE)}.obj::
+	$(CPP) $(CFLAGS_RELEASE) $< 
+
+.c{$(INTDIR_RELEASE)}.obj::
+	$(CPP) $(CFLAGS_RELEASE) $< 
+
+.cpp{$(INTDIR_DEBUG)}.obj::
+	$(CPP) $(CFLAGS_DEBUG) $< 
+.c{$(INTDIR_DEBUG)}.obj::
+	$(CPP) $(CFLAGS_DEBUG) $< 
+
+all: $(OUTDIR_RELEASE) $(OUTDIR_RELEASE)\errorParser.exe $(OUTDIR_DEBUG) $(OUTDIR_DEBUG)\errorParser.exe
+
+"$(INTDIR_DEBUG)\parser.res" : parser.rc "$(INTDIR_DEBUG)"
+	$(RSC) /l 0x1009 /fo"$(INTDIR_DEBUG)\parser.res"  /d "_DEBUG" parser.rc
+"$(INTDIR_RELEASE)\parser.res" : parser.rc "$(INTDIR_RELEASE)"
+	$(RSC) /l 0x1009 /fo"$(INTDIR_RELEASE)\parser.res" /i "\errorParser\trunk\parser" /d "NDEBUG" parser.rc
+
+"$(OUTDIR_RELEASE)\errorParser.exe" : "$(OUTDIR_RELEASE)" $(OBJS_RELEASE)
+   -del $(OUTDIR_RELEASE)\errorParser.exe
+	$(LINK32) $(LDD_FLAGS_RELEASE) $(OBJS_RELEASE)
+	mt.exe -manifest $(OUTDIR_RELEASE)\errorParser.exe.manifest -outputresource:$(OUTDIR_RELEASE)\errorParser.exe;1
+
+"$(OUTDIR_DEBUG)\errorParser.exe" : "$(OUTDIR_DEBUG)" $(OBJS_DEBUG)
+   -del $(OUTDIR_DEBUG)\errorParser.exe
+	$(LINK32) $(LDD_FLAGS_DEBUG) $(OBJS_DEBUG)
+	mt.exe -manifest $(OUTDIR_DEBUG)\errorParser.exe.manifest -outputresource:$(OUTDIR_DEBUG)\errorParser.exe;1
+
+###########################################################################
+#
+# The targets
+#
+###########################################################################
+
+check: all
+
+checkdebug: all
+
+"$(OUTDIR_RELEASE)" :
+	if not exist "$(OUTDIR_RELEASE)/$(NULL)" mkdir "$(OUTDIR_RELEASE)"
+
+"$(OUTDIR_DEBUG)" :
+	if not exist "$(OUTDIR_DEBUG)/$(NULL)" mkdir "$(OUTDIR_DEBUG)"
+   
+clean: 
+	-@erase /Q $(OUTDIR_DEBUG)
+	-@rmdir /Q $(OUTDIR_DEBUG)
+	-@erase /Q $(OUTDIR_RELEASE)
+	-@rmdir /Q $(OUTDIR_RELEASE)
+	-@erase /Q $(CLEANFILES)
+
+

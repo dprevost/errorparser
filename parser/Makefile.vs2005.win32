@@ -23,17 +23,17 @@ LIBXML2_LIB     = /LIBPATH:"c:\Program Files\libxml2\lib" libxml2_a.lib zlib.lib
 LINK32=link.exe
 RSC=rc.exe
 
-OUTDIR_RELEASE = .\Project_Files\Release
-INTDIR_RELEASE = .\Project_Files\Release
-OUTDIR_DEBUG   = .\Project_Files\Debug
-INTDIR_DEBUG   = .\Project_Files\Debug
+OUTDIR_RELEASE = .\Project_Files\Release2005
+INTDIR_RELEASE = .\Project_Files\Release2005
+OUTDIR_DEBUG   = .\Project_Files\Debug2005
+INTDIR_DEBUG   = .\Project_Files\Debug2005
 
 CLEANFILES = *~ parser.plg errorParser.dep
 
 W32_SYS_LIBS=kernel32.lib ws2_32.lib
 
-LDD_FLAGS_RELEASE = $(W32_SYS_LIBS) $(LIBXML2_LIB) /nologo /subsystem:console /incremental:no  /MANIFEST        /machine:I386 /out:"$(OUTDIR_RELEASE)\errorParser.exe" /libpath:"..\Release" 
-LDD_FLAGS_DEBUG   = $(W32_SYS_LIBS) $(LIBXML2_LIB) /nologo /subsystem:console /incremental:no /MANIFEST /debug /machine:I386 /out:"$(OUTDIR_DEBUG)\errorParser.exe"   /libpath:"..\Debug" /NODEFAULTLIB:msvcrt.lib
+LDD_FLAGS_RELEASE = $(W32_SYS_LIBS) $(LIBXML2_LIB) /nologo /subsystem:console /incremental:no  /MANIFEST        /machine:I386 /out:"$(OUTDIR_RELEASE)\errorParser.exe" /libpath:"..\Release2005" 
+LDD_FLAGS_DEBUG   = $(W32_SYS_LIBS) $(LIBXML2_LIB) /nologo /subsystem:console /incremental:no /MANIFEST /debug /machine:I386 /out:"$(OUTDIR_DEBUG)\errorParser.exe"   /libpath:"..\Debug2005" /NODEFAULTLIB:msvcrt.lib
 
 CFLAGS_RELEASE = /O2 /Ob1 /I $(LIBXML2_INCLUDE) /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "LIBXML_STATIC" /D "_MBCS" /GF /FD /EHsc       /MD  /Gy /Fp".\$(OUTDIR_RELEASE)/parser.pch" /Fo".\$(OUTDIR_RELEASE)/" /Fd".\$(OUTDIR_RELEASE)/" /W3 /nologo /c /TP /errorReport:prompt
 CFLAGS_DEBUG   = /Od      /I $(LIBXML2_INCLUDE) /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "LIBXML_STATIC" /D "_MBCS"     /FD /EHsc /RTC1 /MDd     /Fp".\$(OUTDIR_DEBUG)/parser.pch"   /Fo".\$(OUTDIR_DEBUG)/"   /Fd".\$(OUTDIR_DEBUG)/"   /W3 /nologo /c /TP /errorReport:prompt
@@ -55,7 +55,7 @@ OBJS_RELEASE=                               \
 	"$(INTDIR_RELEASE)\PurePython.obj"       \
 	"$(INTDIR_RELEASE)\parser.res"           
 
-OBJS_DEBUG = $(OBJS_RELEASE:\Release\=\Debug\)
+OBJS_DEBUG = $(OBJS_RELEASE:\Release2005\=\Debug2005\)
 
 ###########################################################################
 #

@@ -18,10 +18,10 @@ CLEANFILES = *~
 all: 
 
 check:
-	cscript RunTests.vbs --path=..\Parser\Project_Files\Release
+	cscript RunTests.vbs --path=..\Parser\Project_Files\Release2008
 
 checkdebug:
-	cscript RunTests.vbs --path=..\Parser\Project_Files\Debug
+	cscript RunTests.vbs --path=..\Parser\Project_Files\Debug2008
 
 clean: 
 	-@erase /Q $(CLEANFILES)

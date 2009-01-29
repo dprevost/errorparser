@@ -372,15 +372,15 @@
 
       <para>
         To build the software, simply use the solution 
-        file parser\parser.snl (VC++ v8, known as VS 2005). 
-        Tests with the newer VS 2008 have yet to be conducted.
+        file parser\parser.vs2005.snl for VC++ v8, known as VS 2005. 
+        If you use VC++ v9 (VS 2008) instead, use parser\parser.vs2008.snl.
       </para>
       
       <para>
         In addition, you will need to tell Visual Studio the location of the 
         header files and libraries of the libxml2 package. Select the Options 
         window under the Tools menu to add these 2 locations to the default 
-        lists used by VS 2005 (exact location: Projects and Solutions\VC++ Directories).
+        lists used by VS (exact location: Projects and Solutions\VC++ Directories).
       </para>
       <para>
         To run the tests, from a command shell run <command>cscript 
@@ -392,10 +392,15 @@
       <para>
         You can also build the software and run the tests from the command 
         line by using nmake, the Microsoft version of make:
-        <programlisting>nmake -f Makefile.win32 <parameter>target</parameter>
+        <programlisting>
+          nmake -f Makefile.vs2005.win32 <parameter>target</parameter>
+        </programlisting>
+        or
+        <programlisting>
+          nmake -f Makefile.vs2008.win32 <parameter>target</parameter>
         </programlisting>
 
-        The different targets available in Makefile.win32:
+        The different targets available in Makefile.vs2005/8.win32:
         
         <itemizedlist>
           <listitem>
@@ -442,15 +447,16 @@
         </itemizedlist>
       </para>
       <para>
-        You might need to modify parser/Makefile.win32 if you install libxml2
+        You might need to modify parser/Makefile.vs2005/8.win32 if you install libxml2
         in a non-standard directory; the hardcoded path for libxml2 is
         &quot;C:\Program Files\libxml2&quot;.
       </para>
       <para>
         To build the installation package itself, you will need the program
         <ulink url="http://www.jrsoftware.org/isinfo.php">Inno 
-        Setup</ulink>. The Inno Setup file is located in 
-        installation\errorParser.iss.
+        Setup</ulink>. The two Inno Setup files are located in the
+        installation folder under the names errorParser.vs2005.iss and 
+        errorParser.vs2008.iss.
       </para>
 
     </sect1>
@@ -471,7 +477,7 @@
       </para>
       <para>
         As mentioned earlier, the documentation can be updated using
-        &quot;nmake -f Makefile.win32 docs&quot;. This will update the Microsoft
+        &quot;nmake -f Makefile.vs2005/8.win32 docs&quot;. This will update the Microsoft
         help-file (chm) version of this manual and the html version. The PDF
         version and the man page require a Unix/Linux environment.
       </para>

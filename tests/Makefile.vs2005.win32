@@ -13,26 +13,18 @@
 #                                                                           #
 #############################################################################
 
-#
-# The targets
-#
+CLEANFILES = *~
 
 all: 
-	cd parser && nmake -f Makefile.win32 && cd ..
-   
-check:
-	cd parser && nmake -f Makefile.win32 check && cd ..
-	cd tests  && nmake -f Makefile.win32 check && cd ..
 
-checkdebug: 
-	cd parser && nmake -f Makefile.win32 checkdebug && cd ..
-	cd tests  && nmake -f Makefile.win32 checkdebug && cd ..
+check:
+	cscript RunTests.vbs --path=..\Parser\Project_Files\Release2005
+
+checkdebug:
+	cscript RunTests.vbs --path=..\Parser\Project_Files\Debug2005
 
 clean: 
-	cd doc    && nmake -f Makefile.win32 clean && cd ..
-	cd parser && nmake -f Makefile.win32 clean && cd ..
-	cd tests  && nmake -f Makefile.win32 clean && cd ..
-
-docs: 
-	cd doc    && nmake -f Makefile.win32 doc && cd ..
+	-@erase /Q $(CLEANFILES)
+	-@erase /Q junk
+	-@rmdir /Q junk
 
