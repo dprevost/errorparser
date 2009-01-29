@@ -393,14 +393,14 @@
         You can also build the software and run the tests from the command 
         line by using nmake, the Microsoft version of make:
         <programlisting>
-          nmake -f Makefile.vs2005.win32 <parameter>target</parameter>
+          nmake -f Makefile.vs2005 <parameter>target</parameter>
         </programlisting>
         or
         <programlisting>
-          nmake -f Makefile.vs2008.win32 <parameter>target</parameter>
+          nmake -f Makefile.vs2008 <parameter>target</parameter>
         </programlisting>
 
-        The different targets available in Makefile.vs2005/8.win32:
+        The different targets available in Makefile.vs2005(8):
         
         <itemizedlist>
           <listitem>
@@ -447,7 +447,7 @@
         </itemizedlist>
       </para>
       <para>
-        You might need to modify parser/Makefile.vs2005/8.win32 if you install libxml2
+        You might need to modify parser/Makefile.vs2005(8) if you install libxml2
         in a non-standard directory; the hardcoded path for libxml2 is
         &quot;C:\Program Files\libxml2&quot;.
       </para>
@@ -477,7 +477,7 @@
       </para>
       <para>
         As mentioned earlier, the documentation can be updated using
-        &quot;nmake -f Makefile.vs2005/8.win32 docs&quot;. This will update the Microsoft
+        &quot;nmake -f Makefile.vs2005(8) docs&quot;. This will update the Microsoft
         help-file (chm) version of this manual and the html version. The PDF
         version and the man page require a Unix/Linux environment.
       </para>
