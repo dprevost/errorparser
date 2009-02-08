@@ -215,6 +215,15 @@ if [ "$?" != 0 ] ; then
    exit 1
 fi
 
+run_more_test java javaEnum.java
+if [ "$?" != 0 ] ; then
+   exit 1
+fi
+#run_more_test csharp_nons csharp_nons.cs
+#if [ "$?" != 0 ] ; then
+#   exit 1
+#fi
+
 exit 0
 
 # --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--

@@ -40,7 +40,7 @@ Dim strOutput
 '
 ' Please fix/set these variables to fit your installation.
 '
-' The Error Parser catalog and the DTD must be install in the same 
+' The Error Parser catalog and the DTDs must be install in the same 
 ' directory.
 '
 ' ***********************************************************************
@@ -109,7 +109,45 @@ if rc <> 0 then
    wscript.quit(1)
 end if
 
+cmd = exeName & " --noout --add delegatePublic ""-//Error Parser project//DTD Error Parser XML V1.3"" " & " " & errpCatalog & " " & topCatalog
+if consoleMode then 
+   WScript.Echo "Inserting the delegatePublic to the top catalog..."
+   Set objWshScriptExec = objShell.Exec("%comspec% /c " & Chr(34) & cmd & Chr(34))
+   status = objWshScriptExec.Status
+   Do While objWshScriptExec.Status = 0
+      WScript.Sleep 100
+   Loop
+   strOutput = objWshScriptExec.StdOut.ReadAll
+   WScript.Stdout.Write objWshScriptExec.StdErr.ReadAll
+   rc = objWshScriptExec.ExitCode
+else
+   rc = objShell.Run("%comspec% /c " & Chr(34) & cmd & Chr(34), 2, true)
+end if
+if rc <> 0 then   
+   wscript.echo "Failed with rc = " & rc & ": " & strOutput
+   wscript.quit(1)
+end if
+
 cmd = exeName & " --noout --add delegatePublic ""-//Error Parser project//DTD Error Parser Options XML V2.0"" " & " " & errpCatalog & " " & topCatalog
+if consoleMode then 
+   WScript.Echo "Inserting the second delegatePublic to the top catalog..."
+   Set objWshScriptExec = objShell.Exec("%comspec% /c " & Chr(34) & cmd & Chr(34))
+   status = objWshScriptExec.Status
+   Do While objWshScriptExec.Status = 0
+      WScript.Sleep 100
+   Loop
+   strOutput = objWshScriptExec.StdOut.ReadAll
+   WScript.Stdout.Write objWshScriptExec.StdErr.ReadAll
+   rc = objWshScriptExec.ExitCode
+else
+   rc = objShell.Run("%comspec% /c " & Chr(34) & cmd & Chr(34), 2, true)
+end if
+if rc <> 0 then   
+   wscript.echo "Failed with rc = " & rc & ": " & strOutput
+   wscript.quit(1)
+end if
+
+cmd = exeName & " --noout --add delegatePublic ""-//Error Parser project//DTD Error Parser Options XML V2.1"" " & " " & errpCatalog & " " & topCatalog
 if consoleMode then 
    WScript.Echo "Inserting the second delegatePublic to the top catalog..."
    Set objWshScriptExec = objShell.Exec("%comspec% /c " & Chr(34) & cmd & Chr(34))

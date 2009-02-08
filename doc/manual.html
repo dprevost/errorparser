@@ -204,13 +204,13 @@
         for building the software from a zip file.
       </p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="build_windows_zip"></a>5. Building on Windows from a zip file</h2></div></div></div><p>
         To build the software, simply use the solution 
-        file parser\parser.snl (VC++ v8, known as VS 2005). 
-        Tests with the newer VS 2008 have yet to be conducted.
+        file parser\parser.vs2005.snl for VC++ v8, known as VS 2005. 
+        If you use VC++ v9 (VS 2008) instead, use parser\parser.vs2008.snl.
       </p><p>
         In addition, you will need to tell Visual Studio the location of the 
         header files and libraries of the libxml2 package. Select the Options 
         window under the Tools menu to add these 2 locations to the default 
-        lists used by VS 2005 (exact location: Projects and Solutions\VC++ Directories).
+        lists used by VS (exact location: Projects and Solutions\VC++ Directories).
       </p><p>
         To run the tests, from a command shell run <span class="command"><strong>cscript 
         RunTests.vbs </strong></span>(in the tests directory). 
@@ -220,10 +220,15 @@
       </p><p>
         You can also build the software and run the tests from the command 
         line by using nmake, the Microsoft version of make:
-        </p><pre class="programlisting">nmake -f Makefile.win32 <em class="parameter"><code>target</code></em>
+        </p><pre class="programlisting">
+          nmake -f Makefile.vs2005 <em class="parameter"><code>target</code></em>
+        </pre><p>
+        or
+        </p><pre class="programlisting">
+          nmake -f Makefile.vs2008 <em class="parameter"><code>target</code></em>
         </pre><p>
 
-        The different targets available in Makefile.win32:
+        The different targets available in Makefile.vs2005(8):
         
         </p><div class="itemizedlist"><ul type="disc"><li><p>
               all (the default target)
@@ -248,14 +253,15 @@
               files.
             </p></li></ul></div><p>
       </p><p>
-        You might need to modify parser/Makefile.win32 if you install libxml2
+        You might need to modify parser/Makefile.vs2005(8) if you install libxml2
         in a non-standard directory; the hardcoded path for libxml2 is
         "C:\Program Files\libxml2".
       </p><p>
         To build the installation package itself, you will need the program
         <a class="ulink" href="http://www.jrsoftware.org/isinfo.php" target="_top">Inno 
-        Setup</a>. The Inno Setup file is located in 
-        installation\errorParser.iss.
+        Setup</a>. The two Inno Setup files are located in the
+        installation folder under the names errorParser.vs2005.iss and 
+        errorParser.vs2008.iss.
       </p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="build_doc_windows"></a>6. Building the documentation on Windows</h2></div></div></div><p>
         The documentation is provided as part of the source package. If you
         are only installing and using this software as is, 
@@ -266,7 +272,7 @@
         to generate the man page. 
       </p><p>
         As mentioned earlier, the documentation can be updated using
-        "nmake -f Makefile.win32 docs". This will update the Microsoft
+        "nmake -f Makefile.vs2005(8) docs". This will update the Microsoft
         help-file (chm) version of this manual and the html version. The PDF
         version and the man page require a Unix/Linux environment.
       </p><p>
@@ -315,7 +321,7 @@
         sub-tag.
       </p><div class="itemizedlist"><ul type="disc"><li><p>
             &lt;errorlist version="0.3"&gt; 
-            <a class="indexterm" name="id2477379"></a>
+            <a class="indexterm" name="id2477394"></a>
           </p><p>
             This tag starts the document itself (the root element). 
             The version attribute is a string of your choosing and is there 
@@ -325,7 +331,7 @@
             This attribute is optional.
           </p></li><li><p>
             &lt;copyright_group&gt; 
-            <a class="indexterm" name="id2477403"></a>
+            <a class="indexterm" name="id2477418"></a>
           </p><p>
             This is an optional tag. You use it if you want to 
             generate copyright information and the terms of the license
@@ -335,24 +341,24 @@
             possibly different licenses).
           </p></li><li><p>
             &lt;copyright&gt; 
-            <a class="indexterm" name="id2477428"></a>
+            <a class="indexterm" name="id2477443"></a>
           </p><p>
             Allows you to enter copyright information in the output 
             files. It has multiple sub-tags. As mentioned previously, 
             multiple &lt;copyright&gt; tags are allowed.
           </p><div class="itemizedlist"><ul type="circle"><li><p>
                 &lt;years&gt;
-                <a class="indexterm" name="id2477453"></a>
+                <a class="indexterm" name="id2526645"></a>
               </p><p>
                 The interval of years for the current copyright notice.
               </p></li><li><p>
                 &lt;authors&gt;
-                <a class="indexterm" name="id2526650"></a>
+                <a class="indexterm" name="id2526664"></a>
               </p><p>
                 The name(s) of the owner(s) of the copyright.
               </p></li><li><p>
                 &lt;license_para&gt;
-                <a class="indexterm" name="id2526670"></a>
+                <a class="indexterm" name="id2526683"></a>
               </p><p>
                 This tag contains a single paragraph of the terms of your license. 
                 Use multiple &lt;license_para&gt; if your 
@@ -360,7 +366,7 @@
                 one &lt;license_para&gt; for each &lt;copyright&gt;.
               </p></li></ul></div></li><li><p>
             &lt;errgroup&gt;
-            <a class="indexterm" name="id2526697"></a>
+            <a class="indexterm" name="id2526711"></a>
           </p><p>
             &lt;errgroup&gt; is used to organize your errors in 
             groups, if you so desire. For example, you could split your
@@ -372,7 +378,7 @@
             sub-tag.
           </p></li><li><p>
             &lt;errgroup_ident&gt;
-            <a class="indexterm" name="id2526731"></a>
+            <a class="indexterm" name="id2526744"></a>
           </p><p>
             This sub-tag of &lt;errgroup&gt; is optional. The 
             sub-tags associated with this tag are used to generate 
@@ -392,29 +398,29 @@
             &lt;errgroup_ident&gt; is used.
           </p><div class="itemizedlist"><ul type="circle"><li><p>
                 &lt;errgroup_name&gt;
-                <a class="indexterm" name="id2526786"></a>
+                <a class="indexterm" name="id2526799"></a>
               </p><p>
                 A name for this group of errors. For example, Network errors.
               </p></li><li><p>
                 &lt;errgroup_desc&gt;
-                <a class="indexterm" name="id2526805"></a>
+                <a class="indexterm" name="id2526819"></a>
               </p><p>
                 Description of this group of errors. You must have 
                 at least one &lt;errgroup_desc&gt; or more as needed.
                 Each will be mapped to a paragraph.
               </p></li></ul></div></li><li><p>
             &lt;error&gt;
-            <a class="indexterm" name="id2526828"></a>
+            <a class="indexterm" name="id2526842"></a>
           </p><p>
             This tag is also a sub-tag of &lt;errgroup&gt;. You 
             need at least one &lt;error&gt; for each &lt;errgroup&gt; but 
             you can have as many as needed.
           </p><div class="itemizedlist"><ul type="circle"><li><p>
                 &lt;errnumber&gt;
-                <a class="indexterm" name="id2526852"></a>
+                <a class="indexterm" name="id2526865"></a>
               </p><p>The numerical value of the error code.</p></li><li><p>
                 &lt;errname&gt;
-                <a class="indexterm" name="id2526870"></a>
+                <a class="indexterm" name="id2526884"></a>
               </p><p>
                 The generic name of the error. This name is going 
                 to be used to generate either an enum entry or a #define 
@@ -428,7 +434,7 @@
                 file.
               </p></li><li><p>
                 &lt;message_group&gt;
-                <a class="indexterm" name="id2526903"></a>
+                <a class="indexterm" name="id2526916"></a>
               </p><p>
                 This tag is used to group the error messages and 
                 the documentation for the error - which are encapsulated 
@@ -437,7 +443,7 @@
                 supported language.
               </p></li><li><p>
                 &lt;message&gt;
-                <a class="indexterm" name="id2526926"></a>
+                <a class="indexterm" name="id2526940"></a>
               </p><p>
                 Container for both the error message and the 
                 documentation for this error. This tag has an optional 
@@ -456,7 +462,7 @@
                 is used.
               </p><div class="itemizedlist"><ul type="square"><li><p>
                     &lt;errormsg&gt;
-                    <a class="indexterm" name="id2526978"></a>
+                    <a class="indexterm" name="id2526992"></a>
                   </p><p>
                     This tag identifies the text of the error message that 
                     will be retrieved by the function 
@@ -470,7 +476,7 @@
                     option file.
                   </p></li><li><p>
                     &lt;errordoc&gt;
-                    <a class="indexterm" name="id2527024"></a>
+                    <a class="indexterm" name="id2527037"></a>
                   </p><p>
                     Each &lt;errordoc&gt; is a paragraph of the 
                     documentation. Therefore, you can have multiple 
@@ -481,7 +487,7 @@
         Current option files must be upgraded.
       </p><div class="itemizedlist"><ul type="disc"><li><p>
             &lt;options version="2.0"&gt;
-            <a class="indexterm" name="id2527072"></a>
+            <a class="indexterm" name="id2527086"></a>
           </p><p>
             This tag starts the document itself (the root element). The 
             attribute "version" (the version of the DTD) is required; it 
@@ -489,13 +495,13 @@
             of the DTD, as needed.
           </p></li><li><p>
             &lt;general_options&gt;
-            <a class="indexterm" name="id2527093"></a>
+            <a class="indexterm" name="id2527107"></a>
           </p><p>
             Options with a global impact or that will influence the
             processing of more than one output file.
           </p><div class="itemizedlist"><ul type="circle"><li><p>
                 &lt;prefix_error_no_namespace&gt;
-                <a class="indexterm" name="id2527115"></a>
+                <a class="indexterm" name="id2527129"></a>
               </p><p>
                 The prefix to be used for the error codes (enum or 
                 #define). For example, if your error is OBJECT_IS_DELETED 
@@ -509,7 +515,7 @@
                 namespace, for example C).
               </p></li><li><p>
                 &lt;selected_lang&gt;
-                <a class="indexterm" name="id2527148"></a>
+                <a class="indexterm" name="id2527162"></a>
               </p><p>
                 Optional parameter to select the language that will be used for
                 the documentation and error messages. If absent, the first 
@@ -524,18 +530,18 @@
                 </p><pre class="programlisting">&lt;selected_lang xml:lang="en"/&gt;</pre><p>
               </p></li></ul></div></li><li><p>
             &lt;header_file&gt;
-            <a class="indexterm" name="id2527199"></a>
+            <a class="indexterm" name="id2527213"></a>
           </p><p>
             Optional. Options for the main header file.
           </p><div class="itemizedlist"><ul type="circle"><li><p>
                 &lt;header_enum&gt;
-                <a class="indexterm" name="id2527219"></a>
+                <a class="indexterm" name="id2527233"></a>
               </p><p>
                 Optional. The name of the enum. If absent, #define will 
                 be generated instead.
               </p></li><li><p>
                 &lt;header_dirname&gt;
-                <a class="indexterm" name="id2527239"></a>
+                <a class="indexterm" name="id2527253"></a>
               </p><p>
                 Optional. The name of the directory where the error 
                 header file is to be created. If absent, the current 
@@ -544,7 +550,7 @@
               </p><p>
                 Alternatively, you can put the directory name (or part 
                 of the directory name) directly in the &lt;header_name&gt; 
-                tag. But if you do, the "guard"<sup>[<a name="id2527263" href="#ftn.id2527263" class="footnote">1</a>]</sup>
+                tag. But if you do, the "guard"<sup>[<a name="id2527277" href="#ftn.id2527277" class="footnote">1</a>]</sup>
                 will include that 
                 directory name.
               </p><p>
@@ -564,19 +570,19 @@
                 </pre><p>
               </p></li><li><p>
                 &lt;header_name&gt;
-                <a class="indexterm" name="id2527320"></a>
+                <a class="indexterm" name="id2527334"></a>
               </p><p>
                 The name of the header file for errors. See the 
                 item &lt;header_dirname&gt; for a discussion on names of files,
                 directories and the generated header guard.
               </p></li></ul></div></li><li><p>
             &lt;errmsg_files&gt;
-            <a class="indexterm" name="id2527353"></a>
+            <a class="indexterm" name="id2527366"></a>
           </p><p>
             Optional. Options for the error-message files (.c and .h).
           </p><div class="itemizedlist"><ul type="circle"><li><p>
                 &lt;errmsg_dirname&gt;
-                <a class="indexterm" name="id2527373"></a>
+                <a class="indexterm" name="id2527387"></a>
               </p><p>
                 Optional. The name of the directory where the header file 
                 will be created. If absent, the current directory or the 
@@ -587,7 +593,7 @@
                 of files, directories and the generated header guard.
               </p></li><li><p>
                 &lt;errmsg_header_name&gt;
-                <a class="indexterm" name="id2527407"></a>
+                <a class="indexterm" name="id2527420"></a>
               </p><p>
                 The name of the header file for the code to retrieve 
                 the error messages. 
@@ -595,13 +601,13 @@
                 of files, directories and the generated header guard.
               </p></li><li><p>
                 &lt;errmsg_c_fullname&gt;
-                <a class="indexterm" name="id2527429"></a></p><p>
+                <a class="indexterm" name="id2527443"></a></p><p>
                 The full name of the "C" file for the code to 
                 retrieve the error messages (note: the path can be relative
                 to the current working directory).
              </p></li><li><p>
                 &lt;errmsg_options&gt;
-                <a class="indexterm" name="id2527454"></a></p><a class="indexterm" name="id2527461"></a><p>
+                <a class="indexterm" name="id2527468"></a></p><a class="indexterm" name="id2527474"></a><p>
                 Optional. This tag has no content and a single attribute, 
                 build_dll.
                 The attribute is an enumeration with two values, yes and no. 
@@ -615,13 +621,13 @@
                 Visual Studio will warn you about this.
               </p></li><li><p>
                 &lt;errmsg_prefix_var&gt;
-                <a class="indexterm" name="id2527492"></a>
+                <a class="indexterm" name="id2527506"></a>
               </p><p>
                 The prefix to be used for all variables in the code to 
                 retrieve the error messages.
               </p></li><li><p>
                 &lt;errmsg_msg&gt;
-                <a class="indexterm" name="id2527513"></a>
+                <a class="indexterm" name="id2527526"></a>
               </p><p>
                 This tag has no content but its attributes are 
                 important - they define the allowed characteristics (and the 
@@ -636,7 +642,7 @@
                 and the iostream library (cout).
               </p><p>The attributes:</p><div class="itemizedlist"><ul type="square"><li><p>
                     allow_escapes
-                    <a class="indexterm" name="id2527560"></a>
+                    <a class="indexterm" name="id2527567"></a>
                   </p><p>
                     An enumeration with two values, yes and no. The 
                     default is no; escape sequences are not permitted.
@@ -646,45 +652,45 @@
                     is set to no (they will be escaped by Error Parser).
                   </p></li><li><p>
                     allow_quotes 
-                    <a class="indexterm" name="id2527595"></a>
+                    <a class="indexterm" name="id2527602"></a>
                   </p><p>
                     An enumeration with two values, yes and no. The 
                     default is yes; quotes (' and ") are allowed 
                     and will be escaped as needed.
                   </p></li><li><p>
                     percent
-                    <a class="indexterm" name="id2527621"></a>
+                    <a class="indexterm" name="id2527628"></a>
                   </p><p>
                     The text that will be used to replace the % symbol. 
                     This attribute is mandatory and has no default value.
                     The textual "percent" is recommended.
                   </p></li></ul></div></li></ul></div></li><li><p>
             &lt;csharp&gt;
-            <a class="indexterm" name="id2527652"></a>
-            <a class="indexterm" name="id2527658"></a>
+            <a class="indexterm" name="id2527659"></a>
+            <a class="indexterm" name="id2527665"></a>
           </p><p>
             Optional. If present, code for C# will be generated (in the
             form of an enum). Additional sub-tags, described below, are used 
             to provide the required parameters.
           </p><div class="itemizedlist"><ul type="circle"><li><p>
                 &lt;cs_filename&gt;
-                <a class="indexterm" name="id2527681"></a>
+                <a class="indexterm" name="id2527688"></a>
               </p><p>
                 Full or relative path to the generated C# code.
               </p></li><li><p>
                 &lt;cs_enum_name&gt;
-                <a class="indexterm" name="id2527700"></a>
+                <a class="indexterm" name="id2527707"></a>
               </p><p>
                 The name of the C# enum.
               </p></li><li><p>
                 &lt;cs_namespace&gt;
-                <a class="indexterm" name="id2527719"></a>
+                <a class="indexterm" name="id2527726"></a>
               </p><p>
                 Optional. The name of the C# namespace. If absent, the code
                 is generated without a namespace.
               </p></li></ul></div></li><li><p>
             &lt;ext_py&gt;
-            <a class="indexterm" name="id2527741"></a>
+            <a class="indexterm" name="id2527748"></a>
           </p><p>
             Optional. If present, a C header file, to be used by a Python 
             extension module, will be generated. 
@@ -714,7 +720,7 @@
             for some tips on how to use the generated file in your C code.
           </p><div class="itemizedlist"><ul type="circle"><li><p>
                 &lt;ext_py_dirname&gt;
-                <a class="indexterm" name="id2527912"></a>
+                <a class="indexterm" name="id2527919"></a>
               </p><p>
                 Optional. The name of the directory where the code should be
                 generated. If absent, the current directory or the 
@@ -725,20 +731,20 @@
                 generated header guard.
               </p></li><li><p>
                 &lt;ext_py_filename&gt;
-                <a class="indexterm" name="id2527946"></a>
+                <a class="indexterm" name="id2527953"></a>
               </p><p>
                 The name of the header file.
                 See the item &lt;header_dirname&gt; for a discussion on names 
                 of files, directories and the generated header guard.
               </p></li><li><p>
                 &lt;ext_py_function&gt;
-                <a class="indexterm" name="id2527973"></a>
+                <a class="indexterm" name="id2527980"></a>
               </p><p>
                 Optional. The name of the generated function. If absent, the
                 code will use AddErrors().
               </p></li></ul></div></li><li><p>
             &lt;pure_python&gt;
-            <a class="indexterm" name="id2527995"></a>
+            <a class="indexterm" name="id2528002"></a>
           </p><p>
             Optional. If present, a Python file will be generated. 
             Additional sub-tags, described below, are used 
@@ -750,12 +756,12 @@
             the error number and the value is the symbolic name.
           </p><div class="itemizedlist"><ul type="circle"><li><p>
                 &lt;pure_py_filename&gt;
-                <a class="indexterm" name="id2528026"></a>
+                <a class="indexterm" name="id2528032"></a>
               </p><p>
                 The name of the Python generated file.
               </p></li><li><p>
                 &lt;pure_py_function&gt;
-                <a class="indexterm" name="id2528045"></a>
+                <a class="indexterm" name="id2528052"></a>
               </p><p>
                 Optional. The name of the generated function. If absent, the
                 code will use add_errors().
@@ -1068,7 +1074,7 @@ initpso(void)
    if ( rc != 0 ) return;
    
    ...  
-        </pre></div></div><div class="footnotes"><br><hr width="100" align="left"><div class="footnote"><p><sup>[<a name="ftn.id2527263" href="#id2527263" class="para">1</a>] </sup>
+        </pre></div></div><div class="footnotes"><br><hr width="100" align="left"><div class="footnote"><p><sup>[<a name="ftn.id2527277" href="#id2527277" class="para">1</a>] </sup>
                   guard: a small chunk of preprocessor code used 
                 to avoid including the same header file twice.
                 </p></div></div></div></div></body></html>

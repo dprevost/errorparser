@@ -19,7 +19,7 @@
 #
 # Please fix/set these variables to fit your installation.
 #
-# The Error Parser catalog and the DTD must be install in the same 
+# The Error Parser catalog and the DTDs must be install in the same 
 # directory.
 #
 # --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
@@ -29,8 +29,8 @@ THE_TOP_CATALOG=/etc/xml/catalog
 THE_ERRP_CATALOG=/usr/local/share/xml/errorParser/catalog.xml
 
 $THE_PROGRAM --noout --add delegatePublic "-//Error Parser project//DTD Error Parser XML V1.2" $THE_ERRP_CATALOG $THE_TOP_CATALOG
+$THE_PROGRAM --noout --add delegatePublic "-//Error Parser project//DTD Error Parser XML V1.3" $THE_ERRP_CATALOG $THE_TOP_CATALOG
 $THE_PROGRAM --noout --add delegateSystem "http://photonsoftware.org/xml/ep/" $THE_ERRP_CATALOG $THE_TOP_CATALOG
-$THE_PROGRAM --noout --add delegatePublic "-//Error Parser project//DTD Error Parser Options XML V1.0"  $THE_ERRP_CATALOG $THE_TOP_CATALOG
-$THE_PROGRAM --noout --add delegatePublic "-//Error Parser project//DTD Error Parser Options XML V1.1"  $THE_ERRP_CATALOG $THE_TOP_CATALOG
-$THE_PROGRAM --noout --add delegatePublic "-//Error Parser project//DTD Error Parser Options XML V1.2"  $THE_ERRP_CATALOG $THE_TOP_CATALOG
+$THE_PROGRAM --noout --add delegatePublic "-//Error Parser project//DTD Error Parser Options XML V2.0"  $THE_ERRP_CATALOG $THE_TOP_CATALOG
+$THE_PROGRAM --noout --add delegatePublic "-//Error Parser project//DTD Error Parser Options XML V2.1"  $THE_ERRP_CATALOG $THE_TOP_CATALOG
 

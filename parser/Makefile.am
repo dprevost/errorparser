@@ -70,6 +70,8 @@ errorParser_SOURCES =        \
         GroupIdent.h         \
         HeaderHandler.cpp    \
         HeaderHandler.h      \
+        Java.cpp             \
+        Java.h               \
         PurePython.cpp       \
         PurePython.h         
 

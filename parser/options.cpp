@@ -35,6 +35,7 @@
 #include "CSharp.h"
 #include "ExtPython.h"
 #include "PurePython.h"
+#include "Java.h"
 
 using namespace std;
 
@@ -58,6 +59,9 @@ bool AddExtPython( vector<AbstractHandler *> & handlers,
 
 bool AddPurePythonHandler( vector<AbstractHandler *> & handlers,
                            xmlNode                   * node );
+
+bool AddJavaHandler( vector<AbstractHandler *> & handlers,
+                     xmlNode                   * node );
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
@@ -319,6 +323,16 @@ bool handleOptions( vector<AbstractHandler *> & handlers,
       }
    }
 
+   //
+   // Java code - optional section.
+   //
+   nodeValue = IsOptionalValuePresent( node, "java" );
+   if ( nodeValue != NULL ) {
+      if ( ! AddJavaHandler( handlers, nodeValue->children ) ) {
+         return false;
+      }
+   }
+   
    xmlFreeDoc( doc );
    xmlFreeParserCtxt( context );
    xmlCleanupParser();
@@ -594,6 +608,41 @@ bool AddPurePythonHandler( vector<AbstractHandler *> & handlers,
    }
 
    p = new PurePython( filename, functionName );
+   
+   handlers.push_back(p);
+
+   return true;
+}
+
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+
+bool AddJavaHandler( vector<AbstractHandler *> & handlers,
+                     xmlNode                   * node )
+{
+   string filename, enumname, java_package;
+   xmlChar * value;
+   Java * p;
+   
+   value = GetMandatoryValue( node, "java_filename" );
+   if ( value == NULL ) {
+      cerr << "Error: missing <java_filename> in options file" << endl;
+      return false;
+   }
+   stripText( value, filename );
+
+   value = GetMandatoryValue( node, "java_enum_name" );
+   if ( value == NULL ) {
+      cerr << "Error: missing <java_enum_name> in options file" << endl;
+      return false;
+   }
+   stripText( value, enumname );
+
+   value = GetOptionalValue( node, "java_package" );
+   if ( value != NULL ) {
+      stripText( value, java_package );
+   }
+
+   p = new Java( filename, java_package, enumname );
    
    handlers.push_back(p);
 

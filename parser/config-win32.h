@@ -69,13 +69,13 @@
 #define PACKAGE_NAME "Error Parser"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "Error Parser 1.0_RC2"
+#define PACKAGE_STRING "Error Parser 1.1"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "errorParser"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "1.0_RC2"
+#define PACKAGE_VERSION "1.1"
 
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
@@ -84,7 +84,7 @@
 /* #undef STRERROR_R_CHAR_P */
 
 /* Version number of package */
-#define VERSION "1.0_RC2"
+#define VERSION "1.1"
 
 /* Define to 1 if on AIX 3.
    System headers sometimes define this.

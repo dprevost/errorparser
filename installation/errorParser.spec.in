@@ -9,8 +9,8 @@ BuildRoot: /var/tmp/%{name}-buildroot
 Prefix: /usr/local
 URL: http://sourceforge.net/projects/errorparser
 #
-# Dependencies: I've removed the automatic tracking of dependencies (it was
-# pulling multiple GLIBC and this felt wrong) but kept the one on libxml2.
+# Dependencies: I've removed the automatic tracking of dependencies since
+# the code itself is basic and has only one special requirement, libxml2.
 # I presumed that libxml2 will be packaged correctly and will have the 
 # proper libraries (libm, libz, etc.).
 #
@@ -58,6 +58,7 @@ rm -rf $RPM_BUILD_ROOT
 /usr/local/share/xml/errorParser/catalog.xml
 /usr/local/share/xml/errorParser/errorParser13.dtd
 /usr/local/share/xml/errorParser/errorParser12.dtd
+/usr/local/share/xml/errorParser/errorParserOptions21.dtd
 /usr/local/share/xml/errorParser/errorParserOptions20.dtd
 /usr/local/share/xml/errorParser/install_catalog.sh
 /usr/local/share/man/man1/errorParser.1

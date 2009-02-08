@@ -19,7 +19,7 @@
   <manvolnum>1</manvolnum>
   <refmiscinfo class='source'>Error Parser</refmiscinfo>
   <refmiscinfo class='manual'>User Commands</refmiscinfo>
-  <refmiscinfo class='version'>1.0 RC2</refmiscinfo>
+  <refmiscinfo class='version'>1.1</refmiscinfo>
 </refmeta>
 <refnamediv id='name'>
   <refname>errorParser</refname>
