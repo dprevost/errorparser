@@ -13,23 +13,31 @@
 #                                                                           #
 #############################################################################
 
-CLEANFILES = *~
+CLEANFILES = *~ DTD/*~ examples/*~ installation/*~
 ACLOCAL_AMFLAGS = -I m4
 
-EXTRA_DIST =                             \
-        configure                        \
-        COPYING                          \
-        README                           \
-        DTD/errorParser13.dtd            \
-        DTD/errorParser12.dtd            \
-        DTD/errorParserOptions20.dtd     \
-        DTD/catalog.xml                  \
-        examples/example_options.xml     \
-        examples/example_photon.xml      \
-        examples/simple_example.xml      \
-        installation/errorParser.spec    \
-        installation/install_catalog.sh  \
-        installation/install_catalog.vbs 
+EXTRA_DIST =                                \
+        configure                           \
+        COPYING                             \
+        Makefile.vs2005                     \
+        Makefile.vs2008                     \
+        README                              \
+        DTD/errorParser13.dtd               \
+        DTD/errorParser12.dtd               \
+        DTD/errorParserOptions20.dtd        \
+        DTD/errorParserOptions21.dtd        \
+        DTD/catalog.xml                     \
+        DTD/main_catalog_win32.xml          \
+        examples/example_options.xml        \
+        examples/example_photon.xml         \
+        examples/simple_example.xml         \
+        installation/errorParser.spec       \
+        installation/errorParser.spec.in    \
+        installation/errorParser.vs2005.iss \
+        installation/errorParser.vs2008.iss \
+        installation/install_catalog.sh     \
+        installation/install_catalog.vbs    \
+        installation/SetEnv.exe             
 
 SUBDIRS = parser tests doc
 
@@ -45,6 +53,7 @@ install-data-local:
 	$(install_sh_DATA) $(top_srcdir)/DTD/errorParser13.dtd           $(DESTDIR)$(datadir)/xml/errorParser/errorParser13.dtd
 	$(install_sh_DATA) $(top_srcdir)/DTD/errorParser12.dtd           $(DESTDIR)$(datadir)/xml/errorParser/errorParser12.dtd
 	$(install_sh_DATA) $(top_srcdir)/DTD/errorParserOptions20.dtd    $(DESTDIR)$(datadir)/xml/errorParser/errorParserOptions20.dtd
+	$(install_sh_DATA) $(top_srcdir)/DTD/errorParserOptions21.dtd    $(DESTDIR)$(datadir)/xml/errorParser/errorParserOptions21.dtd
 	$(install_sh_DATA) $(top_srcdir)/DTD/catalog.xml                 $(DESTDIR)$(datadir)/xml/errorParser/catalog.xml
 	$(install_sh_DATA) $(top_srcdir)/installation/install_catalog.sh $(DESTDIR)$(datadir)/xml/errorParser/install_catalog.sh
 
@@ -58,6 +67,7 @@ uninstall-local:
 	-rm -f $(DESTDIR)$(datadir)/xml/errorParser/errorParser13.dtd
 	-rm -f $(DESTDIR)$(datadir)/xml/errorParser/errorParser12.dtd
 	-rm -f $(DESTDIR)$(datadir)/xml/errorParser/errorParserOptions20.dtd
+	-rm -f $(DESTDIR)$(datadir)/xml/errorParser/errorParserOptions21.dtd
 	-rm -f $(DESTDIR)$(datadir)/xml/errorParser/catalog.xml
 	-rmdir $(DESTDIR)$(datadir)/xml/errorParser
 	-rmdir $(DESTDIR)$(datadir)/doc/errorParser/examples

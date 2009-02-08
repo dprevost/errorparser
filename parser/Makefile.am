@@ -36,7 +36,8 @@ EXTRA_DIST =                               \
         errorParser.1                      \
         errorParser.xml                    \
         icon2.ico                          \
-        Makefile.win32                     \
+        Makefile.vs2005                    \
+        Makefile.vs2008                    \
         parser.rc                          \
         parser.vs2005.sln                  \
         parser.vs2008.sln                  \

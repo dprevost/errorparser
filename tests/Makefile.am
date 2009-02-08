@@ -13,16 +13,18 @@
 #                                                                           #
 #############################################################################
 
-# Warning: header files will be removed by make clean!
-CLEANFILES = *~ core *.h
+CLEANFILES = *~ core 
 
-EXTRA_DIST =         \
-        baseline     \
-        options      \
-        xml          \
-        README.txt   \
-        RunTests.vbs \
-        Tests.sh     
+EXTRA_DIST =            \
+        baseline        \
+        diff.exe        \
+        Makefile.vs2005 \
+        Makefile.vs2008 \
+        options         \
+        README.txt      \
+        RunTests.vbs    \
+        Tests.sh        \
+        xml             
 
 TESTS_ENVIRONMENT =                  \
         tcp_port=10701               \
@@ -39,4 +41,5 @@ dist-hook:
 
 clean-local:
 	-rm -rf `find . -name '*~'`
+	-rm -rf junk
    

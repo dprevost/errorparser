@@ -17,6 +17,7 @@ CLEANFILES = *~
 
 EXTRA_DIST =            \
         errorParser.chm \
+        Makefile.win32  \
         manual.html     \
         manual.pdf      \
         manual.xml      \
