@@ -72,6 +72,8 @@ errorParser_SOURCES =        \
         HeaderHandler.h      \
         Java.cpp             \
         Java.h               \
+        MessageXML.cpp       \
+        MessageXML.h         \
         PurePython.cpp       \
         PurePython.h         
 

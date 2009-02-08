@@ -40,8 +40,8 @@ echo "-----------------------------------------------"
 
 echo "- libtoolize -f"
 libtoolize -f
-echo "- aclocal"
-aclocal
+echo "- aclocal -I m4"
+aclocal -I m4
 echo "- autoconf"
 autoconf
 echo "- autoheader"

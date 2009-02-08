@@ -24,6 +24,7 @@ AC_CONFIG_LIBOBJ_DIR(parser)
 
 AM_INIT_AUTOMAKE()
 AM_CONFIG_HEADER(parser/config.h)
+AC_CONFIG_MACRO_DIR([m4])
 
 AC_AIX 
 AC_ISC_POSIX 
@@ -36,6 +37,7 @@ AC_MINIX
 ##################################
 
 AC_PROG_LIBTOOL
+AC_PROG_CXX
 
 # Tell our makefiles that we can use docbook2x to regenerate some 
 # of the documentation, as needed.

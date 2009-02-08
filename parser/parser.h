@@ -48,6 +48,13 @@
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
+//#include "MessageXML.h"
+class MessageXML;
+
+extern MessageXML * g_msgXML;
+
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+
 // Prototypes of text.cpp functions.
 
 void buildPath( std::string & dirname, 

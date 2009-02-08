@@ -24,6 +24,7 @@
 
 #include "Java.h"
 #include "parser.h"
+#include "MessageXML.h"
 
 using namespace std;
 
@@ -75,16 +76,13 @@ void Java::addError( ErrorXML & error, bool lastError )
    }
 
    msg = error.GetErrMessage();
-   stripText( msg, errMessage );
-
+   g_msgXML->GetErrMessage( msg, errMessage );
+      
    outStream << "    " << errName << "(" << errNumber << ") {" << endl;
    outStream << "        String getMessage() { return \"" << errMessage << "\"; } }";
 
    if (lastError) outStream << ";" << endl << endl;
    else outStream << "," << endl << endl;
-   
-   //   const char * error.GetErrMessage();
-
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--

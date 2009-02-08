@@ -28,6 +28,18 @@
          For each error, if there are no <message> for the selected language
          the first <message> tag will be used. -->
     <selected_lang xml:lang="en"/>
+        <!-- How to handle the error message. The problem: the generated C strings
+         will be use, eventually, by standard C/C++ libraries and some 
+         sequence of characters could have some bad side effects, possibly
+         including security issues.
+         The defaults:
+           - escape sequences are not permitted (a more fine grain approach
+             could be written if the need arise).
+           - quotes (' and ") are allowed (and will be escaped as needed) 
+           - The % symbol. No default. I recommend the textual "percent" 
+             (% is the most problematic one, IMHO. %d %p, etc are interpreted
+             differently by libc (printf()) and the iostream library (cout) -->         
+    <message percent="percent" />
   </general_options>
 
   <java>

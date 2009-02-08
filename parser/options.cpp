@@ -36,12 +36,17 @@
 #include "ExtPython.h"
 #include "PurePython.h"
 #include "Java.h"
+#include "MessageXML.h"
 
 using namespace std;
 
 bool GetGeneralOptions( string  & prefix,
                         string  & language,
                         xmlNode * node );
+// Special code for version 2.0 of the option file
+bool GetGeneralOptions20( string  & prefix,
+                          string  & language,
+                          xmlNode * node );
 
 bool AddHeaderFileHandler( vector<AbstractHandler *> & handlers,
                            string                    & prefix,
@@ -50,6 +55,10 @@ bool AddHeaderFileHandler( vector<AbstractHandler *> & handlers,
 bool AddErrMessageHandlers( vector<AbstractHandler *> & handlers,
                             string                    & prefix,
                             xmlNode                   * node );
+// Special code for version 2.0 of the option file
+bool AddErrMessageHandlers20( vector<AbstractHandler *> & handlers,
+                              string                    & prefix,
+                              xmlNode                   * node );
 
 bool AddCSharpHandler( vector<AbstractHandler *> & handlers,
                        xmlNode                   * node );
@@ -268,10 +277,17 @@ bool handleOptions( vector<AbstractHandler *> & handlers,
       cerr << "Error: missing <general_options> in options file" << endl;
       return false;
    }
-   if ( ! GetGeneralOptions( prefix, language, nodeValue->children ) ) {
-      return false;
+   if ( version == 20 ) {
+      if ( ! GetGeneralOptions20( prefix, language, nodeValue->children ) ) {
+         return false;
+      }
    }
-
+   else {
+      if ( ! GetGeneralOptions( prefix, language, nodeValue->children ) ) {
+         return false;
+      }
+   }
+   
    //
    // The standard header file for errors - optional section.
    //
@@ -287,8 +303,15 @@ bool handleOptions( vector<AbstractHandler *> & handlers,
    //
    nodeValue = IsOptionalValuePresent( node, "errmsg_files" );
    if ( nodeValue != NULL ) {
-      if ( ! AddErrMessageHandlers( handlers, prefix, nodeValue->children ) ) {
-         return false;
+      if ( version == 20 ) {
+         if ( ! AddErrMessageHandlers20( handlers, prefix, nodeValue->children ) ) {
+            return false;
+         }
+      }
+      else {
+         if ( ! AddErrMessageHandlers( handlers, prefix, nodeValue->children ) ) {
+            return false;
+         }
       }
    }
 
@@ -347,10 +370,11 @@ bool GetGeneralOptions( string  & prefix,
                         xmlNode * node )
 {
    xmlChar * value, * prop;
-   string tmp;
+   string tmp, percent;
    xmlNode * nodeValue;
    size_t i;
-   
+   bool allowEscapes = false, allowQuotes = false;
+
    // The prefix to be used by the error code for files not using a namespace.
    // To avoid clashes with other libraries/software.
    value = GetMandatoryValue( node, "prefix_error_no_namespace" );
@@ -380,7 +404,82 @@ bool GetGeneralOptions( string  & prefix,
       language = (char *)prop;
       xmlFree(prop);
    }
+
+   nodeValue = IsMandatoryValuePresent( node, "message" );
+   if ( nodeValue == NULL ) {
+      cerr << "Error: missing <message> in options file" << endl;
+      return false;
+   }
+   prop = xmlGetProp( nodeValue, BAD_CAST "allow_escapes" );
+   if ( prop == NULL ) {
+      cerr << "Error: missing \"allow_escapes\" in options file" << endl;
+      return false;
+   }
+   if ( xmlStrcmp( prop, BAD_CAST "yes") == 0 ) allowEscapes = true;
+   xmlFree(prop);
    
+   prop = xmlGetProp( nodeValue, BAD_CAST "allow_quotes" );
+   if ( prop == NULL ) {
+      cerr << "Error: missing \"allow_quotes\" in options file" << endl;
+      return false;
+   }
+   if ( xmlStrcmp( prop, BAD_CAST "yes") == 0 ) allowQuotes = true;
+   xmlFree(prop);
+
+   prop = xmlGetProp( nodeValue, BAD_CAST "percent" );
+   if ( prop == NULL ) {
+      cerr << "Error: missing \"percent\" in options file" << endl;
+      return false;
+   }
+   percent = (char *)prop;
+   xmlFree(prop);
+
+   g_msgXML = new MessageXML( allowEscapes, allowQuotes, percent );
+
+   return true;
+}
+
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+
+bool GetGeneralOptions20( string  & prefix,
+                          string  & language,
+                          xmlNode * node )
+{
+   xmlChar * value, * prop;
+   string tmp;
+   xmlNode * nodeValue;
+   size_t i;
+
+   // The prefix to be used by the error code for files not using a namespace.
+   // To avoid clashes with other libraries/software.
+   value = GetMandatoryValue( node, "prefix_error_no_namespace" );
+   if ( value == NULL ) {
+      cerr << "Error: missing <prefix_error_no_namespace> in options file" << endl;
+      return false;
+   }
+   stripText( value, tmp );
+   if ( isAsciiStr(tmp.c_str(), tmp.length()) ) {
+      for ( i = 0; i < tmp.length(); ++i ) {
+         prefix += toupper(tmp[i]);
+      }
+   }
+   else {
+      cerr << "Error: <prefix_error_no_namespace> must be in ASCII" << endl;
+      return false;
+   }
+
+   // Optional - select a language for error messages/documentation.
+   nodeValue = IsOptionalValuePresent( node, "selected_lang" );
+   if ( nodeValue != NULL ) {
+      prop = xmlGetProp( nodeValue, BAD_CAST "lang" );
+      if ( prop == NULL ) {
+         cerr << "Error: missing \"xml:lang\" in options file" << endl;
+         return false;
+      }
+      language = (char *)prop;
+      xmlFree(prop);
+   }
+
    return true;
 }
 
@@ -432,6 +531,68 @@ bool AddHeaderFileHandler( vector<AbstractHandler *> & handlers,
 bool AddErrMessageHandlers( vector<AbstractHandler *> & handlers,
                             string                    & prefix,
                             xmlNode                   * node )
+{
+   string enumname, dirname, headername, cname, varPrefix;
+   xmlChar * value, * prop;
+   xmlNode * valueNode;
+   bool buildDll = false;
+   ErrMessageHeader * pH;
+   ErrMessage * pC;
+   
+   value = GetOptionalValue( node, "errmsg_dirname" );
+   if ( value != NULL ) {
+      stripText( value, dirname );
+   }
+
+   value = GetMandatoryValue( node, "errmsg_header_name" );
+   if ( value == NULL ) {
+      cerr << "Error: missing <errmsg_header_name> in options file" << endl;
+      return false;
+   }
+   stripText( value, headername );
+
+   value = GetMandatoryValue( node, "errmsg_c_fullname" );
+   if ( value == NULL ) {
+      cerr << "Error: missing <errmsg_c_fullname> in options file" << endl;
+      return false;
+   }
+   stripText( value, cname );
+
+   valueNode = IsMandatoryValuePresent( node, "errmsg_options" );
+   if ( valueNode == NULL ) {
+      cerr << "Error: missing <errmsg_c_fullname> in options file" << endl;
+      return false;
+   }
+   prop = xmlGetProp( valueNode, BAD_CAST "build_dll" );
+   if ( prop == NULL ) {
+      cerr << "Error: missing \"build_dll\" in options file" << endl;
+      return false;
+   }
+   if ( xmlStrcmp( prop, BAD_CAST "yes") == 0 ) buildDll = true;
+   xmlFree(prop);
+
+   value = GetMandatoryValue( node, "errmsg_prefix_var" );
+   if ( value == NULL ) {
+      cerr << "Error: missing <errmsg_prefix_var> in options file" << endl;
+      return false;
+   }
+   stripText( value, varPrefix );
+
+
+   pH = new ErrMessageHeader( dirname, headername, varPrefix, buildDll );
+   pC = new ErrMessage( cname, headername, prefix, varPrefix );
+   
+   handlers.push_back(pH);
+   handlers.push_back(pC);
+
+   return true;
+}
+
+// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
+
+bool AddErrMessageHandlers20( vector<AbstractHandler *> & handlers,
+                              string                    & prefix,
+                              xmlNode                   * node )
 {
    string enumname, dirname, headername, cname, varPrefix, percent;
    xmlChar * value, * prop;
@@ -509,8 +670,8 @@ bool AddErrMessageHandlers( vector<AbstractHandler *> & handlers,
    xmlFree(prop);
 
    pH = new ErrMessageHeader( dirname, headername, varPrefix, buildDll );
-   pC = new ErrMessage( cname, headername, prefix, varPrefix, 
-      allowEscapes, allowQuotes, percent );
+   pC = new ErrMessage( cname, headername, prefix, varPrefix );
+   g_msgXML = new MessageXML( allowEscapes, allowQuotes, percent );
    
    handlers.push_back(pH);
    handlers.push_back(pC);

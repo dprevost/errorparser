@@ -41,10 +41,7 @@ public:
    ErrMessage( std::string & filename,
                std::string & header,
                std::string & prefix,
-               std::string & varPrefix,
-               bool          allowEscapes,
-               bool          allowQuotes,
-               std::string & percent );
+               std::string & varPrefix );
    
    // Do-nothing destructor
    void startHeaderGuard() {}
@@ -67,22 +64,6 @@ private:
    std::string headerName;
    std::string prefix;
    std::string varPrefix;
-   bool allowEscapes;
-   bool allowQuotes;
-   std::string percent;
-   
-   // These 4 methods could be put in text.cpp eventually if they are
-   // needed/used by another handler.
-   
-   void hasEscapeSequence( std::string & str );
-
-   bool hasUnescapedQuotes( std::string & str );
-
-   void escapeUnescapedQuotes( const std::string & inStr, 
-                               std::string       & outStr );
-   
-   void stripPercent( const std::string & inStr, 
-                      std::string       & outStr );
 
 };
 

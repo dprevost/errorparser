@@ -87,6 +87,7 @@ const char * ErrorXML::GetDocuParagraph()
 const char * ErrorXML::GetErrMessage()
 {
    xmlNode * node;
+   
    node = messageNode->children;
    
    // The error message is the first subtag of the messageNode

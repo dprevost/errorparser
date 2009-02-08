@@ -55,11 +55,13 @@
                         java?)>
 
 <!ELEMENT general_options   (prefix_error_no_namespace,
-                             selected_lang?)>
+                             selected_lang?,
+                             message)>
 <!-- prefix_error_no_namespace is the prefix to use in generated files that
      do not have namespaces - to avoid clashes with other libraries. -->
 <!ELEMENT prefix_error_no_namespace (#PCDATA)>
 <!ELEMENT selected_lang      EMPTY>
+<!ELEMENT message            EMPTY>
 
 <!ELEMENT header_file        (header_enum?,
                               header_dirname?,
@@ -72,14 +74,12 @@
                               errmsg_header_name,
                               errmsg_c_fullname,
                               errmsg_options,
-                              errmsg_prefix_var,
-                              errmsg_msg)>
+                              errmsg_prefix_var)>
 <!ELEMENT errmsg_dirname     (#PCDATA)>
 <!ELEMENT errmsg_header_name (#PCDATA)>
 <!ELEMENT errmsg_c_fullname  (#PCDATA)>
 <!ELEMENT errmsg_options     EMPTY>
 <!ELEMENT errmsg_prefix_var  (#PCDATA)>
-<!ELEMENT errmsg_msg         EMPTY>
 
 <!ELEMENT csharp             (cs_filename,
                               cs_enum_name,
@@ -109,8 +109,8 @@
 
 <!ATTLIST options version CDATA #REQUIRED>
 <!ATTLIST errmsg_options build_dll (yes|no) "no">
-<!ATTLIST errmsg_msg allow_escapes (yes|no) "no">
-<!ATTLIST errmsg_msg allow_quotes  (yes|no) "yes">
-<!ATTLIST errmsg_msg percent CDATA #REQUIRED>
+<!ATTLIST message allow_escapes (yes|no) "no">
+<!ATTLIST message allow_quotes  (yes|no) "yes">
+<!ATTLIST message percent CDATA #REQUIRED>
 <!ATTLIST selected_lang xml:lang CDATA #REQUIRED>
 

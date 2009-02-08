@@ -24,6 +24,7 @@
 
 #include "ErrMessage.h"
 #include "parser.h"
+#include "MessageXML.h"
 
 using namespace std;
 
@@ -32,17 +33,11 @@ using namespace std;
 ErrMessage::ErrMessage( string & filename,
                         string & header,
                         string & inPrefix,
-                        string & varPrefix,
-                        bool     allowEscapes,
-                        bool     allowQuotes,
-                        string & percent )
-   : errorCount  ( 0 ),
-     headerName  ( header ),
-     prefix      ( inPrefix ),
-     varPrefix   ( varPrefix ),
-     allowEscapes( allowEscapes ),
-     allowQuotes ( allowQuotes ),
-     percent     ( percent )
+                        string & varPrefix )
+   : errorCount ( 0 ),
+     headerName ( header ),
+     prefix     ( inPrefix ),
+     varPrefix  ( varPrefix )
 {
    outStream.open( filename.c_str(), fstream::out );
 
@@ -76,7 +71,7 @@ void ErrMessage::addTopCode()
 
 void ErrMessage::addError( ErrorXML & error, bool lastError )
 {
-   string errMessage, tmp;
+   string errMessage;
    string & errNumber = error.GetErrNumber();
    string & errName   = error.GetErrName();
    const char * msg;
@@ -90,24 +85,9 @@ void ErrMessage::addError( ErrorXML & error, bool lastError )
    outStream << "    " << errNumber << ", ";
    
    msg = error.GetErrMessage();
-   stripText( msg, tmp );
-   stripPercent( tmp, errMessage );
-   tmp.clear();
+   g_msgXML->GetErrMessage( msg, errMessage );
    
-   /* Check for escape sequences */
-   hasEscapeSequence( errMessage );
-
-   if ( hasUnescapedQuotes(errMessage) ) {
-      if ( ! allowQuotes ) {
-         cerr << "Quotes are not allowed, string: " << errMessage << endl;
-         exit(1);
-      }
-      escapeUnescapedQuotes( errMessage, tmp );
-      outStream << "\"" << tmp << "\" };" << endl <<endl;
-   }
-   else {
-      outStream << "\"" << errMessage << "\" };" << endl << endl;
-   }
+   outStream << "\"" << errMessage << "\" };" << endl << endl;
    
    errorCount++;
 }
@@ -148,95 +128,6 @@ void ErrMessage::addBottomCode()
    outStream << "}" << endl << endl;
 
    outStream << barrier << endl << endl;
-}
-
-// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
-
-void ErrMessage::hasEscapeSequence( string & str )
-{
-   size_t i;
-   
-   if ( allowEscapes ) return;
-   
-   for ( i = 1; i < str.length()-1; i++ ) {
-      if ( str[i] == '\\' ) {
-         if ( allowQuotes ) {
-            if ( str[i+1] == '"' || str[i+1] == '\'' ) {
-               i++;
-               continue;
-            }
-         }
-         if ( str[i+1] == '\\' ) {
-            i++;
-            continue;
-         }
-         cerr << "Esc. sequences are not allowed, string: " << str << endl;
-         exit(1);
-      }
-   }
-}
-
-// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
-
-// This function checks the content of the string for single and double
-// quotes (" and '). These two needs to be escaped (but not `).
-bool ErrMessage::hasUnescapedQuotes( string & str )
-{
-   size_t i;
-   
-   if ( str[0] == '"' ) return true;
-   if ( str[0] == '\'' ) return true;
-   
-   for ( i = 1; i < str.length(); i++ ) {
-      if ( str[i] == '"'  && str[i-1] != '\\' ) return true;
-      if ( str[i] == '\'' && str[i-1] != '\\' ) return true;
-   }
-   
-   return false;
-}
-
-// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
-
-// This function escape all quotes that need to be escaped from 
-// the input string.
-
-void ErrMessage::escapeUnescapedQuotes( const string & inStr, string & outStr )
-{
-   size_t i;
-
-   outStr.clear();
-   
-   if ( inStr[0] == '"' || inStr[0] == '\'' ) {
-      outStr += '\\';
-   }
-   outStr += inStr[0];
-   
-   for ( i = 1; i < inStr.length(); i++ ) {
-      if ( inStr[i] == '"' && inStr[i-1] != '\\' ) {
-         outStr += '\\';
-      }
-      if ( inStr[i] == '\'' && inStr[i-1] != '\\' ) {
-         outStr += '\\';
-      }
-      outStr += inStr[i];
-   }
-}
-
-// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
-
-void ErrMessage::stripPercent( const std::string & inStr, 
-                               std::string       & outStr )
-{
-   size_t i;
-
-   outStr.clear();
-   
-   for ( i = 0; i < inStr.length(); i++ ) {
-      if ( inStr[i] == '%' ) {
-         outStr += percent;
-      }
-      else outStr += inStr[i];
-   }
 }
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
