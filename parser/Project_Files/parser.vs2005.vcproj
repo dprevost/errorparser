@@ -236,6 +236,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\Java.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\MessageXML.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\options.cpp"
 				>
 				<FileConfiguration
@@ -356,6 +364,14 @@
 			</File>
 			<File
 				RelativePath="..\HeaderHandler.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Java.h"
+				>
+			</File>
+			<File
+				RelativePath="..\MessageXML.h"
 				>
 			</File>
 			<File
