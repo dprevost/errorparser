@@ -46,7 +46,8 @@ void Java::addTopCode()
    if ( my_package.length() > 0 ) {
       outStream << "package " << my_package << ";" << endl << endl;
    }
-   
+   outStream << "import java.util.*;" << endl << endl;
+
    outStream << "public enum " << my_enum << " {" << endl << endl;
 }
 
@@ -97,7 +98,25 @@ void Java::addBottomCode()
    outStream << "    public int getErrorNumber() { return errcode; }" << endl << endl;
    
    outStream << "    abstract String getMessage();" << endl << endl;
-           
+
+   // Declare a private map use to do a reverse lookup (in other words it
+   // uses the error code to get the associated enum.
+   outStream << "    private static final HashMap<Integer," << my_enum;
+   outStream << "> reverseLookup = new HashMap<Integer," << my_enum << ">();" << endl << endl;
+
+   // Fill the map
+   outStream << "    static {" << endl;
+   outStream << "        for ( " << my_enum << " err : " << my_enum << ".values() ) {" << endl;
+   outStream << "            reverseLookup.put( err.getErrorNumber(), err );" << endl;
+   outStream << "        }" << endl;
+   outStream << "    }" << endl << endl;
+
+   // Do the reverse lookup. This can be use to simplify writing a Java 
+   // exception for your native library.
+   outStream << "    public static " << my_enum << " getEnum(int errcode) {" << endl;
+   outStream << "        return reverseLookup.get(errcode);" << endl;
+   outStream << "    }" << endl << endl;
+   
    outStream << "}" << endl;
 
    outStream << endl << barrier << endl << endl;
