@@ -1,0 +1,468 @@
+<?xml version='1.0'?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<book>
+
+  <title>Error Parser Admin Manual</title>
+
+  <bookinfo>
+
+    <title>Error Parser Admin Manual</title>
+
+    <author><firstname>Daniel</firstname><surname>Pr&eacute;vost</surname></author>
+
+    <copyright><year>2008-2009</year><holder>Daniel 
+    Pr&eacute;vost</holder></copyright>
+    <releaseinfo>This manual is for release 1.1 of Error Parser</releaseinfo>
+  </bookinfo>
+
+  <chapter id="Introduction">
+
+    <title>Introduction</title>
+
+    <para>
+      Error Parser is a small tool for application developers. It simplifies 
+      the management of error codes, error messages and documentation for
+      both small and large projects.
+    </para>
+    <para>
+      This is accomplished by creating a master XML file containing all the
+      necessary information on the errors (value, error message and 
+      documentation). Error Parser uses this file to generate the 
+      appropriate output files for different programming languages.
+    </para>
+    <para>
+      Control of the code generation is done by an option file written in XML.
+      The format for both XML files is explained in a different document.
+    </para>
+  </chapter>
+  
+  <chapter id="New">
+
+    <title>New in this release</title>
+  
+    <para> 
+      This release is a minor update; support for Java was added.
+    </para>
+    <para>
+      There are no known bugs at this time and no bugs were corrected for
+      this release.
+    </para>
+  </chapter>
+    
+  <chapter id="Installation">
+
+    <title>Installation</title>
+
+    <para>
+      The installation procedure of the program itself is 
+      relatively simple if you use the pre-packaged version of the 
+      software (RPM, Inno setup, etc.) or if you build the software from 
+      scratch and use <command>make install</command>.
+    </para>
+    <para>
+      This section will look into some potential installation issues in some details.
+    </para>
+
+    <sect1 id="catalog_linux">
+
+      <title>The xml catalog on Linux/Unix</title>
+
+      <para>
+        The two DTD (Document Type Definition) for Error Parser can 
+        be installed in the global xml catalog (usually 
+        /etc/xml/catalog). 
+        Whether this is needed depends on your exact situation. 
+      </para>
+      <para>
+        A DTD can be identified using a PUBLIC clause at the start of an the 
+        xml file). For example:
+      </para>
+      <para>
+        <programlisting>&lt;!DOCTYPE errorlist PUBLIC 
+   &quot;-//Error Parser project//DTD Error Parser XML V1.3//EN&quot;
+    &quot;http://photonsoftware.org/xml/ep/errorParser13.dtd&quot;&gt;
+        </programlisting>
+      </para>
+      <para>
+        In this case the DTD will be downloaded from the Photon web site.
+      </para>
+      <para>
+        Alternatively, the DTD can be identified with a SYSTEM clause:
+      </para>
+        <programlisting>&lt;!DOCTYPE errorlist SYSTEM
+   &quot;/usr/local/share/xml/errorParser/errorParser13.dtd&quot;&gt;
+        </programlisting>
+      <para>
+        Using SYSTEM is perfectly correct in most cases. The main advantage
+        of the PUBLIC clause is to make sure that multiple developers use
+        the same DTD and not a locally modified version of it.
+      </para>
+
+      <para>
+        If you decide to use the PUBLIC clause and do not want to download
+        the DTD on every invocation of Error Parser, adding the Error Parser
+        catalog to your main catalog is the way to go. The program xmlcatalog,
+        included in the libxml2 package, will simplify this task.
+        Furthermore a bash script is provided by Error Parser.
+        This script is installed in /usr/local/share/xml/errorParser/install_catalog.sh 
+        if Error Parser is installed in /usr/local. You&apos;ll need to 
+        edit this script to tailor it for your installation.</para>
+      <para>
+        Recommendation: use the SYSTEM clause.
+      </para>
+
+    </sect1>
+
+    <sect1 id="catalog_windows">
+
+      <title>The xml catalog on Windows</title>
+
+      <para>
+        The previous section already discussed the use of PUBLIC or 
+        SYSTEM clause for identifying a DTD. The biggest difference 
+        between Microsoft Windows and Linux, for example, is the absence 
+        of a centralized method to manage xml DTD and Schemas - each 
+        software manages its XML on its own. It makes even more sense to 
+        use SYSTEM here.
+      </para>
+      <para>
+        If you still want to install an xml catalog on Windows, the 
+        only thing you need to know is that libxml2 uses the environment 
+        variable XML_CATALOG_FILES to find the main xml catalog.
+      </para>
+      <para>
+        There is an example of a main catalog in the DTD directory 
+        (main_catalog_win32.xml). If the main catalog already exists you 
+        can use the script DTD\install_catalog.vbs. In both cases you 
+        will need to edit the files to tailor them to your 
+        installation.
+      </para>
+
+    </sect1>
+
+  </chapter>
+
+  <chapter id="building">
+
+    <title>Building the Software</title>
+
+    <para>
+      The only prerequisite software needed to build and run Error 
+      Parser is the library libxml2 (the Gnome project xml parser). If it 
+      is not installed on your system, you can download it at 
+      <ulink url="http://xmlsoft.org/downloads.html">
+      xmlsoft.org</ulink>.
+    </para>
+    
+    <para>
+      You can find binaries for libxml2 (built for Microsoft Windows)
+      at this 
+        <ulink url="http://www.zlatkovic.com/libxml.en.html">
+        location</ulink>. 
+      </para>
+
+    <para>
+      To build the documentation, additional software is required as explained
+      in the following sections.
+    </para>
+
+    <sect1 id="build_linux_repo">
+
+      <title>Building on Linux/Unix from the repository</title>
+
+      <para>
+        The latest version of the Error Parser software can be downloaded by 
+        using git. Note: git is a very fast distributed version control system created for 
+        the Linux kernel.
+        Visit <ulink url="http://git.or.cz/index.html">git home page </ulink> 
+        for more information on this open-source software.
+      </para>
+      <para>
+        Error Parser uses three external git repositories. They are all kept 
+        in sync with each other. To retrieve the latest version 
+        from github.com, use the following command:
+      </para>
+      <para>
+        git-clone git@github.com:dprevost/errorparser.git my_repo
+      </para>
+      <para>
+        or use the following commands to get it from gitorious.org or 
+        sourceforge.net:
+      </para>
+      <para>
+        git-clone git@gitorious.org:errorparser/mainline.git my_repo
+      </para>
+      <para>
+        git-clone git://errorparser.git.sourceforge.net/gitroot/errorparser my_repo
+      </para>
+
+      <warning>
+        <para>
+          Be careful as the code in the repository is not always stable 
+          (hint: unstable commits will usually have the string
+          &quot;work in progress&quot; included in the commit message).
+        </para>
+      </warning>
+
+      <para>
+        The next step is to run the shell script autogen.sh (in the 
+        trunk directory). This will generate everything you need (the 
+        makefiles, the configure script). The script will also run 
+        <command>configure</command> for you but you might want to run 
+        it again if you wish to change its default options.
+      </para>
+      <para>
+        The remaining instructions are identical to the 
+        instructions for building the software from a tar file.
+      </para>
+
+    </sect1>
+
+    <sect1 id="build_linux_tar">
+
+      <title>Building on Linux/Unix from the tar file</title>
+
+      <para>
+        Step by step instructions to build the package from a tar file:
+      </para>
+
+      <para>
+        <itemizedlist>
+          <listitem>
+            <para>
+              Run configure (./configure). Here is a list of options 
+              that you might want to use to tailor the package to your 
+              needs (you can use ./configure --help to see all the 
+              options):
+              <itemizedlist>
+                <listitem>
+                  <para>
+                    --prefix=PREFIX
+                  </para>
+                  <para>
+                    To change the default 
+                    installation directory (default is /usr/local). 
+                    Example: --prefix=/usr.
+                  </para>
+                </listitem>
+                <listitem>
+                  <para>
+                    --mandir=DIR 
+                  </para>
+                  <para>
+                    To change the default 
+                    installation for man documentation (default is 
+                    [PREFIX/man]). Example --mandir=/usr/localshare/man. 
+                  </para>
+                </listitem>
+              </itemizedlist>
+            </para>
+          </listitem>
+          <listitem>
+            <para>make</para>
+          </listitem>
+          <listitem>
+            <para>make check (to run the test suite - optional)</para>
+          </listitem>
+          <listitem>
+            <para>make install</para>
+          </listitem>
+        </itemizedlist>
+      </para>
+    </sect1>
+
+    <sect1 id="build_doc_linux">
+
+      <title>Building the documentation on Linux/Unix</title>
+
+      <para>
+        The documentation is provided as part of the source package. If you
+        are only installing and using this software as is, without modifying it,
+        you can skip this section.
+      </para>
+      <para>
+        The documentation is written in DocBook xml. The source for the current
+        document is doc/manual.xml. The file parser/errorParser.xml is used
+        to generate the man page. 
+      </para>
+      <para>
+        To create or refresh the man page, you will need to 
+        install the DocBook DTD itself and the docbook2x package.
+        
+        <warning> 
+          <para>
+            The program docbook2x-man is named db2x_docbook2man on some
+            systems, for example on Fedora 9.
+          </para>
+        </warning>
+        
+        If docbook2x-man is present on the system, <command>autoconf</command> 
+        (./configure) will detect it and <command>make</command> will 
+        refresh the documentation if the source file was modified.
+      </para>
+      <para>
+        The html and pdf documentation are updated in similar ways. To update
+        the pdf manual, <command>db2pdf</command> must be present on your 
+        system. For both html and pdf, 
+        you will need a program to transform the xml. The makefile is currently
+        written to use <command>xsltproc</command>.
+      </para>
+      <para>
+        Note: the Microsoft specific chm file (used for Microsoft help files)
+        can only be updated on Windows.
+      </para>
+    </sect1>
+
+    <sect1 id="build_windows_repo">
+
+      <title>Building on Windows from the repository</title>
+
+      <para>
+        If you want to retrieve the software directly from the 
+        repository, you will need a subversion client for Windows. 
+        <ulink url="http://tortoisesvn.tigris.org/">Tortoise</ulink> is 
+        one possible choice. The repository is:
+      </para>
+      <programlisting>https://errorparser.svn.sourceforge.net/svnroot/errorparser/trunk</programlisting>
+
+      <warning>
+        <para>
+          Be careful as the code in the repository is not always stable 
+          (hint: unstable commits will usually have the string
+          &quot;work in progress&quot; included in the commit message).
+        </para>
+      </warning>
+
+      <para>
+        The remaining instructions are similar to the instructions 
+        for building the software from a zip file.
+      </para>
+
+    </sect1>
+
+    <sect1 id="build_windows_zip">
+
+      <title>Building on Windows from a zip file</title>
+
+      <para>
+        To build the software, simply use the solution 
+        file parser\parser.vs2005.snl for VC++ v8, known as VS 2005. 
+        If you use VC++ v9 (VS 2008) instead, use parser\parser.vs2008.snl.
+      </para>
+      
+      <para>
+        In addition, you will need to tell Visual Studio the location of the 
+        header files and libraries of the libxml2 package. Select the Options 
+        window under the Tools menu to add these 2 locations to the default 
+        lists used by VS (exact location: Projects and Solutions\VC++ Directories).
+      </para>
+      <para>
+        To run the tests, from a command shell run <command>cscript 
+        RunTests.vbs </command>(in the tests directory). 
+        You will need the program
+        <ulink url="http://gnuwin32.sourceforge.net/packages/diffutils.htm">
+        Gnu diff</ulink> for Windows. A copy of it is in the tests directory.
+      </para>
+      <para>
+        You can also build the software and run the tests from the command 
+        line by using nmake, the Microsoft version of make:
+        <programlisting>
+          nmake -f Makefile.vs2005 <parameter>target</parameter>
+        </programlisting>
+        or
+        <programlisting>
+          nmake -f Makefile.vs2008 <parameter>target</parameter>
+        </programlisting>
+
+        The different targets available in Makefile.vs2005(8):
+        
+        <itemizedlist>
+          <listitem>
+            <para>
+              all (the default target)
+            </para>
+            <para>
+              Builds Error Parser.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              check
+            </para>
+            <para>
+              Runs the test suite.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              checkdebug
+            </para>
+            <para>
+              Runs the test suite using the debug version of Error Parser.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              docs
+            </para>
+            <para>
+              Builds the documentation.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              clean
+            </para>
+            <para>
+              Removes the executable, the object files and all intermediate
+              files.
+            </para>
+          </listitem>
+        </itemizedlist>
+      </para>
+      <para>
+        You might need to modify parser/Makefile.vs2005(8) if you install libxml2
+        in a non-standard directory; the hardcoded path for libxml2 is
+        &quot;C:\Program Files\libxml2&quot;.
+      </para>
+      <para>
+        To build the installation package itself, you will need the program
+        <ulink url="http://www.jrsoftware.org/isinfo.php">Inno 
+        Setup</ulink>. The two Inno Setup files are located in the
+        installation folder under the names errorParser.vs2005.iss and 
+        errorParser.vs2008.iss.
+      </para>
+
+    </sect1>
+
+    <sect1 id="build_doc_windows">
+
+      <title>Building the documentation on Windows</title>
+
+      <para>
+        The documentation is provided as part of the source package. If you
+        are only installing and using this software as is, 
+        without modifying it, you can skip this section. 
+      </para>
+      <para>
+        The documentation is written in DocBook xml. The source for the current
+        document is doc\manual.xml. The file parser/errorParser.xml is used
+        to generate the man page. 
+      </para>
+      <para>
+        As mentioned earlier, the documentation can be updated using
+        &quot;nmake -f Makefile.vs2005(8) docs&quot;. This will update the Microsoft
+        help-file (chm) version of this manual and the html version. The PDF
+        version and the man page require a Unix/Linux environment.
+      </para>
+      <para>
+        To create the documentation, you will need the DocBook DTD itself,
+        xsltproc and the Microsoft HTML Help Compiler (hhc.exe) which you can get
+        from the HTML Help Workshop from Microsoft.
+      </para>
+    </sect1>
+
+  </chapter>
+
+</book>
+

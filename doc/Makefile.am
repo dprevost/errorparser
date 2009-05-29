@@ -15,37 +15,54 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST =            \
-        errorParser.chm \
-        Makefile.win32  \
-        manual.html     \
-        manual.pdf      \
-        manual.xml      \
-        xml2chm.xsl     \
-        xml2html.xsl    
+EXTRA_DIST =                 \
+        errorParserAdmin.chm \
+        errorParserUsers.chm \
+        Makefile.win32       \
+        admin.html           \
+        admin.pdf            \
+        admin.xml            \
+        users.html           \
+        users.pdf            \
+        users.xml            \
+        xml2chmAdmin.xsl     \
+        xml2chmUsers.xsl     \
+        xml2html.xsl         
 
 if COND_USE_DB2PDF
- LOCAL_PDF=manual.pdf
+ LOCAL_PDF=admin.pdf users.pdf
 endif
 
-all-local: manual.html $(LOCAL_PDF)
+all-local: admin.html users.html $(LOCAL_PDF)
 
-manual.html: manual.xml xml2html.xsl
-	xsltproc xml2html.xsl manual.xml > manual.html
+admin.html: admin.xml xml2html.xsl
+	xsltproc xml2html.xsl admin.xml > admin.html
+
+users.html: users.xml xml2html.xsl
+	xsltproc xml2html.xsl users.xml > users.html
 
 if COND_USE_DB2PDF
-manual.pdf: manual.xml
-	db2pdf manual.xml 
+
+admin.pdf: admin.xml
+	db2pdf admin.xml 
+
+users.pdf: users.xml
+	db2pdf users.xml 
+
 endif
 
 install-data-local:
 	-mkdir -p $(DESTDIR)$(datadir)/doc/errorParser
-	$(install_sh_DATA) $(top_srcdir)/doc/manual.html $(DESTDIR)$(datadir)/doc/errorParser/manual.html
-	$(install_sh_DATA) $(top_srcdir)/doc/manual.pdf  $(DESTDIR)$(datadir)/doc/errorParser/manual.pdf
+	$(install_sh_DATA) $(top_srcdir)/doc/admin.html $(DESTDIR)$(datadir)/doc/errorParser/admin.html
+	$(install_sh_DATA) $(top_srcdir)/doc/admin.pdf  $(DESTDIR)$(datadir)/doc/errorParser/admin.pdf
+	$(install_sh_DATA) $(top_srcdir)/doc/users.html $(DESTDIR)$(datadir)/doc/errorParser/users.html
+	$(install_sh_DATA) $(top_srcdir)/doc/users.pdf  $(DESTDIR)$(datadir)/doc/errorParser/users.pdf
 
 uninstall-local:
-	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/manual.html
-	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/manual.pdf
+	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/admin.html
+	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/admin.pdf
+	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/users.html
+	-rm -f $(DESTDIR)$(datadir)/doc/errorParser/users.pdf
 	-rmdir $(DESTDIR)$(datadir)/doc/errorParser
 	-rmdir $(DESTDIR)$(datadir)/doc
 
