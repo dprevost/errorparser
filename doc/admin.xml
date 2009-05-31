@@ -446,13 +446,15 @@
       </para>
       <para>
         The documentation is written in DocBook xml. The source for the current
-        document is doc\manual.xml. The file parser/errorParser.xml is used
+        document is doc\admin.xml. The user's manual is in doc\users.xml.
+        The file parser/errorParser.xml is used
         to generate the man page. 
       </para>
       <para>
         As mentioned earlier, the documentation can be updated using
-        &quot;nmake -f Makefile.vs2005(8) docs&quot;. This will update the Microsoft
-        help-file (chm) version of this manual and the html version. The PDF
+        &quot;nmake -f Makefile.vs2005(8) docs&quot;. This will update the two 
+        Microsoft
+        help-file (chm) version of the manuals and the html version. The PDF
         version and the man page require a Unix/Linux environment.
       </para>
       <para>

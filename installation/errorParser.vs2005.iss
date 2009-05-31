@@ -21,9 +21,10 @@ Source: DTD\errorParserOptions21.dtd; DestDir: {app}\DTD
 Source: DTD\errorParserOptions20.dtd; DestDir: {app}\DTD
 Source: DTD\main_catalog_win32.xml; DestDir: {app}\DTD
 Source: installation\install_catalog.vbs; DestDir: {app}\DTD
-Source: doc\errorParser.chm; DestDir: {app}
-Source: doc\manual.html; DestDir: {app}
-Source: doc\manual.pdf; DestDir: {app}
+Source: doc\admin.chm; DestDir: {app}
+Source: doc\users.chm; DestDir: {app}
+Source: doc\admin.html; DestDir: {app}
+Source: doc\users.html; DestDir: {app}
 Source: examples\example_options.xml; DestDir: {app}\Examples
 Source: examples\example_photon.xml; DestDir: {app}\Examples
 Source: examples\simple_example.xml; DestDir: {app}\Examples
@@ -32,7 +33,8 @@ Source: COPYING; DestDir: {app}
 Source: installation\SetEnv.exe; DestDir: {app}\bin
 
 [Icons]
-Name: {group}\Error Parser Help; Filename: {app}\errorParser.chm
+Name: {group}\Error Parser Help; Filename: {app}\users.chm
+Name: {group}\Error Parser Help (Admin); Filename: {app}\admin.chm
 Name: {group}\Uninstall Error Parser; Filename: {uninstallexe}
 
 [Registry]

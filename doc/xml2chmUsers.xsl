@@ -4,7 +4,7 @@
     <xsl:import href="http://docbook.sourceforge.net/release/xsl/current/htmlhelp/htmlhelp.xsl"/>
     <xsl:param name="admon.graphics" select="1"/>
     <xsl:param name="section.autolabel" select="1"/>
-    <xsl:param name="htmlhelp.chm" select="'errorParser.chm'"></xsl:param>
-    <xsl:param name="htmlhelp.hhp" select="'errorParser.hhp'"></xsl:param>
+    <xsl:param name="htmlhelp.chm" select="'users.chm'"></xsl:param>
+    <xsl:param name="htmlhelp.hhp" select="'users.hhp'"></xsl:param>
     <xsl:param name="htmlhelp.use.hhk" select="1"/>
 </xsl:stylesheet>

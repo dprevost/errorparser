@@ -85,7 +85,7 @@
               -v or --version
             </para>
             <para>
-              will tell you which version you are using (new in version 1.0).
+              will tell you which version you are using (new since version 1.0).
             </para>
           </listitem>
         </itemizedlist>
@@ -376,23 +376,23 @@
       <title>The xml option file </title>
 
       <para>
-        This section documents version 2.0 of the DTD. This new release of
-        the parser will not understand previous versions of the DTD.
-        Current option files must be upgraded.
+        This section documents version 2.1 of the DTD. This new release of
+        the parser will understand version 2.0 of the DTD.
+        Current option files based on version 1.* must be upgraded.
       </para>
 
       <itemizedlist>
 
         <listitem>
           <para>
-            &lt;options version="2.0"&gt;
+            &lt;options version="2.1"&gt;
             <indexterm><primary>options</primary></indexterm>
           </para>
           <para>
             This tag starts the document itself (the root element). The 
             attribute "version" (the version of the DTD) is required; it 
-            will be used by the parser to support multiple versions 
-            of the DTD, as needed.
+            is used by the parser to support multiple versions 
+            of the DTD (starting at version 2.0), as needed.
           </para>
         </listitem>
 
@@ -881,7 +881,8 @@
             to provide the required parameters.
           </para>
           <para>
-            The code generates a Java enum. Java 5.0 is required.
+            The code generates a Java enum class. Java 5.0 or greater is 
+            required.
           </para>
 
           <itemizedlist>
@@ -1030,8 +1031,8 @@ quasar_SOURCES =             \
           <programlisting>
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPE options PUBLIC
-    "-//Error Parser project//DTD Error Parser Options XML V2.0//EN"
-    "http://photonsoftware.org/xml/ep/errorParserOptions20.dtd"&gt;
+    "-//Error Parser project//DTD Error Parser Options XML V2.1//EN"
+    "http://photonsoftware.org/xml/ep/errorParserOptions21.dtd"&gt;
 
 &lt;!-- 
    This xml file provides the options needed by errorParser.
@@ -1044,7 +1045,7 @@ quasar_SOURCES =             \
      - a header file for the pso extension module (python).
 --&gt;
 
-&lt;options version="2.0"&gt;
+&lt;options version="2.1"&gt;
 
   &lt;general_options&gt;
     &lt;!-- Prefix to be used for the error codes. --&gt;
@@ -1103,11 +1104,11 @@ quasar_SOURCES =             \
 
           <programlisting>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPE options SYSTEM 
-             "/usr/local/share/xml/errorParser/errorParserOptions20.dtd"&gt;
+             "/usr/local/share/xml/errorParser/errorParserOptions21.dtd"&gt;
 
 &lt;!-- This xml file provides the options to the errorParser program. --&gt;
 
-&lt;options version="2.0"&gt;
+&lt;options version="2.1"&gt;
 
   &lt;!-- Section for all general options. --&gt;
   &lt;general_options&gt;

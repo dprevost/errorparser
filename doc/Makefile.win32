@@ -13,24 +13,34 @@
 
 CLEANFILES = *~
 
-doc: errorParser.chm users.html
+doc: users.chm users.html admin.chm admin.html 
 
-errorParser.chm: users.xml  # users.pdf
-	-@erase /Q  chm
-	-@rmdir /Q  chm
-	mkdir chm
-	cd chm && xsltproc ..\xml2chmUsers.xsl ..\users.xml && cd ..
-   -"C:\Program Files\HTML Help Workshop\hhc.exe" chm\errorParser.hhp
-	copy chm\errorParser.chm .
+users.chm: users.xml
+	-@erase /Q  chm_users
+	-@rmdir /Q  chm_users
+	mkdir chm_users
+	cd chm_users && xsltproc ..\xml2chmUsers.xsl ..\users.xml && cd ..
+   -"C:\Program Files\HTML Help Workshop\hhc.exe" chm_users\users.hhp
+	copy chm_users\users.chm .
+
+admin.chm: admin.xml
+	-@erase /Q  chm_admin
+	-@rmdir /Q  chm_admin
+	mkdir chm_admin
+	cd chm_admin && xsltproc ..\xml2chmAdmin.xsl ..\admin.xml && cd ..
+   -"C:\Program Files\HTML Help Workshop\hhc.exe" chm_admin\admin.hhp
+	copy chm_admin\admin.chm .
 
 users.html: users.xml xml2html.xsl
 	xsltproc xml2html.xsl users.xml > users.html
 
-users.pdf: users.xml
-	db2pdf users.xml 
+admin.html: admin.xml xml2html.xsl
+	xsltproc xml2html.xsl admin.xml > admin.html
 
 clean: 
-	-@erase /Q  chm
-	-@rmdir /Q  chm
+	-@erase /Q  chm_admin
+	-@rmdir /Q  chm_admin
+	-@erase /Q  chm_users
+	-@rmdir /Q  chm_users
 	-@erase /Q $(CLEANFILES)
 
