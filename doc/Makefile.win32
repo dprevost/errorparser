@@ -13,21 +13,21 @@
 
 CLEANFILES = *~
 
-doc: errorParser.chm manual.html
+doc: errorParser.chm users.html
 
-errorParser.chm: manual.xml  # manual.pdf
+errorParser.chm: users.xml  # users.pdf
 	-@erase /Q  chm
 	-@rmdir /Q  chm
 	mkdir chm
-	cd chm && xsltproc ..\xml2chm.xsl ..\manual.xml && cd ..
+	cd chm && xsltproc ..\xml2chmUsers.xsl ..\users.xml && cd ..
    -"C:\Program Files\HTML Help Workshop\hhc.exe" chm\errorParser.hhp
 	copy chm\errorParser.chm .
 
-manual.html: manual.xml xml2html.xsl
-	xsltproc xml2html.xsl manual.xml > manual.html
+users.html: users.xml xml2html.xsl
+	xsltproc xml2html.xsl users.xml > users.html
 
-manual.pdf: manual.xml
-	db2pdf manual.xml 
+users.pdf: users.xml
+	db2pdf users.xml 
 
 clean: 
 	-@erase /Q  chm

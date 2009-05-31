@@ -52,6 +52,8 @@ OBJS_RELEASE=                               \
 	"$(INTDIR_RELEASE)\ExtPython.obj"        \
    "$(INTDIR_RELEASE)\GroupIdent.obj"       \
 	"$(INTDIR_RELEASE)\HeaderHandler.obj"    \
+   "$(INTDIR_RELEASE)\Java.obj"             \
+   "$(INTDIR_RELEASE)\MessageXML.obj"       \
 	"$(INTDIR_RELEASE)\PurePython.obj"       \
 	"$(INTDIR_RELEASE)\parser.res"           
 
