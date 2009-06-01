@@ -15,19 +15,19 @@
 
 CLEANFILES = *~
 
-EXTRA_DIST =                 \
-        errorParserAdmin.chm \
-        errorParserUsers.chm \
-        Makefile.win32       \
-        admin.html           \
-        admin.pdf            \
-        admin.xml            \
-        users.html           \
-        users.pdf            \
-        users.xml            \
-        xml2chmAdmin.xsl     \
-        xml2chmUsers.xsl     \
-        xml2html.xsl         
+EXTRA_DIST =             \
+        admin.chm        \
+        users.chm        \
+        Makefile.win32   \
+        admin.html       \
+        admin.pdf        \
+        admin.xml        \
+        users.html       \
+        users.pdf        \
+        users.xml        \
+        xml2chmAdmin.xsl \
+        xml2chmUsers.xsl \
+        xml2html.xsl     
 
 if COND_USE_DB2PDF
  LOCAL_PDF=admin.pdf users.pdf
