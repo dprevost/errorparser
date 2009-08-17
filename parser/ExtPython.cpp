@@ -39,6 +39,7 @@ ExtPython::ExtPython( string & dirname,
    
    buildPath( dirname, header, name );
    
+   outStream.exceptions( fstream::failbit | fstream::badbit);
    outStream.open( name.c_str(), fstream::out );
 }
 

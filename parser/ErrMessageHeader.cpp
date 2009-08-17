@@ -41,6 +41,7 @@ ErrMessageHeader::ErrMessageHeader( string & dirname,
    
    buildPath( dirname, filename, name );
    
+   outStream.exceptions( fstream::failbit | fstream::badbit);
    outStream.open( name.c_str(), fstream::out );
 }
 

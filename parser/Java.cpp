@@ -34,6 +34,7 @@ Java::Java( string & filename, string & java_package, string & java_enum )
    : my_package( java_package ),
      my_enum   ( java_enum )
 {
+   outStream.exceptions( fstream::failbit | fstream::badbit);
    outStream.open( filename.c_str(), fstream::out );
    
    barrier = "// --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--";

@@ -44,6 +44,7 @@ ErrorHeader::ErrorHeader( string & dir,
    
    buildPath( dir, header, name );
    
+   outStream.exceptions( fstream::failbit | fstream::badbit);
    outStream.open( name.c_str(), fstream::out );
 
    if ( enumName.length() > 0 ) usingEnum = true;

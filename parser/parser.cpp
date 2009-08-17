@@ -250,7 +250,12 @@ int main( int argc, char * argv[] )
 
    xmlFileName = argv[3];
    xmlOptionName = argv[2];
-   rc = handleOptions( handlers, xmlFileName, xmlOptionName, language );
+   try {
+      rc = handleOptions( handlers, xmlFileName, xmlOptionName, language );
+   }
+   catch (exception& e) {
+      return 1;
+   }
    if ( ! rc )  return 1;
 
    context = xmlNewParserCtxt();
@@ -276,8 +281,14 @@ int main( int argc, char * argv[] )
    
    root = xmlDocGetRootElement( document );
 
-   navigate( xmlFileName, language, root, handlers );
-
+   try {
+      navigate( xmlFileName, language, root, handlers );
+   }
+   catch (exception& e) {
+      cerr << "Exception caught - most likely an error while writing to one of the output files" << endl;
+      return 1;
+   }
+   
    xmlFreeDoc( document );
 
    xmlFreeParserCtxt( context );

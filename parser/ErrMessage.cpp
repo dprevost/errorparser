@@ -39,6 +39,7 @@ ErrMessage::ErrMessage( string & filename,
      prefix     ( inPrefix ),
      varPrefix  ( varPrefix )
 {
+   outStream.exceptions( fstream::failbit | fstream::badbit);
    outStream.open( filename.c_str(), fstream::out );
 
    if ( prefix.length() > 0 ) prefix += '_';

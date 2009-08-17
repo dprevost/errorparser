@@ -519,7 +519,13 @@ bool AddHeaderFileHandler( vector<AbstractHandler *> & handlers,
    }
    
    // Create the header file handler 
-   p = new ErrorHeader( dirname, filename, enumname, prefix );
+   try {
+      p = new ErrorHeader( dirname, filename, enumname, prefix );
+   }
+   catch (exception& e) {
+      cerr << "Error Header handler exception caught opening the output file " << endl;
+      throw e;
+   }
    
    handlers.push_back(p);
    
@@ -578,10 +584,22 @@ bool AddErrMessageHandlers( vector<AbstractHandler *> & handlers,
    }
    stripText( value, varPrefix );
 
-
-   pH = new ErrMessageHeader( dirname, headername, varPrefix, buildDll );
-   pC = new ErrMessage( cname, headername, prefix, varPrefix );
+   try {
+      pH = new ErrMessageHeader( dirname, headername, varPrefix, buildDll );
+   }
+   catch (exception& e) {
+      cerr << "Err Msg handler (.h) exception caught opening the output file " << endl;
+      throw e;
+   }
    
+   try {
+      pC = new ErrMessage( cname, headername, prefix, varPrefix );
+   }
+   catch (exception& e) {
+      cerr << "Err Msg handler (.c) exception caught opening the output file " << endl;
+      throw e;
+   }
+
    handlers.push_back(pH);
    handlers.push_back(pC);
 
@@ -669,8 +687,21 @@ bool AddErrMessageHandlers20( vector<AbstractHandler *> & handlers,
    percent = (char *)prop;
    xmlFree(prop);
 
-   pH = new ErrMessageHeader( dirname, headername, varPrefix, buildDll );
-   pC = new ErrMessage( cname, headername, prefix, varPrefix );
+   try {
+      pH = new ErrMessageHeader( dirname, headername, varPrefix, buildDll );
+   }
+   catch (exception& e) {
+      cerr << "Err Msg handler (.h) exception caught opening the output file " << endl;
+      throw e;
+   }
+   
+   try {
+      pC = new ErrMessage( cname, headername, prefix, varPrefix );
+   }
+   catch (exception& e) {
+      cerr << "Err Msg handler (.c) exception caught opening the output file " << endl;
+      throw e;
+   }
    g_msgXML = new MessageXML( allowEscapes, allowQuotes, percent );
    
    handlers.push_back(pH);
@@ -707,7 +738,13 @@ bool AddCSharpHandler( vector<AbstractHandler *> & handlers,
       stripText( value, cs_namespace );
    }
 
-   p = new CSharp( filename, cs_namespace, enumname );
+   try {
+      p = new CSharp( filename, cs_namespace, enumname );
+   }
+   catch (exception& e) {
+      cerr << "C# handler exception caught opening the output file " << endl;
+      throw e;
+   }
    
    handlers.push_back(p);
 
@@ -740,7 +777,13 @@ bool AddExtPython( vector<AbstractHandler *> & handlers,
       stripText( value, functionName );
    }
 
-   p = new ExtPython( dirname, filename, functionName );
+   try {
+      p = new ExtPython( dirname, filename, functionName );
+   }
+   catch (exception& e) {
+      cerr << "Python ext. handler exception caught opening the output file " << endl;
+      throw e;
+   }
    
    handlers.push_back(p);
 
@@ -768,7 +811,13 @@ bool AddPurePythonHandler( vector<AbstractHandler *> & handlers,
       stripText( value, functionName );
    }
 
-   p = new PurePython( filename, functionName );
+   try {
+      p = new PurePython( filename, functionName );
+   }
+   catch (exception& e) {
+      cerr << "Python handler exception caught opening the output file " << endl;
+      throw e;
+   }
    
    handlers.push_back(p);
 
@@ -803,7 +852,13 @@ bool AddJavaHandler( vector<AbstractHandler *> & handlers,
       stripText( value, java_package );
    }
 
-   p = new Java( filename, java_package, enumname );
+   try {
+      p = new Java( filename, java_package, enumname );
+   }
+   catch (exception& e) {
+      cerr << "Java handler exception caught opening the output file " << endl;
+      throw e;
+   }
    
    handlers.push_back(p);
 

@@ -33,6 +33,7 @@ PurePython::PurePython( string & filename, string & functionName )
    : AbstractHandler(),
      functionName   (functionName)
 {
+   outStream.exceptions( fstream::failbit | fstream::badbit);
    outStream.open( filename.c_str(), fstream::out );
    
    barrier = "# --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--";

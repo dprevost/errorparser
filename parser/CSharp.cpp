@@ -34,6 +34,7 @@ CSharp::CSharp( string & filename, string & cs_namespace, string & cs_enum )
      my_enum     ( cs_enum ),
      indent      ( "" )
 {
+   outStream.exceptions( fstream::failbit | fstream::badbit);
    outStream.open( filename.c_str(), fstream::out );
    
    if ( my_namespace.length() > 0 ) indent = "    ";
