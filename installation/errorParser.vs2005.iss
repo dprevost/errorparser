@@ -1,8 +1,8 @@
 [Setup]
 MinVersion=0,4.0
 AppName=Error Parser
-AppVerName=Error Parser Version 1.1
-AppVersion=1.1
+AppVerName=Error Parser Version 1.1.2
+AppVersion=1.1.2
 AppSupportURL=http://errorparser.sourceforge.net/
 AppId=ERRP_V0
 InfoBeforeFile=COPYING
@@ -10,7 +10,7 @@ DefaultDirName={pf}\errorParser
 DefaultGroupName=Error Parser
 SourceDir=..
 OutputDir=installation\Output
-OutputBaseFilename=errorParser-1.1
+OutputBaseFilename=errorParser-1.1.2
 ChangesEnvironment=yes
 
 [Files]
