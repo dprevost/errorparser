@@ -59,5 +59,16 @@
         
         * More tests.
         
+2009-06-01  Daniel Prevost  <dprevost@users.sourceforge.net>
 
+    * version 1.1
+        * Support for generating java enums was added. 
+        * The manual was divided in two, a user manual and an admin manual. 
+    
+2009-08-18  Daniel Prevost  <dprevost@users.sourceforge.net>
+
+    * version 1.1.2 A minor bug-fix release
+        * Exception handling of file errors was added (errors while opening
+          files or writing to them were not properly handled/detected).
+    
 

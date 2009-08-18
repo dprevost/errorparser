@@ -1,9 +1,15 @@
-Welcome to errorparser - the error parser and code generator version 1.1.
+Welcome to errorparser - the error parser and code generator version 1.1.2
 
 errorparser is distributed under the MIT license (see the file COPYING
 for details).
 
-For building and installation instructions please see the INSTALL file.
+For building and installation instructions please see the INSTALL file
+The usual recipe applies:
+  ./configure
+  make
+  make check (optional)
+  sudo make install
 
-For documentation, see the doc directory (manual.html, manual.pdf, etc.).
+
+For documentation, see the doc directory.
 

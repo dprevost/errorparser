@@ -37,8 +37,8 @@ Some notes specific to Error Parser:
    the DTD on the local machine and to set the catalog to access
    the local file instead of the network version.
 
-   Unix: edit the "install_catalog.sh" and run it as root to add the Error 
-   Parser catalog to your main catalog.
+   Unix: edit the "install_catalog.sh" and, as root, run the script to add
+   the Error Parser catalog to your main catalog.
    
    Something similar should work on Windows (additional steps, for example
    creating the main catalog might be needed).
