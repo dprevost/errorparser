@@ -253,7 +253,7 @@ int main( int argc, char * argv[] )
    try {
       rc = handleOptions( handlers, xmlFileName, xmlOptionName, language );
    }
-   catch (exception& e) {
+   catch (...) {
       return 1;
    }
    if ( ! rc )  return 1;
@@ -284,7 +284,7 @@ int main( int argc, char * argv[] )
    try {
       navigate( xmlFileName, language, root, handlers );
    }
-   catch (exception& e) {
+   catch (...) {
       cerr << "Exception caught - most likely an error while writing to one of the output files" << endl;
       return 1;
    }
