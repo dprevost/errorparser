@@ -1,0 +1,20 @@
+Package: @PACKAGE_NAME@
+Priority: optional
+Section: devel
+Installed-Size: 45
+Maintainer: Daniel Prevost <dprevost@users.sourceforge.net>
+Architecture: i386
+Version: @PACKAGE_VERSION@
+Depends: libxml2 (>= 2.6)
+
+Description: errorParser is a code generator for error files.
+It simplify the development of code for handling errors (and the associated
+documentation) by keeping all the required information in a single location, 
+an XML input file.
+.
+The parser uses this file to generate the header file for errors, the code 
+to access the error messages and the documentation (only doxygen is supported
+for this release).
+.
+Error messages and associated documentation can be written in multiple 
+languages (although one language must be selected when parsing).

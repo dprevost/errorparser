@@ -116,6 +116,7 @@ AC_CHECK_FUNCS(ctime)
 AC_CONFIG_FILES([
    Makefile
    doc/Makefile
+   installation/control
    installation/errorParser.spec
    parser/config-win32.h
    parser/Makefile

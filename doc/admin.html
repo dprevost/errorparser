@@ -1,5 +1,5 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Error Parser Admin Manual</title><meta name="generator" content="DocBook XSL Stylesheets V1.75.1"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="book" title="Error Parser Admin Manual"><div class="titlepage"><div><div><h1 class="title"><a name="id92522"></a>Error Parser Admin Manual</h1></div><div><div class="author"><h3 class="author"><span class="firstname">Daniel</span> <span class="surname">Prévost</span></h3></div></div><div><p class="releaseinfo">This manual is for release 1.1 of Error Parser</p></div><div><p class="copyright">Copyright © 2008-2009 Daniel 
-    Prévost</p></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="chapter"><a href="#Introduction">1. Introduction</a></span></dt><dt><span class="chapter"><a href="#New">2. New in this release</a></span></dt><dt><span class="chapter"><a href="#Installation">3. Installation</a></span></dt><dd><dl><dt><span class="sect1"><a href="#catalog_linux">1. The xml catalog on Linux/Unix</a></span></dt><dt><span class="sect1"><a href="#catalog_windows">2. The xml catalog on Windows</a></span></dt></dl></dd><dt><span class="chapter"><a href="#building">4. Building the Software</a></span></dt><dd><dl><dt><span class="sect1"><a href="#build_linux_repo">1. Building on Linux/Unix from the repository</a></span></dt><dt><span class="sect1"><a href="#build_linux_tar">2. Building on Linux/Unix from the tar file</a></span></dt><dt><span class="sect1"><a href="#build_doc_linux">3. Building the documentation on Linux/Unix</a></span></dt><dt><span class="sect1"><a href="#build_windows_repo">4. Building on Windows from the repository</a></span></dt><dt><span class="sect1"><a href="#build_windows_zip">5. Building on Windows from a zip file</a></span></dt><dt><span class="sect1"><a href="#build_doc_windows">6. Building the documentation on Windows</a></span></dt></dl></dd></dl></div><div class="chapter" title="Chapter 1. Introduction"><div class="titlepage"><div><div><h2 class="title"><a name="Introduction"></a>Chapter 1. Introduction</h2></div></div></div><p>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Error Parser Admin Manual</title><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="book" lang="en"><div class="titlepage"><div><div><h1 class="title"><a name="id2697012"></a>Error Parser Admin Manual</h1></div><div><div class="author"><h3 class="author"><span class="firstname">Daniel</span> <span class="surname">Prévost</span></h3></div></div><div><p class="releaseinfo">This manual is for release 1.1 of Error Parser</p></div><div><p class="copyright">Copyright © 2008-2009 Daniel 
+    Prévost</p></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="chapter"><a href="#Introduction">1. Introduction</a></span></dt><dt><span class="chapter"><a href="#New">2. New in this release</a></span></dt><dt><span class="chapter"><a href="#Installation">3. Installation</a></span></dt><dd><dl><dt><span class="sect1"><a href="#catalog_linux">1. The xml catalog on Linux/Unix</a></span></dt><dt><span class="sect1"><a href="#catalog_windows">2. The xml catalog on Windows</a></span></dt></dl></dd><dt><span class="chapter"><a href="#building">4. Building the Software</a></span></dt><dd><dl><dt><span class="sect1"><a href="#build_linux_repo">1. Building on Linux/Unix from the repository</a></span></dt><dt><span class="sect1"><a href="#build_linux_tar">2. Building on Linux/Unix from the tar file</a></span></dt><dt><span class="sect1"><a href="#build_doc_linux">3. Building the documentation on Linux/Unix</a></span></dt><dt><span class="sect1"><a href="#build_windows_repo">4. Building on Windows from the repository</a></span></dt><dt><span class="sect1"><a href="#build_windows_zip">5. Building on Windows from a zip file</a></span></dt><dt><span class="sect1"><a href="#build_doc_windows">6. Building the documentation on Windows</a></span></dt></dl></dd></dl></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="Introduction"></a>Chapter 1. Introduction</h2></div></div></div><p>
       Error Parser is a small tool for application developers. It simplifies 
       the management of error codes, error messages and documentation for
       both small and large projects.
@@ -11,19 +11,19 @@
     </p><p>
       Control of the code generation is done by an option file written in XML.
       The format for both XML files is explained in a different document.
-    </p></div><div class="chapter" title="Chapter 2. New in this release"><div class="titlepage"><div><div><h2 class="title"><a name="New"></a>Chapter 2. New in this release</h2></div></div></div><p> 
+    </p></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="New"></a>Chapter 2. New in this release</h2></div></div></div><p> 
       This release is a minor update; support for Java was added.
     </p><p>
       There are no known bugs at this time and no bugs were corrected for
       this release.
-    </p></div><div class="chapter" title="Chapter 3. Installation"><div class="titlepage"><div><div><h2 class="title"><a name="Installation"></a>Chapter 3. Installation</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#catalog_linux">1. The xml catalog on Linux/Unix</a></span></dt><dt><span class="sect1"><a href="#catalog_windows">2. The xml catalog on Windows</a></span></dt></dl></div><p>
+    </p></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="Installation"></a>Chapter 3. Installation</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#catalog_linux">1. The xml catalog on Linux/Unix</a></span></dt><dt><span class="sect1"><a href="#catalog_windows">2. The xml catalog on Windows</a></span></dt></dl></div><p>
       The installation procedure of the program itself is 
       relatively simple if you use the pre-packaged version of the 
       software (RPM, Inno setup, etc.) or if you build the software from 
       scratch and use <span class="command"><strong>make install</strong></span>.
     </p><p>
       This section will look into some potential installation issues in some details.
-    </p><div class="sect1" title="1. The xml catalog on Linux/Unix"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="catalog_linux"></a>1. The xml catalog on Linux/Unix</h2></div></div></div><p>
+    </p><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="catalog_linux"></a>1. The xml catalog on Linux/Unix</h2></div></div></div><p>
         The two DTD (Document Type Definition) for Error Parser can 
         be installed in the global xml catalog (usually 
         /etc/xml/catalog). 
@@ -56,7 +56,7 @@
         if Error Parser is installed in /usr/local. You'll need to 
         edit this script to tailor it for your installation.</p><p>
         Recommendation: use the SYSTEM clause.
-      </p></div><div class="sect1" title="2. The xml catalog on Windows"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="catalog_windows"></a>2. The xml catalog on Windows</h2></div></div></div><p>
+      </p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="catalog_windows"></a>2. The xml catalog on Windows</h2></div></div></div><p>
         The previous section already discussed the use of PUBLIC or 
         SYSTEM clause for identifying a DTD. The biggest difference 
         between Microsoft Windows and Linux, for example, is the absence 
@@ -73,7 +73,7 @@
         can use the script DTD\install_catalog.vbs. In both cases you 
         will need to edit the files to tailor them to your 
         installation.
-      </p></div></div><div class="chapter" title="Chapter 4. Building the Software"><div class="titlepage"><div><div><h2 class="title"><a name="building"></a>Chapter 4. Building the Software</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#build_linux_repo">1. Building on Linux/Unix from the repository</a></span></dt><dt><span class="sect1"><a href="#build_linux_tar">2. Building on Linux/Unix from the tar file</a></span></dt><dt><span class="sect1"><a href="#build_doc_linux">3. Building the documentation on Linux/Unix</a></span></dt><dt><span class="sect1"><a href="#build_windows_repo">4. Building on Windows from the repository</a></span></dt><dt><span class="sect1"><a href="#build_windows_zip">5. Building on Windows from a zip file</a></span></dt><dt><span class="sect1"><a href="#build_doc_windows">6. Building the documentation on Windows</a></span></dt></dl></div><p>
+      </p></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="building"></a>Chapter 4. Building the Software</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#build_linux_repo">1. Building on Linux/Unix from the repository</a></span></dt><dt><span class="sect1"><a href="#build_linux_tar">2. Building on Linux/Unix from the tar file</a></span></dt><dt><span class="sect1"><a href="#build_doc_linux">3. Building the documentation on Linux/Unix</a></span></dt><dt><span class="sect1"><a href="#build_windows_repo">4. Building on Windows from the repository</a></span></dt><dt><span class="sect1"><a href="#build_windows_zip">5. Building on Windows from a zip file</a></span></dt><dt><span class="sect1"><a href="#build_doc_windows">6. Building the documentation on Windows</a></span></dt></dl></div><p>
       The only prerequisite software needed to build and run Error 
       Parser is the library libxml2 (the Gnome project xml parser). If it 
       is not installed on your system, you can download it at 
@@ -87,7 +87,7 @@
       </p><p>
       To build the documentation, additional software is required as explained
       in the following sections.
-    </p><div class="sect1" title="1. Building on Linux/Unix from the repository"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="build_linux_repo"></a>1. Building on Linux/Unix from the repository</h2></div></div></div><p>
+    </p><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="build_linux_repo"></a>1. Building on Linux/Unix from the repository</h2></div></div></div><p>
         The latest version of the Error Parser software can be downloaded by 
         using git. Note: git is a very fast distributed version control system created for 
         the Linux kernel.
@@ -106,7 +106,7 @@
         git-clone git@gitorious.org:errorparser/mainline.git my_repo
       </p><p>
         git-clone git://errorparser.git.sourceforge.net/gitroot/errorparser my_repo
-      </p><div class="warning" title="Warning" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Warning"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="images/warning.png"></td><th align="left">Warning</th></tr><tr><td align="left" valign="top"><p>
+      </p><div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Warning"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="images/warning.png"></td><th align="left">Warning</th></tr><tr><td align="left" valign="top"><p>
           Be careful as the code in the repository is not always stable 
           (hint: unstable commits will usually have the string
           "work in progress" included in the commit message).
@@ -119,29 +119,29 @@
       </p><p>
         The remaining instructions are identical to the 
         instructions for building the software from a tar file.
-      </p></div><div class="sect1" title="2. Building on Linux/Unix from the tar file"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="build_linux_tar"></a>2. Building on Linux/Unix from the tar file</h2></div></div></div><p>
+      </p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="build_linux_tar"></a>2. Building on Linux/Unix from the tar file</h2></div></div></div><p>
         Step by step instructions to build the package from a tar file:
       </p><p>
-        </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+        </p><div class="itemizedlist"><ul type="disc"><li><p>
               Run configure (./configure). Here is a list of options 
               that you might want to use to tailor the package to your 
               needs (you can use ./configure --help to see all the 
               options):
-              </p><div class="itemizedlist"><ul class="itemizedlist" type="circle"><li class="listitem"><p>
+              </p><div class="itemizedlist"><ul type="circle"><li><p>
                     --prefix=PREFIX
                   </p><p>
                     To change the default 
                     installation directory (default is /usr/local). 
                     Example: --prefix=/usr.
-                  </p></li><li class="listitem"><p>
+                  </p></li><li><p>
                     --mandir=DIR 
                   </p><p>
                     To change the default 
                     installation for man documentation (default is 
                     [PREFIX/man]). Example --mandir=/usr/localshare/man. 
                   </p></li></ul></div><p>
-            </p></li><li class="listitem"><p>make</p></li><li class="listitem"><p>make check (to run the test suite - optional)</p></li><li class="listitem"><p>make install</p></li></ul></div><p>
-      </p></div><div class="sect1" title="3. Building the documentation on Linux/Unix"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="build_doc_linux"></a>3. Building the documentation on Linux/Unix</h2></div></div></div><p>
+            </p></li><li><p>make</p></li><li><p>make check (to run the test suite - optional)</p></li><li><p>make install</p></li></ul></div><p>
+      </p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="build_doc_linux"></a>3. Building the documentation on Linux/Unix</h2></div></div></div><p>
         The documentation is provided as part of the source package. If you
         are only installing and using this software as is, without modifying it,
         you can skip this section.
@@ -153,7 +153,7 @@
         To create or refresh the man page, you will need to 
         install the DocBook DTD itself and the docbook2x package.
         
-        </p><div class="warning" title="Warning" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Warning"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="images/warning.png"></td><th align="left">Warning</th></tr><tr><td align="left" valign="top"><p>
+        </p><div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Warning"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="images/warning.png"></td><th align="left">Warning</th></tr><tr><td align="left" valign="top"><p>
             The program docbook2x-man is named db2x_docbook2man on some
             systems, for example on Fedora 9.
           </p></td></tr></table></div><p>
@@ -170,19 +170,19 @@
       </p><p>
         Note: the Microsoft specific chm file (used for Microsoft help files)
         can only be updated on Windows.
-      </p></div><div class="sect1" title="4. Building on Windows from the repository"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="build_windows_repo"></a>4. Building on Windows from the repository</h2></div></div></div><p>
+      </p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="build_windows_repo"></a>4. Building on Windows from the repository</h2></div></div></div><p>
         If you want to retrieve the software directly from the 
         repository, you will need a subversion client for Windows. 
         <a class="ulink" href="http://tortoisesvn.tigris.org/" target="_top">Tortoise</a> is 
         one possible choice. The repository is:
-      </p><pre class="programlisting">https://errorparser.svn.sourceforge.net/svnroot/errorparser/trunk</pre><div class="warning" title="Warning" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Warning"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="images/warning.png"></td><th align="left">Warning</th></tr><tr><td align="left" valign="top"><p>
+      </p><pre class="programlisting">https://errorparser.svn.sourceforge.net/svnroot/errorparser/trunk</pre><div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Warning"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="images/warning.png"></td><th align="left">Warning</th></tr><tr><td align="left" valign="top"><p>
           Be careful as the code in the repository is not always stable 
           (hint: unstable commits will usually have the string
           "work in progress" included in the commit message).
         </p></td></tr></table></div><p>
         The remaining instructions are similar to the instructions 
         for building the software from a zip file.
-      </p></div><div class="sect1" title="5. Building on Windows from a zip file"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="build_windows_zip"></a>5. Building on Windows from a zip file</h2></div></div></div><p>
+      </p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="build_windows_zip"></a>5. Building on Windows from a zip file</h2></div></div></div><p>
         To build the software, simply use the solution 
         file parser\parser.vs2005.snl for VC++ v8, known as VS 2005. 
         If you use VC++ v9 (VS 2008) instead, use parser\parser.vs2008.snl.
@@ -210,23 +210,23 @@
 
         The different targets available in Makefile.vs2005(8):
         
-        </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+        </p><div class="itemizedlist"><ul type="disc"><li><p>
               all (the default target)
             </p><p>
               Builds Error Parser.
-            </p></li><li class="listitem"><p>
+            </p></li><li><p>
               check
             </p><p>
               Runs the test suite.
-            </p></li><li class="listitem"><p>
+            </p></li><li><p>
               checkdebug
             </p><p>
               Runs the test suite using the debug version of Error Parser.
-            </p></li><li class="listitem"><p>
+            </p></li><li><p>
               docs
             </p><p>
               Builds the documentation.
-            </p></li><li class="listitem"><p>
+            </p></li><li><p>
               clean
             </p><p>
               Removes the executable, the object files and all intermediate
@@ -242,7 +242,7 @@
         Setup</a>. The two Inno Setup files are located in the
         installation folder under the names errorParser.vs2005.iss and 
         errorParser.vs2008.iss.
-      </p></div><div class="sect1" title="6. Building the documentation on Windows"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="build_doc_windows"></a>6. Building the documentation on Windows</h2></div></div></div><p>
+      </p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="build_doc_windows"></a>6. Building the documentation on Windows</h2></div></div></div><p>
         The documentation is provided as part of the source package. If you
         are only installing and using this software as is, 
         without modifying it, you can skip this section. 
