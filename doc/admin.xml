@@ -80,11 +80,11 @@
       <para>
         <programlisting>&lt;!DOCTYPE errorlist PUBLIC 
    &quot;-//Error Parser project//DTD Error Parser XML V1.3//EN&quot;
-    &quot;http://photonsoftware.org/xml/ep/errorParser13.dtd&quot;&gt;
+    &quot;http://errorparser.sourceforge.net/xml/errorParser13.dtd&quot;&gt;
         </programlisting>
       </para>
       <para>
-        In this case the DTD will be downloaded from the Photon web site.
+        In this case the DTD will be downloaded from the Error Parser web site.
       </para>
       <para>
         Alternatively, the DTD can be identified with a SYSTEM clause:

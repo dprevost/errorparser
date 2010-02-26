@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE options SYSTEM 
-             "http://photonsoftware.org/xml/ep/errorParserOptions20.dtd">
+             "http://errorparser.sourceforge.net/xml/errorParserOptions20.dtd">
 <!-- 
    This xml file provides the options to the errorParser program.
    

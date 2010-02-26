@@ -2,5 +2,5 @@
 <!DOCTYPE catalog PUBLIC "-//OASIS//DTD Entity Resolution XML Catalog V1.0//EN" "http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd">
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
   <delegatePublic publicIdStartString="-//Error Parser project//DTD Error Parser" catalog="e:/errorParser/DTD/catalog.xml"/>
-  <delegateSystem systemIdStartString="http://photonsoftware.org/xml/ep/" catalog="e:/errorParser/DTD/catalog.xml"/>
+  <delegateSystem systemIdStartString="http://errorparser.sourceforge.net/xml/" catalog="e:/errorParser/DTD/catalog.xml"/>
 </catalog>

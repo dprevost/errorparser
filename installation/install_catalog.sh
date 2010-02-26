@@ -30,7 +30,7 @@ THE_ERRP_CATALOG=/usr/local/share/xml/errorParser/catalog.xml
 
 $THE_PROGRAM --noout --add delegatePublic "-//Error Parser project//DTD Error Parser XML V1.2" $THE_ERRP_CATALOG $THE_TOP_CATALOG
 $THE_PROGRAM --noout --add delegatePublic "-//Error Parser project//DTD Error Parser XML V1.3" $THE_ERRP_CATALOG $THE_TOP_CATALOG
-$THE_PROGRAM --noout --add delegateSystem "http://photonsoftware.org/xml/ep/" $THE_ERRP_CATALOG $THE_TOP_CATALOG
+$THE_PROGRAM --noout --add delegateSystem "http://errorparser.sourceforge.net/xml/" $THE_ERRP_CATALOG $THE_TOP_CATALOG
 $THE_PROGRAM --noout --add delegatePublic "-//Error Parser project//DTD Error Parser Options XML V2.0"  $THE_ERRP_CATALOG $THE_TOP_CATALOG
 $THE_PROGRAM --noout --add delegatePublic "-//Error Parser project//DTD Error Parser Options XML V2.1"  $THE_ERRP_CATALOG $THE_TOP_CATALOG
 

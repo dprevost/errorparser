@@ -166,7 +166,7 @@ if rc <> 0 then
    wscript.quit(1)
 end if
 
-cmd = exeName & " --noout --add delegateSystem ""http://photonsoftware.org/xml/ep/"" " & " " & errpCatalog & " " & topCatalog
+cmd = exeName & " --noout --add delegateSystem ""http://errorparser.sourceforge.net/xml/"" " & " " & errpCatalog & " " & topCatalog
 if consoleMode then 
    WScript.Echo "Inserting the delegateSystem to the top catalog..."
    Set objWshScriptExec = objShell.Exec("%comspec% /c " & Chr(34) & cmd & Chr(34))

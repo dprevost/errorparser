@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE errorlist PUBLIC "-//Error Parser project//DTD Error Parser XML V1.3//EN"
-             "http://photonsoftware.org/xml/ep/errorParser13.dtd"> 
+             "http://errorparser.sourceforge.net/xml/errorParser13.dtd"> 
 <!-- 
     This example is currently being used for an existing project, Photon
-    (http://photonsoftware.org) to create code to retrieve error messages 
+    to create code to retrieve error messages 
     using the error number.
 
     You can replace the DOCTYPE with this, if you prefer:
@@ -22,7 +22,7 @@
       <authors>Daniel Prevost</authors>
       <!-- Each <license_para> is mapped to a paragraph (easier to read) -->
       <license_para>
-        This file is part of Photon (photonsoftware.org).
+        This file is part of Photon.
       </license_para>
       <!-- The GPL license is of course for Photon, not for Error Parser... -->
       <license_para>

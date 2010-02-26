@@ -7,7 +7,7 @@
  *
  * Copyright (C) 2006-2008 Daniel Prevost
  *
- * This file is part of Photon (photonsoftware.org).
+ * This file is part of Photon.
  *
  * This file may be distributed and/or modified under the terms of the 
  * GNU General Public License version 2 as published by the Free 

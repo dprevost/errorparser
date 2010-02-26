@@ -776,7 +776,7 @@
           <para>
             In this example, pso.errs and pso.errnames are the two dict 
             used by the
-            Photon extension module (pso: photonsoftware.org). See the section
+            Photon extension module. See the section
             <quote><link linkend='example_python_extended_module' 
               endterm="example_python_extended_module.title"/></quote>
             for some tips on how to use the generated file in your C code.
@@ -1032,7 +1032,7 @@ quasar_SOURCES =             \
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPE options PUBLIC
     "-//Error Parser project//DTD Error Parser Options XML V2.1//EN"
-    "http://photonsoftware.org/xml/ep/errorParserOptions21.dtd"&gt;
+    "http://errorparser.sourceforge.net/xml/errorParserOptions21.dtd"&gt;
 
 &lt;!-- 
    This xml file provides the options needed by errorParser.
@@ -1158,7 +1158,7 @@ quasar_SOURCES =             \
         <programlisting>
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPE errorlist PUBLIC "-//Error Parser project//DTD Error Parser XML V1.3//EN"
-             "http://photonsoftware.org/xml/ep/errorParser13.dtd"&gt; 
+             "http://errorparser.sourceforge.net/xml/errorParser13.dtd"&gt; 
 &lt;!-- 
     This file contains the error codes specific to the server of
     Photon, quasar.
@@ -1179,7 +1179,7 @@ quasar_SOURCES =             \
       &lt;authors&gt;Daniel Prevost&lt;/authors&gt;
       &lt;!-- Each &lt;license_para&gt; is mapped to a paragraph (easier to read) --&gt;
       &lt;license_para&gt;
-        This file is part of the Photon framework (photonsoftware.org).
+        This file is part of the Photon framework.
       &lt;/license_para&gt;
       &lt;!-- The GPL license is of course for Photon, not for Error Parser... --&gt;
       &lt;license_para&gt;
