@@ -375,6 +375,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\MissingException.h"
+				>
+			</File>
+			<File
 				RelativePath="..\parser.h"
 				>
 			</File>

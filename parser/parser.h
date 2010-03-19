@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2009 Daniel Prevost <dprevost@users.sourceforge.net>
+ * Copyright (C) 2008-2010 Daniel Prevost <dprevost@users.sourceforge.net>
  *
  * This file may be distributed and/or modified under the terms of the
  * MIT License as described by the Open Source Initiative
@@ -21,6 +21,7 @@
 #endif
 #if defined(WIN32)
 #  include "config-win32.h"
+#  pragma warning( disable : 4290 )
 #endif
 
 #include <time.h>
