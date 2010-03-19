@@ -43,7 +43,8 @@ public:
    // identNode is passed by reference - it will be updated by this ctor
    // to the proper place in the tree so that the caller can just reuse it
    // to continue parsing the xml tree.
-   GroupIdent( std::string & language, xmlNode * & identNode );
+   GroupIdent( std::string  & language,
+               xmlNode     *& identNode ) throw( MissingException );
    
    std::string & GetName() {
       return name;

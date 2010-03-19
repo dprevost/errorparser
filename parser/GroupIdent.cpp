@@ -29,7 +29,7 @@ using namespace std;
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 GroupIdent::GroupIdent( string    & language,
-                        xmlNode * & identNode )
+                        xmlNode * & identNode ) throw( MissingException )
    : textNode( NULL ),
      iterator( NULL )
 {
@@ -88,6 +88,7 @@ GroupIdent::GroupIdent( string    & language,
    while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
 
    stripText( node->children->content, name );
+   if ( name.empty() ) throw new MissingException( "<errgroup_name>" );
    
    do { 
       node = node->next;

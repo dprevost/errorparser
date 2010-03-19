@@ -67,7 +67,7 @@ void ErrorHeader::addTopCode()
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-void ErrorHeader::addGroupIdent( GroupIdent & ident )
+void ErrorHeader::addGroupIdent( GroupIdent & ident ) throw( MissingException )
 {
    const char * paragraph;
    string tmp;
@@ -86,6 +86,7 @@ void ErrorHeader::addGroupIdent( GroupIdent & ident )
    paragraph = ident.GetDescParagraph();
    while ( paragraph != NULL ) {
       stripText( paragraph, tmp );
+      if ( tmp.empty() ) throw new MissingException( "<errgroup_desc>" );
 
       if ( usingEnum ) {
          outStream << "     *" << endl;
@@ -108,7 +109,8 @@ void ErrorHeader::addGroupIdent( GroupIdent & ident )
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-void ErrorHeader::addError( ErrorXML & error, bool lastError )
+void ErrorHeader::addError( ErrorXML & error,
+                            bool       lastError ) throw( MissingException )
 {
    bool firstpara = true;
    string tmp;
@@ -128,6 +130,7 @@ void ErrorHeader::addError( ErrorXML & error, bool lastError )
    paragraph = error.GetDocuParagraph();
    while ( paragraph != NULL ) {
       stripText( paragraph, tmp );
+      if ( tmp.empty() ) throw new MissingException( "<errordoc>" );
          
       if ( firstpara ) firstpara = false;
       else {

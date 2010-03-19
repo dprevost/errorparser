@@ -56,7 +56,7 @@ void PurePython::addTop( string     & xmlFilename,
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-void PurePython::addCopyright( Copyright & copy )
+void PurePython::addCopyright( Copyright & copy ) throw( MissingException )
 {
    string & years   = copy.GetYears();
    string & authors = copy.GetAuthors();
@@ -71,6 +71,7 @@ void PurePython::addCopyright( Copyright & copy )
          outStream << "#" << endl;
 
          stripText( paragraph, tmp );
+         if ( tmp.empty() ) throw new MissingException( "<license_para>" );
          formatText( outStream, tmp, prefix, ERRP_LINE_LENGTH );
          
       paragraph = copy.GetCopyParagraph();
@@ -102,7 +103,8 @@ void PurePython::addTopCode()
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-void PurePython::addError( ErrorXML & error, bool lastError )
+void PurePython::addError( ErrorXML & error,
+                           bool       lastError ) throw( MissingException )
 {
    bool firstpara = true;
    string tmp;
@@ -113,7 +115,8 @@ void PurePython::addError( ErrorXML & error, bool lastError )
    paragraph = error.GetDocuParagraph();
    while ( paragraph != NULL ) {
       stripText( paragraph, tmp );
-         
+      if ( tmp.empty() ) throw new MissingException( "<errordoc>" );
+      
       if ( firstpara ) firstpara = false;
       else {
          outStream << "    #" << endl;

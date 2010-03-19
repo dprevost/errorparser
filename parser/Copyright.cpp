@@ -28,7 +28,7 @@ using namespace std;
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-Copyright::Copyright( xmlNode * errorNode )
+Copyright::Copyright( xmlNode * errorNode ) throw( MissingException )
    : textNode( NULL ),
      iterator( NULL )
 {
@@ -39,10 +39,12 @@ Copyright::Copyright( xmlNode * errorNode )
    // Go to the first element (years)
    while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
    stripText( node->children->content, years );
+   if ( years.empty() ) throw new MissingException( "<years>" );
 
    // Second element (authors)
    do { node = node->next; } while ( node->type != XML_ELEMENT_NODE );
    stripText( node->children->content, authors );
+   if ( authors.empty() ) throw new MissingException( "<authors>" );
    
    do { node = node->next; } while ( node->type != XML_ELEMENT_NODE );
 

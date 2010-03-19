@@ -41,7 +41,7 @@ class ErrorXML {
 public:
    
    ErrorXML( std::string & language,
-             xmlNode     * errorNode );
+             xmlNode     * errorNode ) throw( MissingException );
    
    std::string & GetErrNumber() {
       return errorNumber;

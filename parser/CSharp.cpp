@@ -58,7 +58,8 @@ void CSharp::addTopCode()
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-void CSharp::addError( ErrorXML & error, bool lastError )
+void CSharp::addError( ErrorXML & error,
+                       bool       lastError ) throw( MissingException )
 {
    bool firstpara = true;
    string tmp;
@@ -69,7 +70,8 @@ void CSharp::addError( ErrorXML & error, bool lastError )
    paragraph = error.GetDocuParagraph();
    while ( paragraph != NULL ) {
       stripText( paragraph, tmp );
-         
+      if ( tmp.empty() ) throw new MissingException( "<errordoc>" );
+
       if ( firstpara ) firstpara = false;
       else {
          outStream << indent << "    //" << endl;

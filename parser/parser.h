@@ -37,6 +37,8 @@
 #  define CHAR_UNSIGNED 1
 #endif
 
+#include "MissingException.h"
+
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 // You could override this macro for a specic output handler by calling 

@@ -29,7 +29,7 @@ using namespace std;
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 ErrorXML::ErrorXML( string  & language,
-                    xmlNode * errorNode )
+                    xmlNode * errorNode ) throw( MissingException )
    : messageNode( NULL ),
      iterator   ( NULL )
 {
@@ -40,10 +40,12 @@ ErrorXML::ErrorXML( string  & language,
    // Go to the first element (error number)
    while ( node->type != XML_ELEMENT_NODE ) { node = node->next; }
    stripText( node->children->content, errorNumber );
+   if ( errorNumber.empty() ) throw new MissingException( "<errnumber>" );
 
    // Second element (the error name)
    do { node = node->next; } while ( node->type != XML_ELEMENT_NODE );
    stripText( node->children->content, errorName );
+   if ( errorName.empty() ) throw new MissingException( "<errname>" );
    
    do { node = node->next; } while ( node->type != XML_ELEMENT_NODE );
 

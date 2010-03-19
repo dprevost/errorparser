@@ -54,7 +54,8 @@ void Java::addTopCode()
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-void Java::addError( ErrorXML & error, bool lastError )
+void Java::addError( ErrorXML & error,
+                     bool       lastError ) throw( MissingException )
 {
    bool firstpara = true;
    string tmp;
@@ -67,6 +68,7 @@ void Java::addError( ErrorXML & error, bool lastError )
    paragraph = error.GetDocuParagraph();
    while ( paragraph != NULL ) {
       stripText( paragraph, tmp );
+      if ( tmp.empty() ) throw new MissingException( "<errordoc>" );
          
       if ( firstpara ) firstpara = false;
       else {

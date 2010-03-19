@@ -40,9 +40,10 @@ public:
    
    void addTopCode();
    
-   void addGroupIdent( GroupIdent & ident );
+   void addGroupIdent( GroupIdent & ident ) throw( MissingException );
 
-   void addError( ErrorXML & error, bool lastError );
+   void addError( ErrorXML & error,
+                  bool lastError ) throw( MissingException );
 
    void addBottomCode();
 

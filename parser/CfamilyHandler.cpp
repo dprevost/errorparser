@@ -55,7 +55,7 @@ void CfamilyHandler::addTop( string     & xmlFilename,
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-void CfamilyHandler::addCopyright( Copyright & copy )
+void CfamilyHandler::addCopyright( Copyright & copy ) throw( MissingException )
 {
    string & years   = copy.GetYears();
    string & authors = copy.GetAuthors();
@@ -70,6 +70,7 @@ void CfamilyHandler::addCopyright( Copyright & copy )
          outStream << " *" << endl;
 
          stripText( paragraph, tmp );
+         if ( tmp.empty() ) throw new MissingException( "<license_para>" );
          formatText( outStream, tmp, prefix, ERRP_LINE_LENGTH );
          
       paragraph = copy.GetCopyParagraph();

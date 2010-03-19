@@ -43,7 +43,7 @@ public:
                 const char  * timeBuf,
                 const char  * version );
    
-   void addCopyright( Copyright & copy );
+   void addCopyright( Copyright & copy ) throw( MissingException );
    
    void addEndTop();
 
@@ -55,7 +55,8 @@ public:
    // Do-nothing function
    void addGroupIdent( GroupIdent & ident ) {}
 
-   void addError( ErrorXML & error, bool lastError );
+   void addError( ErrorXML & error,
+                  bool       lastError ) throw( MissingException );
 
    void addBottomCode();
    

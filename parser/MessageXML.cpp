@@ -43,11 +43,12 @@ MessageXML::MessageXML( bool     allowEscapes,
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 void MessageXML::GetErrMessage( const char * nodeMsg,
-                                string     & message )
+                                string     & message ) throw( MissingException )
 {
    string errMessage, tmp;
    
    stripText( nodeMsg, tmp );
+   if ( tmp.empty() ) throw new MissingException( "<errormsg>" );
    stripPercent( tmp, errMessage );
    tmp.clear();
    

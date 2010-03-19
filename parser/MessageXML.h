@@ -43,7 +43,7 @@ public:
                std::string & percent );
    
    void GetErrMessage( const char  * nodeMsg,
-                       std::string & message );
+                       std::string & message ) throw( MissingException );
 
 private:
    

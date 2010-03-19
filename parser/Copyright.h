@@ -40,7 +40,7 @@ class Copyright {
    
 public:
    
-   Copyright( xmlNode * copyNode );
+   Copyright( xmlNode * copyNode ) throw( MissingException );
    
    std::string & GetAuthors() {
       return authors;

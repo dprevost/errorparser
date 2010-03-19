@@ -51,7 +51,8 @@ public:
    // Do-nothing function
    void addGroupIdent( GroupIdent & ident ) {}
    
-   void addError( ErrorXML & error, bool lastError );
+   void addError( ErrorXML & error,
+                  bool       lastError ) throw( MissingException );
 
    void addBottomCode();
 

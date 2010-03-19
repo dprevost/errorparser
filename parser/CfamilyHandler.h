@@ -44,7 +44,7 @@ public:
                         const char  * version );
    
    // Add copyright notice(s) to the C comment started by addTop(), if any.
-   virtual void addCopyright( Copyright & copy );
+   virtual void addCopyright( Copyright & copy ) throw( MissingException );
 
    // Terminates the C comment started by addTop().
    virtual void addEndTop();
