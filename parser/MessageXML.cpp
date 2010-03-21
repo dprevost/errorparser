@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009 Daniel Prevost <dprevost@users.sourceforge.net>
+ * Copyright (C) 2009-2010 Daniel Prevost <dprevost@users.sourceforge.net>
  *
  * This file may be distributed and/or modified under the terms of the
  * MIT License as described by the Open Source Initiative

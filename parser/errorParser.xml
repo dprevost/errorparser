@@ -3,7 +3,7 @@
                    "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
 <refentry id='errorParser1'>
 <!--  
-  Copyright (C) 2008-2009 Daniel Prevost <dprevost@users.sourceforge.net>
+  Copyright (C) 2008-2010 Daniel Prevost <dprevost@users.sourceforge.net>
 
   This file may be distributed and/or modified under the terms of the
   MIT License as described by the Open Source Initiative
@@ -84,7 +84,7 @@
 </refsect1>
 
 <refsect1 id='copyright'><title>COPYRIGHT</title>
-  <para>Copyright © 2008-2009 Daniel Prévost.</para>
+  <para>Copyright © 2008-2010 Daniel Prévost.</para>
 </refsect1>
 </refentry>
 
