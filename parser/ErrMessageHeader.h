@@ -37,7 +37,8 @@ class ErrMessageHeader:  public HeaderHandler {
    
 public:
    
-   ErrMessageHeader( std::string & dirname,
+   ErrMessageHeader( bool          useTimestamp,
+                     std::string & dirname,
                      std::string & filename,
                      std::string & prefix,
                      bool          exportFunc );

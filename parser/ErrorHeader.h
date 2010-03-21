@@ -30,7 +30,8 @@
 class ErrorHeader: public HeaderHandler{
    
 public:
-   ErrorHeader( std::string & dir,
+   ErrorHeader( bool          useTimestamp,
+                std::string & dir,
                 std::string & header,
                 std::string & enumName,
                 std::string & prefix );

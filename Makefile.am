@@ -26,6 +26,7 @@ EXTRA_DIST =                                \
         DTD/errorParser12.dtd               \
         DTD/errorParserOptions20.dtd        \
         DTD/errorParserOptions21.dtd        \
+        DTD/errorParserOptions22.dtd        \
         DTD/catalog.xml                     \
         DTD/main_catalog_win32.xml          \
         examples/example_options.xml        \

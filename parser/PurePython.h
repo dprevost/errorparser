@@ -34,7 +34,9 @@ class PurePython: public AbstractHandler {
    
 public:
 
-   PurePython( std::string & filename, std::string & functionName );
+   PurePython( bool          useTimestamp,
+               std::string & filename,
+               std::string & functionName );
 
    // Do-nothing destructor
    ~PurePython() {}

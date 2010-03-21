@@ -29,11 +29,12 @@ using namespace std;
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-ErrMessageHeader::ErrMessageHeader( string & dirname,
+ErrMessageHeader::ErrMessageHeader( bool     useTimestamp,
+                                    string & dirname,
                                     string & filename,
                                     string & prefix,
                                     bool     exportFunc )
-   : HeaderHandler   ( filename ),
+   : HeaderHandler   ( useTimestamp, filename ),
      varPrefix       ( prefix ),
      exportFunctions ( exportFunc )
 {

@@ -29,10 +29,11 @@ using namespace std;
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-ExtPython::ExtPython( string & dirname,
+ExtPython::ExtPython( bool     useTimestamp,
+                      string & dirname,
                       string & header,
                       string & function )
-   : HeaderHandler( header ),
+   : HeaderHandler( useTimestamp, header ),
      functionName ( function )
 {
    string name;

@@ -35,7 +35,7 @@ class AbstractHandler {
 public:
 
    // Do-nothing constructor
-   AbstractHandler() {}
+   AbstractHandler( bool useTimestamp ) : writeTimestamp( useTimestamp ) {}
 
    // Do-nothing destructor
    virtual ~AbstractHandler() {}
@@ -81,6 +81,8 @@ protected:
 
    // A comment "barrier" to separate "sections" of the generated code.
    std::string barrier;
+   
+   bool writeTimestamp;
 };
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--

@@ -31,11 +31,12 @@ using namespace std;
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-ErrorHeader::ErrorHeader( string & dir,
+ErrorHeader::ErrorHeader( bool     useTimestamp,
+                          string & dir,
                           string & header,
                           string & ename,
                           string & inPrefix )
-   : HeaderHandler( header ),
+   : HeaderHandler( useTimestamp, header ),
      enumName     ( ename ),
      prefix       ( inPrefix ),
      usingEnum    ( false )

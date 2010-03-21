@@ -51,7 +51,7 @@ public:
    
 protected:
    
-   CfamilyHandler();
+   CfamilyHandler( bool useTimestamp );
 
 };
 

@@ -2,7 +2,7 @@
 
 #############################################################################
 #                                                                           #
-# Copyright (C) 2008-2009 Daniel Prevost <dprevost@users.sourceforge.net>   #
+# Copyright (C) 2008-2010 Daniel Prevost <dprevost@users.sourceforge.net>   #
 #                                                                           #
 # This file may be distributed and/or modified under the terms of the       #
 # MIT License as described by the Open Source Initiative                    #
@@ -33,4 +33,5 @@ $THE_PROGRAM --noout --add delegatePublic "-//Error Parser project//DTD Error Pa
 $THE_PROGRAM --noout --add delegateSystem "http://errorparser.sourceforge.net/xml/" $THE_ERRP_CATALOG $THE_TOP_CATALOG
 $THE_PROGRAM --noout --add delegatePublic "-//Error Parser project//DTD Error Parser Options XML V2.0"  $THE_ERRP_CATALOG $THE_TOP_CATALOG
 $THE_PROGRAM --noout --add delegatePublic "-//Error Parser project//DTD Error Parser Options XML V2.1"  $THE_ERRP_CATALOG $THE_TOP_CATALOG
+$THE_PROGRAM --noout --add delegatePublic "-//Error Parser project//DTD Error Parser Options XML V2.2"  $THE_ERRP_CATALOG $THE_TOP_CATALOG
 

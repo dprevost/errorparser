@@ -33,7 +33,8 @@ class ExtPython: public HeaderHandler {
 public:
    
    // If "function" is empty (""), the code uses AddErrors()
-   ExtPython( std::string & dir,
+   ExtPython( bool          useTimestamp,
+              std::string & dir,
               std::string & header,
               std::string & function );
    

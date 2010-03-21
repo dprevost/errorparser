@@ -1,0 +1,122 @@
+<!--
+    Document Type Definition for the options of Error Parser.
+    
+    Copyright (C) 2008-2010 Daniel Prevost.
+ 
+    This file may be distributed and/or modified under the terms of the
+    MIT License as described by the Open Source Initiative
+    (http://opensource.org/licenses/mit-license.php) and appearing in
+    the file COPYING included in the packaging of the Error Parser software.
+-->
+
+<!--
+    Usage:
+
+    It is recommended to use the SYSTEM declaration, something like:
+
+    <!DOCTYPE options SYSTEM 
+             "/usr/local/share/xml/errorParser/errorParserOptions22.dtd">
+
+    (if Error Parser is installed in /usr/local).
+    
+    *********************************************************************
+    
+    If you want/prefer to use a PUBLIC declaration, the following public 
+    identifier can be used to identify it:
+
+     "-//Error Parser project//DTD Error Parser Options XML V2.2//EN"
+
+    The full DOCTYPE declaration should then look like this:
+    
+    <!DOCTYPE options PUBLIC 
+           "-//Error Parser project//DTD Error Parser Options XML V2.2//EN"
+           "http://errorparser.sourceforge.net/xml/errorParserOptions22.dtd">
+    
+-->
+
+<!-- 
+   This DTD file provides the template for the xml option file used by
+   the errorParser program. It controls which output files get generated 
+   and can be used to modify the output code.
+   
+   Please see the manual for an explanations on the different fields 
+   available and their meaning.
+   
+   Note: do not modify this DTD... without modifying the code to read 
+   these options in the errorParser program.
+-->
+
+<!ELEMENT options      (general_options,
+                        header_file?,
+                        errmsg_files?,
+                        csharp?,
+                        ext_python?,
+                        pure_python?,
+                        java?)>
+
+<!ELEMENT general_options   (prefix_error_no_namespace,
+                             selected_lang?,
+                             message,
+                             code_generation?)>
+<!-- prefix_error_no_namespace is the prefix to use in generated files that
+     do not have namespaces - to avoid clashes with other libraries. -->
+<!ELEMENT prefix_error_no_namespace (#PCDATA)>
+<!ELEMENT selected_lang      EMPTY>
+<!ELEMENT message            EMPTY>
+<!-- Global options for code generation -->
+<!ELEMENT code_generation    EMPTY>
+
+<!ELEMENT header_file        (header_enum?,
+                              header_dirname?,
+                              header_name)>
+<!ELEMENT header_enum        (#PCDATA)>
+<!ELEMENT header_dirname     (#PCDATA)>
+<!ELEMENT header_name        (#PCDATA)>
+
+<!ELEMENT errmsg_files       (errmsg_dirname?,
+                              errmsg_header_name,
+                              errmsg_c_fullname,
+                              errmsg_options,
+                              errmsg_prefix_var)>
+<!ELEMENT errmsg_dirname     (#PCDATA)>
+<!ELEMENT errmsg_header_name (#PCDATA)>
+<!ELEMENT errmsg_c_fullname  (#PCDATA)>
+<!ELEMENT errmsg_options     EMPTY>
+<!ELEMENT errmsg_prefix_var  (#PCDATA)>
+
+<!ELEMENT csharp             (cs_filename,
+                              cs_enum_name,
+                              cs_namespace?)>
+<!ELEMENT cs_filename        (#PCDATA)>
+<!ELEMENT cs_enum_name       (#PCDATA)>
+<!ELEMENT cs_namespace       (#PCDATA)>
+
+<!ELEMENT ext_python         (ext_py_dirname?,
+                              ext_py_filename,
+                              ext_py_function?)>
+<!ELEMENT ext_py_dirname     (#PCDATA)>
+<!ELEMENT ext_py_filename    (#PCDATA)>
+<!ELEMENT ext_py_function    (#PCDATA)>
+
+<!ELEMENT pure_python        (pure_py_filename,
+                              pure_py_function?)>
+<!ELEMENT pure_py_filename   (#PCDATA)>
+<!ELEMENT pure_py_function   (#PCDATA)>
+
+<!ELEMENT java               (java_filename,
+                              java_enum_name,
+                              java_package?)>
+<!ELEMENT java_filename      (#PCDATA)>
+<!ELEMENT java_enum_name     (#PCDATA)>
+<!ELEMENT java_package       (#PCDATA)>
+
+<!ATTLIST options version CDATA #REQUIRED>
+<!ATTLIST errmsg_options build_dll (yes|no) "no">
+<!ATTLIST message allow_escapes (yes|no) "no">
+<!ATTLIST message allow_quotes  (yes|no) "yes">
+<!ATTLIST message percent CDATA #REQUIRED>
+<!ATTLIST selected_lang xml:lang CDATA #REQUIRED>
+<!-- By default, all generated files have a timestamp of when they 
+     were created -->
+<!ATTLIST code_generation timestamp (yes|no) "yes">
+

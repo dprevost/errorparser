@@ -36,7 +36,8 @@ class Java: public CfamilyHandler {
    
 public:
    
-   Java( std::string & filename,
+   Java( bool          useTimestamp,
+         std::string & filename,
          std::string & java_package,
          std::string & java_enum );
    

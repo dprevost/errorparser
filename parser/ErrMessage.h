@@ -38,7 +38,8 @@ class ErrMessage:  public CfamilyHandler {
    
 public:
    
-   ErrMessage( std::string & filename,
+   ErrMessage( bool          useTimestamp,
+               std::string & filename,
                std::string & header,
                std::string & prefix,
                std::string & varPrefix );

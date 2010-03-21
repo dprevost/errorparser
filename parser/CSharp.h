@@ -36,7 +36,8 @@ class CSharp: public CfamilyHandler {
    
 public:
    
-   CSharp( std::string & filename,
+   CSharp( bool          useTimestamp,
+           std::string & filename,
            std::string & cs_namespace,
            std::string & cs_enum );
    

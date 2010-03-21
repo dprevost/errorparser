@@ -42,7 +42,9 @@ using namespace std;
 
 bool GetGeneralOptions( string  & prefix,
                         string  & language,
-                        xmlNode * node );
+                        xmlNode * node,
+                        int       version,
+                        bool    & useTimestamp );
 // Special code for version 2.0 of the option file
 bool GetGeneralOptions20( string  & prefix,
                           string  & language,
@@ -50,27 +52,35 @@ bool GetGeneralOptions20( string  & prefix,
 
 bool AddHeaderFileHandler( vector<AbstractHandler *> & handlers,
                            string                    & prefix,
-                           xmlNode                   * child );
+                           xmlNode                   * child,
+                           bool                        useTimestamp );
 
 bool AddErrMessageHandlers( vector<AbstractHandler *> & handlers,
                             string                    & prefix,
-                            xmlNode                   * node );
+                            xmlNode                   * node,
+                            bool                        useTimestamp );
+
 // Special code for version 2.0 of the option file
 bool AddErrMessageHandlers20( vector<AbstractHandler *> & handlers,
                               string                    & prefix,
-                              xmlNode                   * node );
+                              xmlNode                   * node,
+                              bool                        useTimestamp );
 
 bool AddCSharpHandler( vector<AbstractHandler *> & handlers,
-                       xmlNode                   * node );
+                       xmlNode                   * node,
+                       bool                        useTimestamp );
 
 bool AddExtPython( vector<AbstractHandler *> & handlers,
-                   xmlNode                   * node );
+                   xmlNode                   * node,
+                   bool                        useTimestamp );
 
 bool AddPurePythonHandler( vector<AbstractHandler *> & handlers,
-                           xmlNode                   * node );
+                           xmlNode                   * node,
+                           bool                        useTimestamp );
 
 bool AddJavaHandler( vector<AbstractHandler *> & handlers,
-                     xmlNode                   * node );
+                     xmlNode                   * node,
+                     bool                        useTimestamp );
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
@@ -174,6 +184,7 @@ bool handleOptions( vector<AbstractHandler *> & handlers,
    int version = 0;
    string tmp;
    string prefix;
+   bool useTimestamp = true;
    
    context = xmlNewParserCtxt();
    if ( context == NULL ) {
@@ -283,7 +294,7 @@ bool handleOptions( vector<AbstractHandler *> & handlers,
       }
    }
    else {
-      if ( ! GetGeneralOptions( prefix, language, nodeValue->children ) ) {
+      if ( ! GetGeneralOptions( prefix, language, nodeValue->children, version, useTimestamp ) ) {
          return false;
       }
    }
@@ -293,7 +304,7 @@ bool handleOptions( vector<AbstractHandler *> & handlers,
    //
    nodeValue = IsOptionalValuePresent( node, "header_file" );
    if ( nodeValue != NULL ) {
-      if ( ! AddHeaderFileHandler( handlers, prefix, nodeValue->children ) ) {
+      if ( ! AddHeaderFileHandler( handlers, prefix, nodeValue->children, useTimestamp ) ) {
          return false;
       }
    }
@@ -304,12 +315,12 @@ bool handleOptions( vector<AbstractHandler *> & handlers,
    nodeValue = IsOptionalValuePresent( node, "errmsg_files" );
    if ( nodeValue != NULL ) {
       if ( version == 20 ) {
-         if ( ! AddErrMessageHandlers20( handlers, prefix, nodeValue->children ) ) {
+         if ( ! AddErrMessageHandlers20( handlers, prefix, nodeValue->children, useTimestamp ) ) {
             return false;
          }
       }
       else {
-         if ( ! AddErrMessageHandlers( handlers, prefix, nodeValue->children ) ) {
+         if ( ! AddErrMessageHandlers( handlers, prefix, nodeValue->children, useTimestamp ) ) {
             return false;
          }
       }
@@ -320,7 +331,7 @@ bool handleOptions( vector<AbstractHandler *> & handlers,
    //
    nodeValue = IsOptionalValuePresent( node, "csharp" );
    if ( nodeValue != NULL ) {
-      if ( ! AddCSharpHandler( handlers, nodeValue->children ) ) {
+      if ( ! AddCSharpHandler( handlers, nodeValue->children, useTimestamp ) ) {
          return false;
       }
    }
@@ -331,7 +342,7 @@ bool handleOptions( vector<AbstractHandler *> & handlers,
    //
    nodeValue = IsOptionalValuePresent( node, "ext_python" );
    if ( nodeValue != NULL ) {
-      if ( ! AddExtPython( handlers, nodeValue->children ) ) {
+      if ( ! AddExtPython( handlers, nodeValue->children, useTimestamp ) ) {
          return false;
       }
    }
@@ -341,7 +352,7 @@ bool handleOptions( vector<AbstractHandler *> & handlers,
    //
    nodeValue = IsOptionalValuePresent( node, "pure_python" );
    if ( nodeValue != NULL ) {
-      if ( ! AddPurePythonHandler( handlers, nodeValue->children ) ) {
+      if ( ! AddPurePythonHandler( handlers, nodeValue->children, useTimestamp ) ) {
          return false;
       }
    }
@@ -351,7 +362,7 @@ bool handleOptions( vector<AbstractHandler *> & handlers,
    //
    nodeValue = IsOptionalValuePresent( node, "java" );
    if ( nodeValue != NULL ) {
-      if ( ! AddJavaHandler( handlers, nodeValue->children ) ) {
+      if ( ! AddJavaHandler( handlers, nodeValue->children, useTimestamp ) ) {
          return false;
       }
    }
@@ -367,7 +378,9 @@ bool handleOptions( vector<AbstractHandler *> & handlers,
 
 bool GetGeneralOptions( string  & prefix,
                         string  & language,
-                        xmlNode * node )
+                        xmlNode * node,
+                        int       version,
+                        bool    & useTimestamp )
 {
    xmlChar * value, * prop;
    string tmp, percent;
@@ -436,6 +449,20 @@ bool GetGeneralOptions( string  & prefix,
 
    g_msgXML = new MessageXML( allowEscapes, allowQuotes, percent );
 
+   if ( version >= 22 ) {
+      // Optional - global code generation options.
+      nodeValue = IsOptionalValuePresent( node, "code_generation" );
+      if ( nodeValue != NULL ) {
+         prop = xmlGetProp( nodeValue, BAD_CAST "timestamp" );
+         if ( prop == NULL ) {
+            cerr << "Error: missing \"timestamp\" in options file" << endl;
+            return false;
+         }
+         if ( xmlStrcmp( prop, BAD_CAST "no") == 0 ) useTimestamp = false;
+         xmlFree(prop);
+      }
+   }
+
    return true;
 }
 
@@ -487,7 +514,8 @@ bool GetGeneralOptions20( string  & prefix,
 
 bool AddHeaderFileHandler( vector<AbstractHandler *> & handlers,
                            string                    & prefix,
-                           xmlNode                   * node )
+                           xmlNode                   * node,
+                           bool                        useTimestamp )
 {
    bool usingEnums = false;
    string enumname, dirname, filename;
@@ -520,7 +548,7 @@ bool AddHeaderFileHandler( vector<AbstractHandler *> & handlers,
    
    // Create the header file handler 
    try {
-      p = new ErrorHeader( dirname, filename, enumname, prefix );
+      p = new ErrorHeader( useTimestamp, dirname, filename, enumname, prefix );
    }
    catch (exception& e) {
       cerr << "Error Header handler exception caught opening the output file " << endl;
@@ -536,7 +564,8 @@ bool AddHeaderFileHandler( vector<AbstractHandler *> & handlers,
 
 bool AddErrMessageHandlers( vector<AbstractHandler *> & handlers,
                             string                    & prefix,
-                            xmlNode                   * node )
+                            xmlNode                   * node,
+                            bool                        useTimestamp )
 {
    string enumname, dirname, headername, cname, varPrefix;
    xmlChar * value, * prop;
@@ -585,7 +614,7 @@ bool AddErrMessageHandlers( vector<AbstractHandler *> & handlers,
    stripText( value, varPrefix );
 
    try {
-      pH = new ErrMessageHeader( dirname, headername, varPrefix, buildDll );
+      pH = new ErrMessageHeader( useTimestamp, dirname, headername, varPrefix, buildDll );
    }
    catch (exception& e) {
       cerr << "Err Msg handler (.h) exception caught opening the output file " << endl;
@@ -593,7 +622,7 @@ bool AddErrMessageHandlers( vector<AbstractHandler *> & handlers,
    }
    
    try {
-      pC = new ErrMessage( cname, headername, prefix, varPrefix );
+      pC = new ErrMessage( useTimestamp, cname, headername, prefix, varPrefix );
    }
    catch (exception& e) {
       cerr << "Err Msg handler (.c) exception caught opening the output file " << endl;
@@ -610,7 +639,8 @@ bool AddErrMessageHandlers( vector<AbstractHandler *> & handlers,
 
 bool AddErrMessageHandlers20( vector<AbstractHandler *> & handlers,
                               string                    & prefix,
-                              xmlNode                   * node )
+                              xmlNode                   * node,
+                              bool                        useTimestamp )
 {
    string enumname, dirname, headername, cname, varPrefix, percent;
    xmlChar * value, * prop;
@@ -688,7 +718,7 @@ bool AddErrMessageHandlers20( vector<AbstractHandler *> & handlers,
    xmlFree(prop);
 
    try {
-      pH = new ErrMessageHeader( dirname, headername, varPrefix, buildDll );
+      pH = new ErrMessageHeader( useTimestamp, dirname, headername, varPrefix, buildDll );
    }
    catch (exception& e) {
       cerr << "Err Msg handler (.h) exception caught opening the output file " << endl;
@@ -696,7 +726,7 @@ bool AddErrMessageHandlers20( vector<AbstractHandler *> & handlers,
    }
    
    try {
-      pC = new ErrMessage( cname, headername, prefix, varPrefix );
+      pC = new ErrMessage( useTimestamp, cname, headername, prefix, varPrefix );
    }
    catch (exception& e) {
       cerr << "Err Msg handler (.c) exception caught opening the output file " << endl;
@@ -713,7 +743,8 @@ bool AddErrMessageHandlers20( vector<AbstractHandler *> & handlers,
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 bool AddCSharpHandler( vector<AbstractHandler *> & handlers,
-                       xmlNode                   * node )
+                       xmlNode                   * node,
+                       bool                        useTimestamp )
 {
    string filename, enumname, cs_namespace;
    xmlChar * value;
@@ -739,7 +770,7 @@ bool AddCSharpHandler( vector<AbstractHandler *> & handlers,
    }
 
    try {
-      p = new CSharp( filename, cs_namespace, enumname );
+      p = new CSharp( useTimestamp, filename, cs_namespace, enumname );
    }
    catch (exception& e) {
       cerr << "C# handler exception caught opening the output file " << endl;
@@ -754,7 +785,8 @@ bool AddCSharpHandler( vector<AbstractHandler *> & handlers,
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 bool AddExtPython( vector<AbstractHandler *> & handlers,
-                   xmlNode                   * node )
+                   xmlNode                   * node,
+                   bool                        useTimestamp )
 {
    string dirname, filename, functionName;
    xmlChar * value;
@@ -778,7 +810,7 @@ bool AddExtPython( vector<AbstractHandler *> & handlers,
    }
 
    try {
-      p = new ExtPython( dirname, filename, functionName );
+      p = new ExtPython( useTimestamp, dirname, filename, functionName );
    }
    catch (exception& e) {
       cerr << "Python ext. handler exception caught opening the output file " << endl;
@@ -793,7 +825,8 @@ bool AddExtPython( vector<AbstractHandler *> & handlers,
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 bool AddPurePythonHandler( vector<AbstractHandler *> & handlers,
-                           xmlNode                   * node )
+                           xmlNode                   * node,
+                           bool                        useTimestamp )
 {
    string filename, functionName;
    xmlChar * value;
@@ -812,7 +845,7 @@ bool AddPurePythonHandler( vector<AbstractHandler *> & handlers,
    }
 
    try {
-      p = new PurePython( filename, functionName );
+      p = new PurePython( useTimestamp, filename, functionName );
    }
    catch (exception& e) {
       cerr << "Python handler exception caught opening the output file " << endl;
@@ -827,7 +860,8 @@ bool AddPurePythonHandler( vector<AbstractHandler *> & handlers,
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
 bool AddJavaHandler( vector<AbstractHandler *> & handlers,
-                     xmlNode                   * node )
+                     xmlNode                   * node,
+                     bool                        useTimestamp )
 {
    string filename, enumname, java_package;
    xmlChar * value;
@@ -853,7 +887,7 @@ bool AddJavaHandler( vector<AbstractHandler *> & handlers,
    }
 
    try {
-      p = new Java( filename, java_package, enumname );
+      p = new Java( useTimestamp, filename, java_package, enumname );
    }
    catch (exception& e) {
       cerr << "Java handler exception caught opening the output file " << endl;

@@ -29,10 +29,14 @@ using namespace std;
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-CSharp::CSharp( string & filename, string & cs_namespace, string & cs_enum )
-   : my_namespace( cs_namespace ),
-     my_enum     ( cs_enum ),
-     indent      ( "" )
+CSharp::CSharp(  bool     useTimestamp,
+                 string & filename,
+                 string & cs_namespace,
+                 string & cs_enum )
+   : CfamilyHandler ( useTimestamp ),
+     my_namespace   ( cs_namespace ),
+     my_enum        ( cs_enum ),
+     indent         ( "" )
 {
    outStream.exceptions( fstream::failbit | fstream::badbit);
    outStream.open( filename.c_str(), fstream::out );

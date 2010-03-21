@@ -16,5 +16,8 @@
    <!-- version 2.1 - option file -->
  <public publicId="-//Error Parser project//DTD Error Parser Options XML V2.1//EN" uri="errorParserOptions21.dtd"/>
   <system systemId="http://errorparser.sourceforge.net/xml/errorParserOptions21.dtd"      uri="errorParserOptions21.dtd"/>
+   <!-- version 2.2 - option file -->
+ <public publicId="-//Error Parser project//DTD Error Parser Options XML V2.2//EN" uri="errorParserOptions22.dtd"/>
+  <system systemId="http://errorparser.sourceforge.net/xml/errorParserOptions22.dtd"      uri="errorParserOptions22.dtd"/>
 </catalog>
 

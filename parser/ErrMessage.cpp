@@ -30,14 +30,16 @@ using namespace std;
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-ErrMessage::ErrMessage( string & filename,
+ErrMessage::ErrMessage( bool     useTimestamp,
+                        string & filename,
                         string & header,
                         string & inPrefix,
                         string & varPrefix )
-   : errorCount ( 0 ),
-     headerName ( header ),
-     prefix     ( inPrefix ),
-     varPrefix  ( varPrefix )
+   : CfamilyHandler ( useTimestamp ),
+     errorCount     ( 0 ),
+     headerName     ( header ),
+     prefix         ( inPrefix ),
+     varPrefix      ( varPrefix )
 {
    outStream.exceptions( fstream::failbit | fstream::badbit);
    outStream.open( filename.c_str(), fstream::out );

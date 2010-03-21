@@ -51,7 +51,7 @@ protected:
    // The guard is constructed from the headerName.
    // Invalid characters in headerName will generate warnings (the invalid
    // characters themselves will be replaced with underscores.
-   HeaderHandler( std::string & headerName );
+   HeaderHandler( bool useTimestamp, std::string & headerName );
    
    std::string guard;
 

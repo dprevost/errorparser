@@ -21,7 +21,8 @@ using namespace std;
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-HeaderHandler::HeaderHandler( std::string  & header )
+HeaderHandler::HeaderHandler( bool useTimestamp, std::string & header )
+   : CfamilyHandler ( useTimestamp )
 {
    unsigned int i;
 
