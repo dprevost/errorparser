@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE options SYSTEM 
+             "http://errorparser.sourceforge.net/xml/errorParserOptions22.dtd">
+<!-- 
+   This xml file provides the options to the errorParser program.
+   
+   Why a file? The number of options was getting too large. Using a file
+   makes it easier to manage all these options and it will also make 
+   easier to add new options in the future (as needed). 
+   [Since changing options is usually something that will be done rarely
+   once you are satisfy with the results, storing the options in a file 
+   makes it easier to reuse the same options, evidently]
+   
+   Why xml? Easier to program (libxml2 does the parsing) and easy to
+   provide default values for some.
+   
+-->
+
+<options version="2.2">
+  <general_options>
+    <!-- Prefix to be used for the error codes (enum or #define). -->
+    <prefix_error_no_namespace> MY_PROG </prefix_error_no_namespace>
+
+    <!-- The language that will be selected for the error messages and 
+         documentation. 
+         If absent, the first <message> tag will be used.
+       
+         For each error, if there are no <message> for the selected language
+         the first <message> tag will be used. -->
+    <selected_lang xml:lang="en"/>
+        <!-- How to handle the error message. The problem: the generated C strings
+         will be use, eventually, by standard C/C++ libraries and some 
+         sequence of characters could have some bad side effects, possibly
+         including security issues.
+         The defaults:
+           - escape sequences are not permitted (a more fine grain approach
+             could be written if the need arise).
+           - quotes (' and ") are allowed (and will be escaped as needed) 
+           - The % symbol. No default. I recommend the textual "percent" 
+             (% is the most problematic one, IMHO. %d %p, etc are interpreted
+             differently by libc (printf()) and the iostream library (cout) -->         
+    <message percent="percent" />
+  </general_options>
+
+  <java javadoc_style="yes">
+    <java_filename>
+      junk/javaEnumDoc.java
+    </java_filename>
+    <java_enum_name>
+      javaEnumDoc
+    </java_enum_name>
+    <java_package>
+      org.errorParser
+    </java_package>
+  </java>
+</options>
