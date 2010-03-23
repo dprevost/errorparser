@@ -33,10 +33,12 @@ using namespace std;
 Java::Java( bool     useTimestamp,
             string & filename,
             string & java_package,
-            string & java_enum )
-   : CfamilyHandler ( useTimestamp ),
-     my_package( java_package ),
-     my_enum   ( java_enum )
+            string & java_enum,
+            bool     javadocStyle )
+   : CfamilyHandler  ( useTimestamp ),
+     my_package      ( java_package ),
+     my_enum         ( java_enum ),
+     my_javadocStyle ( javadocStyle )
 {
    outStream.exceptions( fstream::failbit | fstream::badbit);
    outStream.open( filename.c_str(), fstream::out );
@@ -69,18 +71,42 @@ void Java::addError( ErrorXML & error,
    string errMessage;
    const char * msg;
    
-   paragraph = error.GetDocuParagraph();
-   while ( paragraph != NULL ) {
-      stripText( paragraph, tmp );
-      if ( tmp.empty() ) throw new MissingException( "<errordoc>" );
-         
-      if ( firstpara ) firstpara = false;
-      else {
-         outStream << "    //" << endl;
-      }
-      formatText( outStream, tmp, "    // ", ERRP_LINE_LENGTH );
+   if ( my_javadocStyle ) {
+
+      // We start by writing the documentation in a format understood by
+      // javadoc.                                                       
+      outStream << "    /**" << endl;
 
       paragraph = error.GetDocuParagraph();
+      while ( paragraph != NULL ) {
+         stripText( paragraph, tmp );
+         if ( tmp.empty() ) throw new MissingException( "<errordoc>" );
+
+         if ( firstpara ) firstpara = false;
+         else {
+            outStream << "     * <p>" << endl;
+         }
+
+         formatText( outStream, tmp, "     * ", ERRP_LINE_LENGTH );
+
+         paragraph = error.GetDocuParagraph();
+      }
+      outStream << "     */" << endl;
+   }
+   else {
+      paragraph = error.GetDocuParagraph();
+      while ( paragraph != NULL ) {
+         stripText( paragraph, tmp );
+         if ( tmp.empty() ) throw new MissingException( "<errordoc>" );
+         
+         if ( firstpara ) firstpara = false;
+         else {
+            outStream << "    //" << endl;
+         }
+         formatText( outStream, tmp, "    // ", ERRP_LINE_LENGTH );
+
+         paragraph = error.GetDocuParagraph();
+      }
    }
 
    msg = error.GetErrMessage();

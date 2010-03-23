@@ -80,7 +80,8 @@ bool AddPurePythonHandler( vector<AbstractHandler *> & handlers,
 
 bool AddJavaHandler( vector<AbstractHandler *> & handlers,
                      xmlNode                   * node,
-                     bool                        useTimestamp );
+                     bool                        useTimestamp,
+                     bool                        javadocStyle );
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
@@ -185,7 +186,8 @@ bool handleOptions( vector<AbstractHandler *> & handlers,
    string tmp;
    string prefix;
    bool useTimestamp = true;
-   
+   bool javadocStyle = false;
+
    context = xmlNewParserCtxt();
    if ( context == NULL ) {
       cerr << "Error allocating the parser context" << endl;
@@ -362,7 +364,17 @@ bool handleOptions( vector<AbstractHandler *> & handlers,
    //
    nodeValue = IsOptionalValuePresent( node, "java" );
    if ( nodeValue != NULL ) {
-      if ( ! AddJavaHandler( handlers, nodeValue->children, useTimestamp ) ) {
+      
+      if ( version >= 22 ) {
+         javadocStyle = true;
+         prop = xmlGetProp( nodeValue, BAD_CAST "javadoc_style" );
+         if ( prop != NULL ) {
+            if ( xmlStrcmp( prop, BAD_CAST "no") == 0 ) javadocStyle = false;
+            xmlFree(prop);
+         }
+      }
+
+      if ( ! AddJavaHandler( handlers, nodeValue->children, useTimestamp, javadocStyle ) ) {
          return false;
       }
    }
@@ -861,7 +873,8 @@ bool AddPurePythonHandler( vector<AbstractHandler *> & handlers,
 
 bool AddJavaHandler( vector<AbstractHandler *> & handlers,
                      xmlNode                   * node,
-                     bool                        useTimestamp )
+                     bool                        useTimestamp,
+                     bool                        javadocStyle )
 {
    string filename, enumname, java_package;
    xmlChar * value;
@@ -887,7 +900,7 @@ bool AddJavaHandler( vector<AbstractHandler *> & handlers,
    }
 
    try {
-      p = new Java( useTimestamp, filename, java_package, enumname );
+      p = new Java( useTimestamp, filename, java_package, enumname, javadocStyle );
    }
    catch (exception& e) {
       cerr << "Java handler exception caught opening the output file " << endl;

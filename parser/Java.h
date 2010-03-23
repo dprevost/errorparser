@@ -39,7 +39,8 @@ public:
    Java( bool          useTimestamp,
          std::string & filename,
          std::string & java_package,
-         std::string & java_enum );
+         std::string & java_enum,
+         bool          javadocStyle );
    
    // Do-nothing destructor
    ~Java() {}
@@ -65,6 +66,7 @@ private:
    std::string my_package;
    std::string my_enum;
    
+   bool my_javadocStyle;
 };
 
 // --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--

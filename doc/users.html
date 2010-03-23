@@ -1,5 +1,5 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Error Parser Users' Manual</title><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="book" lang="en"><div class="titlepage"><div><div><h1 class="title"><a name="id2425050"></a>Error Parser Users' Manual</h1></div><div><div class="author"><h3 class="author"><span class="firstname">Daniel</span> <span class="surname">Prévost</span></h3></div></div><div><p class="releaseinfo">This manual is for release 1.1 of Error Parser</p></div><div><p class="copyright">Copyright © 2008-2009 Daniel 
-    Prévost</p></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="chapter"><a href="#Introduction">1. Introduction</a></span></dt><dt><span class="chapter"><a href="#New">2. New in this release</a></span></dt><dt><span class="chapter"><a href="#user_guide">3. User Guide</a></span></dt><dd><dl><dt><span class="sect1"><a href="#intro">1. Introduction</a></span></dt><dt><span class="sect1"><a href="#xml_file">2. The xml error file</a></span></dt><dt><span class="sect1"><a href="#option_file">3. The xml option file </a></span></dt><dt><span class="sect1"><a href="#quasar">4. Example: the Photon software</a></span></dt><dd><dl><dt><span class="sect2"><a href="#configure.ac">4.1. configure.ac</a></span></dt><dt><span class="sect2"><a href="#makefile_am">4.2. Makefile.am</a></span></dt><dt><span class="sect2"><a href="#option_files_examples">4.3.  Option files</a></span></dt><dt><span class="sect2"><a href="#quasarerrors">4.4. The Error File</a></span></dt><dt><span class="sect2"><a href="#example_python_extended_module">4.5. Python extension module</a></span></dt></dl></dd></dl></dd></dl></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="Introduction"></a>Chapter 1. Introduction</h2></div></div></div><p>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Error Parser Users' Manual</title><meta name="generator" content="DocBook XSL Stylesheets V1.75.1"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="book" title="Error Parser Users' Manual"><div class="titlepage"><div><div><h1 class="title"><a name="id2713294"></a>Error Parser Users' Manual</h1></div><div><div class="author"><h3 class="author"><span class="firstname">Daniel</span> <span class="surname">Prévost</span></h3></div></div><div><p class="releaseinfo">This manual is for release 1.1 of Error Parser</p></div><div><p class="copyright">Copyright © 2008-2009 Daniel 
+    Prévost</p></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="chapter"><a href="#Introduction">1. Introduction</a></span></dt><dt><span class="chapter"><a href="#New">2. New in this release</a></span></dt><dt><span class="chapter"><a href="#user_guide">3. User Guide</a></span></dt><dd><dl><dt><span class="sect1"><a href="#intro">1. Introduction</a></span></dt><dt><span class="sect1"><a href="#xml_file">2. The xml error file</a></span></dt><dt><span class="sect1"><a href="#option_file">3. The xml option file </a></span></dt><dt><span class="sect1"><a href="#quasar">4. Example: the Photon software</a></span></dt><dd><dl><dt><span class="sect2"><a href="#configure.ac">4.1. configure.ac</a></span></dt><dt><span class="sect2"><a href="#makefile_am">4.2. Makefile.am</a></span></dt><dt><span class="sect2"><a href="#option_files_examples">4.3.  Option files</a></span></dt><dt><span class="sect2"><a href="#quasarerrors">4.4. The Error File</a></span></dt><dt><span class="sect2"><a href="#example_python_extended_module">4.5. Python extension module</a></span></dt></dl></dd></dl></dd></dl></div><div class="chapter" title="Chapter 1. Introduction"><div class="titlepage"><div><div><h2 class="title"><a name="Introduction"></a>Chapter 1. Introduction</h2></div></div></div><p>
       Error Parser is a small tool for application developers. It simplifies 
       the management of error codes, error messages and documentation for
       both small and large projects.
@@ -11,9 +11,9 @@
     </p><p>
       Control of the code generation is done by an option file written in XML.
       The format for both XML files is explained below.
-    </p></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="New"></a>Chapter 2. New in this release</h2></div></div></div><p> 
+    </p></div><div class="chapter" title="Chapter 2. New in this release"><div class="titlepage"><div><div><h2 class="title"><a name="New"></a>Chapter 2. New in this release</h2></div></div></div><p> 
       This release is a minor update - support for Java was added.
-    </p></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="user_guide"></a>Chapter 3. User Guide</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#intro">1. Introduction</a></span></dt><dt><span class="sect1"><a href="#xml_file">2. The xml error file</a></span></dt><dt><span class="sect1"><a href="#option_file">3. The xml option file </a></span></dt><dt><span class="sect1"><a href="#quasar">4. Example: the Photon software</a></span></dt><dd><dl><dt><span class="sect2"><a href="#configure.ac">4.1. configure.ac</a></span></dt><dt><span class="sect2"><a href="#makefile_am">4.2. Makefile.am</a></span></dt><dt><span class="sect2"><a href="#option_files_examples">4.3.  Option files</a></span></dt><dt><span class="sect2"><a href="#quasarerrors">4.4. The Error File</a></span></dt><dt><span class="sect2"><a href="#example_python_extended_module">4.5. Python extension module</a></span></dt></dl></dd></dl></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="intro"></a>1. Introduction</h2></div></div></div><p>
+    </p></div><div class="chapter" title="Chapter 3. User Guide"><div class="titlepage"><div><div><h2 class="title"><a name="user_guide"></a>Chapter 3. User Guide</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="#intro">1. Introduction</a></span></dt><dt><span class="sect1"><a href="#xml_file">2. The xml error file</a></span></dt><dt><span class="sect1"><a href="#option_file">3. The xml option file </a></span></dt><dt><span class="sect1"><a href="#quasar">4. Example: the Photon software</a></span></dt><dd><dl><dt><span class="sect2"><a href="#configure.ac">4.1. configure.ac</a></span></dt><dt><span class="sect2"><a href="#makefile_am">4.2. Makefile.am</a></span></dt><dt><span class="sect2"><a href="#option_files_examples">4.3.  Option files</a></span></dt><dt><span class="sect2"><a href="#quasarerrors">4.4. The Error File</a></span></dt><dt><span class="sect2"><a href="#example_python_extended_module">4.5. Python extension module</a></span></dt></dl></dd></dl></div><div class="sect1" title="1. Introduction"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="intro"></a>1. Introduction</h2></div></div></div><p>
         The program errorParser is very easy to use. From the 
         command line just enter:
       </p><pre class="programlisting">errorParser -o <code class="varname">option_file</code> <code class="varname">error_file</code></pre><p>
@@ -25,16 +25,16 @@
         directory and their syntax is explained below.
       </p><p>
         The program can also be called with a single option:
-        </p><div class="itemizedlist"><ul type="disc"><li><p>
+        </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
               -h, -? or --help
             </p><p>
               will give you the list of options and the syntax of the program.
-            </p></li><li><p>
+            </p></li><li class="listitem"><p>
               -v or --version
             </p><p>
               will tell you which version you are using (new since version 1.0).
             </p></li></ul></div><p>
-      </p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="xml_file"></a>2. The xml error file</h2></div></div></div><p> 
+      </p></div><div class="sect1" title="2. The xml error file"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="xml_file"></a>2. The xml error file</h2></div></div></div><p> 
         This section documents version 1.3 of the DTD. 
       </p><p>
         The xml file starts with the usual xml header (version of 
@@ -53,9 +53,9 @@
         &lt;copyright&gt; and must be unique - however, if you have more 
         than one &lt;copyright&gt; tag, each will have its &lt;years&gt; 
         sub-tag.
-      </p><div class="itemizedlist"><ul type="disc"><li><p>
+      </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
             &lt;errorlist version="0.3"&gt; 
-            <a class="indexterm" name="id2476398"></a>
+            <a class="indexterm" name="id2956922"></a>
           </p><p>
             This tag starts the document itself (the root element). 
             The version attribute is a string of your choosing and is there 
@@ -63,9 +63,9 @@
             You can use it to make sure that the output
             files match the version of your software, for example. 
             This attribute is optional.
-          </p></li><li><p>
+          </p></li><li class="listitem"><p>
             &lt;copyright_group&gt; 
-            <a class="indexterm" name="id2476422"></a>
+            <a class="indexterm" name="id2956946"></a>
           </p><p>
             This is an optional tag. You use it if you want to 
             generate copyright information and the terms of the license
@@ -73,34 +73,34 @@
             This tag has only one sub-tag, &lt;copyright&gt;, which can be 
             repeated multiple times (if you have multiple authors with 
             possibly different licenses).
-          </p></li><li><p>
+          </p></li><li class="listitem"><p>
             &lt;copyright&gt; 
-            <a class="indexterm" name="id2476447"></a>
+            <a class="indexterm" name="id2956972"></a>
           </p><p>
             Allows you to enter copyright information in the output 
             files. It has multiple sub-tags. As mentioned previously, 
             multiple &lt;copyright&gt; tags are allowed.
-          </p><div class="itemizedlist"><ul type="circle"><li><p>
+          </p><div class="itemizedlist"><ul class="itemizedlist" type="circle"><li class="listitem"><p>
                 &lt;years&gt;
-                <a class="indexterm" name="id2476517"></a>
+                <a class="indexterm" name="id2956997"></a>
               </p><p>
                 The interval of years for the current copyright notice.
-              </p></li><li><p>
+              </p></li><li class="listitem"><p>
                 &lt;authors&gt;
-                <a class="indexterm" name="id2476539"></a>
+                <a class="indexterm" name="id2957018"></a>
               </p><p>
                 The name(s) of the owner(s) of the copyright.
-              </p></li><li><p>
+              </p></li><li class="listitem"><p>
                 &lt;license_para&gt;
-                <a class="indexterm" name="id2476558"></a>
+                <a class="indexterm" name="id2957038"></a>
               </p><p>
                 This tag contains a single paragraph of the terms of your license. 
                 Use multiple &lt;license_para&gt; if your 
                 license has multiple paragraphs. You must have at least 
                 one &lt;license_para&gt; for each &lt;copyright&gt;.
-              </p></li></ul></div></li><li><p>
+              </p></li></ul></div></li><li class="listitem"><p>
             &lt;errgroup&gt;
-            <a class="indexterm" name="id2476586"></a>
+            <a class="indexterm" name="id2957066"></a>
           </p><p>
             &lt;errgroup&gt; is used to organize your errors in 
             groups, if you so desire. For example, you could split your
@@ -110,9 +110,9 @@
             If you don't want to use this feature, use a 
             single group and do not include the &lt;errgroup_ident&gt; 
             sub-tag.
-          </p></li><li><p>
+          </p></li><li class="listitem"><p>
             &lt;errgroup_ident&gt;
-            <a class="indexterm" name="id2476620"></a>
+            <a class="indexterm" name="id2957101"></a>
           </p><p>
             This sub-tag of &lt;errgroup&gt; is optional. The 
             sub-tags associated with this tag are used to generate 
@@ -130,31 +130,31 @@
             &lt;errgroup_ident&gt; matching the language selected in the 
             option file. If the selected language is not found, the first 
             &lt;errgroup_ident&gt; is used.
-          </p><div class="itemizedlist"><ul type="circle"><li><p>
+          </p><div class="itemizedlist"><ul class="itemizedlist" type="circle"><li class="listitem"><p>
                 &lt;errgroup_name&gt;
-                <a class="indexterm" name="id2476676"></a>
+                <a class="indexterm" name="id2954816"></a>
               </p><p>
                 A name for this group of errors. For example, Network errors.
-              </p></li><li><p>
+              </p></li><li class="listitem"><p>
                 &lt;errgroup_desc&gt;
-                <a class="indexterm" name="id2476696"></a>
+                <a class="indexterm" name="id2954836"></a>
               </p><p>
                 Description of this group of errors. You must have 
                 at least one &lt;errgroup_desc&gt; or more as needed.
                 Each will be mapped to a paragraph.
-              </p></li></ul></div></li><li><p>
+              </p></li></ul></div></li><li class="listitem"><p>
             &lt;error&gt;
-            <a class="indexterm" name="id2476720"></a>
+            <a class="indexterm" name="id2954860"></a>
           </p><p>
             This tag is also a sub-tag of &lt;errgroup&gt;. You 
             need at least one &lt;error&gt; for each &lt;errgroup&gt; but 
             you can have as many as needed.
-          </p><div class="itemizedlist"><ul type="circle"><li><p>
+          </p><div class="itemizedlist"><ul class="itemizedlist" type="circle"><li class="listitem"><p>
                 &lt;errnumber&gt;
-                <a class="indexterm" name="id2476744"></a>
-              </p><p>The numerical value of the error code.</p></li><li><p>
+                <a class="indexterm" name="id2954883"></a>
+              </p><p>The numerical value of the error code.</p></li><li class="listitem"><p>
                 &lt;errname&gt;
-                <a class="indexterm" name="id2476763"></a>
+                <a class="indexterm" name="id2954902"></a>
               </p><p>
                 The generic name of the error. This name is going 
                 to be used to generate either an enum entry or a #define 
@@ -166,18 +166,18 @@
                 become &lt;errname&gt; OBJECT_IS_DELETED &lt;/errname&gt; 
                 - the prefix can be added by specifying it in the option 
                 file.
-              </p></li><li><p>
+              </p></li><li class="listitem"><p>
                 &lt;message_group&gt;
-                <a class="indexterm" name="id2476796"></a>
+                <a class="indexterm" name="id2954935"></a>
               </p><p>
                 This tag is used to group the error messages and 
                 the documentation for the error - which are encapsulated 
                 in the &lt;message&gt; tag. Multiple &lt;message&gt; tags 
                 are supported (you must have at least one), one for each 
                 supported language.
-              </p></li><li><p>
+              </p></li><li class="listitem"><p>
                 &lt;message&gt;
-                <a class="indexterm" name="id2477035"></a>
+                <a class="indexterm" name="id2954959"></a>
               </p><p>
                 Container for both the error message and the 
                 documentation for this error. This tag has an optional 
@@ -194,9 +194,9 @@
                 matching the language selected in the option file. If the 
                 selected language is not found, the first &lt;message&gt; 
                 is used.
-              </p><div class="itemizedlist"><ul type="square"><li><p>
+              </p><div class="itemizedlist"><ul class="itemizedlist" type="square"><li class="listitem"><p>
                     &lt;errormsg&gt;
-                    <a class="indexterm" name="id2477088"></a>
+                    <a class="indexterm" name="id2955011"></a>
                   </p><p>
                     This tag identifies the text of the error message that 
                     will be retrieved by the function 
@@ -208,34 +208,34 @@
                     control how Error Parser will handle these 
                     occurrences by setting the appropriate options in the 
                     option file.
-                  </p></li><li><p>
+                  </p></li><li class="listitem"><p>
                     &lt;errordoc&gt;
-                    <a class="indexterm" name="id2477134"></a>
+                    <a class="indexterm" name="id2955058"></a>
                   </p><p>
                     Each &lt;errordoc&gt; is a paragraph of the 
                     documentation. Therefore, you can have multiple 
                     &lt;errordoc&gt; but you must have at least one.
-                  </p></li></ul></div></li></ul></div></li></ul></div><p></p></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="option_file"></a>3. The xml option file </h2></div></div></div><p>
+                  </p></li></ul></div></li></ul></div></li></ul></div><p></p></div><div class="sect1" title="3. The xml option file"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="option_file"></a>3. The xml option file </h2></div></div></div><p>
         This section documents version 2.1 of the DTD. This new release of
         the parser will understand version 2.0 of the DTD.
         Current option files based on version 1.* must be upgraded.
-      </p><div class="itemizedlist"><ul type="disc"><li><p>
-            &lt;options version="2.1"&gt;
-            <a class="indexterm" name="id2477184"></a>
+      </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+            &lt;options version="2.2"&gt;
+            <a class="indexterm" name="id2955163"></a>
           </p><p>
             This tag starts the document itself (the root element). The 
             attribute "version" (the version of the DTD) is required; it 
             is used by the parser to support multiple versions 
             of the DTD (starting at version 2.0), as needed.
-          </p></li><li><p>
+          </p></li><li class="listitem"><p>
             &lt;general_options&gt;
-            <a class="indexterm" name="id2477206"></a>
+            <a class="indexterm" name="id2955185"></a>
           </p><p>
             Options with a global impact or that will influence the
             processing of more than one output file.
-          </p><div class="itemizedlist"><ul type="circle"><li><p>
+          </p><div class="itemizedlist"><ul class="itemizedlist" type="circle"><li class="listitem"><p>
                 &lt;prefix_error_no_namespace&gt;
-                <a class="indexterm" name="id2477229"></a>
+                <a class="indexterm" name="id2955208"></a>
               </p><p>
                 The prefix to be used for the error codes (enum or 
                 #define). For example, if your error is OBJECT_IS_DELETED 
@@ -247,9 +247,9 @@
                 these languages support namespaces (prefixes like this are
                 used to avoid namespace clashes in languages without a
                 namespace, for example C).
-              </p></li><li><p>
+              </p></li><li class="listitem"><p>
                 &lt;selected_lang&gt;
-                <a class="indexterm" name="id2477269"></a>
+                <a class="indexterm" name="id2955248"></a>
               </p><p>
                 Optional parameter to select the language that will be used for
                 the documentation and error messages. If absent, the first 
@@ -262,20 +262,20 @@
                 For example:
               </p><p>
                 </p><pre class="programlisting">&lt;selected_lang xml:lang="en"/&gt;</pre><p>
-              </p></li></ul></div></li><li><p>
+              </p></li></ul></div></li><li class="listitem"><p>
             &lt;header_file&gt;
-            <a class="indexterm" name="id2477322"></a>
+            <a class="indexterm" name="id2955301"></a>
           </p><p>
             Optional. Options for the main header file.
-          </p><div class="itemizedlist"><ul type="circle"><li><p>
+          </p><div class="itemizedlist"><ul class="itemizedlist" type="circle"><li class="listitem"><p>
                 &lt;header_enum&gt;
-                <a class="indexterm" name="id2477343"></a>
+                <a class="indexterm" name="id2955322"></a>
               </p><p>
                 Optional. The name of the enum. If absent, #define will 
                 be generated instead.
-              </p></li><li><p>
+              </p></li><li class="listitem"><p>
                 &lt;header_dirname&gt;
-                <a class="indexterm" name="id2477364"></a>
+                <a class="indexterm" name="id2955343"></a>
               </p><p>
                 Optional. The name of the directory where the error 
                 header file is to be created. If absent, the current 
@@ -284,7 +284,7 @@
               </p><p>
                 Alternatively, you can put the directory name (or part 
                 of the directory name) directly in the &lt;header_name&gt; 
-                tag. But if you do, the "guard"<sup>[<a name="id2477388" href="#ftn.id2477388" class="footnote">1</a>]</sup>
+                tag. But if you do, the "guard"<sup>[<a name="id2955367" href="#ftn.id2955367" class="footnote">1</a>]</sup>
                 will include that 
                 directory name.
               </p><p>
@@ -302,21 +302,21 @@
 ...
 #endif /* MY_SUB_PROJECT_ERRORS_H */
                 </pre><p>
-              </p></li><li><p>
+              </p></li><li class="listitem"><p>
                 &lt;header_name&gt;
-                <a class="indexterm" name="id2477446"></a>
+                <a class="indexterm" name="id2955424"></a>
               </p><p>
                 The name of the header file for errors. See the 
                 item &lt;header_dirname&gt; for a discussion on names of files,
                 directories and the generated header guard.
-              </p></li></ul></div></li><li><p>
+              </p></li></ul></div></li><li class="listitem"><p>
             &lt;errmsg_files&gt;
-            <a class="indexterm" name="id2526655"></a>
+            <a class="indexterm" name="id3006447"></a>
           </p><p>
             Optional. Options for the error-message files (.c and .h).
-          </p><div class="itemizedlist"><ul type="circle"><li><p>
+          </p><div class="itemizedlist"><ul class="itemizedlist" type="circle"><li class="listitem"><p>
                 &lt;errmsg_dirname&gt;
-                <a class="indexterm" name="id2526675"></a>
+                <a class="indexterm" name="id3006467"></a>
               </p><p>
                 Optional. The name of the directory where the header file 
                 will be created. If absent, the current directory or the 
@@ -325,23 +325,23 @@
               </p><p>
                 See the item &lt;header_dirname&gt; for a discussion on names 
                 of files, directories and the generated header guard.
-              </p></li><li><p>
+              </p></li><li class="listitem"><p>
                 &lt;errmsg_header_name&gt;
-                <a class="indexterm" name="id2526709"></a>
+                <a class="indexterm" name="id3006501"></a>
               </p><p>
                 The name of the header file for the code to retrieve 
                 the error messages. 
                 See the item &lt;header_dirname&gt; for a discussion on names 
                 of files, directories and the generated header guard.
-              </p></li><li><p>
+              </p></li><li class="listitem"><p>
                 &lt;errmsg_c_fullname&gt;
-                <a class="indexterm" name="id2526731"></a></p><p>
+                <a class="indexterm" name="id3006523"></a></p><p>
                 The full name of the "C" file for the code to 
                 retrieve the error messages (note: the path can be relative
                 to the current working directory).
-             </p></li><li><p>
+             </p></li><li class="listitem"><p>
                 &lt;errmsg_options&gt;
-                <a class="indexterm" name="id2526756"></a></p><a class="indexterm" name="id2526763"></a><p>
+                <a class="indexterm" name="id3006548"></a></p><a class="indexterm" name="id3006555"></a><p>
                 Optional. This tag has no content and a single attribute, 
                 build_dll.
                 The attribute is an enumeration with two values, yes and no. 
@@ -353,15 +353,15 @@
                 will generate an empty macro, in other words no side effects.
                 However, if you are building a self-contained EXE on Windows,
                 Visual Studio will warn you about this.
-              </p></li><li><p>
+              </p></li><li class="listitem"><p>
                 &lt;errmsg_prefix_var&gt;
-                <a class="indexterm" name="id2526795"></a>
+                <a class="indexterm" name="id3006587"></a>
               </p><p>
                 The prefix to be used for all variables in the code to 
                 retrieve the error messages.
-              </p></li><li><p>
+              </p></li><li class="listitem"><p>
                 &lt;errmsg_msg&gt;
-                <a class="indexterm" name="id2526815"></a>
+                <a class="indexterm" name="id3006607"></a>
               </p><p>
                 This tag has no content but its attributes are 
                 important - they define the allowed characteristics (and the 
@@ -374,9 +374,9 @@
                 The most problematic character is likely the % symbol - it 
                 is interpreted differently by libc (printf()) 
                 and the iostream library (cout).
-              </p><p>The attributes:</p><div class="itemizedlist"><ul type="square"><li><p>
+              </p><p>The attributes:</p><div class="itemizedlist"><ul class="itemizedlist" type="square"><li class="listitem"><p>
                     allow_escapes
-                    <a class="indexterm" name="id2526855"></a>
+                    <a class="indexterm" name="id3006647"></a>
                   </p><p>
                     An enumeration with two values, yes and no. The 
                     default is no; escape sequences are not permitted.
@@ -384,47 +384,47 @@
                     Note: if you want to allow quotes in your messages, do 
                     <span class="emphasis"><em> NOT </em></span> escape them if allow_escapes
                     is set to no (they will be escaped by Error Parser).
-                  </p></li><li><p>
+                  </p></li><li class="listitem"><p>
                     allow_quotes 
-                    <a class="indexterm" name="id2526890"></a>
+                    <a class="indexterm" name="id3006682"></a>
                   </p><p>
                     An enumeration with two values, yes and no. The 
                     default is yes; quotes (' and ") are allowed 
                     and will be escaped as needed.
-                  </p></li><li><p>
+                  </p></li><li class="listitem"><p>
                     percent
-                    <a class="indexterm" name="id2526916"></a>
+                    <a class="indexterm" name="id3006708"></a>
                   </p><p>
                     The text that will be used to replace the % symbol. 
                     This attribute is mandatory and has no default value.
                     The textual "percent" is recommended.
-                  </p></li></ul></div></li></ul></div></li><li><p>
+                  </p></li></ul></div></li></ul></div></li><li class="listitem"><p>
             &lt;csharp&gt;
-            <a class="indexterm" name="id2526947"></a>
-            <a class="indexterm" name="id2526954"></a>
+            <a class="indexterm" name="id3006739"></a>
+            <a class="indexterm" name="id3006745"></a>
           </p><p>
             Optional. If present, code for C# will be generated (in the
             form of an enum). Additional sub-tags, described below, are used 
             to provide the required parameters.
-          </p><div class="itemizedlist"><ul type="circle"><li><p>
+          </p><div class="itemizedlist"><ul class="itemizedlist" type="circle"><li class="listitem"><p>
                 &lt;cs_filename&gt;
-                <a class="indexterm" name="id2526976"></a>
+                <a class="indexterm" name="id3006767"></a>
               </p><p>
                 Full or relative path to the generated C# code.
-              </p></li><li><p>
+              </p></li><li class="listitem"><p>
                 &lt;cs_enum_name&gt;
-                <a class="indexterm" name="id2526996"></a>
+                <a class="indexterm" name="id3006787"></a>
               </p><p>
                 The name of the C# enum.
-              </p></li><li><p>
+              </p></li><li class="listitem"><p>
                 &lt;cs_namespace&gt;
-                <a class="indexterm" name="id2527014"></a>
+                <a class="indexterm" name="id3006806"></a>
               </p><p>
                 Optional. The name of the C# namespace. If absent, the code
                 is generated without a namespace.
-              </p></li></ul></div></li><li><p>
+              </p></li></ul></div></li><li class="listitem"><p>
             &lt;ext_py&gt;
-            <a class="indexterm" name="id2527037"></a>
+            <a class="indexterm" name="id3006829"></a>
           </p><p>
             Optional. If present, a C header file, to be used by a Python 
             extension module, will be generated. 
@@ -450,11 +450,11 @@
             In this example, pso.errs and pso.errnames are the two dict 
             used by the
             Photon extension module. See the section
-            &#8220;<span class="quote"><a class="link" href="#example_python_extended_module" title="4.5. Python extension module">Python extension module</a></span>&#8221;
+            <span class="quote">&#8220;<span class="quote"><a class="link" href="#example_python_extended_module" title="4.5. Python extension module">Python extension module</a></span>&#8221;</span>
             for some tips on how to use the generated file in your C code.
-          </p><div class="itemizedlist"><ul type="circle"><li><p>
+          </p><div class="itemizedlist"><ul class="itemizedlist" type="circle"><li class="listitem"><p>
                 &lt;ext_py_dirname&gt;
-                <a class="indexterm" name="id2527205"></a>
+                <a class="indexterm" name="id3006997"></a>
               </p><p>
                 Optional. The name of the directory where the code should be
                 generated. If absent, the current directory or the 
@@ -463,22 +463,22 @@
                 See the item &lt;header_dirname&gt; for 
                 a discussion on names of files, directories and the 
                 generated header guard.
-              </p></li><li><p>
+              </p></li><li class="listitem"><p>
                 &lt;ext_py_filename&gt;
-                <a class="indexterm" name="id2527239"></a>
+                <a class="indexterm" name="id3007031"></a>
               </p><p>
                 The name of the header file.
                 See the item &lt;header_dirname&gt; for a discussion on names 
                 of files, directories and the generated header guard.
-              </p></li><li><p>
+              </p></li><li class="listitem"><p>
                 &lt;ext_py_function&gt;
-                <a class="indexterm" name="id2527266"></a>
+                <a class="indexterm" name="id3007057"></a>
               </p><p>
                 Optional. The name of the generated function. If absent, the
                 code will use AddErrors().
-              </p></li></ul></div></li><li><p>
+              </p></li></ul></div></li><li class="listitem"><p>
             &lt;pure_python&gt;
-            <a class="indexterm" name="id2527288"></a>
+            <a class="indexterm" name="id3007079"></a>
           </p><p>
             Optional. If present, a Python file will be generated. 
             Additional sub-tags, described below, are used 
@@ -488,20 +488,20 @@
             objects. The key for the first dict is the error symbolic name and
             the value is the error number. The key for the second dict is 
             the error number and the value is the symbolic name.
-          </p><div class="itemizedlist"><ul type="circle"><li><p>
+          </p><div class="itemizedlist"><ul class="itemizedlist" type="circle"><li class="listitem"><p>
                 &lt;pure_py_filename&gt;
-                <a class="indexterm" name="id2475719"></a>
+                <a class="indexterm" name="id2954339"></a>
               </p><p>
                 The name of the Python generated file.
-              </p></li><li><p>
+              </p></li><li class="listitem"><p>
                 &lt;pure_py_function&gt;
-                <a class="indexterm" name="id2475739"></a>
+                <a class="indexterm" name="id2954359"></a>
               </p><p>
                 Optional. The name of the generated function. If absent, the
                 code will use add_errors().
-              </p></li></ul></div></li><li><p>
+              </p></li></ul></div></li><li class="listitem"><p>
             &lt;java&gt;
-            <a class="indexterm" name="id2475762"></a>
+            <a class="indexterm" name="id2954382"></a>
           </p><p>
             Optional. If present, a Java file will be generated. 
             Additional sub-tags, described below, are used 
@@ -509,22 +509,22 @@
           </p><p>
             The code generates a Java enum class. Java 5.0 or greater is 
             required.
-          </p><div class="itemizedlist"><ul type="circle"><li><p>
+          </p><div class="itemizedlist"><ul class="itemizedlist" type="circle"><li class="listitem"><p>
                 &lt;java_filename&gt;
-                <a class="indexterm" name="id2475790"></a>
+                <a class="indexterm" name="id2954409"></a>
               </p><p>
                 The name of the Java generated file.
-              </p></li><li><p>
+              </p></li><li class="listitem"><p>
                 &lt;java_enum_name&gt;
-                <a class="indexterm" name="id2475810"></a>
+                <a class="indexterm" name="id2954429"></a>
               </p><p>
                 The name of the Java enum.
-              </p></li><li><p>
+              </p></li><li class="listitem"><p>
                 &lt;java_package&gt;
-                <a class="indexterm" name="id2475829"></a>
+                <a class="indexterm" name="id2954449"></a>
               </p><p>
                 Optional. The name of the Java package.
-              </p></li></ul></div></li></ul></div></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="quasar"></a>4. Example: the Photon software</h2></div></div></div><p>
+              </p></li></ul></div></li></ul></div></div><div class="sect1" title="4. Example: the Photon software"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="quasar"></a>4. Example: the Photon software</h2></div></div></div><p>
         Photon is a framework: it includes a library with interfaces in C,
         C++, C# and Python and a few standalone executables. Error Parser
         is used for the library and generates output files for all the
@@ -539,7 +539,7 @@
         to build Photon. The output files generated by Error Parser are
         included in the source code distribution. However, Error Parser 
         is required for developers and maintainers of the framework.
-      </p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="configure.ac"></a>4.1. configure.ac</h3></div></div></div><p>
+      </p><div class="sect2" title="4.1. configure.ac"><div class="titlepage"><div><div><h3 class="title"><a name="configure.ac"></a>4.1. configure.ac</h3></div></div></div><p>
           The autoconf program is used by the photon framework to determine
           multiple aspects of the current system: the operating system,
           the hardware, the availability of some C functions, of some 
@@ -558,7 +558,7 @@ AM_CONDITIONAL([COND_USE_ERRORPARSER], [test "$ERRORPARSER_IS_PRESENT" = yes])
           conditional COND_USE_ERRORPARSER will be false and the Makefile
           will not attempt to regenerate the error output files even if the 
           xml error file itself is modified.
-        </p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="makefile_am"></a>4.2. Makefile.am</h3></div></div></div><p>
+        </p></div><div class="sect2" title="4.2. Makefile.am"><div class="titlepage"><div><div><h3 class="title"><a name="makefile_am"></a>4.2. Makefile.am</h3></div></div></div><p>
           Including the rules for the parser in a Makefile is relatively simple. 
           Here is a code snippet from the Makefile.am of Quasar; the syntax for
           ordinary makefiles should be similar.
@@ -585,17 +585,17 @@ quasar_SOURCES =             \
         $(OUTPUT_FILES) \
         Acceptor.cpp    \
         ...
-        </pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="option_files_examples"></a>4.3.  Option files</h3></div></div></div><p>
+        </pre></div><div class="sect2" title="4.3.  Option files"><div class="titlepage"><div><div><h3 class="title"><a name="option_files_examples"></a>4.3.  Option files</h3></div></div></div><p>
           Two examples are shown here. The file option.xml is used for the
           library of Photon. It uses most of the features of Error Parser,
           including the generation of code for C# and Python extension module.
           In contrast, quasarOptions.xml is based on a smaller subset of
           available features.
-        </p><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="options_xml"></a>4.3.1. options.xml</h4></div></div></div><pre class="programlisting">
+        </p><div class="sect3" title="4.3.1. options.xml"><div class="titlepage"><div><div><h4 class="title"><a name="options_xml"></a>4.3.1. options.xml</h4></div></div></div><pre class="programlisting">
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPE options PUBLIC
-    "-//Error Parser project//DTD Error Parser Options XML V2.1//EN"
-    "http://errorparser.sourceforge.net/xml/errorParserOptions21.dtd"&gt;
+    "-//Error Parser project//DTD Error Parser Options XML V2.2//EN"
+    "http://errorparser.sourceforge.net/xml/errorParserOptions22.dtd"&gt;
 
 &lt;!-- 
    This xml file provides the options needed by errorParser.
@@ -608,7 +608,7 @@ quasar_SOURCES =             \
      - a header file for the pso extension module (python).
 --&gt;
 
-&lt;options version="2.1"&gt;
+&lt;options version="2.2"&gt;
 
   &lt;general_options&gt;
     &lt;!-- Prefix to be used for the error codes. --&gt;
@@ -657,13 +657,13 @@ quasar_SOURCES =             \
   &lt;/ext_python&gt;
   
 &lt;/options&gt;
-          </pre></div><div class="sect3" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="quasaroptions"></a>4.3.2. quasarOptions.xml</h4></div></div></div><pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+          </pre></div><div class="sect3" title="4.3.2. quasarOptions.xml"><div class="titlepage"><div><div><h4 class="title"><a name="quasaroptions"></a>4.3.2. quasarOptions.xml</h4></div></div></div><pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPE options SYSTEM 
-             "/usr/local/share/xml/errorParser/errorParserOptions21.dtd"&gt;
+             "/usr/local/share/xml/errorParser/errorParserOptions22.dtd"&gt;
 
 &lt;!-- This xml file provides the options to the errorParser program. --&gt;
 
-&lt;options version="2.1"&gt;
+&lt;options version="2.2"&gt;
 
   &lt;!-- Section for all general options. --&gt;
   &lt;general_options&gt;
@@ -697,7 +697,7 @@ quasar_SOURCES =             \
   &lt;errmsg_files&gt;
   
 &lt;/options&gt;
-          </pre></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="quasarerrors"></a>4.4. The Error File</h3></div></div></div><p>
+          </pre></div></div><div class="sect2" title="4.4. The Error File"><div class="titlepage"><div><div><h3 class="title"><a name="quasarerrors"></a>4.4. The Error File</h3></div></div></div><p>
           This is a short version of the error file used by Quasar, the Photon
           server:
         </p><pre class="programlisting">
@@ -771,16 +771,16 @@ quasar_SOURCES =             \
   &lt;/errgroup&gt;
 
 &lt;/errorlist&gt;
-        </pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="example_python_extended_module"></a>4.5. Python extension module</h3></div></div></div><p>
+        </pre></div><div class="sect2" title="4.5. Python extension module"><div class="titlepage"><div><div><h3 class="title"><a name="example_python_extended_module"></a>4.5. Python extension module</h3></div></div></div><p>
           Adding the generated code to an extension module is easy. 
           It requires two steps:
           
-          </p><div class="itemizedlist"><ul type="disc"><li><p>
+          </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
                 The fist step is the creation of the the two dict objects.
                 using the function in the generated header file. 
                 This should be done in the function used to initialize your 
                 module or in a function called by the init() function.
-              </p></li><li><p>
+              </p></li><li class="listitem"><p>
                 The second step is to add these two new objects to your 
                 module using PyModule_AddObject().
               </p></li></ul></div><p>
@@ -833,7 +833,7 @@ initpso(void)
    if ( rc != 0 ) return;
    
    ...  
-        </pre></div></div><div class="footnotes"><br><hr width="100" align="left"><div class="footnote"><p><sup>[<a name="ftn.id2477388" href="#id2477388" class="para">1</a>] </sup>
+        </pre></div></div><div class="footnotes"><br><hr width="100" align="left"><div class="footnote"><p><sup>[<a name="ftn.id2955367" href="#id2955367" class="para">1</a>] </sup>
                   guard: a small chunk of preprocessor code used 
                 to avoid including the same header file twice.
                 </p></div></div></div></div></body></html>

@@ -385,7 +385,7 @@
 
         <listitem>
           <para>
-            &lt;options version="2.1"&gt;
+            &lt;options version="2.2"&gt;
             <indexterm><primary>options</primary></indexterm>
           </para>
           <para>
@@ -1031,8 +1031,8 @@ quasar_SOURCES =             \
           <programlisting>
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPE options PUBLIC
-    "-//Error Parser project//DTD Error Parser Options XML V2.1//EN"
-    "http://errorparser.sourceforge.net/xml/errorParserOptions21.dtd"&gt;
+    "-//Error Parser project//DTD Error Parser Options XML V2.2//EN"
+    "http://errorparser.sourceforge.net/xml/errorParserOptions22.dtd"&gt;
 
 &lt;!-- 
    This xml file provides the options needed by errorParser.
@@ -1045,7 +1045,7 @@ quasar_SOURCES =             \
      - a header file for the pso extension module (python).
 --&gt;
 
-&lt;options version="2.1"&gt;
+&lt;options version="2.2"&gt;
 
   &lt;general_options&gt;
     &lt;!-- Prefix to be used for the error codes. --&gt;
@@ -1104,11 +1104,11 @@ quasar_SOURCES =             \
 
           <programlisting>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPE options SYSTEM 
-             "/usr/local/share/xml/errorParser/errorParserOptions21.dtd"&gt;
+             "/usr/local/share/xml/errorParser/errorParserOptions22.dtd"&gt;
 
 &lt;!-- This xml file provides the options to the errorParser program. --&gt;
 
-&lt;options version="2.1"&gt;
+&lt;options version="2.2"&gt;
 
   &lt;!-- Section for all general options. --&gt;
   &lt;general_options&gt;

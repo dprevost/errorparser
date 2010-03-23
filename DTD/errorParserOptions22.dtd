@@ -119,4 +119,5 @@
 <!-- By default, all generated files have a timestamp of when they 
      were created -->
 <!ATTLIST code_generation timestamp (yes|no) "yes">
+<!ATTLIST java javadoc_style (yes|no) "yes">
 

@@ -17,6 +17,7 @@ ChangesEnvironment=yes
 Source: DTD\catalog.xml; DestDir: {app}\DTD
 Source: DTD\errorParser13.dtd; DestDir: {app}\DTD
 Source: DTD\errorParser12.dtd; DestDir: {app}\DTD
+Source: DTD\errorParserOptions22.dtd; DestDir: {app}\DTD
 Source: DTD\errorParserOptions21.dtd; DestDir: {app}\DTD
 Source: DTD\errorParserOptions20.dtd; DestDir: {app}\DTD
 Source: DTD\main_catalog_win32.xml; DestDir: {app}\DTD

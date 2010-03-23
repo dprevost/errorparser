@@ -55,6 +55,7 @@ install-data-local:
 	$(install_sh_DATA) $(top_srcdir)/DTD/errorParser12.dtd           $(DESTDIR)$(datadir)/xml/errorParser/errorParser12.dtd
 	$(install_sh_DATA) $(top_srcdir)/DTD/errorParserOptions20.dtd    $(DESTDIR)$(datadir)/xml/errorParser/errorParserOptions20.dtd
 	$(install_sh_DATA) $(top_srcdir)/DTD/errorParserOptions21.dtd    $(DESTDIR)$(datadir)/xml/errorParser/errorParserOptions21.dtd
+	$(install_sh_DATA) $(top_srcdir)/DTD/errorParserOptions22.dtd    $(DESTDIR)$(datadir)/xml/errorParser/errorParserOptions22.dtd
 	$(install_sh_DATA) $(top_srcdir)/DTD/catalog.xml                 $(DESTDIR)$(datadir)/xml/errorParser/catalog.xml
 	$(install_sh_DATA) $(top_srcdir)/installation/install_catalog.sh $(DESTDIR)$(datadir)/xml/errorParser/install_catalog.sh
 
@@ -69,6 +70,7 @@ uninstall-local:
 	-rm -f $(DESTDIR)$(datadir)/xml/errorParser/errorParser12.dtd
 	-rm -f $(DESTDIR)$(datadir)/xml/errorParser/errorParserOptions20.dtd
 	-rm -f $(DESTDIR)$(datadir)/xml/errorParser/errorParserOptions21.dtd
+	-rm -f $(DESTDIR)$(datadir)/xml/errorParser/errorParserOptions22.dtd
 	-rm -f $(DESTDIR)$(datadir)/xml/errorParser/catalog.xml
 	-rmdir $(DESTDIR)$(datadir)/xml/errorParser
 	-rmdir $(DESTDIR)$(datadir)/doc/errorParser/examples

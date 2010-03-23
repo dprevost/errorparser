@@ -219,6 +219,17 @@ run_more_test java javaEnum.java
 if [ "$?" != 0 ] ; then
    exit 1
 fi
+
+run_more_test java_nodoc javaEnumNoDoc.java
+if [ "$?" != 0 ] ; then
+   exit 1
+fi
+
+run_more_test java_doc javaEnumDoc.java
+if [ "$?" != 0 ] ; then
+   exit 1
+fi
+
 #run_more_test csharp_nons csharp_nons.cs
 #if [ "$?" != 0 ] ; then
 #   exit 1
@@ -230,7 +241,7 @@ exit 0
 
 # --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
 
-rm -rf junk
+#rm -rf junk
 exit 0
 
 # --+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--
